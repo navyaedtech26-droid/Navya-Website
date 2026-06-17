@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
+import { Globe, LayoutDashboard, ShoppingCart, Share2, type LucideIcon } from "lucide-react";
 
 // ─── Types ───────────────────────────────────────────────────────────────────
 interface SphereDot {
@@ -52,10 +53,53 @@ const HERO_STATS = [
   { value: 10, suffix: "+", label: "Technologies Used" },
 ];
 
-const FLOAT_CARDS = [
-  { label: "Uptime", value: "99.9%", sub: "Always online", style: "top-[12%] left-[-5%]", floatClass: "animate-float-a" },
-  { label: "Page Load", value: "<1s", sub: "Blazing-fast sites", style: "bottom-[20%] right-[-8%]", floatClass: "animate-float-b" },
-  { label: "Clients", value: "40+", sub: "Served worldwide", style: "bottom-[5%] left-[10%]", floatClass: "animate-float-c" },
+interface ServiceCard {
+  tag: string;
+  title: string;
+  sub: string;
+  icon: LucideIcon;
+  style: string;
+  float: "A" | "B" | "C" | "D";
+  dur: number;
+}
+
+const SERVICE_CARDS: ServiceCard[] = [
+  {
+    tag: "Web",
+    title: "Web Development",
+    sub: "Fast, modern & SEO-ready",
+    icon: Globe,
+    style: "top-[2%] left-0 sm:left-[-7%]",
+    float: "A",
+    dur: 5,
+  },
+  {
+    tag: "Systems",
+    title: "ERP · CRM · LMS",
+    sub: "Platforms that run ops",
+    icon: LayoutDashboard,
+    style: "top-[20%] right-0 sm:right-[-8%]",
+    float: "B",
+    dur: 6.4,
+  },
+  {
+    tag: "Commerce",
+    title: "E-Commerce",
+    sub: "Stores built to convert",
+    icon: ShoppingCart,
+    style: "bottom-[16%] right-0 sm:right-[-6%]",
+    float: "C",
+    dur: 7,
+  },
+  {
+    tag: "Social",
+    title: "Social & Content",
+    sub: "Reels, posts & campaigns",
+    icon: Share2,
+    style: "bottom-[1%] left-0 sm:left-[-4%]",
+    float: "D",
+    dur: 6.2,
+  },
 ];
 
 const easeEntrance = [0.22, 1, 0.36, 1] as const;
@@ -538,26 +582,49 @@ export default function HeroSection() {
         <div className="relative h-[340px] sm:h-[440px] lg:h-[520px]">
           <GlobeCanvas />
 
-          {/* Floating data cards */}
-          {FLOAT_CARDS.map((card, i) => (
-            <motion.div
-              key={card.label}
-              initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, ease: easeEntrance, delay: 2.2 + i * 0.3 }}
-              className={`absolute ${card.style} backdrop-blur-md rounded-xl border border-[rgba(30,107,255,0.2)] bg-[rgba(15,23,42,0.85)] px-4 py-3.5 pointer-events-none`}
-              style={{ animation: `float${["A", "B", "C"][i]} ${[5, 6, 7][i]}s ease-in-out infinite ${2.7 + i * 0.3}s` }}
-            >
-              <p
-                className="text-[9px] uppercase tracking-[0.14em] text-[#1E6BFF] mb-1.5"
-                style={{ fontFamily: "'JetBrains Mono', monospace" }}
+          {/* Floating service cards */}
+          {SERVICE_CARDS.map((card, i) => {
+            const Icon = card.icon;
+            return (
+              <motion.div
+                key={card.title}
+                initial={{ opacity: 0, scale: 0.85, y: 14 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                transition={{ duration: 0.55, ease: easeEntrance, delay: 2.1 + i * 0.25 }}
+                whileHover={{ scale: 1.06, transition: { duration: 0.25 } }}
+                data-cursor="hover"
+                className={`group absolute ${card.style} z-30 w-[150px] sm:w-[172px] origin-center cursor-pointer`}
+                style={{ animation: `svcFloat${card.float} ${card.dur}s ease-in-out infinite ${2.6 + i * 0.25}s` }}
               >
-                {card.label}
-              </p>
-              <p className="text-[1.3rem] font-bold text-white">{card.value}</p>
-              <p className="text-[10px] text-[#A1A1AA] mt-0.5">{card.sub}</p>
-            </motion.div>
-          ))}
+                <div className="relative overflow-hidden rounded-2xl border border-[rgba(30,107,255,0.22)] bg-[rgba(13,22,40,0.82)] px-3.5 py-3 backdrop-blur-md transition-colors duration-300 group-hover:border-[rgba(30,107,255,0.55)]">
+                  {/* sweep glow on hover */}
+                  <span className="pointer-events-none absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-[rgba(30,107,255,0.14)] to-transparent transition-transform duration-700 group-hover:translate-x-full" />
+                  {/* top accent line */}
+                  <span className="absolute inset-x-3 top-0 h-px bg-gradient-to-r from-transparent via-[#1E6BFF]/70 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+
+                  <div className="relative flex items-center gap-2.5">
+                    <span className="relative flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-[#1E6BFF]/30 to-[#0EA5E9]/10 text-[#7db1ff] ring-1 ring-[rgba(30,107,255,0.35)] transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:rotate-6">
+                      <span className="absolute inset-0 rounded-xl bg-[#1E6BFF]/25 blur-md opacity-60" />
+                      <Icon size={17} strokeWidth={1.75} className="relative z-10" />
+                    </span>
+                    <p
+                      className="text-[9px] uppercase tracking-[0.16em] text-[#7db1ff]"
+                      style={{ fontFamily: "'JetBrains Mono', monospace" }}
+                    >
+                      {card.tag}
+                    </p>
+                  </div>
+
+                  <p className="relative mt-2.5 text-[0.95rem] font-bold leading-tight text-white">
+                    {card.title}
+                  </p>
+                  <p className="relative mt-0.5 text-[10px] leading-snug text-[#A1A1AA]">
+                    {card.sub}
+                  </p>
+                </div>
+              </motion.div>
+            );
+          })}
         </div>
       </div>
 
@@ -578,17 +645,24 @@ export default function HeroSection() {
           0%, 100% { transform: scale(1); opacity: 1; }
           50% { transform: scale(1.15); opacity: 0.7; }
         }
-        @keyframes floatA {
-          0%, 100% { transform: translateY(0px); }
-          50% { transform: translateY(-10px); }
+        @keyframes svcFloatA {
+          0%, 100% { transform: translate3d(0, 0, 0) rotate(-1.2deg); }
+          50% { transform: translate3d(4px, -12px, 0) rotate(1deg); }
         }
-        @keyframes floatB {
-          0%, 100% { transform: translateY(0px); }
-          50% { transform: translateY(8px); }
+        @keyframes svcFloatB {
+          0%, 100% { transform: translate3d(0, 0, 0) rotate(1.2deg); }
+          50% { transform: translate3d(-5px, 11px, 0) rotate(-1deg); }
         }
-        @keyframes floatC {
-          0%, 100% { transform: translateY(0px); }
-          50% { transform: translateY(-6px); }
+        @keyframes svcFloatC {
+          0%, 100% { transform: translate3d(0, 0, 0) rotate(1deg); }
+          50% { transform: translate3d(-4px, -10px, 0) rotate(-1.4deg); }
+        }
+        @keyframes svcFloatD {
+          0%, 100% { transform: translate3d(0, 0, 0) rotate(-1deg); }
+          50% { transform: translate3d(5px, 12px, 0) rotate(1.4deg); }
+        }
+        @media (prefers-reduced-motion: reduce) {
+          [class*="svcFloat"], [style*="svcFloat"] { animation: none !important; }
         }
       `}</style>
     </section>

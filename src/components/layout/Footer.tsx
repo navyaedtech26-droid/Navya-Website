@@ -19,21 +19,19 @@ export default function Footer() {
         <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-4">
           {/* Brand */}
           <div className="space-y-4">
-            <Link to="/" className="flex items-center gap-2.5">
-              <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-brand-gradient shadow-glow-sm">
-                <svg width="18" height="18" viewBox="0 0 32 32" fill="none" aria-hidden>
-                  <path
-                    d="M9 23V9l14 14V9"
-                    stroke="white"
-                    strokeWidth="2.5"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>
-              </span>
-              <span className="font-display text-lg font-semibold">
-                Navya<span className="text-gradient">EdTech</span>
-              </span>
+            <Link
+              to="/"
+              data-cursor="hover"
+              className="group inline-flex items-center"
+              aria-label="Navya EdTech home"
+            >
+              <img
+                src="/logo.png"
+                alt="NavyaEdTech"
+                width={420}
+                height={162}
+                className="h-10 w-auto object-contain transition-transform duration-300 group-hover:scale-105"
+              />
             </Link>
             <p className="text-sm leading-relaxed text-ink-muted">
               Innovate. Build. Elevate. We craft high-performance websites and smart
