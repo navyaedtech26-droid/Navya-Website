@@ -1,0 +1,106 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    color-scheme: dark;
+  }
+
+  * {
+    border-color: #1e293b;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    @apply bg-bg text-ink font-body antialiased;
+    overflow-x: hidden;
+    background-color: #0a1628;
+  }
+
+  ::selection {
+    background: rgba(30, 107, 255, 0.3);
+    color: #ffffff;
+  }
+
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #0a1628;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, #1e6bff, #3b82f6);
+    border-radius: 999px;
+    border: 2px solid #0a1628;
+  }
+}
+
+@layer components {
+  .glass {
+    background: rgba(15, 23, 42, 0.7);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
+
+  .text-gradient {
+    @apply bg-clip-text text-transparent;
+    background-image: linear-gradient(120deg, #3b82f6 0%, #1e6bff 50%, #0ea5e9 100%);
+  }
+
+  .grid-bg {
+    background-image: linear-gradient(rgba(30, 107, 255, 0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(30, 107, 255, 0.05) 1px, transparent 1px);
+    background-size: 60px 60px;
+  }
+
+  .noise {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
+  }
+}
+
+@layer utilities {
+  .shimmer-text {
+    background: linear-gradient(
+      90deg,
+      rgba(148, 163, 184, 0.4) 0%,
+      rgba(148, 163, 184, 0.4) 40%,
+      #1e6bff 50%,
+      rgba(148, 163, 184, 0.4) 60%,
+      rgba(148, 163, 184, 0.4) 100%
+    );
+    background-size: 200% 100%;
+    @apply bg-clip-text text-transparent animate-shimmer;
+  }
+
+  .perspective-1000 {
+    perspective: 1000px;
+  }
+  .perspective-2000 {
+    perspective: 2000px;
+  }
+  .preserve-3d {
+    transform-style: preserve-3d;
+  }
+  .backface-hidden {
+    backface-visibility: hidden;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
