@@ -1,13 +1,29 @@
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { Star, Quote } from "lucide-react";
 import Container from "@/components/common/Container";
 import SectionHeading from "@/components/common/SectionHeading";
 import IconBadge from "@/components/common/IconBadge";
 import FloatingOrbs from "@/components/effects/FloatingOrbs";
-import { testimonials } from "@/data/testimonials";
+import { testimonials as staticTestimonials, type Testimonial } from "@/data/testimonials";
+import { getTestimonials } from "@/services/testimonials";
 import { fadeUp, staggerContainer, viewportOnce } from "@/lib/animations";
 
 export default function TestimonialsSection() {
+  // Seed with the bundled list for an instant first paint, then swap in the
+  // published rows from Supabase once they load.
+  const [testimonials, setTestimonials] = useState<Testimonial[]>(staticTestimonials);
+
+  useEffect(() => {
+    let active = true;
+    getTestimonials().then((rows) => {
+      if (active) setTestimonials(rows);
+    });
+    return () => {
+      active = false;
+    };
+  }, []);
+
   return (
     <section className="relative py-24">
       <Container>

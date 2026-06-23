@@ -1,7 +1,14 @@
-import { useState, type FormEvent } from "react";
+import { useRef, useState, type FormEvent } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Loader2, Send } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { submitContact } from "@/services/contact";
+import { cooldownRemaining, cooldownMessage, markUsed } from "@/lib/rateLimit";
+
+/** Minimum time (ms) a human plausibly needs to fill the form. */
+const MIN_FILL_MS = 3000;
+/** Cooldown between submissions from this browser. */
+const SUBMIT_COOLDOWN_MS = 20000;
 
 const services = [
   "Static Website",
@@ -48,6 +55,10 @@ export default function ContactForm() {
   const [form, setForm] = useState<FormState>(initial);
   const [errors, setErrors] = useState<Errors>({});
   const [status, setStatus] = useState<"idle" | "loading" | "success">("idle");
+  const [submitError, setSubmitError] = useState<string | null>(null);
+  // Honeypot value + first-render timestamp: invisible bot traps.
+  const [honeypot, setHoneypot] = useState("");
+  const mountedAt = useRef(Date.now());
 
   const update = (key: keyof FormState, value: string) => {
     setForm((f) => ({ ...f, [key]: value }));
@@ -66,12 +77,43 @@ export default function ContactForm() {
     return Object.keys(next).length === 0;
   };
 
-  const handleSubmit = (e: FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
+    setSubmitError(null);
     if (!validate()) return;
+
+    // Submitted implausibly fast → almost certainly automated.
+    if (Date.now() - mountedAt.current < MIN_FILL_MS) {
+      setSubmitError("Please take a moment to review your details before sending.");
+      return;
+    }
+
+    // Don't let the same browser hammer the form.
+    const remaining = cooldownRemaining("contact", SUBMIT_COOLDOWN_MS);
+    if (remaining > 0) {
+      setSubmitError(cooldownMessage(remaining));
+      return;
+    }
+
     setStatus("loading");
-    // Simulate a client-side submit.
-    setTimeout(() => setStatus("success"), 1600);
+
+    const result = await submitContact({
+      name: form.name,
+      email: form.email,
+      phone: form.phone,
+      service: form.service,
+      budget: form.budget,
+      message: form.message,
+      company_website: honeypot,
+    });
+
+    if (result.ok) {
+      markUsed("contact");
+      setStatus("success");
+    } else {
+      setStatus("idle");
+      setSubmitError(result.error ?? "Something went wrong. Please try again.");
+    }
   };
 
   if (status === "success") {
@@ -133,6 +175,21 @@ export default function ContactForm() {
       noValidate
       className="rounded-3xl glass p-7 ring-1 ring-white/10 sm:p-9"
     >
+      {/* Honeypot: hidden from humans, irresistible to bots. Kept out of the
+          tab order and the accessibility tree. */}
+      <div aria-hidden className="absolute left-[-9999px] top-[-9999px] h-0 w-0 overflow-hidden">
+        <label htmlFor="company_website">Company website (leave blank)</label>
+        <input
+          id="company_website"
+          name="company_website"
+          type="text"
+          tabIndex={-1}
+          autoComplete="off"
+          value={honeypot}
+          onChange={(e) => setHoneypot(e.target.value)}
+        />
+      </div>
+
       <div className="grid gap-5 sm:grid-cols-2">
         <Field
           label="Full Name"
@@ -225,6 +282,12 @@ export default function ContactForm() {
           />
         </Field>
       </div>
+
+      {submitError && (
+        <p className="mt-5 rounded-xl border border-red-500/40 bg-red-500/10 px-4 py-3 text-sm text-red-300">
+          {submitError}
+        </p>
+      )}
 
       <button
         type="submit"

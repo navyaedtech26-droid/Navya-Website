@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Mail, Instagram, Music2 } from "lucide-react";
 import Container from "@/components/common/Container";
+import NewsletterForm from "@/components/common/NewsletterForm";
 import { navLinks, contactInfo } from "@/data/navigation";
 
 const serviceLinks = [
@@ -16,6 +17,22 @@ export default function Footer() {
   return (
     <footer className="relative mt-24 overflow-hidden border-t border-white/10 pb-10 pt-16">
       <Container>
+        {/* Newsletter band */}
+        <div className="mb-14 flex flex-col gap-6 rounded-3xl glass p-7 ring-1 ring-white/10 sm:p-9 lg:flex-row lg:items-center lg:justify-between">
+          <div className="max-w-md">
+            <h3 className="font-display text-xl font-semibold text-ink">
+              Stay in the loop
+            </h3>
+            <p className="mt-1.5 text-sm text-ink-muted">
+              Occasional insights on web performance, e-commerce, and business
+              systems. No spam — unsubscribe anytime.
+            </p>
+          </div>
+          <div className="w-full max-w-md lg:w-auto lg:flex-1">
+            <NewsletterForm source="footer" />
+          </div>
+        </div>
+
         <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-4">
           {/* Brand */}
           <div className="space-y-4">
@@ -132,9 +149,31 @@ export default function Footer() {
           transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
         />
 
-        <div className="flex flex-col items-center justify-between gap-3 text-xs text-ink-muted sm:flex-row">
+        <div className="flex flex-col items-center justify-between gap-4 text-xs text-ink-muted sm:flex-row">
           <p>© {new Date().getFullYear()} Navya EdTech. All rights reserved.</p>
-          <p>Built with precision — Innovate. Build. Elevate.</p>
+          <div className="flex items-center gap-5">
+            <Link
+              to="/share-your-story"
+              data-cursor="hover"
+              className="transition-colors hover:text-brand-light"
+            >
+              Share Your Story
+            </Link>
+            <Link
+              to="/privacy-policy"
+              data-cursor="hover"
+              className="transition-colors hover:text-brand-light"
+            >
+              Privacy Policy
+            </Link>
+            <Link
+              to="/terms"
+              data-cursor="hover"
+              className="transition-colors hover:text-brand-light"
+            >
+              Terms of Service
+            </Link>
+          </div>
         </div>
       </Container>
     </footer>

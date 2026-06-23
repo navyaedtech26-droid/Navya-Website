@@ -19,7 +19,11 @@
 
   body {
     @apply bg-bg text-ink font-body antialiased;
-    overflow-x: hidden;
+    /* Safety net against incidental horizontal overflow. `clip` (not `hidden`)
+       avoids creating a scroll container, so it keeps `position: sticky`
+       working and doesn't interfere with scroll anchoring. It is not a license
+       to hide real overflow bugs — children must still fit at 320px. */
+    overflow-x: clip;
     background-color: #0a1628;
   }
 

@@ -7,6 +7,7 @@ import FaqSection from "@/components/common/FaqSection";
 import CTASection from "@/components/common/CTASection";
 import { websiteServices, systemServices, socialMediaServices } from "@/data/services";
 import { servicesFaqs } from "@/data/faqs";
+import { faqPageSchema } from "@/lib/structuredData";
 
 export default function Services() {
   return (
@@ -15,6 +16,7 @@ export default function Services() {
         title="Services | Navya EdTech"
         description="Explore Navya EdTech website development, e-commerce, ERP, CRM, billing, LMS, BI, system development, and social media services."
         path="/services"
+        jsonLd={faqPageSchema(servicesFaqs)}
       />
 
       <PageHero

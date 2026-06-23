@@ -45,6 +45,7 @@ export default function Navbar() {
               alt="NavyaEdTech"
               width={420}
               height={162}
+              decoding="async"
               className="h-9 w-auto object-contain transition-transform duration-300 group-hover:scale-105 sm:h-10"
             />
           </Link>
@@ -83,7 +84,7 @@ export default function Navbar() {
             <button
               onClick={() => setMenuOpen(true)}
               aria-label="Open menu"
-              className="flex h-10 w-10 items-center justify-center rounded-xl glass text-ink lg:hidden"
+              className="flex h-11 w-11 items-center justify-center rounded-xl glass text-ink lg:hidden"
             >
               <Menu size={20} />
             </button>

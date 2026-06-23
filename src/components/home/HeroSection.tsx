@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Globe, LayoutDashboard, ShoppingCart, Share2, type LucideIcon } from "lucide-react";
@@ -41,16 +41,29 @@ const CONNECTIONS: [number, number][] = [
   [0, 5], [5, 6], [6, 7], [7, 11], [0, 8], [2, 3],
 ];
 
-const ORBITAL_RINGS = [
-  { tilt: 0.4, speed: 0.004, phase: 0, color: "rgba(30,107,255,0.35)", dash: [6, 8] },
-  { tilt: -0.6, speed: -0.003, phase: Math.PI, color: "rgba(30,107,255,0.2)", dash: [3, 12] },
-  { tilt: 0.9, speed: 0.005, phase: Math.PI / 2, color: "rgba(59,130,246,0.25)", dash: [8, 6] },
-];
+// Card index → city node it "hooks" into on the globe
+const CARD_NODE = [6, 0, 2, 4]; // New York, Tokyo, Singapore, London
 
-const HERO_STATS = [
-  { value: 50, suffix: "+", label: "Projects Delivered" },
-  { value: 40, suffix: "+", label: "Happy Clients" },
-  { value: 10, suffix: "+", label: "Technologies Used" },
+// ─── Accent palette (sprinkled in small places) ───────────────────────────────
+const ACCENT = {
+  blue: "30,107,255",
+  green: "57,255,150",
+  gold: "245,200,70",
+};
+// Per-card tether / linked-node accent
+const CARD_ACCENT = [ACCENT.blue, ACCENT.green, ACCENT.gold, ACCENT.blue];
+// A handful of city nodes that glow off-blue (rest stay blue)
+const CITY_COLOR: Record<number, string> = {
+  1: ACCENT.green, // Kyoto
+  5: ACCENT.gold,  // Paris
+  8: ACCENT.gold,  // Sydney
+  10: ACCENT.green, // Mumbai
+};
+
+const ORBITAL_RINGS = [
+  { tilt: 0.4, speed: 0.004, phase: 0, color: "rgba(30,107,255,0.35)", dash: [6, 8], dot: ACCENT.blue },
+  { tilt: -0.6, speed: -0.003, phase: Math.PI, color: "rgba(57,255,150,0.18)", dash: [3, 12], dot: ACCENT.green },
+  { tilt: 0.9, speed: 0.005, phase: Math.PI / 2, color: "rgba(245,200,70,0.2)", dash: [8, 6], dot: ACCENT.gold },
 ];
 
 interface ServiceCard {
@@ -104,6 +117,25 @@ const SERVICE_CARDS: ServiceCard[] = [
 
 const easeEntrance = [0.22, 1, 0.36, 1] as const;
 
+// Word-by-word headline reveal (blur + rise), staggered after the badge
+const headlineContainer = {
+  hidden: {},
+  show: {
+    transition: { delayChildren: 0.45, staggerChildren: 0.085 },
+  },
+};
+const headlineWord = {
+  hidden: { opacity: 0, y: "0.55em", filter: "blur(8px)" },
+  show: {
+    opacity: 1,
+    y: "0em",
+    filter: "blur(0px)",
+    transition: { duration: 0.6, ease: easeEntrance },
+  },
+};
+const LINE_ONE = ["We", "don’t", "just", "build."];
+const LINE_TWO = ["We", "transform."];
+
 // ─── Helpers ─────────────────────────────────────────────────────────────────
 function buildGridDots(): SphereDot[] {
   const dots: SphereDot[] = [];
@@ -129,9 +161,9 @@ function project3D(
   rotX: number,
   R: number
 ): Projected {
-  let x = Math.cos(lat) * Math.sin(lng);
-  let y = Math.sin(lat);
-  let z = Math.cos(lat) * Math.cos(lng);
+  const x = Math.cos(lat) * Math.sin(lng);
+  const y = Math.sin(lat);
+  const z = Math.cos(lat) * Math.cos(lng);
   // rotate Y
   const x1 = x * Math.cos(rotY) + z * Math.sin(rotY);
   const z1 = -x * Math.sin(rotY) + z * Math.cos(rotY);
@@ -141,35 +173,64 @@ function project3D(
   return { x: x1 * R, y: -y2 * R, z: z2, visible: z2 > -0.1 };
 }
 
-// ─── CounterUp ───────────────────────────────────────────────────────────────
-function CounterUp({ to, suffix, delay = 0 }: { to: number; suffix: string; delay?: number }) {
-  const [val, setVal] = useState(0);
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      const dur = 1800;
-      const start = performance.now();
-      const tick = (now: number) => {
-        const t = Math.min(1, (now - start) / dur);
-        const ease = 1 - Math.pow(1 - t, 3);
-        setVal(Math.round(ease * to));
-        if (t < 1) requestAnimationFrame(tick);
-      };
-      requestAnimationFrame(tick);
-    }, delay);
-    return () => clearTimeout(timer);
-  }, [to, delay]);
-  return <>{val}{suffix}</>;
+// Point along a lifted great-circle-ish arc between two sphere dots
+function arcPoint(
+  p1: SphereDot,
+  p2: SphereDot,
+  t: number,
+  rotY: number,
+  rotX: number,
+  R: number,
+  CX: number,
+  CY: number
+) {
+  const lat = p1.lat + (p2.lat - p1.lat) * t;
+  const lng = p1.lng + (p2.lng - p1.lng) * t;
+  const lift = Math.sin(t * Math.PI) * 0.18;
+  const pr = project3D(lat, lng, rotY, rotX, R);
+  return {
+    sx: CX + pr.x,
+    sy: CY + pr.y - lift * R * 0.3,
+    z: pr.z,
+    visible: pr.visible,
+  };
 }
 
+// Resolve a city node's base accent: card-linked nodes match their tether,
+// a few others are sprinkled green/gold, the rest stay blue.
+function cityBaseColor(di: number): string {
+  const ci = CARD_NODE.indexOf(di);
+  if (ci >= 0) return CARD_ACCENT[ci];
+  return CITY_COLOR[di] ?? ACCENT.blue;
+}
+
+const qbez = (a: number, b: number, c: number, t: number) =>
+  (1 - t) * (1 - t) * a + 2 * (1 - t) * t * b + t * t * c;
+
+const clamp = (v: number, lo: number, hi: number) => Math.max(lo, Math.min(hi, v));
+
+type HoverRef = React.MutableRefObject<number | null>;
+
 // ─── Globe Canvas ────────────────────────────────────────────────────────────
-function GlobeCanvas() {
+function GlobeCanvas({ hoverRef }: { hoverRef: HoverRef }) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const isDragging = useRef(false);
   const lastMouse = useRef({ x: 0, y: 0 });
   const rotState = useRef({ rotY: 0, rotX: 0.3, targetRotY: 0, targetRotX: 0.3 });
   const arcProgress = useRef(0);
   const pingPhase = useRef(0);
+  const packetPhase = useRef(0);
+  const textPhase = useRef(0);
   const ringAngles = useRef(ORBITAL_RINGS.map((r) => r.phase));
+  // smooth mouse-parallax tilt
+  const parallax = useRef({ x: 0, y: 0, tx: 0, ty: 0 });
+  // expanding energy shockwaves emitted from the planet (auto + on click)
+  const shockwaves = useRef<{ r: number; max: number; color: string; life: number }[]>([]);
+  const autoPulse = useRef(0);
+  // comet riding an outer orbit, leaving a glowing trail
+  const comet = useRef({ angle: Math.PI * 0.3, trail: [] as { x: number; y: number }[] });
+  // deep twinkling starfield behind the globe
+  const stars = useRef<{ x: number; y: number; r: number; tw: number; sp: number; c: string }[]>([]);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -188,6 +249,19 @@ function GlobeCanvas() {
     let animId: number;
     let CX = 0, CY = 0, R = 0;
 
+    const STAR_COLORS = [ACCENT.blue, ACCENT.blue, ACCENT.blue, ACCENT.green, ACCENT.gold, "199,222,255"];
+    function buildStars() {
+      const count = Math.round((canvas!.width * canvas!.height) / 14000);
+      stars.current = Array.from({ length: count }, () => ({
+        x: Math.random() * canvas!.width,
+        y: Math.random() * canvas!.height,
+        r: Math.random() * 1.1 + 0.3,
+        tw: Math.random() * Math.PI * 2,
+        sp: Math.random() * 0.04 + 0.01,
+        c: STAR_COLORS[Math.floor(Math.random() * STAR_COLORS.length)],
+      }));
+    }
+
     function resize() {
       const rect = canvas!.parentElement!.getBoundingClientRect();
       canvas!.width = rect.width;
@@ -195,9 +269,22 @@ function GlobeCanvas() {
       CX = canvas!.width / 2;
       CY = canvas!.height / 2;
       R = Math.min(canvas!.width, canvas!.height) * 0.36;
+      buildStars();
     }
     resize();
     window.addEventListener("resize", resize);
+
+    // Click anywhere on the globe to emit an energy shockwave
+    const onPulse = (e: MouseEvent) => {
+      const rect = canvas!.getBoundingClientRect();
+      const dx = e.clientX - (rect.left + CX);
+      const dy = e.clientY - (rect.top + CY);
+      // only fire when the click lands on/near the planet
+      if (Math.hypot(dx, dy) > R * 1.25) return;
+      shockwaves.current.push({ r: R * 0.6, max: R * 2.6, color: ACCENT.blue, life: 1 });
+      shockwaves.current.push({ r: R * 0.4, max: R * 2.1, color: ACCENT.green, life: 1 });
+    };
+    canvas.addEventListener("click", onPulse);
 
     // Drag to rotate
     const onMouseDown = (e: MouseEvent) => {
@@ -210,27 +297,49 @@ function GlobeCanvas() {
       const dx = e.clientX - lastMouse.current.x;
       const dy = e.clientY - lastMouse.current.y;
       rotState.current.targetRotY += dx * 0.008;
-      rotState.current.targetRotX = Math.max(
+      rotState.current.targetRotX = clamp(
+        rotState.current.targetRotX + dy * 0.005,
         -0.8,
-        Math.min(0.8, rotState.current.targetRotX + dy * 0.005)
+        0.8
       );
       lastMouse.current = { x: e.clientX, y: e.clientY };
+    };
+
+    // Parallax: globe leans toward cursor anywhere over the hero
+    const onParallax = (e: MouseEvent) => {
+      const rect = canvas!.getBoundingClientRect();
+      parallax.current.tx = clamp(
+        (e.clientX - (rect.left + rect.width / 2)) / rect.width,
+        -1.4,
+        1.4
+      );
+      parallax.current.ty = clamp(
+        (e.clientY - (rect.top + rect.height / 2)) / rect.height,
+        -1.4,
+        1.4
+      );
     };
 
     canvas.addEventListener("mousedown", onMouseDown);
     window.addEventListener("mouseup", onMouseUp);
     window.addEventListener("mousemove", onMouseMove);
+    window.addEventListener("mousemove", onParallax);
 
-    function drawArcBetween(p1: SphereDot, p2: SphereDot, progress: number, alpha: number) {
+    function drawArcBetween(
+      p1: SphereDot,
+      p2: SphereDot,
+      progress: number,
+      alpha: number,
+      rotY: number,
+      rotX: number,
+      bright: boolean
+    ) {
       const steps = 40;
-      const pts: { sx: number; sy: number; z: number }[] = [];
+      const pts: { sx: number; sy: number }[] = [];
       for (let i = 0; i <= steps; i++) {
         const t = i / steps;
-        const lat = p1.lat + (p2.lat - p1.lat) * t;
-        const lng = p1.lng + (p2.lng - p1.lng) * t;
-        const lift = Math.sin(t * Math.PI) * 0.18;
-        const pr = project3D(lat, lng, rotState.current.rotY, rotState.current.rotX, R);
-        if (pr.visible) pts.push({ sx: CX + pr.x, sy: CY + pr.y - lift * R * 0.3, z: pr.z });
+        const ap = arcPoint(p1, p2, t, rotY, rotX, R, CX, CY);
+        if (ap.visible) pts.push({ sx: ap.sx, sy: ap.sy });
       }
       if (pts.length < 2) return;
       const drawTo = Math.floor(pts.length * progress);
@@ -241,9 +350,49 @@ function GlobeCanvas() {
         if (!started) { ctx!.moveTo(p.sx, p.sy); started = true; }
         else ctx!.lineTo(p.sx, p.sy);
       }
-      ctx!.strokeStyle = `rgba(30,107,255,${alpha})`;
-      ctx!.lineWidth = 1;
+      ctx!.strokeStyle = bright
+        ? `rgba(147,197,253,${Math.min(0.9, alpha + 0.4)})`
+        : `rgba(30,107,255,${alpha})`;
+      ctx!.lineWidth = bright ? 1.8 : 1;
       ctx!.stroke();
+    }
+
+    // Ribbon of brand text wrapping the globe, scrolling right → left
+    function drawOrbitingText(rotX: number) {
+      const text = "NAVYA  ED  TECH   ✦   ";
+      const anglePerChar = 0.155;
+      const total = Math.round((Math.PI * 2) / anglePerChar);
+      const Rt = R * 1.09;
+      const lat = -0.14; // band sits just below the equator
+      ctx!.font = `700 ${Math.max(14, R * 0.11)}px 'JetBrains Mono', monospace`;
+      ctx!.textAlign = "center";
+      ctx!.textBaseline = "middle";
+      for (let i = 0; i < total; i++) {
+        const ch = text[i % text.length];
+        if (ch === " ") continue;
+        const lng = i * anglePerChar - textPhase.current;
+        const p = project3D(lat, lng, 0, rotX, Rt);
+        if (!p.visible) continue;
+        // tangent (so glyphs follow the curve of the ring)
+        const p2 = project3D(lat, lng + 0.012, 0, rotX, Rt);
+        const ang = Math.atan2(p2.y - p.y, p2.x - p.x);
+        const depth = (p.z + 1) / 2;
+        const alpha = 0.12 + depth * 0.72;
+        const accent = ch === "✦";
+        ctx!.save();
+        ctx!.translate(CX + p.x, CY + p.y);
+        ctx!.rotate(ang);
+        if (depth > 0.55) {
+          ctx!.shadowColor = accent ? "rgba(245,200,70,0.7)" : "rgba(30,107,255,0.7)";
+          ctx!.shadowBlur = 8;
+        }
+        ctx!.fillStyle = accent
+          ? `rgba(245,200,70,${alpha})`
+          : `rgba(${depth > 0.7 ? "199,222,255" : "120,160,230"},${alpha})`;
+        ctx!.fillText(ch, 0, 0);
+        ctx!.restore();
+      }
+      ctx!.shadowBlur = 0;
     }
 
     function frame() {
@@ -252,11 +401,55 @@ function GlobeCanvas() {
       rotState.current.rotX = rotX + (targetRotX - rotX) * 0.05;
       if (!isDragging.current) rotState.current.targetRotY += 0.004;
 
+      // ease parallax
+      parallax.current.x += (parallax.current.tx - parallax.current.x) * 0.06;
+      parallax.current.y += (parallax.current.ty - parallax.current.y) * 0.06;
+      const drawRotY = rotState.current.rotY + parallax.current.x * 0.5;
+      const drawRotX = clamp(rotState.current.rotX - parallax.current.y * 0.4, -0.95, 0.95);
+
       arcProgress.current = Math.min(1, arcProgress.current + 0.005);
       pingPhase.current += 0.04;
+      packetPhase.current = (packetPhase.current + 0.0045) % 1;
+      textPhase.current += 0.004; // matches the globe's auto-rotation speed
       ringAngles.current = ringAngles.current.map((a, i) => a + ORBITAL_RINGS[i].speed);
 
+      // Auto-emit a gentle energy pulse every ~5s so the planet always feels alive
+      autoPulse.current += 1;
+      if (autoPulse.current > 300) {
+        autoPulse.current = 0;
+        shockwaves.current.push({ r: R * 0.55, max: R * 2.4, color: ACCENT.blue, life: 1 });
+      }
+      // Advance shockwaves & drop dead ones
+      shockwaves.current.forEach((s) => {
+        s.r += (s.max - s.r) * 0.022 + 0.6;
+        s.life = clamp(1 - (s.r - R * 0.4) / (s.max - R * 0.4), 0, 1);
+      });
+      shockwaves.current = shockwaves.current.filter((s) => s.life > 0.01);
+
+      // Advance the comet around an outer, tilted orbit + record its trail
+      comet.current.angle += 0.011;
+
+      const hovered = hoverRef.current;
+      const hoverCity = hovered != null ? CARD_NODE[hovered] : -1;
+
       ctx!.clearRect(0, 0, canvas!.width, canvas!.height);
+
+      // Deep twinkling starfield (drawn first, sits behind the planet)
+      stars.current.forEach((s) => {
+        s.tw += s.sp;
+        const tw = (Math.sin(s.tw) + 1) / 2;
+        const a = 0.15 + tw * 0.55;
+        if (tw > 0.85) {
+          ctx!.fillStyle = `rgba(${s.c},${a * 0.4})`;
+          ctx!.beginPath();
+          ctx!.arc(s.x, s.y, s.r * 2.4, 0, Math.PI * 2);
+          ctx!.fill();
+        }
+        ctx!.fillStyle = `rgba(${s.c},${a})`;
+        ctx!.beginPath();
+        ctx!.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+        ctx!.fill();
+      });
 
       // Globe glow
       const grd = ctx!.createRadialGradient(CX, CY, 0, CX, CY, R * 1.3);
@@ -275,6 +468,32 @@ function GlobeCanvas() {
       ctx!.strokeStyle = "rgba(30,107,255,0.2)";
       ctx!.lineWidth = 1;
       ctx!.stroke();
+
+      // Atmospheric Fresnel rim — a luminous halo hugging the planet's edge
+      const atmo = ctx!.createRadialGradient(CX, CY, R * 0.82, CX, CY, R * 1.16);
+      atmo.addColorStop(0, "transparent");
+      atmo.addColorStop(0.72, "rgba(56,189,248,0.05)");
+      atmo.addColorStop(0.9, "rgba(56,189,248,0.28)");
+      atmo.addColorStop(1, "transparent");
+      ctx!.fillStyle = atmo;
+      ctx!.beginPath();
+      ctx!.arc(CX, CY, R * 1.16, 0, Math.PI * 2);
+      ctx!.fill();
+
+      // Energy shockwaves rippling outward from the planet
+      shockwaves.current.forEach((s) => {
+        ctx!.beginPath();
+        ctx!.arc(CX, CY, s.r, 0, Math.PI * 2);
+        ctx!.strokeStyle = `rgba(${s.color},${s.life * 0.5})`;
+        ctx!.lineWidth = 1 + s.life * 2;
+        ctx!.stroke();
+        // soft inner echo
+        ctx!.beginPath();
+        ctx!.arc(CX, CY, s.r * 0.92, 0, Math.PI * 2);
+        ctx!.strokeStyle = `rgba(${s.color},${s.life * 0.18})`;
+        ctx!.lineWidth = 1;
+        ctx!.stroke();
+      });
 
       // Orbital rings
       ORBITAL_RINGS.forEach((ring, ri) => {
@@ -296,19 +515,19 @@ function GlobeCanvas() {
         if (dotAlpha > 0.3) {
           ctx!.beginPath();
           ctx!.arc(ex, ey, 6, 0, Math.PI * 2);
-          ctx!.fillStyle = `rgba(30,107,255,${0.15 * dotAlpha})`;
+          ctx!.fillStyle = `rgba(${ring.dot},${0.15 * dotAlpha})`;
           ctx!.fill();
         }
         ctx!.beginPath();
         ctx!.arc(ex, ey, 3, 0, Math.PI * 2);
-        ctx!.fillStyle = `rgba(30,107,255,${0.9 * dotAlpha})`;
+        ctx!.fillStyle = `rgba(${ring.dot},${0.9 * dotAlpha})`;
         ctx!.fill();
         ctx!.restore();
       });
 
       // Grid dots
       GRID_DOTS.forEach((d) => {
-        const p = project3D(d.lat, d.lng, rotState.current.rotY, rotState.current.rotX, R);
+        const p = project3D(d.lat, d.lng, drawRotY, drawRotX, R);
         if (!p.visible) return;
         const alpha = ((p.z + 1) / 2) * 0.4;
         ctx!.beginPath();
@@ -317,18 +536,42 @@ function GlobeCanvas() {
         ctx!.fill();
       });
 
-      // Connection arcs
+      // Connection arcs + traveling data packets
       CONNECTIONS.forEach(([i, j], ci) => {
         const delay = ci * 0.08;
-        const prog = Math.max(0, Math.min(1, (arcProgress.current - delay) / 0.8));
-        if (prog > 0) drawArcBetween(CITY_DOTS[i], CITY_DOTS[j], prog, 0.35);
+        const prog = clamp((arcProgress.current - delay) / 0.8, 0, 1);
+        if (prog <= 0) return;
+        const bright = hoverCity === i || hoverCity === j;
+        drawArcBetween(CITY_DOTS[i], CITY_DOTS[j], prog, 0.35, drawRotY, drawRotX, bright);
+
+        if (prog > 0.95) {
+          const pt = (packetPhase.current + ci * 0.17) % 1;
+          const ap = arcPoint(CITY_DOTS[i], CITY_DOTS[j], pt, drawRotY, drawRotX, R, CX, CY);
+          if (ap.visible && ap.z > -0.05) {
+            // packet takes on the colour of the node it's heading toward
+            const pkt = cityBaseColor(j);
+            const pg = ctx!.createRadialGradient(ap.sx, ap.sy, 0, ap.sx, ap.sy, 6);
+            pg.addColorStop(0, `rgba(${pkt},${bright ? 0.95 : 0.85})`);
+            pg.addColorStop(1, "transparent");
+            ctx!.fillStyle = pg;
+            ctx!.beginPath();
+            ctx!.arc(ap.sx, ap.sy, 6, 0, Math.PI * 2);
+            ctx!.fill();
+            ctx!.beginPath();
+            ctx!.arc(ap.sx, ap.sy, 1.6, 0, Math.PI * 2);
+            ctx!.fillStyle = "#ffffff";
+            ctx!.fill();
+          }
+        }
       });
 
       // City dots + pings
       CITY_DOTS.forEach((d, di) => {
-        const p = project3D(d.lat, d.lng, rotState.current.rotY, rotState.current.rotX, R);
+        const p = project3D(d.lat, d.lng, drawRotY, drawRotX, R);
         if (!p.visible) return;
-        const sz = p.z > 0.3 ? 4 : 2.5;
+        const isHover = di === hoverCity;
+        const accent = cityBaseColor(di);
+        const sz = (p.z > 0.3 ? 4 : 2.5) * (isHover ? 1.6 : 1);
         const alpha = (p.z + 1) / 2;
         const pingT = (pingPhase.current - di * 0.4) % (Math.PI * 2);
         if (pingT > 0 && pingT < Math.PI && p.z > 0.2) {
@@ -336,19 +579,28 @@ function GlobeCanvas() {
           const pa = (1 - pingT / Math.PI) * 0.4;
           ctx!.beginPath();
           ctx!.arc(CX + p.x, CY + p.y, pr, 0, Math.PI * 2);
-          ctx!.strokeStyle = `rgba(30,107,255,${pa})`;
+          ctx!.strokeStyle = `rgba(${accent},${pa})`;
           ctx!.lineWidth = 1;
+          ctx!.stroke();
+        }
+        // Hover burst ring
+        if (isHover && p.z > -0.05) {
+          const burst = (Math.sin(pingPhase.current * 1.6) + 1) / 2;
+          ctx!.beginPath();
+          ctx!.arc(CX + p.x, CY + p.y, sz + 6 + burst * 9, 0, Math.PI * 2);
+          ctx!.strokeStyle = `rgba(${accent},${0.6 * (1 - burst)})`;
+          ctx!.lineWidth = 1.5;
           ctx!.stroke();
         }
         // Halo
         ctx!.beginPath();
         ctx!.arc(CX + p.x, CY + p.y, sz + 3, 0, Math.PI * 2);
-        ctx!.fillStyle = `rgba(30,107,255,${alpha * 0.15})`;
+        ctx!.fillStyle = `rgba(${accent},${alpha * (isHover ? 0.4 : 0.15)})`;
         ctx!.fill();
         // Core
         ctx!.beginPath();
         ctx!.arc(CX + p.x, CY + p.y, sz, 0, Math.PI * 2);
-        ctx!.fillStyle = `rgba(30,107,255,${alpha})`;
+        ctx!.fillStyle = isHover ? `rgba(255,255,255,${alpha})` : `rgba(${accent},${alpha})`;
         ctx!.fill();
       });
 
@@ -356,7 +608,7 @@ function GlobeCanvas() {
       const eqPts: { x: number; y: number }[] = [];
       for (let i = 0; i <= 60; i++) {
         const lng = (i / 60) * Math.PI * 2 - Math.PI;
-        const p = project3D(0, lng, rotState.current.rotY, rotState.current.rotX, R);
+        const p = project3D(0, lng, drawRotY, drawRotX, R);
         if (p.visible) eqPts.push({ x: CX + p.x, y: CY + p.y });
       }
       if (eqPts.length > 1) {
@@ -368,6 +620,40 @@ function GlobeCanvas() {
         ctx!.stroke();
       }
 
+      // Comet sweeping a wide tilted orbit, dragging a glowing tail
+      {
+        const cr = R * 1.55;
+        const tilt = 0.55;
+        const a = comet.current.angle;
+        const cxp = CX + cr * Math.cos(a);
+        const cyp = CY + cr * Math.sin(a) * Math.abs(Math.sin(tilt + Math.PI / 2));
+        comet.current.trail.unshift({ x: cxp, y: cyp });
+        if (comet.current.trail.length > 22) comet.current.trail.pop();
+        // tail
+        comet.current.trail.forEach((p, idx) => {
+          const f = 1 - idx / comet.current.trail.length;
+          ctx!.beginPath();
+          ctx!.arc(p.x, p.y, 2.4 * f, 0, Math.PI * 2);
+          ctx!.fillStyle = `rgba(245,200,70,${f * 0.5})`;
+          ctx!.fill();
+        });
+        // head glow + core
+        const hg = ctx!.createRadialGradient(cxp, cyp, 0, cxp, cyp, 9);
+        hg.addColorStop(0, "rgba(255,236,170,0.95)");
+        hg.addColorStop(1, "transparent");
+        ctx!.fillStyle = hg;
+        ctx!.beginPath();
+        ctx!.arc(cxp, cyp, 9, 0, Math.PI * 2);
+        ctx!.fill();
+        ctx!.fillStyle = "#fff";
+        ctx!.beginPath();
+        ctx!.arc(cxp, cyp, 2, 0, Math.PI * 2);
+        ctx!.fill();
+      }
+
+      // Brand ribbon orbiting the globe (drawn last so front glyphs sit on top)
+      drawOrbitingText(drawRotX);
+
       animId = requestAnimationFrame(frame);
     }
     frame();
@@ -376,16 +662,246 @@ function GlobeCanvas() {
       cancelAnimationFrame(animId);
       window.removeEventListener("resize", resize);
       canvas.removeEventListener("mousedown", onMouseDown);
+      canvas.removeEventListener("click", onPulse);
       window.removeEventListener("mouseup", onMouseUp);
       window.removeEventListener("mousemove", onMouseMove);
+      window.removeEventListener("mousemove", onParallax);
     };
-  }, []);
+  }, [hoverRef]);
 
   return (
     <canvas
       ref={canvasRef}
-      className="absolute inset-0 w-full h-full cursor-grab active:cursor-grabbing"
+      className="absolute inset-0 z-[5] w-full h-full cursor-grab active:cursor-grabbing"
     />
+  );
+}
+
+// ─── Connector Canvas ─────────────────────────────────────────────────────────
+// Tethers each floating card to the globe surface with a flowing beam + light pulse
+function ConnectorCanvas({
+  containerRef,
+  cardRefs,
+  hoverRef,
+}: {
+  containerRef: React.RefObject<HTMLDivElement>;
+  cardRefs: React.MutableRefObject<(HTMLDivElement | null)[]>;
+  hoverRef: HoverRef;
+}) {
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    const container = containerRef.current;
+    if (!canvas || !container) return;
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+
+    let animId: number;
+    let t = 0;
+
+    function resize() {
+      const r = container!.getBoundingClientRect();
+      canvas!.width = r.width;
+      canvas!.height = r.height;
+    }
+    resize();
+    window.addEventListener("resize", resize);
+
+    function draw() {
+      const w = canvas!.width, h = canvas!.height;
+      const cx = w / 2, cy = h / 2;
+      const R = Math.min(w, h) * 0.36;
+      const cr = container!.getBoundingClientRect();
+      t += 0.014;
+      ctx!.clearRect(0, 0, w, h);
+
+      cardRefs.current.forEach((el, i) => {
+        if (!el) return;
+        const r = el.getBoundingClientRect();
+        const x = r.left - cr.left + r.width / 2;
+        const y = r.top - cr.top + r.height / 2;
+        const dx = x - cx, dy = y - cy;
+        const d = Math.hypot(dx, dy) || 1;
+        // endpoint resting on the globe surface, facing the card
+        const ex = cx + (dx / d) * R * 0.94;
+        const ey = cy + (dy / d) * R * 0.94;
+        // perpendicular bow for a gentle curve
+        const mx = (x + ex) / 2, my = (y + ey) / 2;
+        const nx = -dy / d, ny = dx / d;
+        const bow = Math.min(38, d * 0.16);
+        const ctrlx = mx + nx * bow, ctrly = my + ny * bow;
+
+        const hovered = hoverRef.current === i;
+        const accent = CARD_ACCENT[i] ?? ACCENT.blue;
+
+        // flowing dashed beam
+        ctx!.beginPath();
+        ctx!.moveTo(x, y);
+        ctx!.quadraticCurveTo(ctrlx, ctrly, ex, ey);
+        ctx!.strokeStyle = `rgba(${accent},${hovered ? 0.7 : 0.24})`;
+        ctx!.lineWidth = hovered ? 1.8 : 1;
+        ctx!.setLineDash([4, 7]);
+        ctx!.lineDashOffset = -t * 26;
+        ctx!.stroke();
+        ctx!.setLineDash([]);
+
+        // node where the beam meets the globe
+        ctx!.beginPath();
+        ctx!.arc(ex, ey, hovered ? 3.6 : 2.4, 0, Math.PI * 2);
+        ctx!.fillStyle = `rgba(${accent},${hovered ? 0.95 : 0.7})`;
+        ctx!.fill();
+
+        // light pulse traveling card → globe
+        const speed = hovered ? 0.9 : 0.45;
+        const pt = (t * speed + i * 0.25) % 1;
+        const bx = qbez(x, ctrlx, ex, pt);
+        const by = qbez(y, ctrly, ey, pt);
+        const glow = ctx!.createRadialGradient(bx, by, 0, bx, by, 7);
+        glow.addColorStop(0, `rgba(${accent},${hovered ? 0.95 : 0.75})`);
+        glow.addColorStop(1, "transparent");
+        ctx!.fillStyle = glow;
+        ctx!.beginPath();
+        ctx!.arc(bx, by, 7, 0, Math.PI * 2);
+        ctx!.fill();
+        ctx!.beginPath();
+        ctx!.arc(bx, by, 1.8, 0, Math.PI * 2);
+        ctx!.fillStyle = "#ffffff";
+        ctx!.fill();
+
+        // anchor dot on the card
+        ctx!.beginPath();
+        ctx!.arc(x, y, hovered ? 3 : 2, 0, Math.PI * 2);
+        ctx!.fillStyle = `rgba(${accent},${hovered ? 0.9 : 0.5})`;
+        ctx!.fill();
+      });
+
+      animId = requestAnimationFrame(draw);
+    }
+    draw();
+
+    return () => {
+      cancelAnimationFrame(animId);
+      window.removeEventListener("resize", resize);
+    };
+  }, [containerRef, cardRefs, hoverRef]);
+
+  return <canvas ref={canvasRef} className="absolute inset-0 z-20 w-full h-full pointer-events-none" />;
+}
+
+// ─── Service Card (3D cursor tilt + spotlight) ────────────────────────────────
+function ServiceCardItem({
+  card,
+  index,
+  hoverRef,
+  registerRef,
+}: {
+  card: ServiceCard;
+  index: number;
+  hoverRef: HoverRef;
+  registerRef: (el: HTMLDivElement | null) => void;
+}) {
+  const Icon = card.icon;
+  const accent = CARD_ACCENT[index] ?? ACCENT.blue;
+  const innerRef = useRef<HTMLDivElement>(null);
+  const glowRef = useRef<HTMLSpanElement>(null);
+
+  const handleMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    const inner = innerRef.current;
+    if (!inner) return;
+    const r = inner.getBoundingClientRect();
+    const px = (e.clientX - r.left) / r.width;
+    const py = (e.clientY - r.top) / r.height;
+    const rx = (0.5 - py) * 14;
+    const ry = (px - 0.5) * 16;
+    inner.style.transform = `perspective(620px) rotateX(${rx}deg) rotateY(${ry}deg) scale(1.05)`;
+    if (glowRef.current) {
+      glowRef.current.style.background = `radial-gradient(120px circle at ${px * 100}% ${py * 100}%, rgba(96,165,250,0.22), transparent 70%)`;
+      glowRef.current.style.opacity = "1";
+    }
+  };
+
+  const handleEnter = () => { hoverRef.current = index; };
+  const handleLeave = () => {
+    hoverRef.current = null;
+    const inner = innerRef.current;
+    if (inner) inner.style.transform = "perspective(620px) rotateX(0deg) rotateY(0deg) scale(1)";
+    if (glowRef.current) glowRef.current.style.opacity = "0";
+  };
+
+  return (
+    <motion.div
+      ref={registerRef}
+      initial={{ opacity: 0, scale: 0.85, y: 14 }}
+      animate={{ opacity: 1, scale: 1, y: 0 }}
+      transition={{ duration: 0.55, ease: easeEntrance, delay: 2.1 + index * 0.25 }}
+      data-cursor="hover"
+      onMouseMove={handleMove}
+      onMouseEnter={handleEnter}
+      onMouseLeave={handleLeave}
+      className={`group absolute ${card.style} z-30 w-[150px] sm:w-[172px] origin-center cursor-pointer`}
+      style={{ animation: `svcFloat${card.float} ${card.dur}s ease-in-out infinite ${2.6 + index * 0.25}s` }}
+    >
+      <div
+        ref={innerRef}
+        className="relative overflow-hidden rounded-2xl border border-[rgba(30,107,255,0.22)] bg-[rgba(13,22,40,0.82)] px-3.5 py-3 backdrop-blur-md transition-[transform,border-color,box-shadow] duration-200 ease-out group-hover:border-[rgba(30,107,255,0.55)] group-hover:shadow-[0_12px_40px_-12px_rgba(30,107,255,0.5)]"
+        style={{ transform: "perspective(620px)", transformStyle: "preserve-3d", willChange: "transform" }}
+      >
+        {/* cursor-tracking spotlight */}
+        <span ref={glowRef} className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-200" />
+        {/* sweep glow on hover */}
+        <span className="pointer-events-none absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-[rgba(30,107,255,0.14)] to-transparent transition-transform duration-700 group-hover:translate-x-full" />
+        {/* top accent line */}
+        <span className="absolute inset-x-3 top-0 h-px bg-gradient-to-r from-transparent via-[#1E6BFF]/70 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+
+        <div className="relative flex items-center gap-2.5">
+          <span
+            className="relative flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-[#1E6BFF]/30 to-[#0EA5E9]/10 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:rotate-6"
+            style={{ color: `rgb(${accent})`, boxShadow: `inset 0 0 0 1px rgba(${accent},0.4)` }}
+          >
+            <span className="absolute inset-0 rounded-xl blur-md opacity-60" style={{ background: `rgba(${accent},0.25)` }} />
+            <Icon size={17} strokeWidth={1.75} className="relative z-10" />
+          </span>
+          <p
+            className="text-[9px] uppercase tracking-[0.16em]"
+            style={{ fontFamily: "'JetBrains Mono', monospace", color: `rgb(${accent})` }}
+          >
+            {card.tag}
+          </p>
+        </div>
+
+        <p className="relative mt-2.5 text-[0.95rem] font-bold leading-tight text-white">
+          {card.title}
+        </p>
+        <p className="relative mt-0.5 text-[10px] leading-snug text-[#A1A1AA]">
+          {card.sub}
+        </p>
+      </div>
+    </motion.div>
+  );
+}
+
+// ─── Globe Stage (globe + connectors + cards share refs) ──────────────────────
+function GlobeStage() {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const hoverRef = useRef<number | null>(null);
+
+  return (
+    <div ref={containerRef} className="relative h-[340px] sm:h-[440px] lg:h-[520px]">
+      <GlobeCanvas hoverRef={hoverRef} />
+      <ConnectorCanvas containerRef={containerRef} cardRefs={cardRefs} hoverRef={hoverRef} />
+
+      {SERVICE_CARDS.map((card, i) => (
+        <ServiceCardItem
+          key={card.title}
+          card={card}
+          index={i}
+          hoverRef={hoverRef}
+          registerRef={(el) => (cardRefs.current[i] = el)}
+        />
+      ))}
+    </div>
   );
 }
 
@@ -399,14 +915,43 @@ function ParticleBg() {
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
-    const particles = Array.from({ length: 80 }, () => ({
-      x: Math.random() * window.innerWidth,
-      y: Math.random() * window.innerHeight,
-      r: Math.random() * 1.5 + 0.3,
-      vx: (Math.random() - 0.5) * 0.3,
-      vy: (Math.random() - 0.5) * 0.2,
-      alpha: Math.random() * 0.5 + 0.1,
-    }));
+    const particles = Array.from({ length: 80 }, () => {
+      // ~85% blue, a few neon-green / gold sparks
+      const roll = Math.random();
+      const color = roll > 0.92 ? ACCENT.green : roll > 0.84 ? ACCENT.gold : ACCENT.blue;
+      const accent = color !== ACCENT.blue;
+      return {
+        x: Math.random() * window.innerWidth,
+        y: Math.random() * window.innerHeight,
+        r: (accent ? Math.random() * 1.2 + 0.6 : Math.random() * 1.5 + 0.3),
+        vx: (Math.random() - 0.5) * 0.3,
+        vy: (Math.random() - 0.5) * 0.2,
+        alpha: (accent ? Math.random() * 0.4 + 0.25 : Math.random() * 0.5 + 0.1),
+        tw: Math.random() * Math.PI * 2,      // twinkle phase
+        tws: Math.random() * 0.03 + 0.008,    // twinkle speed
+        color,
+      };
+    });
+
+    // Shooting stars streaking diagonally across the whole hero
+    type Meteor = { x: number; y: number; vx: number; vy: number; len: number; life: number; decay: number; color: string };
+    let meteors: Meteor[] = [];
+    let meteorTimer = 20 + Math.random() * 40;
+    function spawnMeteor(): Meteor {
+      // launch from anywhere along the top / sides so streaks cover the full section
+      const speed = Math.random() * 6 + 8;
+      const ang = (Math.random() * 0.45 + 0.3) * (Math.random() > 0.5 ? 1 : -1);
+      return {
+        x: Math.random() * window.innerWidth,
+        y: -20 - Math.random() * window.innerHeight * 0.25,
+        vx: Math.sin(ang) * speed,
+        vy: Math.cos(ang) * speed,
+        len: Math.random() * 120 + 90,
+        life: 1,
+        decay: Math.random() * 0.006 + 0.008,
+        color: Math.random() > 0.78 ? ACCENT.green : Math.random() > 0.6 ? ACCENT.gold : "199,222,255",
+      };
+    }
 
     let animId: number;
 
@@ -423,11 +968,54 @@ function ParticleBg() {
       particles.forEach((p) => {
         p.x = (p.x + p.vx + W) % W;
         p.y = (p.y + p.vy + H) % H;
+        p.tw += p.tws;
+        const flicker = 0.55 + ((Math.sin(p.tw) + 1) / 2) * 0.45;
         ctx!.beginPath();
         ctx!.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-        ctx!.fillStyle = `rgba(30,107,255,${p.alpha})`;
+        ctx!.fillStyle = `rgba(${p.color},${p.alpha * flicker})`;
         ctx!.fill();
       });
+
+      // Shooting stars — fire often so the whole hero stays lively
+      meteorTimer -= 1;
+      if (meteorTimer <= 0) {
+        meteors.push(spawnMeteor());
+        if (Math.random() > 0.6) meteors.push(spawnMeteor()); // occasional pair
+        meteorTimer = 35 + Math.random() * 90;
+      }
+      meteors.forEach((m) => {
+        m.x += m.vx;
+        m.y += m.vy;
+        m.life -= m.decay;
+        const inv = 1 / Math.hypot(m.vx, m.vy);
+        const tailX = m.x - m.vx * inv * m.len;
+        const tailY = m.y - m.vy * inv * m.len;
+        const grad = ctx!.createLinearGradient(m.x, m.y, tailX, tailY);
+        grad.addColorStop(0, `rgba(${m.color},${0.95 * m.life})`);
+        grad.addColorStop(0.4, `rgba(${m.color},${0.35 * m.life})`);
+        grad.addColorStop(1, "transparent");
+        ctx!.strokeStyle = grad;
+        ctx!.lineWidth = 1.8;
+        ctx!.lineCap = "round";
+        ctx!.beginPath();
+        ctx!.moveTo(m.x, m.y);
+        ctx!.lineTo(tailX, tailY);
+        ctx!.stroke();
+        // glowing head
+        const hg = ctx!.createRadialGradient(m.x, m.y, 0, m.x, m.y, 6);
+        hg.addColorStop(0, `rgba(255,255,255,${m.life})`);
+        hg.addColorStop(1, "transparent");
+        ctx!.fillStyle = hg;
+        ctx!.beginPath();
+        ctx!.arc(m.x, m.y, 6, 0, Math.PI * 2);
+        ctx!.fill();
+        ctx!.beginPath();
+        ctx!.arc(m.x, m.y, 1.6, 0, Math.PI * 2);
+        ctx!.fillStyle = `rgba(255,255,255,${m.life})`;
+        ctx!.fill();
+      });
+      meteors = meteors.filter((m) => m.life > 0 && m.y < H + 80 && m.x > -80 && m.x < W + 80);
+
       animId = requestAnimationFrame(draw);
     }
     draw();
@@ -479,30 +1067,60 @@ export default function HeroSection() {
             initial={{ opacity: 0, y: 14 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, ease: easeEntrance, delay: 0.2 }}
-            className="inline-flex items-center gap-2 rounded-full border border-[rgba(30,107,255,0.3)] bg-[rgba(30,107,255,0.06)] px-4 py-1.5"
+            className="relative inline-flex items-center gap-2 overflow-hidden rounded-full border border-[rgba(30,107,255,0.3)] bg-[rgba(30,107,255,0.06)] px-4 py-1.5"
             style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 11, fontWeight: 600, letterSpacing: "0.18em", textTransform: "uppercase", color: "#93c5fd" }}
           >
-            <span className="w-1.5 h-1.5 rounded-full bg-[#1E6BFF] animate-pulse" />
+            {/* periodic light sweep across the badge */}
+            <span
+              className="pointer-events-none absolute inset-y-0 -left-full w-1/2 skew-x-12 bg-gradient-to-r from-transparent via-[rgba(147,197,253,0.25)] to-transparent"
+              style={{ animation: "badgeSweep 4.5s ease-in-out 1.4s infinite" }}
+            />
+            <span className="relative flex h-1.5 w-1.5">
+              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#1E6BFF] opacity-75" />
+              <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-[#1E6BFF]" />
+            </span>
             Web Development · Systems · Social Media
           </motion.div>
 
-          {/* Headline */}
+          {/* Headline — word-by-word blur reveal + animated gradient accent */}
           <motion.h1
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, ease: easeEntrance, delay: 0.5 }}
+            variants={headlineContainer}
+            initial="hidden"
+            animate="show"
             className="mt-6 text-white leading-[1.04] tracking-tight"
             style={{ fontFamily: "'Inter', sans-serif", fontSize: "clamp(2.4rem, 4.5vw, 4.2rem)", fontWeight: 700, letterSpacing: "-0.02em" }}
           >
-            We don&apos;t just build.<br />
-            <span className="relative inline-block text-[#1E6BFF]">
-              We transform.
+            <span className="block">
+              {LINE_ONE.map((w, i) => (
+                <motion.span key={i} variants={headlineWord} className="inline-block" style={{ willChange: "transform, filter" }}>
+                  {w}
+                  {i < LINE_ONE.length - 1 && " "}
+                </motion.span>
+              ))}
+            </span>
+            <span className="relative inline-block">
+              {LINE_TWO.map((w, i) => (
+                <motion.span
+                  key={i}
+                  variants={headlineWord}
+                  className="inline-block bg-clip-text text-transparent"
+                  style={{
+                    willChange: "transform, filter",
+                    backgroundImage: "linear-gradient(100deg,#1E6BFF 0%,#60A5FA 30%,#93C5FD 50%,#60A5FA 70%,#1E6BFF 100%)",
+                    backgroundSize: "220% 100%",
+                    animation: "heroGradient 6s ease-in-out infinite",
+                  }}
+                >
+                  {w}
+                  {i < LINE_TWO.length - 1 && " "}
+                </motion.span>
+              ))}
               <motion.span
                 className="absolute -bottom-1 left-0 h-[3px] rounded-full"
-                style={{ background: "linear-gradient(90deg, #1E6BFF, #3B82F6)" }}
-                initial={{ width: 0 }}
-                animate={{ width: "100%" }}
-                transition={{ duration: 0.8, ease: easeEntrance, delay: 1.5 }}
+                style={{ background: "linear-gradient(90deg, #1E6BFF, #60A5FA, #93C5FD)" }}
+                initial={{ width: 0, opacity: 0 }}
+                animate={{ width: "100%", opacity: 1 }}
+                transition={{ duration: 0.8, ease: easeEntrance, delay: 1.4 }}
               />
             </span>
           </motion.h1>
@@ -535,97 +1153,34 @@ export default function HeroSection() {
             transition={{ duration: 0.6, ease: easeEntrance, delay: 1.2 }}
             className="mt-9 flex flex-col sm:flex-row gap-3"
           >
-            <button
+            <motion.button
               onClick={() => navigate("/contact")}
-              className="relative overflow-hidden px-7 py-3.5 rounded-lg bg-[#1E6BFF] text-[#0A1628] text-sm font-bold tracking-wide transition-transform hover:-translate-y-0.5 hover:shadow-[0_8px_30px_rgba(30,107,255,0.35)]"
+              whileHover={{ y: -2 }}
+              whileTap={{ scale: 0.97 }}
+              transition={{ type: "spring", stiffness: 400, damping: 22 }}
+              className="group relative overflow-hidden px-7 py-3.5 rounded-lg bg-[#1E6BFF] text-[#0A1628] text-sm font-bold tracking-wide hover:shadow-[0_8px_30px_rgba(30,107,255,0.4)]"
             >
-              Let&apos;s Build Together →
-            </button>
-            <button
+              {/* shine sweep on hover */}
+              <span className="pointer-events-none absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/40 to-transparent transition-transform duration-700 ease-out group-hover:translate-x-full" />
+              <span className="relative inline-flex items-center gap-1.5">
+                Let&apos;s Build Together
+                <span className="transition-transform duration-300 group-hover:translate-x-1">→</span>
+              </span>
+            </motion.button>
+            <motion.button
               onClick={() => navigate("/services")}
+              whileHover={{ y: -2 }}
+              whileTap={{ scale: 0.97 }}
+              transition={{ type: "spring", stiffness: 400, damping: 22 }}
               className="px-7 py-3.5 rounded-lg border border-[#1E293B] bg-transparent text-white text-sm font-semibold transition-colors hover:border-[rgba(30,107,255,0.5)] hover:bg-[rgba(30,107,255,0.06)]"
             >
               View Our Services
-            </button>
-          </motion.div>
-
-          {/* Stats */}
-          <motion.div
-            initial="hidden"
-            animate="visible"
-            transition={{ staggerChildren: 0.12, delayChildren: 1.6 }}
-            className="mt-12 flex flex-wrap gap-6 sm:gap-9"
-          >
-            {HERO_STATS.map((stat) => (
-              <motion.div
-                key={stat.label}
-                variants={{ hidden: { opacity: 0, y: 16 }, visible: { opacity: 1, y: 0 } }}
-              >
-                <div
-                  className="text-[1.8rem] font-bold text-[#1E6BFF]"
-                  style={{ fontFamily: "'Inter', sans-serif" }}
-                >
-                  <CounterUp to={stat.value} suffix={stat.suffix} delay={1800} />
-                </div>
-                <p
-                  className="mt-1 text-[10px] uppercase tracking-[0.14em] text-[#A1A1AA]"
-                  style={{ fontFamily: "'JetBrains Mono', monospace" }}
-                >
-                  {stat.label}
-                </p>
-              </motion.div>
-            ))}
+            </motion.button>
           </motion.div>
         </div>
 
-        {/* ── RIGHT: 3D Globe ── */}
-        <div className="relative h-[340px] sm:h-[440px] lg:h-[520px]">
-          <GlobeCanvas />
-
-          {/* Floating service cards */}
-          {SERVICE_CARDS.map((card, i) => {
-            const Icon = card.icon;
-            return (
-              <motion.div
-                key={card.title}
-                initial={{ opacity: 0, scale: 0.85, y: 14 }}
-                animate={{ opacity: 1, scale: 1, y: 0 }}
-                transition={{ duration: 0.55, ease: easeEntrance, delay: 2.1 + i * 0.25 }}
-                whileHover={{ scale: 1.06, transition: { duration: 0.25 } }}
-                data-cursor="hover"
-                className={`group absolute ${card.style} z-30 w-[150px] sm:w-[172px] origin-center cursor-pointer`}
-                style={{ animation: `svcFloat${card.float} ${card.dur}s ease-in-out infinite ${2.6 + i * 0.25}s` }}
-              >
-                <div className="relative overflow-hidden rounded-2xl border border-[rgba(30,107,255,0.22)] bg-[rgba(13,22,40,0.82)] px-3.5 py-3 backdrop-blur-md transition-colors duration-300 group-hover:border-[rgba(30,107,255,0.55)]">
-                  {/* sweep glow on hover */}
-                  <span className="pointer-events-none absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-[rgba(30,107,255,0.14)] to-transparent transition-transform duration-700 group-hover:translate-x-full" />
-                  {/* top accent line */}
-                  <span className="absolute inset-x-3 top-0 h-px bg-gradient-to-r from-transparent via-[#1E6BFF]/70 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
-
-                  <div className="relative flex items-center gap-2.5">
-                    <span className="relative flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-[#1E6BFF]/30 to-[#0EA5E9]/10 text-[#7db1ff] ring-1 ring-[rgba(30,107,255,0.35)] transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:rotate-6">
-                      <span className="absolute inset-0 rounded-xl bg-[#1E6BFF]/25 blur-md opacity-60" />
-                      <Icon size={17} strokeWidth={1.75} className="relative z-10" />
-                    </span>
-                    <p
-                      className="text-[9px] uppercase tracking-[0.16em] text-[#7db1ff]"
-                      style={{ fontFamily: "'JetBrains Mono', monospace" }}
-                    >
-                      {card.tag}
-                    </p>
-                  </div>
-
-                  <p className="relative mt-2.5 text-[0.95rem] font-bold leading-tight text-white">
-                    {card.title}
-                  </p>
-                  <p className="relative mt-0.5 text-[10px] leading-snug text-[#A1A1AA]">
-                    {card.sub}
-                  </p>
-                </div>
-              </motion.div>
-            );
-          })}
-        </div>
+        {/* ── RIGHT: 3D Globe + tethered service cards ── */}
+        <GlobeStage />
       </div>
 
       {/* Scroll cue */}
@@ -645,6 +1200,14 @@ export default function HeroSection() {
           0%, 100% { transform: scale(1); opacity: 1; }
           50% { transform: scale(1.15); opacity: 0.7; }
         }
+        @keyframes heroGradient {
+          0%, 100% { background-position: 0% 50%; }
+          50% { background-position: 100% 50%; }
+        }
+        @keyframes badgeSweep {
+          0% { transform: translateX(0) skewX(-12deg); }
+          45%, 100% { transform: translateX(420%) skewX(-12deg); }
+        }
         @keyframes svcFloatA {
           0%, 100% { transform: translate3d(0, 0, 0) rotate(-1.2deg); }
           50% { transform: translate3d(4px, -12px, 0) rotate(1deg); }
@@ -662,7 +1225,8 @@ export default function HeroSection() {
           50% { transform: translate3d(5px, 12px, 0) rotate(1.4deg); }
         }
         @media (prefers-reduced-motion: reduce) {
-          [class*="svcFloat"], [style*="svcFloat"] { animation: none !important; }
+          [class*="svcFloat"], [style*="svcFloat"],
+          [style*="heroGradient"], [style*="badgeSweep"] { animation: none !important; }
         }
       `}</style>
     </section>

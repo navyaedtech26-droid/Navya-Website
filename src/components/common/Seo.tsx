@@ -1,7 +1,11 @@
 import { Helmet } from "react-helmet-async";
+import {
+  SITE_URL,
+  SITE_NAME,
+  organizationSchema,
+  websiteSchema,
+} from "@/lib/structuredData";
 
-const SITE_URL = "https://navyaedtech.com";
-const SITE_NAME = "Navya EdTech";
 const DEFAULT_OG = `${SITE_URL}/og-image.png`;
 
 interface SeoProps {
@@ -12,11 +16,17 @@ interface SeoProps {
   image?: string;
   /** Set false on pages that should not be indexed (e.g. 404). */
   index?: boolean;
+  /**
+   * Extra structured-data object(s) for this page (FAQPage, BreadcrumbList,
+   * etc.). Rendered alongside the global Organization + WebSite schema.
+   */
+  jsonLd?: object | object[];
 }
 
 /**
  * Centralized SEO head tags — title, description, canonical, OpenGraph,
- * Twitter Card, and Organization JSON-LD. Implements PRD §7.3 / FR-07.
+ * Twitter Card, and JSON-LD structured data (Organization + WebSite globally,
+ * plus any page-specific schema passed via `jsonLd`).
  */
 export default function Seo({
   title,
@@ -24,23 +34,10 @@ export default function Seo({
   path = "/",
   image = DEFAULT_OG,
   index = true,
+  jsonLd,
 }: SeoProps) {
   const url = `${SITE_URL}${path}`;
-
-  const organizationLd = {
-    "@context": "https://schema.org",
-    "@type": "Organization",
-    name: SITE_NAME,
-    url: SITE_URL,
-    email: "navyaedtech26@gmail.com",
-    slogan: "Innovate. Build. Elevate.",
-    description:
-      "Navya EdTech builds high-performance websites and business management systems for modern businesses.",
-    sameAs: [
-      "https://instagram.com/navyaedtech",
-      "https://tiktok.com/@navyaedtech",
-    ],
-  };
+  const extraSchemas = jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [];
 
   return (
     <Helmet>
@@ -66,10 +63,20 @@ export default function Seo({
       <meta name="twitter:description" content={description} />
       <meta name="twitter:image" content={image} />
 
-      {/* Organization structured data */}
+      {/* Global structured data */}
       <script type="application/ld+json">
-        {JSON.stringify(organizationLd)}
+        {JSON.stringify(organizationSchema)}
       </script>
+      <script type="application/ld+json">
+        {JSON.stringify(websiteSchema)}
+      </script>
+
+      {/* Page-specific structured data */}
+      {extraSchemas.map((schema, i) => (
+        <script key={i} type="application/ld+json">
+          {JSON.stringify(schema)}
+        </script>
+      ))}
     </Helmet>
   );
 }

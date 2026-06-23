@@ -9,6 +9,7 @@ import WhatHappensNext from "@/components/contact/WhatHappensNext";
 import FaqSection from "@/components/common/FaqSection";
 import CTASection from "@/components/common/CTASection";
 import { contactFaqs } from "@/data/faqs";
+import { faqPageSchema } from "@/lib/structuredData";
 
 export default function Contact() {
   return (
@@ -17,6 +18,7 @@ export default function Contact() {
         title="Contact | Navya EdTech"
         description="Contact Navya EdTech to build your website, e-commerce platform, or business management system."
         path="/contact"
+        jsonLd={faqPageSchema(contactFaqs)}
       />
 
       <PageHero

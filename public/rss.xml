@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Navya EdTech — Blog</title>
+    <link>https://navyaedtech.com/blog</link>
+    <description>Insights on web development, performance, e-commerce, and business systems from the Navya EdTech team.</description>
+    <language>en</language>
+    <atom:link href="https://navyaedtech.com/rss.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 20 Jun 2026 05:21:18 GMT</lastBuildDate>
+    <item>
+      <title>Why Your Business Needs a Fast Website in 2026</title>
+      <link>https://navyaedtech.com/blog/why-your-business-needs-a-fast-website</link>
+      <guid isPermaLink="true">https://navyaedtech.com/blog/why-your-business-needs-a-fast-website</guid>
+      <author>Navya EdTech</author>
+      <pubDate>Thu, 18 Jun 2026 04:47:23 GMT</pubDate>
+      <description>Speed is no longer a nice-to-have. Here is how page performance directly shapes trust, conversions, and search ranking.</description>
+    </item>
+  </channel>
+</rss>
