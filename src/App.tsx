@@ -6,8 +6,6 @@ import { Loader2 } from "lucide-react";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import AnimatedBackground from "@/components/effects/AnimatedBackground";
-import CustomCursor from "@/components/effects/CustomCursor";
-import MagicMouseTrail from "@/components/effects/MagicMouseTrail";
 import ScrollProgress from "@/components/effects/ScrollProgress";
 import CookieConsent from "@/components/common/CookieConsent";
 import Analytics from "@/components/analytics/Analytics";
@@ -85,8 +83,6 @@ export default function App() {
   return (
     <>
       <AnimatedBackground />
-      <CustomCursor />
-      <MagicMouseTrail />
       <ScrollProgress />
       <ScrollToTop />
       <Analytics />
