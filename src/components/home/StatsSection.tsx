@@ -10,7 +10,7 @@ export default function StatsSection() {
     <section className="relative py-20">
       <Container>
         <div className="relative overflow-hidden rounded-3xl glass px-6 py-14 ring-1 ring-white/10">
-          <FloatingOrbs count={10} />
+          <FloatingOrbs count={5} />
           <div className="absolute inset-0 bg-gradient-to-r from-brand/10 via-transparent to-cyan-accent/10" />
 
           <motion.div

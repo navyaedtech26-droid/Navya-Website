@@ -41,7 +41,7 @@ function StoryVisual() {
       onMouseLeave={handleLeave}
       className="relative mx-auto aspect-square w-full max-w-md [perspective:1200px]"
     >
-      <FloatingOrbs count={8} />
+      <FloatingOrbs count={4} />
 
       {/* Center glow */}
       <div className="absolute inset-0 rounded-full bg-brand/20 blur-[90px]" />

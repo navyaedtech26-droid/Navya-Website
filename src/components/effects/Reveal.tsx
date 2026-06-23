@@ -22,7 +22,7 @@ export default function Reveal({
       initial={{ opacity: 0, y }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={viewportOnce}
-      transition={{ duration: 0.6, ease: easeEntrance, delay }}
+      transition={{ duration: 0.4, ease: easeEntrance, delay }}
       className={cn(className)}
     >
       {children}

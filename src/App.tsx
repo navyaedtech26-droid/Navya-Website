@@ -10,6 +10,9 @@ import ScrollProgress from "@/components/effects/ScrollProgress";
 import CookieConsent from "@/components/common/CookieConsent";
 import Analytics from "@/components/analytics/Analytics";
 
+// Public pages are imported eagerly so navigating between them is instant —
+// no loading spinner flash between routes. They're small and bundle together
+// with the shared chrome.
 import Home from "@/pages/Home";
 import Services from "@/pages/Services";
 import About from "@/pages/About";
@@ -21,8 +24,9 @@ import PrivacyPolicy from "@/pages/PrivacyPolicy";
 import Terms from "@/pages/Terms";
 import NotFound from "@/pages/NotFound";
 
-// The admin area (and its heavy deps like Chart.js) is split into its own
-// chunk so public visitors never download it.
+// The admin area (and its heavy deps like Chart.js) stays lazily loaded so
+// public visitors never download it. It lives behind a login, so the one-time
+// chunk fetch there is acceptable.
 const RequireAdmin = lazy(() => import("@/components/admin/RequireAdmin"));
 const AdminLogin = lazy(() => import("@/pages/admin/AdminLogin"));
 const AdminForgotPassword = lazy(() => import("@/pages/admin/AdminForgotPassword"));
@@ -42,7 +46,7 @@ function ScrollToTop() {
   return null;
 }
 
-function AdminFallback() {
+function RouteFallback() {
   return (
     <div className="flex min-h-[100svh] items-center justify-center bg-bg text-ink-muted">
       <Loader2 className="animate-spin" />
@@ -53,7 +57,7 @@ function AdminFallback() {
 /** The admin dashboard is a self-contained area without the public chrome. */
 function AdminApp() {
   return (
-    <Suspense fallback={<AdminFallback />}>
+    <Suspense fallback={<RouteFallback />}>
       <Routes>
         <Route path="/admin/login" element={<AdminLogin />} />
         <Route path="/admin/forgot-password" element={<AdminForgotPassword />} />

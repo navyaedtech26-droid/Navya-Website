@@ -21,7 +21,7 @@ export default function CTASection({ title, subtitle, buttonLabel }: CTASectionP
           viewport={viewportOnce}
           className="relative overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-br from-surface/60 to-bg-900/60 px-6 py-16 text-center shadow-glow sm:px-12"
         >
-          <FloatingOrbs count={12} />
+          <FloatingOrbs count={5} />
           <div className="absolute inset-0 grid-bg opacity-30 [mask-image:radial-gradient(ellipse_at_center,black,transparent_70%)]" />
           <div className="absolute -inset-x-20 -top-40 h-80 bg-brand/20 blur-[120px]" />
 

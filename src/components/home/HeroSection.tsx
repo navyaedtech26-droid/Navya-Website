@@ -82,7 +82,7 @@ const SERVICE_CARDS: ServiceCard[] = [
     title: "Web Development",
     sub: "Fast, modern & SEO-ready",
     icon: Globe,
-    style: "top-[2%] left-0 sm:left-[-7%]",
+    style: "top-0 left-0 sm:top-[2%] sm:left-[-7%]",
     float: "A",
     dur: 5,
   },
@@ -91,7 +91,7 @@ const SERVICE_CARDS: ServiceCard[] = [
     title: "ERP · CRM · LMS",
     sub: "Platforms that run ops",
     icon: LayoutDashboard,
-    style: "top-[20%] right-0 sm:right-[-8%]",
+    style: "top-[16%] right-0 sm:top-[20%] sm:right-[-8%]",
     float: "B",
     dur: 6.4,
   },
@@ -100,7 +100,7 @@ const SERVICE_CARDS: ServiceCard[] = [
     title: "E-Commerce",
     sub: "Stores built to convert",
     icon: ShoppingCart,
-    style: "bottom-[16%] right-0 sm:right-[-6%]",
+    style: "bottom-[14%] right-0 sm:bottom-[16%] sm:right-[-6%]",
     float: "C",
     dur: 7,
   },
@@ -109,7 +109,7 @@ const SERVICE_CARDS: ServiceCard[] = [
     title: "Social & Content",
     sub: "Reels, posts & campaigns",
     icon: Share2,
-    style: "bottom-[1%] left-0 sm:left-[-4%]",
+    style: "bottom-0 left-0 sm:bottom-[1%] sm:left-[-4%]",
     float: "D",
     dur: 6.2,
   },
@@ -121,16 +121,16 @@ const easeEntrance = [0.22, 1, 0.36, 1] as const;
 const headlineContainer = {
   hidden: {},
   show: {
-    transition: { delayChildren: 0.45, staggerChildren: 0.085 },
+    transition: { delayChildren: 0.12, staggerChildren: 0.04 },
   },
 };
 const headlineWord = {
-  hidden: { opacity: 0, y: "0.55em", filter: "blur(8px)" },
+  hidden: { opacity: 0, y: "0.4em", filter: "blur(4px)" },
   show: {
     opacity: 1,
     y: "0em",
     filter: "blur(0px)",
-    transition: { duration: 0.6, ease: easeEntrance },
+    transition: { duration: 0.4, ease: easeEntrance },
   },
 };
 const LINE_ONE = ["We", "don’t", "just", "build."];
@@ -839,12 +839,12 @@ function ServiceCardItem({
       onMouseMove={handleMove}
       onMouseEnter={handleEnter}
       onMouseLeave={handleLeave}
-      className={`group absolute ${card.style} z-30 w-[150px] sm:w-[172px] origin-center cursor-pointer`}
+      className={`group absolute ${card.style} z-30 w-[116px] sm:w-[172px] origin-center cursor-pointer`}
       style={{ animation: `svcFloat${card.float} ${card.dur}s ease-in-out infinite ${2.6 + index * 0.25}s` }}
     >
       <div
         ref={innerRef}
-        className="relative overflow-hidden rounded-2xl border border-[rgba(30,107,255,0.22)] bg-[rgba(13,22,40,0.82)] px-3.5 py-3 backdrop-blur-md transition-[transform,border-color,box-shadow] duration-200 ease-out group-hover:border-[rgba(30,107,255,0.55)] group-hover:shadow-[0_12px_40px_-12px_rgba(30,107,255,0.5)]"
+        className="relative overflow-hidden rounded-2xl border border-[rgba(30,107,255,0.22)] bg-[rgba(13,22,40,0.82)] px-2.5 py-2 sm:px-3.5 sm:py-3 backdrop-blur-md transition-[transform,border-color,box-shadow] duration-200 ease-out group-hover:border-[rgba(30,107,255,0.55)] group-hover:shadow-[0_12px_40px_-12px_rgba(30,107,255,0.5)]"
         style={{ transform: "perspective(620px)", transformStyle: "preserve-3d", willChange: "transform" }}
       >
         {/* cursor-tracking spotlight */}
@@ -854,26 +854,27 @@ function ServiceCardItem({
         {/* top accent line */}
         <span className="absolute inset-x-3 top-0 h-px bg-gradient-to-r from-transparent via-[#1E6BFF]/70 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
 
-        <div className="relative flex items-center gap-2.5">
+        <div className="relative flex items-center gap-2 sm:gap-2.5">
           <span
-            className="relative flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-[#1E6BFF]/30 to-[#0EA5E9]/10 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:rotate-6"
+            className="relative flex h-7 w-7 sm:h-9 sm:w-9 shrink-0 items-center justify-center rounded-lg sm:rounded-xl bg-gradient-to-br from-[#1E6BFF]/30 to-[#0EA5E9]/10 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:rotate-6"
             style={{ color: `rgb(${accent})`, boxShadow: `inset 0 0 0 1px rgba(${accent},0.4)` }}
           >
-            <span className="absolute inset-0 rounded-xl blur-md opacity-60" style={{ background: `rgba(${accent},0.25)` }} />
-            <Icon size={17} strokeWidth={1.75} className="relative z-10" />
+            <span className="absolute inset-0 rounded-lg sm:rounded-xl blur-md opacity-60" style={{ background: `rgba(${accent},0.25)` }} />
+            <Icon size={14} strokeWidth={1.75} className="relative z-10 sm:hidden" />
+            <Icon size={17} strokeWidth={1.75} className="relative z-10 hidden sm:block" />
           </span>
           <p
-            className="text-[9px] uppercase tracking-[0.16em]"
+            className="text-[8px] sm:text-[9px] uppercase tracking-[0.14em] sm:tracking-[0.16em]"
             style={{ fontFamily: "'JetBrains Mono', monospace", color: `rgb(${accent})` }}
           >
             {card.tag}
           </p>
         </div>
 
-        <p className="relative mt-2.5 text-[0.95rem] font-bold leading-tight text-white">
+        <p className="relative mt-2 sm:mt-2.5 text-[0.78rem] sm:text-[0.95rem] font-bold leading-tight text-white">
           {card.title}
         </p>
-        <p className="relative mt-0.5 text-[10px] leading-snug text-[#A1A1AA]">
+        <p className="relative mt-0.5 text-[9px] sm:text-[10px] leading-snug text-[#A1A1AA]">
           {card.sub}
         </p>
       </div>
@@ -888,7 +889,7 @@ function GlobeStage() {
   const hoverRef = useRef<number | null>(null);
 
   return (
-    <div ref={containerRef} className="relative h-[340px] sm:h-[440px] lg:h-[520px]">
+    <div ref={containerRef} className="relative h-[380px] sm:h-[440px] lg:h-[520px]">
       <GlobeCanvas hoverRef={hoverRef} />
       <ConnectorCanvas containerRef={containerRef} cardRefs={cardRefs} hoverRef={hoverRef} />
 
@@ -1066,7 +1067,7 @@ export default function HeroSection() {
           <motion.div
             initial={{ opacity: 0, y: 14 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, ease: easeEntrance, delay: 0.2 }}
+            transition={{ duration: 0.4, ease: easeEntrance, delay: 0.1 }}
             className="relative inline-flex items-center gap-2 overflow-hidden rounded-full border border-[rgba(30,107,255,0.3)] bg-[rgba(30,107,255,0.06)] px-4 py-1.5"
             style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 11, fontWeight: 600, letterSpacing: "0.18em", textTransform: "uppercase", color: "#93c5fd" }}
           >
@@ -1120,7 +1121,7 @@ export default function HeroSection() {
                 style={{ background: "linear-gradient(90deg, #1E6BFF, #60A5FA, #93C5FD)" }}
                 initial={{ width: 0, opacity: 0 }}
                 animate={{ width: "100%", opacity: 1 }}
-                transition={{ duration: 0.8, ease: easeEntrance, delay: 1.4 }}
+                transition={{ duration: 0.5, ease: easeEntrance, delay: 0.7 }}
               />
             </span>
           </motion.h1>
@@ -1129,7 +1130,7 @@ export default function HeroSection() {
           <motion.p
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, ease: easeEntrance, delay: 0.8 }}
+            transition={{ duration: 0.4, ease: easeEntrance, delay: 0.35 }}
             className="mt-6 text-lg font-semibold text-white"
           >
             Digital solutions designed after understanding your business.
@@ -1139,7 +1140,7 @@ export default function HeroSection() {
           <motion.p
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, ease: easeEntrance, delay: 1.0 }}
+            transition={{ duration: 0.4, ease: easeEntrance, delay: 0.45 }}
             className="mt-3 text-sm leading-relaxed text-[#A1A1AA] max-w-[440px]"
           >
             We study your business, market, competitors, and growth possibilities — then build
@@ -1150,7 +1151,7 @@ export default function HeroSection() {
           <motion.div
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, ease: easeEntrance, delay: 1.2 }}
+            transition={{ duration: 0.4, ease: easeEntrance, delay: 0.55 }}
             className="mt-9 flex flex-col sm:flex-row gap-3"
           >
             <motion.button

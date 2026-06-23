@@ -19,7 +19,7 @@ export default function NotFound() {
       />
 
       <section className="relative flex min-h-[100svh] items-center justify-center overflow-hidden py-32">
-        <FloatingOrbs count={16} />
+        <FloatingOrbs count={6} />
         <div className="absolute left-1/2 top-1/2 h-96 w-96 -translate-x-1/2 -translate-y-1/2 rounded-full bg-brand/20 blur-[120px]" />
 
         <Container className="relative">

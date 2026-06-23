@@ -16,7 +16,7 @@ export const springSoft: Transition = {
 };
 
 // Container that staggers its children entrances.
-export const staggerContainer = (stagger = 0.08, delayChildren = 0): Variants => ({
+export const staggerContainer = (stagger = 0.05, delayChildren = 0): Variants => ({
   hidden: {},
   visible: {
     transition: {
@@ -32,7 +32,7 @@ export const fadeUp: Variants = {
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.6, ease: easeEntrance },
+    transition: { duration: 0.4, ease: easeEntrance },
   },
 };
 
@@ -41,13 +41,13 @@ export const fadeUpSmall: Variants = {
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.5, ease: easeEntrance },
+    transition: { duration: 0.35, ease: easeEntrance },
   },
 };
 
 export const fadeIn: Variants = {
   hidden: { opacity: 0 },
-  visible: { opacity: 1, transition: { duration: 0.7, ease: easeEntrance } },
+  visible: { opacity: 1, transition: { duration: 0.45, ease: easeEntrance } },
 };
 
 export const scaleIn: Variants = {
@@ -55,33 +55,34 @@ export const scaleIn: Variants = {
   visible: {
     opacity: 1,
     scale: 1,
-    transition: { duration: 0.6, ease: easeEntrance },
+    transition: { duration: 0.4, ease: easeEntrance },
   },
 };
 
-// Word-by-word reveal for headlines.
+// Word-by-word reveal for headlines. Kept snappy: a tight stagger and short
+// per-word duration so long headlines finish quickly instead of crawling in.
 export const wordContainer: Variants = {
   hidden: {},
   visible: {
-    transition: { staggerChildren: 0.06, delayChildren: 0.05 },
+    transition: { staggerChildren: 0.03, delayChildren: 0 },
   },
 };
 
 export const wordChild: Variants = {
-  hidden: { opacity: 0, y: "0.6em", rotateX: -40 },
+  hidden: { opacity: 0, y: "0.4em", rotateX: -25 },
   visible: {
     opacity: 1,
     y: "0em",
     rotateX: 0,
-    transition: { duration: 0.65, ease: easeEntrance },
+    transition: { duration: 0.4, ease: easeEntrance },
   },
 };
 
 // Page transition for route changes.
 export const pageTransition: Variants = {
   initial: { opacity: 0, y: 16 },
-  animate: { opacity: 1, y: 0, transition: { duration: 0.5, ease: easeEntrance } },
-  exit: { opacity: 0, y: -12, transition: { duration: 0.3, ease: easeEntrance } },
+  animate: { opacity: 1, y: 0, transition: { duration: 0.32, ease: easeEntrance } },
+  exit: { opacity: 0, y: -12, transition: { duration: 0.2, ease: easeEntrance } },
 };
 
 export const viewportOnce = { once: true, margin: "-80px" } as const;

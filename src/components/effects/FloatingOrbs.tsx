@@ -8,7 +8,7 @@ interface FloatingOrbsProps {
   className?: string;
 }
 
-export default function FloatingOrbs({ count = 14, className }: FloatingOrbsProps) {
+export default function FloatingOrbs({ count = 6, className }: FloatingOrbsProps) {
   const reduced = useReducedMotion();
   const particles = useMemo(
     () =>
@@ -28,12 +28,16 @@ export default function FloatingOrbs({ count = 14, className }: FloatingOrbsProp
       {particles.map((p, i) => (
         <motion.span
           key={i}
-          className="absolute rounded-full bg-cyan-accent/60 shadow-glow-cyan"
+          // No per-particle box-shadow glow: that forces an expensive blurred
+          // repaint for every dot. A solid, slightly brighter dot reads almost
+          // identically at these sizes for a fraction of the paint cost.
+          className="absolute rounded-full bg-cyan-accent/70"
           style={{
             left: `${p.left}%`,
             top: `${p.top}%`,
             width: p.size,
             height: p.size,
+            willChange: reduced ? undefined : "transform, opacity",
           }}
           animate={
             reduced

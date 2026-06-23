@@ -1,10 +1,15 @@
 import { motion } from "framer-motion";
 import { useReducedMotion } from "@/hooks/useMediaQuery";
 
+// The orbs are huge (40rem) and heavily blurred (120px). Animating their
+// position (x/y) forces the browser to repaint that enormous blurred layer
+// every frame — a major source of scroll/paint jank. Animating only `opacity`
+// keeps the work on the compositor (GPU) for the same ambient "breathing" feel
+// at a fraction of the cost.
 const orbs = [
-  { className: "left-[-10%] top-[-5%] h-[40rem] w-[40rem] bg-brand/25", dur: 22, x: 80, y: 60 },
-  { className: "right-[-15%] top-[20%] h-[32rem] w-[32rem] bg-cyan-accent/20", dur: 26, x: -70, y: 90 },
-  { className: "left-[20%] bottom-[-10%] h-[36rem] w-[36rem] bg-depth/20", dur: 30, x: 60, y: -70 },
+  { className: "left-[-10%] top-[-5%] h-[40rem] w-[40rem] bg-brand/25", dur: 22, opacity: [0.5, 0.9, 0.5] },
+  { className: "right-[-15%] top-[20%] h-[32rem] w-[32rem] bg-cyan-accent/20", dur: 26, opacity: [0.4, 0.75, 0.4] },
+  { className: "left-[20%] bottom-[-10%] h-[36rem] w-[36rem] bg-depth/20", dur: 30, opacity: [0.45, 0.8, 0.45] },
 ];
 
 export default function AnimatedBackground() {
@@ -23,11 +28,8 @@ export default function AnimatedBackground() {
         <motion.div
           key={i}
           className={`absolute rounded-full blur-[120px] ${orb.className}`}
-          animate={
-            reduced
-              ? undefined
-              : { x: [0, orb.x, 0], y: [0, orb.y, 0] }
-          }
+          style={{ willChange: reduced ? undefined : "opacity" }}
+          animate={reduced ? undefined : { opacity: orb.opacity }}
           transition={{
             duration: orb.dur,
             repeat: Infinity,
