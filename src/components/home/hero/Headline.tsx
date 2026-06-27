@@ -57,9 +57,13 @@ export function Headline() {
       >
         <span className="block">
           {LINE_ONE.map((w, i) => (
-            <motion.span key={i} variants={headlineWord} className="inline-block" style={{ willChange: "transform, filter" }}>
+            <motion.span
+              key={i}
+              variants={headlineWord}
+              className="inline-block"
+              style={{ willChange: "transform, filter", marginRight: i < LINE_ONE.length - 1 ? "0.28em" : undefined }}
+            >
               {w}
-              {i < LINE_ONE.length - 1 && " "}
             </motion.span>
           ))}
         </span>
@@ -69,10 +73,9 @@ export function Headline() {
               key={i}
               variants={headlineWord}
               className="inline-block text-white"
-              style={{ willChange: "transform, filter" }}
+              style={{ willChange: "transform, filter", marginRight: i < LINE_TWO.length - 1 ? "0.28em" : undefined }}
             >
               {w}
-              {i < LINE_TWO.length - 1 && " "}
             </motion.span>
           ))}
           <motion.span

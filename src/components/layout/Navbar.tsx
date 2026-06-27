@@ -5,12 +5,14 @@ import { Menu } from "lucide-react";
 import { navLinks } from "@/data/navigation";
 import { easeEntrance } from "@/lib/animations";
 import { cn } from "@/lib/utils";
+import { useMediaQuery } from "@/hooks/useMediaQuery";
 import MobileMenu from "./MobileMenu";
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const reduceMotion = useReducedMotion();
+  const isDesktop = useMediaQuery("(min-width: 1024px)");
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
@@ -22,9 +24,9 @@ export default function Navbar() {
   return (
     <>
       <motion.header
-        initial={reduceMotion ? { opacity: 0 } : { y: -24, opacity: 0 }}
+        initial={isDesktop ? (reduceMotion ? { opacity: 0 } : { y: -24, opacity: 0 }) : false}
         animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.4, ease: easeEntrance }}
+        transition={isDesktop ? { duration: 0.4, ease: easeEntrance } : { duration: 0 }}
         className="fixed inset-x-0 top-0 z-50 flex justify-center px-4 pt-4"
       >
         <nav
