@@ -1,13 +1,16 @@
-import { useRef, useState, type FormEvent } from "react";
+import { useState, type FormEvent } from "react";
 import { motion } from "framer-motion";
-import { Loader2, Send, Star, Heart } from "lucide-react";
+import { Send, Star, Heart } from "lucide-react";
 import Seo from "@/components/common/Seo";
 import PageTransition from "@/components/effects/PageTransition";
 import PageHero from "@/components/common/PageHero";
 import Container from "@/components/common/Container";
 import Reveal from "@/components/effects/Reveal";
+import { Field, Input, Textarea } from "@/components/common/Field";
+import { Honeypot } from "@/components/common/Honeypot";
+import { Spinner } from "@/components/common/Spinner";
+import { useSpamGuard } from "@/hooks/useSpamGuard";
 import { submitTestimonial } from "@/services/testimonials";
-import { cooldownRemaining, cooldownMessage, markUsed } from "@/lib/rateLimit";
 import { cn } from "@/lib/utils";
 
 interface FormState {
@@ -20,15 +23,13 @@ interface FormState {
 
 const initial: FormState = { quote: "", name: "", role: "", company: "", rating: 5 };
 
-const MIN_FILL_MS = 3000;
 const COOLDOWN_MS = 30000;
 
 export default function ShareTestimonial() {
   const [form, setForm] = useState<FormState>(initial);
   const [status, setStatus] = useState<"idle" | "loading" | "success">("idle");
   const [error, setError] = useState<string | null>(null);
-  const [honeypot, setHoneypot] = useState("");
-  const mountedAt = useRef(Date.now());
+  const guard = useSpamGuard("testimonial", COOLDOWN_MS);
 
   const set = <K extends keyof FormState>(key: K, value: FormState[K]) =>
     setForm((f) => ({ ...f, [key]: value }));
@@ -41,14 +42,10 @@ export default function ShareTestimonial() {
       setError("Please share a few words and your name.");
       return;
     }
-    if (honeypot.trim() !== "") return; // bot
-    if (Date.now() - mountedAt.current < MIN_FILL_MS) {
-      setError("Please take a moment before submitting.");
-      return;
-    }
-    const remaining = cooldownRemaining("testimonial", COOLDOWN_MS);
-    if (remaining > 0) {
-      setError(cooldownMessage(remaining));
+    if (guard.isBot) return; // bot
+    const spamError = guard.check("Please take a moment before submitting.");
+    if (spamError) {
+      setError(spamError);
       return;
     }
 
@@ -61,7 +58,7 @@ export default function ShareTestimonial() {
       rating: form.rating,
     });
     if (res.ok) {
-      markUsed("testimonial");
+      guard.markUsed();
       setStatus("success");
     } else {
       setStatus("idle");
@@ -73,8 +70,9 @@ export default function ShareTestimonial() {
     <PageTransition>
       <Seo
         title="Share Your Story | Navya EdTech"
-        description="Worked with Navya EdTech? Share your experience — we'd love to feature your story."
+        description="Worked with Navya EdTech? Share your experience. We'd love to feature your story."
         path="/share-your-story"
+        index={false}
       />
 
       <PageHero
@@ -110,76 +108,52 @@ export default function ShareTestimonial() {
                 noValidate
                 className="rounded-3xl glass p-7 ring-1 ring-white/10 sm:p-9"
               >
-                {/* Honeypot */}
-                <div
-                  aria-hidden
-                  className="absolute left-[-9999px] top-[-9999px] h-0 w-0 overflow-hidden"
-                >
-                  <label htmlFor="company_url">Company URL (leave blank)</label>
-                  <input
-                    id="company_url"
-                    type="text"
-                    tabIndex={-1}
-                    autoComplete="off"
-                    value={honeypot}
-                    onChange={(e) => setHoneypot(e.target.value)}
-                  />
-                </div>
+                <Honeypot
+                  id="company_url"
+                  label="Company URL (leave blank)"
+                  value={guard.honeypot}
+                  onChange={guard.setHoneypot}
+                />
 
                 <div className="flex flex-col gap-5">
-                  <div className="flex flex-col gap-2">
-                    <label htmlFor="quote" className="text-sm font-medium text-ink">
-                      Your experience <span className="text-cyan-accent">*</span>
-                    </label>
-                    <textarea
+                  <Field label="Your experience" id="quote" required>
+                    <Textarea
                       id="quote"
                       value={form.quote}
                       onChange={(e) => set("quote", e.target.value)}
                       rows={5}
                       placeholder="Working with Navya EdTech was…"
-                      className={cn(inputCls, "resize-none")}
+                      className="resize-none"
                     />
-                  </div>
+                  </Field>
 
                   <div className="grid gap-5 sm:grid-cols-2">
-                    <div className="flex flex-col gap-2">
-                      <label htmlFor="name" className="text-sm font-medium text-ink">
-                        Your name <span className="text-cyan-accent">*</span>
-                      </label>
-                      <input
+                    <Field label="Your name" id="name" required>
+                      <Input
                         id="name"
                         value={form.name}
                         onChange={(e) => set("name", e.target.value)}
                         placeholder="Jane Doe"
-                        className={inputCls}
                       />
-                    </div>
-                    <div className="flex flex-col gap-2">
-                      <label htmlFor="role" className="text-sm font-medium text-ink">
-                        Role
-                      </label>
-                      <input
+                    </Field>
+                    <Field label="Role" id="role">
+                      <Input
                         id="role"
                         value={form.role}
                         onChange={(e) => set("role", e.target.value)}
                         placeholder="Founder"
-                        className={inputCls}
                       />
-                    </div>
+                    </Field>
                   </div>
 
-                  <div className="flex flex-col gap-2">
-                    <label htmlFor="company" className="text-sm font-medium text-ink">
-                      Company
-                    </label>
-                    <input
+                  <Field label="Company" id="company">
+                    <Input
                       id="company"
                       value={form.company}
                       onChange={(e) => set("company", e.target.value)}
                       placeholder="Kathmandu Cart"
-                      className={inputCls}
                     />
-                  </div>
+                  </Field>
 
                   <div className="flex flex-col gap-2">
                     <span className="text-sm font-medium text-ink">Your rating</span>
@@ -220,7 +194,7 @@ export default function ShareTestimonial() {
                 >
                   {status === "loading" ? (
                     <>
-                      <Loader2 size={18} className="animate-spin" />
+                      <Spinner />
                       Submitting...
                     </>
                   ) : (
@@ -238,8 +212,3 @@ export default function ShareTestimonial() {
     </PageTransition>
   );
 }
-
-const inputCls = cn(
-  "w-full rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3 text-sm text-ink placeholder:text-ink-muted/60 outline-none transition-all duration-200",
-  "focus:border-brand/60 focus:bg-white/[0.05] focus:shadow-[0_0_0_3px_rgba(30,107,255,0.18)]"
-);

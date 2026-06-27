@@ -15,6 +15,8 @@ export const organizationSchema = {
   name: SITE_NAME,
   url: SITE_URL,
   email: SITE_EMAIL,
+  logo: `${SITE_URL}/logo.png`,
+  image: `${SITE_URL}/logo.png`,
   slogan: "Innovate. Build. Elevate.",
   description:
     "Navya EdTech builds high-performance websites, e-commerce platforms, and business management systems for modern businesses.",
@@ -45,8 +47,34 @@ export const websiteSchema = {
   "@id": `${SITE_URL}/#website`,
   url: SITE_URL,
   name: SITE_NAME,
+  inLanguage: "en",
   publisher: { "@id": `${SITE_URL}/#organization` },
 };
+
+/**
+ * Build an ItemList of Service entries, each provided by the Organization.
+ * Surfaces the catalogue of offerings on the Services page so search engines
+ * understand exactly what the business does.
+ */
+export function serviceListSchema(
+  services: { title: string; description: string }[]
+) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    itemListElement: services.map((s, i) => ({
+      "@type": "ListItem",
+      position: i + 1,
+      item: {
+        "@type": "Service",
+        name: s.title,
+        description: s.description,
+        provider: { "@id": `${SITE_URL}/#organization` },
+        areaServed: { "@type": "Country", name: "Nepal" },
+      },
+    })),
+  };
+}
 
 /** Build an FAQPage schema from a list of FAQ entries. */
 export function faqPageSchema(faqs: Faq[]) {

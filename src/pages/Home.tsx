@@ -1,6 +1,7 @@
 import Seo from "@/components/common/Seo";
 import PageTransition from "@/components/effects/PageTransition";
 import HeroSection from "@/components/home/HeroSection";
+import TechStack from "@/components/home/TechStack";
 import ServicesOverview from "@/components/home/ServicesOverview";
 import FeaturesSection from "@/components/home/FeaturesSection";
 import IndustriesSection from "@/components/home/IndustriesSection";
@@ -22,6 +23,7 @@ export default function Home() {
       />
 
       <HeroSection />
+      <TechStack />
       <ServicesOverview />
       <FeaturesSection />
       <IndustriesSection />

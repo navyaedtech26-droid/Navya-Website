@@ -45,7 +45,7 @@ export default function SectionHeading({
         className="max-w-3xl font-display text-3xl font-semibold leading-[1.1] tracking-tight text-ink sm:text-4xl md:text-5xl"
       >
         {title}{" "}
-        {highlight && <span className="text-gradient">{highlight}</span>}
+        {highlight && <span className="text-ink">{highlight}</span>}
       </motion.h2>
       {subtitle && (
         <motion.p

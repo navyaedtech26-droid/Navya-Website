@@ -15,7 +15,6 @@ import type {
   BlogPostRow,
   TestimonialRow,
   ContactSubmissionRow,
-  NewsletterSubscriberRow,
 } from "@/types/database";
 
 export interface Result<T> {
@@ -271,7 +270,6 @@ export interface BlogPostInput {
   title: string;
   excerpt: string | null;
   content: string | null;
-  cover_image: string | null;
   author: string | null;
   category: string | null;
   tags: string[];
@@ -406,30 +404,6 @@ export async function deleteTestimonial(id: string): Promise<Result<true>> {
   if (!isSupabaseConfigured || !supabase) return fail(NOT_CONFIGURED);
 
   const { error } = await supabase.from("testimonials").delete().eq("id", id);
-  if (error) return fail(error.message);
-  return { data: true };
-}
-
-// =============================================================================
-// Newsletter subscribers
-// =============================================================================
-
-export async function listSubscribers(): Promise<Result<NewsletterSubscriberRow[]>> {
-  if (!isSupabaseConfigured || !supabase) return fail(NOT_CONFIGURED);
-
-  const { data, error } = await supabase
-    .from("newsletter_subscribers")
-    .select("*")
-    .order("created_at", { ascending: false });
-
-  if (error) return fail(error.message);
-  return { data: data ?? [] };
-}
-
-export async function deleteSubscriber(id: string): Promise<Result<true>> {
-  if (!isSupabaseConfigured || !supabase) return fail(NOT_CONFIGURED);
-
-  const { error } = await supabase.from("newsletter_subscribers").delete().eq("id", id);
   if (error) return fail(error.message);
   return { data: true };
 }

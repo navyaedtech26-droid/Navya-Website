@@ -10,7 +10,6 @@ import {
   Newspaper,
   MessageSquareQuote,
   Mail,
-  Users,
   LogOut,
   Menu,
   X,
@@ -24,7 +23,6 @@ const NAV = [
   { to: "/admin/blogs", label: "Blogs", icon: Newspaper, end: false },
   { to: "/admin/testimonials", label: "Testimonials", icon: MessageSquareQuote, end: false },
   { to: "/admin/messages", label: "Messages", icon: Mail, end: false },
-  { to: "/admin/subscribers", label: "Subscribers", icon: Users, end: false },
 ];
 
 export default function AdminLayout() {

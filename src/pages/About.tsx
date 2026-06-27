@@ -1,3 +1,4 @@
+import { Rocket, Users, Code2, HeartHandshake } from "lucide-react";
 import Seo from "@/components/common/Seo";
 import PageTransition from "@/components/effects/PageTransition";
 import PageHero from "@/components/common/PageHero";
@@ -7,9 +8,9 @@ import Milestones from "@/components/about/Milestones";
 import CoreValues from "@/components/about/CoreValues";
 import EngineeringShowcase from "@/components/about/EngineeringShowcase";
 import WhyChooseUs from "@/components/about/WhyChooseUs";
-import TeamSection from "@/components/about/TeamSection";
 import TechStack from "@/components/about/TechStack";
 import CTASection from "@/components/common/CTASection";
+import { breadcrumbSchema } from "@/lib/structuredData";
 
 export default function About() {
   return (
@@ -18,6 +19,10 @@ export default function About() {
         title="About | Navya EdTech"
         description="Learn about Navya EdTech, a digital solutions company helping businesses grow through innovation."
         path="/about"
+        jsonLd={breadcrumbSchema([
+          { name: "Home", path: "/" },
+          { name: "About", path: "/about" },
+        ])}
       />
 
       <PageHero
@@ -25,6 +30,14 @@ export default function About() {
         title="Innovate. Build."
         highlight="Elevate."
         subtitle="We are Navya EdTech, a digital solutions company helping businesses grow through modern websites and smart systems."
+        highlights={[
+          { icon: Rocket, label: "Built for growth" },
+          { icon: Users, label: "Senior, hands-on team" },
+          { icon: Code2, label: "Modern tech stack" },
+          { icon: HeartHandshake, label: "Long-term partnership" },
+        ]}
+        primaryCta={{ label: "Work With Us", to: "/contact" }}
+        secondaryCta={{ label: "Our Services", to: "/services" }}
       />
 
       <CompanyStory />
@@ -33,7 +46,6 @@ export default function About() {
       <CoreValues />
       <EngineeringShowcase />
       <WhyChooseUs />
-      <TeamSection />
       <TechStack />
 
       <CTASection

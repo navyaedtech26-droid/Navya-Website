@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import { ArrowLeft, Calendar, Clock, Loader2 } from "lucide-react";
+import { ArrowLeft, Calendar, Clock } from "lucide-react";
 import Seo from "@/components/common/Seo";
 import PageTransition from "@/components/effects/PageTransition";
 import Container from "@/components/common/Container";
@@ -8,51 +8,43 @@ import CTASection from "@/components/common/CTASection";
 import Reveal from "@/components/effects/Reveal";
 import BlogCard from "@/components/blog/BlogCard";
 import Markdown from "@/components/blog/Markdown";
+import { LoadingScreen } from "@/components/common/Spinner";
+import { useAsync } from "@/hooks/useAsync";
 import {
   getPostBySlug,
   getRelatedPosts,
-  type BlogPost,
   type BlogPostSummary,
 } from "@/services/blogs";
 import { articleSchema, breadcrumbSchema } from "@/lib/structuredData";
 import { formatDate } from "@/lib/utils";
 
-type LoadState = "loading" | "found" | "not-found";
-
 export default function BlogPostPage() {
   const { slug = "" } = useParams();
-  const [post, setPost] = useState<BlogPost | null>(null);
+  const { data: post, loading } = useAsync(() => getPostBySlug(slug), [slug]);
   const [related, setRelated] = useState<BlogPostSummary[]>([]);
-  const [state, setState] = useState<LoadState>("loading");
 
+  // Pull related posts once the article resolves (and reset when it's gone).
   useEffect(() => {
+    if (!post) {
+      setRelated([]);
+      return;
+    }
     let active = true;
-    setState("loading");
-    setRelated([]);
-    getPostBySlug(slug).then((data) => {
-      if (!active) return;
-      setPost(data);
-      setState(data ? "found" : "not-found");
-      if (data) {
-        getRelatedPosts(data).then((rows) => active && setRelated(rows));
-      }
-    });
+    getRelatedPosts(post).then((rows) => active && setRelated(rows));
     return () => {
       active = false;
     };
-  }, [slug]);
+  }, [post]);
 
-  if (state === "loading") {
+  if (loading) {
     return (
       <PageTransition>
-        <div className="flex min-h-[60svh] items-center justify-center text-ink-muted">
-          <Loader2 className="animate-spin" />
-        </div>
+        <LoadingScreen />
       </PageTransition>
     );
   }
 
-  if (state === "not-found" || !post) {
+  if (!post) {
     return (
       <PageTransition>
         <Seo
@@ -86,7 +78,16 @@ export default function BlogPostPage() {
         title={`${post.title} | Navya EdTech`}
         description={post.excerpt ?? post.title}
         path={`/blog/${post.slug}`}
+        type="article"
         image={post.cover_image ?? undefined}
+        imageAlt={post.title}
+        article={{
+          publishedTime: post.published_at,
+          modifiedTime: post.updated_at ?? post.published_at,
+          author: post.author,
+          section: post.category,
+          tags: post.tags,
+        }}
         jsonLd={[
           articleSchema(post),
           breadcrumbSchema([
@@ -138,14 +139,6 @@ export default function BlogPostPage() {
               )}
             </div>
           </header>
-
-          {post.cover_image && (
-            <img
-              src={post.cover_image}
-              alt={post.title}
-              className="mt-8 aspect-[16/9] w-full rounded-3xl object-cover ring-1 ring-white/10"
-            />
-          )}
 
           <div className="mt-10">
             {post.content ? (

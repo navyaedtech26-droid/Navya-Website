@@ -7,7 +7,7 @@
  * purely for UX (no point rendering a dashboard the API will reject).
  */
 import { Navigate, Outlet, useLocation } from "react-router-dom";
-import { Loader2 } from "lucide-react";
+import { LoadingScreen } from "@/components/common/Spinner";
 import { useAuth } from "@/context/AuthContext";
 
 export default function RequireAdmin() {
@@ -16,11 +16,7 @@ export default function RequireAdmin() {
 
   // Auth still resolving, or signed in but profile not loaded yet.
   if (loading || (user && !profile)) {
-    return (
-      <div className="flex min-h-[100svh] items-center justify-center bg-bg text-ink-muted">
-        <Loader2 className="animate-spin" />
-      </div>
-    );
+    return <LoadingScreen label="Checking access…" className="min-h-[100svh] bg-bg" />;
   }
 
   if (!user || !isAdmin) {

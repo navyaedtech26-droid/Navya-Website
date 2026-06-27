@@ -12,7 +12,7 @@ export const processSteps: ProcessStep[] = [
     step: "01",
     icon: ScanSearch,
     title: "Business Review",
-    description: "We understand your business deeply — your goals, model, and what makes you different.",
+    description: "We understand your business deeply: your goals, model, and what makes you different.",
   },
   {
     step: "02",

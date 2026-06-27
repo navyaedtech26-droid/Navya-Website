@@ -1,19 +1,25 @@
 /**
- * Markdown editor used in the blog admin: a small formatting toolbar (bold,
- * headings, list, link, inline image upload) over a textarea, plus a live
- * Write/Preview toggle. Stays dependency-free and writes plain Markdown into
- * `blog_posts.content`, which the public site renders with <Markdown/>.
+ * Markdown editor used in the blog admin: a formatting toolbar (bold, italic,
+ * heading, bulleted/numbered lists, quote, code block, table, link, inline
+ * image upload) over a textarea, plus a live Write/Preview toggle. Stays
+ * dependency-free and writes plain Markdown into `blog_posts.content`, which
+ * the public site renders with <Markdown/>.
  */
 import { useRef, useState } from "react";
 import {
   Bold,
+  Italic,
   Heading2,
   List,
+  ListOrdered,
+  Quote,
+  Code2,
+  Table,
   LinkIcon,
   ImagePlus,
-  Loader2,
 } from "lucide-react";
 import Markdown from "@/components/blog/Markdown";
+import { Spinner } from "@/components/common/Spinner";
 import { uploadBlogImage } from "@/services/storage";
 import { inputCls } from "@/components/admin/ui";
 import { cn } from "@/lib/utils";
@@ -59,6 +65,15 @@ export default function MarkdownEditor({
     replaceSelection((s) => `[${s || "link text"}](${url})`);
   };
 
+  const insertCodeBlock = () =>
+    replaceSelection((s) => `\n\`\`\`\n${s || "code"}\n\`\`\`\n`);
+
+  const insertTable = () =>
+    replaceSelection(
+      () =>
+        "\n| Column | Column |\n| --- | --- |\n| Cell | Cell |\n| Cell | Cell |\n"
+    );
+
   const handleImage = async (file: File | undefined) => {
     if (!file) return;
     setError(null);
@@ -93,11 +108,26 @@ export default function MarkdownEditor({
           <ToolButton label="Bold" onClick={() => wrap("**")}>
             <Bold size={15} />
           </ToolButton>
+          <ToolButton label="Italic" onClick={() => wrap("*")}>
+            <Italic size={15} />
+          </ToolButton>
           <ToolButton label="Heading" onClick={() => prefixLine("## ")}>
             <Heading2 size={15} />
           </ToolButton>
-          <ToolButton label="List item" onClick={() => prefixLine("- ")}>
+          <ToolButton label="Bulleted list" onClick={() => prefixLine("- ")}>
             <List size={15} />
+          </ToolButton>
+          <ToolButton label="Numbered list" onClick={() => prefixLine("1. ")}>
+            <ListOrdered size={15} />
+          </ToolButton>
+          <ToolButton label="Quote" onClick={() => prefixLine("> ")}>
+            <Quote size={15} />
+          </ToolButton>
+          <ToolButton label="Code block" onClick={insertCodeBlock}>
+            <Code2 size={15} />
+          </ToolButton>
+          <ToolButton label="Table" onClick={insertTable}>
+            <Table size={15} />
           </ToolButton>
           <ToolButton label="Link" onClick={insertLink}>
             <LinkIcon size={15} />
@@ -107,7 +137,7 @@ export default function MarkdownEditor({
             className="flex h-8 w-8 cursor-pointer items-center justify-center rounded-md text-ink-muted transition-colors hover:bg-white/5 hover:text-ink"
           >
             {uploading ? (
-              <Loader2 size={15} className="animate-spin" />
+              <Spinner size={15} />
             ) : (
               <ImagePlus size={15} />
             )}
@@ -146,8 +176,9 @@ export default function MarkdownEditor({
 
       {error && <p className="text-xs text-red-400">{error}</p>}
       <p className="text-xs text-ink-muted">
-        Supports Markdown: # headings, - lists, **bold**, `code`, [links](url) and
-        ![images](url). Use the image button to upload.
+        Supports Markdown: headings, bulleted &amp; numbered lists, **bold**,
+        *italic*, `code`, ``` code blocks, &gt; quotes, | tables |, --- rules,
+        [links](url) and ![images](url). Use the image button to upload.
       </p>
     </div>
   );

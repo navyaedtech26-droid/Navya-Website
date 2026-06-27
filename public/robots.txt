@@ -1,4 +1,6 @@
 User-agent: *
 Allow: /
+Disallow: /admin
+Disallow: /share-your-story
 
 Sitemap: https://navyaedtech.com/sitemap.xml

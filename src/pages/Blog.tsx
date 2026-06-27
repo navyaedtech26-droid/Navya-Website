@@ -1,6 +1,16 @@
 import { useEffect, useMemo, useState } from "react";
 import { useSearchParams } from "react-router-dom";
-import { Loader2, PenLine, Search, X, ChevronLeft, ChevronRight } from "lucide-react";
+import {
+  PenLine,
+  Search,
+  X,
+  ChevronLeft,
+  ChevronRight,
+  Code2,
+  Gauge,
+  ShoppingCart,
+  Layers,
+} from "lucide-react";
 import Seo from "@/components/common/Seo";
 import PageTransition from "@/components/effects/PageTransition";
 import PageHero from "@/components/common/PageHero";
@@ -8,33 +18,26 @@ import Container from "@/components/common/Container";
 import Reveal from "@/components/effects/Reveal";
 import CTASection from "@/components/common/CTASection";
 import BlogCard from "@/components/blog/BlogCard";
+import BlogCardSkeleton from "@/components/blog/BlogCardSkeleton";
+import { SkeletonGroup } from "@/components/common/Skeleton";
+import { useAsync } from "@/hooks/useAsync";
 import { getPublishedPosts, type BlogPostSummary } from "@/services/blogs";
 import { breadcrumbSchema } from "@/lib/structuredData";
 import { cn } from "@/lib/utils";
 
 const PAGE_SIZE = 9;
 const ALL = "All";
+/** Stable empty reference so memoised filters don't re-run before posts load. */
+const EMPTY_POSTS: BlogPostSummary[] = [];
 
 export default function Blog() {
   const [searchParams] = useSearchParams();
-  const [posts, setPosts] = useState<BlogPostSummary[]>([]);
-  const [loading, setLoading] = useState(true);
+  const { data, loading } = useAsync(() => getPublishedPosts(), []);
+  const posts = data ?? EMPTY_POSTS;
   // Allow deep links from posts, e.g. /blog?category=Engineering or /blog?tag=react
   const [query, setQuery] = useState(searchParams.get("tag") ?? searchParams.get("q") ?? "");
   const [category, setCategory] = useState<string>(searchParams.get("category") ?? ALL);
   const [page, setPage] = useState(1);
-
-  useEffect(() => {
-    let active = true;
-    getPublishedPosts().then((rows) => {
-      if (!active) return;
-      setPosts(rows);
-      setLoading(false);
-    });
-    return () => {
-      active = false;
-    };
-  }, []);
 
   // Distinct categories present across published posts.
   const categories = useMemo(() => {
@@ -84,15 +87,26 @@ export default function Blog() {
         eyebrow="Insights"
         title="The Navya EdTech"
         highlight="Blog"
-        subtitle="Practical articles on building fast, modern websites and business systems — written by the team that ships them."
+        subtitle="Practical articles on building fast, modern websites and business systems, written by the team that ships them."
+        highlights={[
+          { icon: Code2, label: "Web development" },
+          { icon: Gauge, label: "Performance & SEO" },
+          { icon: ShoppingCart, label: "E-commerce" },
+          { icon: Layers, label: "Business systems" },
+        ]}
       />
 
       <section className="relative py-12">
         <Container>
           {loading ? (
-            <div className="flex min-h-[20rem] items-center justify-center text-ink-muted">
-              <Loader2 className="animate-spin" />
-            </div>
+            <SkeletonGroup
+              label="Loading articles…"
+              className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3"
+            >
+              {Array.from({ length: 6 }).map((_, i) => (
+                <BlogCardSkeleton key={i} />
+              ))}
+            </SkeletonGroup>
           ) : !hasPosts ? (
             <EmptyState />
           ) : (
@@ -110,7 +124,7 @@ export default function Blog() {
                     onChange={(e) => setQuery(e.target.value)}
                     placeholder="Search articles…"
                     aria-label="Search articles"
-                    className="w-full rounded-xl border border-white/10 bg-white/[0.03] py-3 pl-11 pr-10 text-sm text-ink placeholder:text-ink-muted/60 outline-none transition-all duration-200 focus:border-brand/60 focus:bg-white/[0.05] focus:shadow-[0_0_0_3px_rgba(30,107,255,0.18)]"
+                    className="w-full rounded-xl border border-white/10 bg-white/[0.03] py-3 pl-11 pr-10 text-sm text-ink placeholder:text-ink-muted/70 outline-none transition-all duration-200 focus:border-brand/60 focus:bg-white/[0.05] focus:shadow-[0_0_0_3px_rgba(30,107,255,0.18)]"
                   />
                   {query && (
                     <button

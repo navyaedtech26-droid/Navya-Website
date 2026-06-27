@@ -8,6 +8,7 @@
     "prebuild": "node scripts/generate-feeds.mjs",
     "build": "tsc -b && vite build",
     "generate:feeds": "node scripts/generate-feeds.mjs",
+    "generate:og": "node scripts/generate-og-image.mjs",
     "preview": "vite preview"
   },
   "dependencies": {
@@ -23,9 +24,11 @@
     "react-dom": "^18.3.1",
     "react-helmet-async": "^2.0.5",
     "react-router-dom": "^6.28.0",
-    "tailwind-merge": "^2.6.0"
+    "tailwind-merge": "^2.6.0",
+    "three": "^0.180.0"
   },
   "devDependencies": {
+    "@playwright/test": "^1.61.1",
     "@types/node": "^25.9.3",
     "@types/react": "^18.3.18",
     "@types/react-dom": "^18.3.5",

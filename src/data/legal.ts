@@ -29,7 +29,7 @@ export const privacyPolicy: LegalDoc = {
         "We only collect information that you choose to provide and basic technical data needed to operate and improve the site.",
       ],
       list: [
-        "Contact details you submit through our forms — your name, email address, phone number, and the project details you describe.",
+        "Contact details you submit through our forms, including your name, email address, phone number, and the project details you describe.",
         "Usage data such as pages visited, time on page, device type, browser, and approximate location, collected through analytics cookies.",
         "Technical data such as your IP address and referring website, used for security and to understand traffic sources.",
       ],
@@ -54,7 +54,7 @@ export const privacyPolicy: LegalDoc = {
     {
       heading: "4. Sharing Your Information",
       paragraphs: [
-        "We do not sell or rent your personal information. We may share limited data with trusted service providers — such as hosting, email, and analytics platforms — strictly to operate our services, and only to the extent necessary. These providers are required to protect your data and use it only for the agreed purpose.",
+        "We do not sell or rent your personal information. We may share limited data with trusted service providers, such as hosting, email, and analytics platforms, strictly to operate our services, and only to the extent necessary. These providers are required to protect your data and use it only for the agreed purpose.",
         "We may also disclose information where required by law or to protect our legal rights.",
       ],
     },
@@ -136,7 +136,7 @@ export const termsOfService: LegalDoc = {
     {
       heading: "4. Intellectual Property",
       paragraphs: [
-        "All content on this website — including text, graphics, logos, designs, and code — is owned by Navya EdTech or its licensors and is protected by applicable intellectual property laws. You may not copy, reproduce, or reuse it without our written permission.",
+        "All content on this website, including text, graphics, logos, designs, and code, is owned by Navya EdTech or its licensors and is protected by applicable intellectual property laws. You may not copy, reproduce, or reuse it without our written permission.",
         "Ownership of deliverables produced during client projects is governed by the relevant project agreement.",
       ],
     },

@@ -22,13 +22,13 @@ const steps = [
     icon: FileText,
     step: "03",
     title: "You Get a Clear Plan",
-    text: "A transparent scope, timeline, and quote — no jargon, no surprises.",
+    text: "A transparent scope, timeline, and quote, with no jargon and no surprises.",
   },
   {
     icon: Rocket,
     step: "04",
     title: "We Build & Launch",
-    text: "We design, build, and ship — then support your growth long after.",
+    text: "We design, build, and ship, then support your growth long after.",
   },
 ];
 

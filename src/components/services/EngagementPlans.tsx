@@ -17,7 +17,7 @@ export default function EngagementPlans() {
           eyebrow="How We Work Together"
           title="Engagements That"
           highlight="Fit Your Stage"
-          subtitle="Every project is custom-quoted, but most partnerships start from one of these. No lock-in, no surprises — just the right scope for where you are."
+          subtitle="Every project is custom-quoted, but most partnerships start from one of these. No lock-in, no surprises, just the right scope for where you are."
         />
 
         <motion.div

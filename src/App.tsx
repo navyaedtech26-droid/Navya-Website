@@ -1,7 +1,7 @@
 import { useEffect, lazy, Suspense } from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
 import { AnimatePresence } from "framer-motion";
-import { Loader2 } from "lucide-react";
+import { LoadingScreen } from "@/components/common/Spinner";
 
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
@@ -36,7 +36,6 @@ const Overview = lazy(() => import("@/pages/admin/Overview"));
 const BlogsAdmin = lazy(() => import("@/pages/admin/BlogsAdmin"));
 const TestimonialsAdmin = lazy(() => import("@/pages/admin/TestimonialsAdmin"));
 const MessagesAdmin = lazy(() => import("@/pages/admin/MessagesAdmin"));
-const SubscribersAdmin = lazy(() => import("@/pages/admin/SubscribersAdmin"));
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -47,11 +46,7 @@ function ScrollToTop() {
 }
 
 function RouteFallback() {
-  return (
-    <div className="flex min-h-[100svh] items-center justify-center bg-bg text-ink-muted">
-      <Loader2 className="animate-spin" />
-    </div>
-  );
+  return <LoadingScreen className="min-h-[100svh] bg-bg" />;
 }
 
 /** The admin dashboard is a self-contained area without the public chrome. */
@@ -68,7 +63,6 @@ function AdminApp() {
             <Route path="blogs" element={<BlogsAdmin />} />
             <Route path="testimonials" element={<TestimonialsAdmin />} />
             <Route path="messages" element={<MessagesAdmin />} />
-            <Route path="subscribers" element={<SubscribersAdmin />} />
           </Route>
         </Route>
       </Routes>

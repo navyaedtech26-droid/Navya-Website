@@ -25,7 +25,7 @@ export default {
         },
         ink: {
           DEFAULT: "#F8FAFC", // Text Primary
-          muted: "#94A3B8", // Text Secondary
+          muted: "#E2E8F0", // Text Secondary — near-white for a uniform white text scheme
         },
       },
       fontFamily: {
@@ -60,11 +60,15 @@ export default {
           "0%, 100%": { transform: "scale(1)", opacity: "1" },
           "50%": { transform: "scale(1.15)", opacity: "0.7" },
         },
+        skeleton: {
+          to: { transform: "translateX(100%)" },
+        },
       },
       animation: {
         shimmer: "shimmer 2.5s linear infinite",
         "pulse-glow": "pulse-glow 3s ease-in-out infinite",
         breathe: "breathe 6s ease-in-out infinite",
+        skeleton: "skeleton 1.6s ease-in-out infinite",
       },
     },
   },

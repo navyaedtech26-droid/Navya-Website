@@ -12,7 +12,14 @@ export type BlogPostSummary = Omit<BlogPost, "content">;
 const LIST_COLUMNS =
   "id, slug, title, excerpt, cover_image, author, category, tags, status, read_minutes, published_at, created_at, updated_at";
 
-/** Published posts, newest first. Returns `[]` if Supabase is not configured. */
+/**
+ * Published posts, newest first. Returns `[]` if Supabase is not configured.
+ *
+ * The default cap is a deliberate ceiling: the Blog page filters and paginates
+ * this set in the browser (see `Blog.tsx`), which is ideal for a marketing-site
+ * volume. If the catalogue ever approaches this many posts, move search and
+ * pagination server-side (`.range()` + a count) rather than just raising it.
+ */
 export async function getPublishedPosts(limit = 200): Promise<BlogPostSummary[]> {
   if (!isSupabaseConfigured || !supabase) return [];
 

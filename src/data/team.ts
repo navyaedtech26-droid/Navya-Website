@@ -39,7 +39,7 @@ export const founders: Founder[] = [
     name: "Founder One", // TODO: real name
     role: "Co-Founder & Head of Engineering",
     focus: "Engineering",
-    bio: "Leads the build — websites, systems and integrations engineered to stay fast and reliable as you scale.",
+    bio: "Leads the build: websites, systems, and integrations engineered to stay fast and reliable as you scale.",
     icon: Code2,
     initials: "F1",
     image: "", // e.g. "/team/founder-1.jpg"
@@ -53,7 +53,7 @@ export const founders: Founder[] = [
     name: "Founder Two", // TODO: real name
     role: "Co-Founder & Head of Design",
     focus: "Design",
-    bio: "Owns the look and feel — premium, intuitive interfaces with real personality, crafted down to the last detail.",
+    bio: "Owns the look and feel: premium, intuitive interfaces with real personality, crafted down to the last detail.",
     icon: Palette,
     initials: "F2",
     image: "", // e.g. "/team/founder-2.jpg"
@@ -67,7 +67,7 @@ export const founders: Founder[] = [
     name: "Founder Three", // TODO: real name
     role: "Co-Founder & Solutions Architect",
     focus: "Data & Systems",
-    bio: "Designs the backbone — scalable ERP, CRM and BI platforms that fit the way your team actually works.",
+    bio: "Designs the backbone: scalable ERP, CRM, and BI platforms that fit the way your team actually works.",
     icon: Database,
     initials: "F3",
     image: "", // e.g. "/team/founder-3.jpg"
@@ -81,7 +81,7 @@ export const founders: Founder[] = [
     name: "Founder Four", // TODO: real name
     role: "Co-Founder & Head of Growth",
     focus: "Growth",
-    bio: "Drives reach — reels, scripts, campaigns and strategy that turn good work into visible momentum.",
+    bio: "Drives reach with reels, scripts, campaigns, and strategy that turn good work into visible momentum.",
     icon: Megaphone,
     initials: "F4",
     image: "", // e.g. "/team/founder-4.jpg"

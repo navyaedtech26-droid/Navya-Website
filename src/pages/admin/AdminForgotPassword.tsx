@@ -5,7 +5,8 @@
 import { useState, type FormEvent } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { Loader2, KeyRound, MailCheck } from "lucide-react";
+import { KeyRound, MailCheck } from "lucide-react";
+import { Spinner } from "@/components/common/Spinner";
 import Seo from "@/components/common/Seo";
 import Container from "@/components/common/Container";
 import { useAuth } from "@/context/AuthContext";
@@ -121,7 +122,7 @@ export default function AdminForgotPassword() {
                   >
                     {loading ? (
                       <>
-                        <Loader2 size={18} className="animate-spin" />
+                        <Spinner />
                         Sending...
                       </>
                     ) : (
@@ -145,6 +146,6 @@ export default function AdminForgotPassword() {
 }
 
 const inputCls = cn(
-  "w-full rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3 text-sm text-ink placeholder:text-ink-muted/60 outline-none transition-all duration-200",
+  "w-full rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3 text-sm text-ink placeholder:text-ink-muted/70 outline-none transition-all duration-200",
   "focus:border-brand/60 focus:bg-white/[0.05] focus:shadow-[0_0_0_3px_rgba(30,107,255,0.18)]"
 );

@@ -5,7 +5,6 @@
  */
 import { useEffect, useMemo, useState } from "react";
 import {
-  Loader2,
   Mail,
   Trash2,
   Archive,
@@ -20,7 +19,16 @@ import {
   type ContactStatus,
 } from "@/services/admin";
 import type { ContactSubmissionRow } from "@/types/database";
-import { PageHeader, Modal, Alert, Badge } from "@/components/admin/ui";
+import {
+  PageHeader,
+  Modal,
+  Alert,
+  Badge,
+  IconButton,
+  ConfirmDialog,
+  EmptyState,
+} from "@/components/admin/ui";
+import { Skeleton, SkeletonGroup } from "@/components/common/Skeleton";
 import { formatDate, cn } from "@/lib/utils";
 
 type Filter = "all" | ContactStatus;
@@ -121,11 +129,13 @@ export default function MessagesAdmin() {
       </div>
 
       {loading ? (
-        <div className="flex min-h-[16rem] items-center justify-center text-ink-muted">
-          <Loader2 className="animate-spin" />
-        </div>
+        <ListSkeleton />
       ) : visible.length === 0 ? (
-        <EmptyState />
+        <EmptyState
+          icon={Inbox}
+          title="No messages here"
+          description="Submissions from the contact form will appear here."
+        />
       ) : (
         <ul className="space-y-3">
           {visible.map((m) => (
@@ -158,6 +168,7 @@ export default function MessagesAdmin() {
                     {m.status !== "archived" ? (
                       <IconButton
                         label="Archive"
+                        size="sm"
                         busy={busyId === m.id}
                         onClick={() => changeStatus(m, "archived")}
                       >
@@ -166,13 +177,14 @@ export default function MessagesAdmin() {
                     ) : (
                       <IconButton
                         label="Move to read"
+                        size="sm"
                         busy={busyId === m.id}
                         onClick={() => changeStatus(m, "read")}
                       >
                         <MailOpen size={15} />
                       </IconButton>
                     )}
-                    <IconButton label="Delete" danger onClick={() => setDeleting(m)}>
+                    <IconButton label="Delete" size="sm" danger onClick={() => setDeleting(m)}>
                       <Trash2 size={15} />
                     </IconButton>
                   </div>
@@ -246,29 +258,17 @@ export default function MessagesAdmin() {
       </Modal>
 
       {/* Delete confirmation */}
-      <Modal open={deleting !== null} onClose={() => setDeleting(null)} title="Delete message">
-        <p className="text-sm text-ink-muted">
-          Delete the message from{" "}
-          <span className="font-medium text-ink">{deleting?.name}</span>? This cannot be
-          undone.
-        </p>
-        <div className="mt-6 flex justify-end gap-3">
-          <button
-            onClick={() => setDeleting(null)}
-            className="rounded-xl px-4 py-2.5 text-sm font-medium text-ink-muted transition-colors hover:text-ink"
-          >
-            Cancel
-          </button>
-          <button
-            onClick={handleDelete}
-            disabled={busyId === deleting?.id}
-            className="inline-flex items-center gap-2 rounded-xl bg-red-500/90 px-4 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-red-500 disabled:opacity-70"
-          >
-            {busyId === deleting?.id && <Loader2 size={16} className="animate-spin" />}
-            Delete
-          </button>
-        </div>
-      </Modal>
+      <ConfirmDialog
+        open={deleting !== null}
+        onClose={() => setDeleting(null)}
+        onConfirm={handleDelete}
+        title="Delete message"
+        busy={busyId === deleting?.id}
+      >
+        Delete the message from{" "}
+        <span className="font-medium text-ink">{deleting?.name}</span>? This cannot be
+        undone.
+      </ConfirmDialog>
     </div>
   );
 }
@@ -299,45 +299,32 @@ function Detail({
   );
 }
 
-function IconButton({
-  children,
-  label,
-  onClick,
-  danger,
-  busy,
-}: {
-  children: React.ReactNode;
-  label: string;
-  onClick: () => void;
-  danger?: boolean;
-  busy?: boolean;
-}) {
+/** Skeleton message list shown while submissions load. */
+function ListSkeleton() {
   return (
-    <button
-      onClick={onClick}
-      title={label}
-      aria-label={label}
-      disabled={busy}
-      className={
-        "flex h-8 w-8 items-center justify-center rounded-lg text-ink-muted transition-colors disabled:opacity-50 " +
-        (danger ? "hover:bg-red-500/10 hover:text-red-300" : "hover:bg-white/5 hover:text-ink")
-      }
-    >
-      {busy ? <Loader2 size={15} className="animate-spin" /> : children}
-    </button>
+    <SkeletonGroup label="Loading messages…" className="space-y-3">
+      {Array.from({ length: 5 }).map((_, i) => (
+        <div
+          key={i}
+          className="rounded-2xl border border-white/10 bg-bg-900/50 p-4"
+        >
+          <div className="flex items-start justify-between gap-4">
+            <div className="min-w-0 flex-1 space-y-2">
+              <Skeleton className="h-4 w-40" />
+              <Skeleton className="h-3 w-56" />
+              <Skeleton className="h-3.5 w-full" />
+            </div>
+            <div className="flex flex-col items-end gap-2">
+              <Skeleton className="h-3 w-16" />
+              <div className="flex gap-1">
+                <Skeleton className="h-8 w-8 rounded-lg" />
+                <Skeleton className="h-8 w-8 rounded-lg" />
+              </div>
+            </div>
+          </div>
+        </div>
+      ))}
+    </SkeletonGroup>
   );
 }
 
-function EmptyState() {
-  return (
-    <div className="flex flex-col items-center rounded-3xl border border-white/10 bg-bg-900/40 p-12 text-center">
-      <div className="flex h-14 w-14 items-center justify-center rounded-full bg-brand/15 ring-1 ring-brand/30">
-        <Inbox className="text-brand-light" />
-      </div>
-      <h3 className="mt-5 font-display text-lg font-semibold text-ink">No messages here</h3>
-      <p className="mt-1 max-w-sm text-sm text-ink-muted">
-        Submissions from the contact form will appear here.
-      </p>
-    </div>
-  );
-}

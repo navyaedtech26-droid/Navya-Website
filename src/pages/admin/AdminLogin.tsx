@@ -6,12 +6,13 @@
 import { useEffect, useState, type FormEvent } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
-import { Loader2, ShieldCheck } from "lucide-react";
+import { ShieldCheck, Eye, EyeOff } from "lucide-react";
 import Seo from "@/components/common/Seo";
 import Container from "@/components/common/Container";
+import { Field, Input } from "@/components/common/Field";
+import { Spinner } from "@/components/common/Spinner";
 import { useAuth } from "@/context/AuthContext";
 import { isSupabaseConfigured, supabase } from "@/lib/supabase";
-import { cn } from "@/lib/utils";
 
 export default function AdminLogin() {
   const navigate = useNavigate();
@@ -19,6 +20,7 @@ export default function AdminLogin() {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -106,27 +108,38 @@ export default function AdminLogin() {
 
             <form onSubmit={handleSubmit} noValidate className="mt-7 flex flex-col gap-4">
               <Field label="Email Address" id="email">
-                <input
+                <Input
                   id="email"
                   type="email"
                   autoComplete="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="admin@navyaedtech.com"
-                  className={inputCls}
                 />
               </Field>
 
               <Field label="Password" id="password">
-                <input
-                  id="password"
-                  type="password"
-                  autoComplete="current-password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  placeholder="••••••••"
-                  className={inputCls}
-                />
+                <div className="relative">
+                  <Input
+                    id="password"
+                    type={showPassword ? "text" : "password"}
+                    autoComplete="current-password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    placeholder="••••••••"
+                    className="pr-12"
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setShowPassword((v) => !v)}
+                    aria-label={showPassword ? "Hide password" : "Show password"}
+                    aria-pressed={showPassword}
+                    title={showPassword ? "Hide password" : "Show password"}
+                    className="absolute inset-y-0 right-0 flex items-center px-3.5 text-ink-muted transition-colors hover:text-ink focus:outline-none focus-visible:text-brand-light"
+                  >
+                    {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                  </button>
+                </div>
               </Field>
 
               <div className="-mt-1 flex justify-end">
@@ -151,7 +164,7 @@ export default function AdminLogin() {
               >
                 {loading ? (
                   <>
-                    <Loader2 size={18} className="animate-spin" />
+                    <Spinner />
                     Signing in...
                   </>
                 ) : (
@@ -169,29 +182,5 @@ export default function AdminLogin() {
         </Container>
       </section>
     </>
-  );
-}
-
-const inputCls = cn(
-  "w-full rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3 text-sm text-ink placeholder:text-ink-muted/60 outline-none transition-all duration-200",
-  "focus:border-brand/60 focus:bg-white/[0.05] focus:shadow-[0_0_0_3px_rgba(30,107,255,0.18)]"
-);
-
-function Field({
-  label,
-  id,
-  children,
-}: {
-  label: string;
-  id: string;
-  children: React.ReactNode;
-}) {
-  return (
-    <div className="flex flex-col gap-2">
-      <label htmlFor={id} className="text-sm font-medium text-ink">
-        {label}
-      </label>
-      {children}
-    </div>
   );
 }

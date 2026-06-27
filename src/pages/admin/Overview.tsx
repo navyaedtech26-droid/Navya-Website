@@ -9,7 +9,6 @@ import {
   MessageSquareQuote,
   Mail,
   FileEdit,
-  Loader2,
   ArrowRight,
   RefreshCw,
 } from "lucide-react";
@@ -23,6 +22,7 @@ import {
 } from "@/services/admin";
 import type { ContactSubmissionRow } from "@/types/database";
 import { PageHeader, Alert, Badge } from "@/components/admin/ui";
+import { Skeleton, SkeletonGroup } from "@/components/common/Skeleton";
 import {
   TrendChart,
   BreakdownChart,
@@ -116,9 +116,7 @@ export default function Overview() {
       {error && <Alert kind="error">{error}</Alert>}
 
       {loading ? (
-        <div className="flex min-h-[16rem] items-center justify-center text-ink-muted">
-          <Loader2 className="animate-spin" />
-        </div>
+        <OverviewSkeleton />
       ) : (
         <>
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
@@ -195,6 +193,45 @@ export default function Overview() {
         </>
       )}
     </div>
+  );
+}
+
+/** Dashboard skeleton: stat cards + chart cards while the first load runs. */
+function OverviewSkeleton() {
+  return (
+    <SkeletonGroup label="Loading dashboard…" className="space-y-8">
+      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        {Array.from({ length: 4 }).map((_, i) => (
+          <div
+            key={i}
+            className="rounded-2xl border border-white/10 bg-bg-900/60 p-5"
+          >
+            <div className="flex items-center justify-between">
+              <Skeleton className="h-10 w-10 rounded-xl" />
+              <Skeleton className="h-4 w-4" />
+            </div>
+            <Skeleton className="mt-4 h-8 w-16" />
+            <Skeleton className="mt-2 h-3.5 w-24" />
+          </div>
+        ))}
+      </div>
+
+      <div className="grid gap-4 lg:grid-cols-2">
+        <div className="rounded-2xl border border-white/10 bg-bg-900/60 p-6 lg:col-span-2">
+          <Skeleton className="h-4 w-40" />
+          <Skeleton className="mt-4 h-64 w-full rounded-xl" />
+        </div>
+        {Array.from({ length: 2 }).map((_, i) => (
+          <div
+            key={i}
+            className="rounded-2xl border border-white/10 bg-bg-900/60 p-6"
+          >
+            <Skeleton className="h-4 w-32" />
+            <Skeleton className="mt-4 h-64 w-full rounded-xl" />
+          </div>
+        ))}
+      </div>
+    </SkeletonGroup>
   );
 }
 

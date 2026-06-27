@@ -12,7 +12,7 @@ export default function Milestones() {
           eyebrow="Our Journey"
           title="The Road"
           highlight="So Far"
-          subtitle="From a single belief to a full-stack growth partner — here's how Navya EdTech has grown."
+          subtitle="From a single belief to a full-stack growth partner. Here's how Navya EdTech has grown."
         />
 
         <div className="relative mx-auto mt-16 max-w-3xl">

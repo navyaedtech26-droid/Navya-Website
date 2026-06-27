@@ -12,9 +12,18 @@
   }
 
   html {
-    scroll-behavior: smooth;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Smooth scrolling is scoped to in-page anchor navigation only — i.e. when a
+     `:target` element is active. This keeps the router's instant scroll-to-top
+     on route changes crisp (no visible scroll animation) while still easing
+     jumps to `#anchors`. Honours prefers-reduced-motion. */
+  @media (prefers-reduced-motion: no-preference) {
+    html:has(:target) {
+      scroll-behavior: smooth;
+    }
   }
 
   body {

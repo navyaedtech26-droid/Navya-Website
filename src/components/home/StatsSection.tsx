@@ -22,7 +22,7 @@ export default function StatsSection() {
           >
             {stats.map((stat) => (
               <motion.div key={stat.label} variants={fadeUp} className="text-center">
-                <div className="font-display text-4xl font-bold text-gradient sm:text-5xl">
+                <div className="font-display text-4xl font-bold text-ink sm:text-5xl">
                   <CounterUp to={stat.value} suffix={stat.suffix} />
                 </div>
                 <p className="mt-2 text-sm text-ink-muted">{stat.label}</p>

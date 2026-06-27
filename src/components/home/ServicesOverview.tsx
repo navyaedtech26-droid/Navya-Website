@@ -16,7 +16,7 @@ export default function ServicesOverview() {
           eyebrow="What We Do"
           title="We Don't Just Build."
           highlight="We Transform."
-          subtitle="From websites and business systems to social media growth — digital solutions designed after understanding your business."
+          subtitle="From websites and business systems to social media growth: digital solutions designed after understanding your business."
         />
 
         <motion.div

@@ -45,13 +45,6 @@ export type TestimonialRow = {
   created_at: string;
 };
 
-export type NewsletterSubscriberRow = {
-  id: string;
-  email: string;
-  source: string | null;
-  created_at: string;
-};
-
 export type BlogPostRow = {
   id: string;
   slug: string;
@@ -97,14 +90,6 @@ export interface Database {
         Row: BlogPostRow;
         Insert: Partial<BlogPostRow> & { slug: string; title: string };
         Update: Partial<BlogPostRow>;
-        Relationships: [];
-      };
-      newsletter_subscribers: {
-        Row: NewsletterSubscriberRow;
-        Insert: Omit<NewsletterSubscriberRow, "id" | "created_at"> & {
-          source?: string | null;
-        };
-        Update: Partial<NewsletterSubscriberRow>;
         Relationships: [];
       };
     };

@@ -1,12 +1,12 @@
-import { useRef, useState, type FormEvent } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { Loader2, Send } from "lucide-react";
-import { cn } from "@/lib/utils";
+import { useState, type FormEvent } from "react";
+import { motion } from "framer-motion";
+import { Send } from "lucide-react";
+import { Field, Input, Textarea, Select } from "@/components/common/Field";
+import { Honeypot } from "@/components/common/Honeypot";
+import { Spinner } from "@/components/common/Spinner";
+import { useSpamGuard } from "@/hooks/useSpamGuard";
 import { submitContact } from "@/services/contact";
-import { cooldownRemaining, cooldownMessage, markUsed } from "@/lib/rateLimit";
 
-/** Minimum time (ms) a human plausibly needs to fill the form. */
-const MIN_FILL_MS = 3000;
 /** Cooldown between submissions from this browser. */
 const SUBMIT_COOLDOWN_MS = 20000;
 
@@ -56,9 +56,7 @@ export default function ContactForm() {
   const [errors, setErrors] = useState<Errors>({});
   const [status, setStatus] = useState<"idle" | "loading" | "success">("idle");
   const [submitError, setSubmitError] = useState<string | null>(null);
-  // Honeypot value + first-render timestamp: invisible bot traps.
-  const [honeypot, setHoneypot] = useState("");
-  const mountedAt = useRef(Date.now());
+  const guard = useSpamGuard("contact", SUBMIT_COOLDOWN_MS);
 
   const update = (key: keyof FormState, value: string) => {
     setForm((f) => ({ ...f, [key]: value }));
@@ -82,16 +80,11 @@ export default function ContactForm() {
     setSubmitError(null);
     if (!validate()) return;
 
-    // Submitted implausibly fast → almost certainly automated.
-    if (Date.now() - mountedAt.current < MIN_FILL_MS) {
-      setSubmitError("Please take a moment to review your details before sending.");
-      return;
-    }
-
-    // Don't let the same browser hammer the form.
-    const remaining = cooldownRemaining("contact", SUBMIT_COOLDOWN_MS);
-    if (remaining > 0) {
-      setSubmitError(cooldownMessage(remaining));
+    const spamError = guard.check(
+      "Please take a moment to review your details before sending."
+    );
+    if (spamError) {
+      setSubmitError(spamError);
       return;
     }
 
@@ -104,11 +97,11 @@ export default function ContactForm() {
       service: form.service,
       budget: form.budget,
       message: form.message,
-      company_website: honeypot,
+      company_website: guard.honeypot,
     });
 
     if (result.ok) {
-      markUsed("contact");
+      guard.markUsed();
       setStatus("success");
     } else {
       setStatus("idle");
@@ -175,66 +168,52 @@ export default function ContactForm() {
       noValidate
       className="rounded-3xl glass p-7 ring-1 ring-white/10 sm:p-9"
     >
-      {/* Honeypot: hidden from humans, irresistible to bots. Kept out of the
-          tab order and the accessibility tree. */}
-      <div aria-hidden className="absolute left-[-9999px] top-[-9999px] h-0 w-0 overflow-hidden">
-        <label htmlFor="company_website">Company website (leave blank)</label>
-        <input
-          id="company_website"
-          name="company_website"
-          type="text"
-          tabIndex={-1}
-          autoComplete="off"
-          value={honeypot}
-          onChange={(e) => setHoneypot(e.target.value)}
-        />
-      </div>
+      <Honeypot
+        id="company_website"
+        label="Company website (leave blank)"
+        value={guard.honeypot}
+        onChange={guard.setHoneypot}
+      />
 
       <div className="grid gap-5 sm:grid-cols-2">
-        <Field
-          label="Full Name"
-          required
-          error={errors.name}
-          id="name"
-        >
-          <input
+        <Field label="Full Name" required error={errors.name} id="name">
+          <Input
             id="name"
             type="text"
             value={form.name}
             onChange={(e) => update("name", e.target.value)}
             placeholder="Jane Doe"
-            className={inputCls(errors.name)}
+            error={!!errors.name}
           />
         </Field>
 
         <Field label="Email Address" required error={errors.email} id="email">
-          <input
+          <Input
             id="email"
             type="email"
             value={form.email}
             onChange={(e) => update("email", e.target.value)}
             placeholder="jane@company.com"
-            className={inputCls(errors.email)}
+            error={!!errors.email}
           />
         </Field>
 
         <Field label="Phone Number" id="phone">
-          <input
+          <Input
             id="phone"
             type="tel"
             value={form.phone}
             onChange={(e) => update("phone", e.target.value)}
             placeholder="+977 98xxxxxxxx"
-            className={inputCls()}
           />
         </Field>
 
         <Field label="Service Interested In" required error={errors.service} id="service">
-          <select
+          <Select
             id="service"
             value={form.service}
             onChange={(e) => update("service", e.target.value)}
-            className={cn(inputCls(errors.service), "appearance-none")}
+            error={!!errors.service}
           >
             <option value="" disabled>
               Select a service
@@ -244,15 +223,14 @@ export default function ContactForm() {
                 {s}
               </option>
             ))}
-          </select>
+          </Select>
         </Field>
 
         <Field label="Project Budget Range" id="budget" className="sm:col-span-2">
-          <select
+          <Select
             id="budget"
             value={form.budget}
             onChange={(e) => update("budget", e.target.value)}
-            className={cn(inputCls(), "appearance-none")}
           >
             <option value="" disabled>
               Select a budget range
@@ -262,7 +240,7 @@ export default function ContactForm() {
                 {b}
               </option>
             ))}
-          </select>
+          </Select>
         </Field>
 
         <Field
@@ -272,19 +250,23 @@ export default function ContactForm() {
           id="message"
           className="sm:col-span-2"
         >
-          <textarea
+          <Textarea
             id="message"
             value={form.message}
             onChange={(e) => update("message", e.target.value)}
             rows={5}
             placeholder="Tell us about your project, goals, and timeline..."
-            className={cn(inputCls(errors.message), "resize-none")}
+            error={!!errors.message}
+            className="resize-none"
           />
         </Field>
       </div>
 
       {submitError && (
-        <p className="mt-5 rounded-xl border border-red-500/40 bg-red-500/10 px-4 py-3 text-sm text-red-300">
+        <p
+          role="alert"
+          className="mt-5 rounded-xl border border-red-500/40 bg-red-500/10 px-4 py-3 text-sm text-red-300"
+        >
           {submitError}
         </p>
       )}
@@ -297,7 +279,7 @@ export default function ContactForm() {
       >
         {status === "loading" ? (
           <>
-            <Loader2 size={18} className="animate-spin" />
+            <Spinner />
             Sending...
           </>
         ) : (
@@ -308,51 +290,5 @@ export default function ContactForm() {
         )}
       </button>
     </form>
-  );
-}
-
-function inputCls(error?: string) {
-  return cn(
-    "w-full rounded-xl border bg-white/[0.03] px-4 py-3 text-sm text-ink placeholder:text-ink-muted/60 outline-none transition-all duration-200",
-    "focus:border-brand/60 focus:bg-white/[0.05] focus:shadow-[0_0_0_3px_rgba(30,107,255,0.18)]",
-    error ? "border-red-500/60" : "border-white/10"
-  );
-}
-
-function Field({
-  label,
-  id,
-  required,
-  error,
-  children,
-  className,
-}: {
-  label: string;
-  id: string;
-  required?: boolean;
-  error?: string;
-  children: React.ReactNode;
-  className?: string;
-}) {
-  return (
-    <div className={cn("flex flex-col gap-2", className)}>
-      <label htmlFor={id} className="text-sm font-medium text-ink">
-        {label}
-        {required && <span className="ml-1 text-cyan-accent">*</span>}
-      </label>
-      {children}
-      <AnimatePresence>
-        {error && (
-          <motion.span
-            initial={{ opacity: 0, y: -4, height: 0 }}
-            animate={{ opacity: 1, y: 0, height: "auto" }}
-            exit={{ opacity: 0, height: 0 }}
-            className="text-xs text-red-400"
-          >
-            {error}
-          </motion.span>
-        )}
-      </AnimatePresence>
-    </div>
   );
 }

@@ -20,6 +20,15 @@ import {
   Newspaper,
   Rocket,
   PieChart,
+  TabletSmartphone,
+  MonitorSmartphone,
+  AppWindow,
+  Palette,
+  Wrench,
+  LineChart,
+  TrendingUp,
+  Database,
+  Brain,
   type LucideIcon,
 } from "lucide-react";
 import type { ServiceCategory, ServiceItem } from "@/types";
@@ -42,6 +51,22 @@ export const serviceCategories: ServiceCategory[] = [
     ],
   },
   {
+    id: "apps",
+    icon: Smartphone,
+    title: "App Development",
+    subtitle: "Mobile apps that engage users",
+    description:
+      "Native and cross-platform mobile apps built for performance, beautiful UX, and real business results.",
+    items: [
+      "iOS Apps",
+      "Android Apps",
+      "Cross-Platform Apps",
+      "Progressive Web Apps",
+      "App UI/UX Design",
+      "App Maintenance",
+    ],
+  },
+  {
     id: "systems",
     icon: LayoutDashboard,
     title: "System Development",
@@ -56,6 +81,22 @@ export const serviceCategories: ServiceCategory[] = [
       "ERP Platforms",
       "BI Dashboards",
       "E-Commerce Systems",
+    ],
+  },
+  {
+    id: "business-intelligence",
+    icon: LineChart,
+    title: "Business Intelligence",
+    subtitle: "Turn data into decisions",
+    description:
+      "Dashboards, analytics, and reporting that transform raw data into clear, actionable insights.",
+    items: [
+      "BI Dashboards",
+      "Data Visualization",
+      "Reporting & Analytics",
+      "KPI Tracking",
+      "Data Warehousing",
+      "Predictive Insights",
     ],
   },
   {
@@ -106,6 +147,39 @@ export const websiteServices: ServiceItem[] = [
   },
 ];
 
+export const appServices: ServiceItem[] = [
+  {
+    icon: Smartphone,
+    title: "iOS App Development",
+    description: "Native iPhone and iPad apps crafted for speed, polish, and the Apple ecosystem.",
+  },
+  {
+    icon: TabletSmartphone,
+    title: "Android App Development",
+    description: "High-performance Android apps built to reach the widest possible audience.",
+  },
+  {
+    icon: MonitorSmartphone,
+    title: "Cross-Platform Apps",
+    description: "One codebase, every device — Flutter and React Native apps that ship faster.",
+  },
+  {
+    icon: AppWindow,
+    title: "Progressive Web Apps",
+    description: "Installable, offline-ready web apps that feel native without the app store.",
+  },
+  {
+    icon: Palette,
+    title: "App UI/UX Design",
+    description: "Intuitive, beautiful interfaces designed to keep users engaged and coming back.",
+  },
+  {
+    icon: Wrench,
+    title: "App Maintenance & Support",
+    description: "Updates, monitoring, and improvements that keep your app fast and reliable.",
+  },
+];
+
 export const systemServices: ServiceItem[] = [
   {
     icon: Boxes,
@@ -141,6 +215,39 @@ export const systemServices: ServiceItem[] = [
     icon: Store,
     title: "E-Commerce System",
     description: "Scalable backend for catalogs, orders, and multi-channel selling.",
+  },
+];
+
+export const biServices: ServiceItem[] = [
+  {
+    icon: LayoutDashboard,
+    title: "BI Dashboards",
+    description: "Interactive dashboards that surface the metrics that matter, in real time.",
+  },
+  {
+    icon: BarChart3,
+    title: "Data Visualization",
+    description: "Clear, compelling charts that turn complex datasets into instant understanding.",
+  },
+  {
+    icon: PieChart,
+    title: "Reporting & Analytics",
+    description: "Automated reports and deep analytics that reveal what's driving your business.",
+  },
+  {
+    icon: TrendingUp,
+    title: "KPI & Performance Tracking",
+    description: "Live scorecards that track goals and KPIs and keep every team aligned.",
+  },
+  {
+    icon: Database,
+    title: "Data Warehousing",
+    description: "Centralize data from every source into one clean, query-ready foundation.",
+  },
+  {
+    icon: Brain,
+    title: "Predictive Insights",
+    description: "Forecasting and trend analysis that help you act before the competition.",
   },
 ];
 

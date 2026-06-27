@@ -5,7 +5,8 @@
  */
 import { useEffect, type ReactNode } from "react";
 import { createPortal } from "react-dom";
-import { X } from "lucide-react";
+import { X, type LucideIcon } from "lucide-react";
+import { Spinner } from "@/components/common/Spinner";
 import { cn } from "@/lib/utils";
 
 export function PageHeader({
@@ -131,7 +132,7 @@ export function Field({
 }
 
 export const inputCls = cn(
-  "w-full rounded-xl border border-white/10 bg-white/[0.03] px-3.5 py-2.5 text-sm text-ink placeholder:text-ink-muted/60 outline-none transition-all duration-200",
+  "w-full rounded-xl border border-white/10 bg-white/[0.03] px-3.5 py-2.5 text-sm text-ink placeholder:text-ink-muted/70 outline-none transition-all duration-200",
   "focus:border-brand/60 focus:bg-white/[0.05] focus:shadow-[0_0_0_3px_rgba(30,107,255,0.18)]"
 );
 
@@ -153,5 +154,139 @@ export function Badge({
     >
       {children}
     </span>
+  );
+}
+
+/** Square, icon-only action button used in table/list/card rows. */
+export function IconButton({
+  children,
+  label,
+  onClick,
+  danger,
+  busy,
+  size = "md",
+}: {
+  children: ReactNode;
+  label: string;
+  onClick: () => void;
+  danger?: boolean;
+  busy?: boolean;
+  size?: "sm" | "md";
+}) {
+  return (
+    <button
+      onClick={onClick}
+      title={label}
+      aria-label={label}
+      disabled={busy}
+      className={cn(
+        "flex items-center justify-center rounded-lg text-ink-muted transition-colors disabled:opacity-50",
+        size === "sm" ? "h-8 w-8" : "h-9 w-9",
+        danger
+          ? "hover:bg-red-500/10 hover:text-red-300"
+          : "hover:bg-white/5 hover:text-ink"
+      )}
+    >
+      {busy ? <Spinner size={15} /> : children}
+    </button>
+  );
+}
+
+/**
+ * Destructive confirmation modal (delete a post / testimonial / message). The
+ * body copy is passed as children so each caller can name the target inline.
+ */
+export function ConfirmDialog({
+  open,
+  onClose,
+  onConfirm,
+  title,
+  busy,
+  confirmLabel = "Delete",
+  children,
+}: {
+  open: boolean;
+  onClose: () => void;
+  onConfirm: () => void;
+  title: string;
+  busy?: boolean;
+  confirmLabel?: string;
+  children: ReactNode;
+}) {
+  return (
+    <Modal open={open} onClose={onClose} title={title}>
+      <p className="text-sm text-ink-muted">{children}</p>
+      <div className="mt-6 flex justify-end gap-3">
+        <button
+          onClick={onClose}
+          className="rounded-xl px-4 py-2.5 text-sm font-medium text-ink-muted transition-colors hover:text-ink"
+        >
+          Cancel
+        </button>
+        <button
+          onClick={onConfirm}
+          disabled={busy}
+          className="inline-flex items-center gap-2 rounded-xl bg-red-500/90 px-4 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-red-500 disabled:opacity-70"
+        >
+          {busy && <Spinner size={16} />}
+          {confirmLabel}
+        </button>
+      </div>
+    </Modal>
+  );
+}
+
+/** Centered "nothing here yet" panel with an icon, copy and an optional action. */
+export function EmptyState({
+  icon: Icon,
+  title,
+  description,
+  action,
+}: {
+  icon: LucideIcon;
+  title: string;
+  description: string;
+  action?: ReactNode;
+}) {
+  return (
+    <div className="flex flex-col items-center rounded-3xl border border-white/10 bg-bg-900/40 p-12 text-center">
+      <div className="flex h-14 w-14 items-center justify-center rounded-full bg-brand/15 ring-1 ring-brand/30">
+        <Icon className="text-brand-light" />
+      </div>
+      <h3 className="mt-5 font-display text-lg font-semibold text-ink">{title}</h3>
+      <p className="mt-1 max-w-sm text-sm text-ink-muted">{description}</p>
+      {action && <div className="mt-5">{action}</div>}
+    </div>
+  );
+}
+
+/** Cancel + submit footer for the admin form modals, with a busy spinner. */
+export function FormActions({
+  onCancel,
+  busy,
+  submitLabel,
+}: {
+  onCancel: () => void;
+  busy?: boolean;
+  submitLabel: string;
+}) {
+  return (
+    <div className="mt-2 flex justify-end gap-3">
+      <button
+        type="button"
+        onClick={onCancel}
+        className="rounded-xl px-4 py-2.5 text-sm font-medium text-ink-muted transition-colors hover:text-ink"
+      >
+        Cancel
+      </button>
+      <button
+        type="submit"
+        disabled={busy}
+        className="inline-flex items-center gap-2 rounded-xl bg-brand-gradient px-5 py-2.5 text-sm font-semibold text-white shadow-glow-sm transition-shadow hover:shadow-glow disabled:opacity-70"
+      >
+        {busy && <Spinner size={16} />}
+        {submitLabel}
+      </button>
+    </div>
   );
 }

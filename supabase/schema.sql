@@ -179,34 +179,6 @@ create trigger trg_contact_rules
   for each row execute function public.enforce_contact_rules();
 
 -- =============================================================================
--- newsletter_subscribers  (footer subscribe form)
--- =============================================================================
-create table if not exists public.newsletter_subscribers (
-  id          uuid primary key default gen_random_uuid(),
-  email       text not null unique,
-  source      text,
-  created_at  timestamptz not null default now()
-);
-
-create index if not exists idx_newsletter_created_at
-  on public.newsletter_subscribers (created_at desc);
-
-alter table public.newsletter_subscribers enable row level security;
-
-drop policy if exists "newsletter: anyone can subscribe" on public.newsletter_subscribers;
-drop policy if exists "newsletter: admin manage"         on public.newsletter_subscribers;
-
-create policy "newsletter: anyone can subscribe"
-  on public.newsletter_subscribers for insert
-  to anon, authenticated
-  with check (email ~ '^[^@[:space:]]+@[^@[:space:]]+\.[^@[:space:]]+$');
-
-create policy "newsletter: admin manage"
-  on public.newsletter_subscribers for all
-  using (public.is_admin())
-  with check (public.is_admin());
-
--- =============================================================================
 -- testimonials
 -- =============================================================================
 create table if not exists public.testimonials (

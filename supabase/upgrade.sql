@@ -4,7 +4,6 @@
 -- Run this on an EXISTING database that was created from an earlier version of
 -- `schema.sql`. It adds:
 --   • Server-side spam protection + throttling on the contact form
---   • A `newsletter_subscribers` table (public subscribe, admin manage)
 --   • A public "submit a testimonial" RLS policy (moderated: stays hidden)
 --   • A public `blog-images` Storage bucket for the blog editor uploads
 --
@@ -61,36 +60,7 @@ create trigger trg_contact_rules
   for each row execute function public.enforce_contact_rules();
 
 -- -----------------------------------------------------------------------------
--- 2. Newsletter subscribers
--- -----------------------------------------------------------------------------
-create table if not exists public.newsletter_subscribers (
-  id          uuid primary key default gen_random_uuid(),
-  email       text not null unique,
-  source      text,                         -- where they subscribed, e.g. 'footer'
-  created_at  timestamptz not null default now()
-);
-
-create index if not exists idx_newsletter_created_at
-  on public.newsletter_subscribers (created_at desc);
-
-alter table public.newsletter_subscribers enable row level security;
-
-drop policy if exists "newsletter: anyone can subscribe" on public.newsletter_subscribers;
-drop policy if exists "newsletter: admin manage"         on public.newsletter_subscribers;
-
--- Anyone may subscribe; a basic format check keeps obvious junk out.
-create policy "newsletter: anyone can subscribe"
-  on public.newsletter_subscribers for insert
-  to anon, authenticated
-  with check (email ~ '^[^@[:space:]]+@[^@[:space:]]+\.[^@[:space:]]+$');
-
-create policy "newsletter: admin manage"
-  on public.newsletter_subscribers for all
-  using (public.is_admin())
-  with check (public.is_admin());
-
--- -----------------------------------------------------------------------------
--- 3. Public testimonial submissions (moderated)
+-- 2. Public testimonial submissions (moderated)
 -- -----------------------------------------------------------------------------
 -- Visitors may submit a testimonial, but only as an UNPUBLISHED draft. An admin
 -- reviews it in the dashboard and flips `is_published` to show it on the site.
@@ -102,7 +72,7 @@ create policy "testimonials: public submit"
   with check (is_published = false);
 
 -- -----------------------------------------------------------------------------
--- 4. Blog image storage bucket
+-- 3. Blog image storage bucket
 -- -----------------------------------------------------------------------------
 -- A public bucket: anyone can read (so <img> tags work), only admins can write.
 insert into storage.buckets (id, name, public)

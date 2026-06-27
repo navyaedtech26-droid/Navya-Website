@@ -80,7 +80,7 @@ export default function TeamSection() {
           eyebrow="The People Behind It"
           title="Meet the"
           highlight="Founders"
-          subtitle="Four founders, four disciplines — engineering, design, systems and growth under one roof, so you only ever need one partner."
+          subtitle="Four founders, four disciplines: engineering, design, systems, and growth under one roof, so you only ever need one partner."
         />
 
         <motion.div

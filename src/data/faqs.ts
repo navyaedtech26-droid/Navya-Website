@@ -7,7 +7,7 @@ export const generalFaqs: Faq[] = [
   {
     question: "How long does it take to build a website or system?",
     answer:
-      "A focused marketing website typically ships in 2–4 weeks, while larger systems like ERP, CRM, or LMS platforms run 6–12 weeks depending on scope. After our discovery call we give you a clear timeline with milestones — no vague estimates.",
+      "A focused marketing website typically ships in 2–4 weeks, while larger systems like ERP, CRM, or LMS platforms run 6–12 weeks depending on scope. After our discovery call we give you a clear timeline with milestones, not vague estimates.",
   },
   {
     question: "Do you work with businesses outside your city?",
@@ -17,7 +17,7 @@ export const generalFaqs: Faq[] = [
   {
     question: "Will my website be mobile-friendly and SEO-ready?",
     answer:
-      "Every build is mobile-first and engineered for speed, clean markup, and structured data from day one — so it looks flawless on every device and is built to rank well in search.",
+      "Every build is mobile-first and engineered for speed, clean markup, and structured data from day one, so it looks flawless on every device and is built to rank well in search.",
   },
   {
     question: "Do you provide support after launch?",
@@ -27,7 +27,7 @@ export const generalFaqs: Faq[] = [
   {
     question: "Can you redesign or upgrade my existing website?",
     answer:
-      "Definitely. We audit what you already have, keep what's working, and rebuild the rest on a modern, fast, and scalable foundation — often without any downtime for your users.",
+      "Definitely. We audit what you already have, keep what's working, and rebuild the rest on a modern, fast, and scalable foundation, often without any downtime for your users.",
   },
 ];
 
@@ -35,12 +35,12 @@ export const servicesFaqs: Faq[] = [
   {
     question: "What technologies do you build with?",
     answer:
-      "We work with a modern stack — React, Next.js, Node.js, PHP, and MySQL — paired with Tailwind CSS and Framer Motion for polished, performant interfaces. We always pick the right tool for your specific goals.",
+      "We work with a modern stack of React, Next.js, Node.js, PHP, and MySQL, paired with Tailwind CSS and Framer Motion for polished, performant interfaces. We always pick the right tool for your specific goals.",
   },
   {
     question: "Can you build a custom system instead of using off-the-shelf software?",
     answer:
-      "Yes — that's our specialty. Inventory, CRM, billing, ERP, LMS, and BI systems are built around your exact workflows, so you're never forced to bend your business to fit someone else's software.",
+      "Yes, that's our specialty. Inventory, CRM, billing, ERP, LMS, and BI systems are built around your exact workflows, so you're never forced to bend your business to fit someone else's software.",
   },
   {
     question: "Do you handle hosting, domains, and deployment?",
@@ -55,7 +55,7 @@ export const servicesFaqs: Faq[] = [
   {
     question: "Do you also handle social media and content?",
     answer:
-      "Yes. Beyond websites and systems, we offer content creation, reels, scripts, graphics, and paid campaigns — so your digital presence stays consistent and keeps growing.",
+      "Yes. Beyond websites and systems, we offer content creation, reels, scripts, graphics, and paid campaigns, so your digital presence stays consistent and keeps growing.",
   },
 ];
 
@@ -63,7 +63,7 @@ export const contactFaqs: Faq[] = [
   {
     question: "What happens after I send a message?",
     answer:
-      "We reply within 24 hours to schedule a short discovery call. We'll learn about your goals, answer questions, and outline a clear plan — with no pressure and no obligation.",
+      "We reply within 24 hours to schedule a short discovery call. We'll learn about your goals, answer questions, and outline a clear plan, with no pressure and no obligation.",
   },
   {
     question: "How much does a project cost?",
@@ -73,7 +73,7 @@ export const contactFaqs: Faq[] = [
   {
     question: "Do I need to have everything figured out first?",
     answer:
-      "Not at all. Many clients come to us with just an idea or a problem. We help shape it into a clear plan through our discovery and analysis process — that's exactly what the first conversation is for.",
+      "Not at all. Many clients come to us with just an idea or a problem. We help shape it into a clear plan through our discovery and analysis process. That's exactly what the first conversation is for.",
   },
   {
     question: "Which information should I share to get started?",

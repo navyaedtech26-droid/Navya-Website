@@ -177,7 +177,7 @@ export default function CompanyStory() {
             </Reveal>
             <Reveal delay={0.1}>
               <h2 className="mt-5 font-display text-3xl font-semibold leading-tight text-ink sm:text-4xl">
-                A digital partner built for <span className="text-gradient">modern businesses</span>
+                A digital partner built for <span className="text-ink">modern businesses</span>
               </h2>
             </Reveal>
             <Reveal delay={0.2}>
@@ -191,7 +191,7 @@ export default function CompanyStory() {
             <Reveal delay={0.3}>
               <p className="mt-4 text-base leading-relaxed text-ink-muted">
                 From a first landing page to a full ERP rollout, we obsess over speed,
-                clarity, and the details that make software a joy to use — so your team
+                clarity, and the details that make software a joy to use, so your team
                 and your customers feel the difference.
               </p>
             </Reveal>

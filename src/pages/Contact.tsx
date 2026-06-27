@@ -1,3 +1,4 @@
+import { Clock, MessageSquare, FileText, ShieldCheck } from "lucide-react";
 import Seo from "@/components/common/Seo";
 import PageTransition from "@/components/effects/PageTransition";
 import PageHero from "@/components/common/PageHero";
@@ -9,7 +10,7 @@ import WhatHappensNext from "@/components/contact/WhatHappensNext";
 import FaqSection from "@/components/common/FaqSection";
 import CTASection from "@/components/common/CTASection";
 import { contactFaqs } from "@/data/faqs";
-import { faqPageSchema } from "@/lib/structuredData";
+import { faqPageSchema, breadcrumbSchema } from "@/lib/structuredData";
 
 export default function Contact() {
   return (
@@ -18,7 +19,13 @@ export default function Contact() {
         title="Contact | Navya EdTech"
         description="Contact Navya EdTech to build your website, e-commerce platform, or business management system."
         path="/contact"
-        jsonLd={faqPageSchema(contactFaqs)}
+        jsonLd={[
+          breadcrumbSchema([
+            { name: "Home", path: "/" },
+            { name: "Contact", path: "/contact" },
+          ]),
+          faqPageSchema(contactFaqs),
+        ]}
       />
 
       <PageHero
@@ -26,6 +33,12 @@ export default function Contact() {
         title="Let's Build Something"
         highlight="Great Together"
         subtitle="Have an idea or project? Let's turn it into a powerful digital solution."
+        highlights={[
+          { icon: Clock, label: "Reply within 24 hours" },
+          { icon: MessageSquare, label: "Free consultation" },
+          { icon: FileText, label: "No-obligation quote" },
+          { icon: ShieldCheck, label: "Your details stay private" },
+        ]}
       />
 
       <section className="relative py-12">

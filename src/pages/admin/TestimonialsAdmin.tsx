@@ -4,7 +4,7 @@
  * (ascending).
  */
 import { useEffect, useState, type FormEvent } from "react";
-import { Loader2, Plus, Pencil, Trash2, Star, MessageSquareQuote } from "lucide-react";
+import { Plus, Pencil, Trash2, Star, MessageSquareQuote } from "lucide-react";
 import {
   listTestimonials,
   createTestimonial,
@@ -14,7 +14,20 @@ import {
   type TestimonialInput,
 } from "@/services/admin";
 import type { TestimonialRow } from "@/types/database";
-import { PageHeader, Modal, Alert, Field, Badge, inputCls } from "@/components/admin/ui";
+import {
+  PageHeader,
+  Modal,
+  Alert,
+  Field,
+  Badge,
+  inputCls,
+  IconButton,
+  ConfirmDialog,
+  EmptyState,
+  FormActions,
+} from "@/components/admin/ui";
+import { Skeleton, SkeletonGroup } from "@/components/common/Skeleton";
+import { Spinner } from "@/components/common/Spinner";
 import { cn } from "@/lib/utils";
 
 const EMPTY: TestimonialInput = {
@@ -109,11 +122,22 @@ export default function TestimonialsAdmin() {
       {error && <Alert kind="error">{error}</Alert>}
 
       {loading ? (
-        <div className="flex min-h-[16rem] items-center justify-center text-ink-muted">
-          <Loader2 className="animate-spin" />
-        </div>
+        <GridSkeleton />
       ) : items.length === 0 ? (
-        <EmptyState onCreate={() => setCreating(true)} />
+        <EmptyState
+          icon={MessageSquareQuote}
+          title="No testimonials yet"
+          description="Add client quotes to build trust. The public site falls back to sample quotes until you publish real ones."
+          action={
+            <button
+              onClick={() => setCreating(true)}
+              className="inline-flex items-center gap-2 rounded-xl bg-brand-gradient px-4 py-2.5 text-sm font-semibold text-white shadow-glow-sm transition-shadow hover:shadow-glow"
+            >
+              <Plus size={16} />
+              New testimonial
+            </button>
+          }
+        />
       ) : (
         <div className="grid gap-4 sm:grid-cols-2">
           {items.map((t) => (
@@ -153,17 +177,17 @@ export default function TestimonialsAdmin() {
                     className="rounded-lg px-2.5 py-1.5 text-xs font-medium text-ink-muted transition-colors hover:bg-white/5 hover:text-ink disabled:opacity-50"
                   >
                     {togglingId === t.id ? (
-                      <Loader2 size={14} className="animate-spin" />
+                      <Spinner size={14} />
                     ) : t.is_published ? (
                       "Hide"
                     ) : (
                       "Publish"
                     )}
                   </button>
-                  <IconButton label="Edit" onClick={() => setEditing(t)}>
+                  <IconButton label="Edit" size="sm" onClick={() => setEditing(t)}>
                     <Pencil size={15} />
                   </IconButton>
-                  <IconButton label="Delete" danger onClick={() => setDeleting(t)}>
+                  <IconButton label="Delete" size="sm" danger onClick={() => setDeleting(t)}>
                     <Trash2 size={15} />
                   </IconButton>
                 </div>
@@ -183,33 +207,17 @@ export default function TestimonialsAdmin() {
         onSaved={handleSaved}
       />
 
-      <Modal
+      <ConfirmDialog
         open={deleting !== null}
         onClose={() => setDeleting(null)}
+        onConfirm={handleDelete}
         title="Delete testimonial"
+        busy={deleteBusy}
       >
-        <p className="text-sm text-ink-muted">
-          Delete the testimonial from{" "}
-          <span className="font-medium text-ink">{deleting?.name}</span>? This cannot be
-          undone.
-        </p>
-        <div className="mt-6 flex justify-end gap-3">
-          <button
-            onClick={() => setDeleting(null)}
-            className="rounded-xl px-4 py-2.5 text-sm font-medium text-ink-muted transition-colors hover:text-ink"
-          >
-            Cancel
-          </button>
-          <button
-            onClick={handleDelete}
-            disabled={deleteBusy}
-            className="inline-flex items-center gap-2 rounded-xl bg-red-500/90 px-4 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-red-500 disabled:opacity-70"
-          >
-            {deleteBusy && <Loader2 size={16} className="animate-spin" />}
-            Delete
-          </button>
-        </div>
-      </Modal>
+        Delete the testimonial from{" "}
+        <span className="font-medium text-ink">{deleting?.name}</span>? This cannot be
+        undone.
+      </ConfirmDialog>
     </div>
   );
 }
@@ -385,74 +393,44 @@ function TestimonialForm({
 
         {error && <Alert kind="error">{error}</Alert>}
 
-        <div className="mt-2 flex justify-end gap-3">
-          <button
-            type="button"
-            onClick={onClose}
-            className="rounded-xl px-4 py-2.5 text-sm font-medium text-ink-muted transition-colors hover:text-ink"
-          >
-            Cancel
-          </button>
-          <button
-            type="submit"
-            disabled={busy}
-            className="inline-flex items-center gap-2 rounded-xl bg-brand-gradient px-5 py-2.5 text-sm font-semibold text-white shadow-glow-sm transition-shadow hover:shadow-glow disabled:opacity-70"
-          >
-            {busy && <Loader2 size={16} className="animate-spin" />}
-            {item ? "Save changes" : "Create"}
-          </button>
-        </div>
+        <FormActions
+          onCancel={onClose}
+          busy={busy}
+          submitLabel={item ? "Save changes" : "Create"}
+        />
       </form>
     </Modal>
   );
 }
 
-function IconButton({
-  children,
-  label,
-  onClick,
-  danger,
-}: {
-  children: React.ReactNode;
-  label: string;
-  onClick: () => void;
-  danger?: boolean;
-}) {
+/** Skeleton card grid shown while testimonials load. */
+function GridSkeleton() {
   return (
-    <button
-      onClick={onClick}
-      title={label}
-      aria-label={label}
-      className={
-        "flex h-8 w-8 items-center justify-center rounded-lg text-ink-muted transition-colors " +
-        (danger ? "hover:bg-red-500/10 hover:text-red-300" : "hover:bg-white/5 hover:text-ink")
-      }
-    >
-      {children}
-    </button>
+    <SkeletonGroup label="Loading testimonials…" className="grid gap-4 sm:grid-cols-2">
+      {Array.from({ length: 4 }).map((_, i) => (
+        <div
+          key={i}
+          className="flex flex-col rounded-2xl border border-white/10 bg-bg-900/50 p-5"
+        >
+          <div className="flex items-center justify-between">
+            <Skeleton className="h-4 w-24" />
+            <Skeleton className="h-5 w-16 rounded-full" />
+          </div>
+          <div className="mt-3 space-y-2">
+            <Skeleton className="h-3.5 w-full" />
+            <Skeleton className="h-3.5 w-full" />
+            <Skeleton className="h-3.5 w-2/3" />
+          </div>
+          <div className="mt-4 flex items-end justify-between gap-3">
+            <div className="space-y-1.5">
+              <Skeleton className="h-3.5 w-28" />
+              <Skeleton className="h-3 w-20" />
+            </div>
+            <Skeleton className="h-8 w-16 rounded-lg" />
+          </div>
+        </div>
+      ))}
+    </SkeletonGroup>
   );
 }
 
-function EmptyState({ onCreate }: { onCreate: () => void }) {
-  return (
-    <div className="flex flex-col items-center rounded-3xl border border-white/10 bg-bg-900/40 p-12 text-center">
-      <div className="flex h-14 w-14 items-center justify-center rounded-full bg-brand/15 ring-1 ring-brand/30">
-        <MessageSquareQuote className="text-brand-light" />
-      </div>
-      <h3 className="mt-5 font-display text-lg font-semibold text-ink">
-        No testimonials yet
-      </h3>
-      <p className="mt-1 max-w-sm text-sm text-ink-muted">
-        Add client quotes to build trust. The public site falls back to sample
-        quotes until you publish real ones.
-      </p>
-      <button
-        onClick={onCreate}
-        className="mt-5 inline-flex items-center gap-2 rounded-xl bg-brand-gradient px-4 py-2.5 text-sm font-semibold text-white shadow-glow-sm transition-shadow hover:shadow-glow"
-      >
-        <Plus size={16} />
-        New testimonial
-      </button>
-    </div>
-  );
-}

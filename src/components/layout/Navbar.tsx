@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link, NavLink as RouterNavLink } from "react-router-dom";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { Menu } from "lucide-react";
 import { navLinks } from "@/data/navigation";
 import { easeEntrance } from "@/lib/animations";
@@ -10,6 +10,7 @@ import MobileMenu from "./MobileMenu";
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const reduceMotion = useReducedMotion();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
@@ -21,9 +22,9 @@ export default function Navbar() {
   return (
     <>
       <motion.header
-        initial={{ y: -80, opacity: 0 }}
+        initial={reduceMotion ? { opacity: 0 } : { y: -24, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.6, ease: easeEntrance }}
+        transition={{ duration: 0.4, ease: easeEntrance }}
         className="fixed inset-x-0 top-0 z-50 flex justify-center px-4 pt-4"
       >
         <nav

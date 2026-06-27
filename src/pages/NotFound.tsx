@@ -12,7 +12,7 @@ export default function NotFound() {
   return (
     <PageTransition>
       <Seo
-        title="404 — Page Not Found | Navya EdTech"
+        title="404: Page Not Found | Navya EdTech"
         description="The page you are looking for could not be found. Return to Navya EdTech's homepage."
         path="/404"
         index={false}
@@ -30,7 +30,7 @@ export default function NotFound() {
             className="mx-auto max-w-xl text-center"
           >
             <motion.div variants={fadeUp} className="relative inline-block">
-              <h1 className="font-display text-[7rem] font-bold leading-none tracking-tighter text-gradient sm:text-[11rem]">
+              <h1 className="font-display text-[7rem] font-bold leading-none tracking-tighter text-ink sm:text-[11rem]">
                 404
               </h1>
               {!reduced && (

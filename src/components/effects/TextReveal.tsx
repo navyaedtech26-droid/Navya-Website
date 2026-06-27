@@ -42,7 +42,7 @@ export default function TextReveal({
                 variants={wordChild}
                 className={cn(
                   "inline-block",
-                  isHighlight && "text-gradient"
+                  isHighlight && "text-ink"
                 )}
                 style={{ transformOrigin: "bottom" }}
               >
