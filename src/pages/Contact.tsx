@@ -1,7 +1,6 @@
-import { Clock, MessageSquare, FileText, ShieldCheck } from "lucide-react";
 import Seo from "@/components/common/Seo";
 import PageTransition from "@/components/effects/PageTransition";
-import PageHero from "@/components/common/PageHero";
+import ContactHero from "@/components/heroes/ContactHero";
 import Container from "@/components/common/Container";
 import Reveal from "@/components/effects/Reveal";
 import ContactForm from "@/components/contact/ContactForm";
@@ -28,20 +27,9 @@ export default function Contact() {
         ]}
       />
 
-      <PageHero
-        eyebrow="Get in Touch"
-        title="Let's Build Something"
-        highlight="Great Together"
-        subtitle="Have an idea or project? Let's turn it into a powerful digital solution."
-        highlights={[
-          { icon: Clock, label: "Reply within 24 hours" },
-          { icon: MessageSquare, label: "Free consultation" },
-          { icon: FileText, label: "No-obligation quote" },
-          { icon: ShieldCheck, label: "Your details stay private" },
-        ]}
-      />
+      <ContactHero />
 
-      <section className="relative py-12">
+      <section id="contact-form" className="relative scroll-mt-24 py-12">
         <Container>
           <div className="grid gap-8 lg:grid-cols-[1.4fr_1fr]">
             <Reveal>

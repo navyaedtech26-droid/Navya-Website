@@ -7,6 +7,8 @@ interface ImportMetaEnv {
   readonly VITE_SUPABASE_URL?: string;
   /** Supabase public anon key (safe in the browser; gated by RLS). */
   readonly VITE_SUPABASE_ANON_KEY?: string;
+  /** Sentry DSN. When set, errors are reported in production. Optional. */
+  readonly VITE_SENTRY_DSN?: string;
 }
 
 interface ImportMeta {

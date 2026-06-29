@@ -4,6 +4,9 @@
  * enforced by storage RLS policies.
  */
 import { supabase, isSupabaseConfigured } from "@/lib/supabase";
+import { logger } from "@/lib/logger";
+
+const log = logger.scope("storage");
 
 const BUCKET = "blog-images";
 const MAX_BYTES = 5 * 1024 * 1024; // 5 MB
@@ -36,7 +39,7 @@ export async function uploadBlogImage(file: File): Promise<UploadResult> {
   });
 
   if (error) {
-    console.error("[storage] upload failed:", error.message);
+    log.error("upload failed", error);
     return { error: "Upload failed. Please try again." };
   }
 

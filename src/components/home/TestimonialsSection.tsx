@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { Star, Quote } from "lucide-react";
+import { Star, Quote, PenLine, ArrowRight } from "lucide-react";
 import Container from "@/components/common/Container";
 import SectionHeading from "@/components/common/SectionHeading";
 import IconBadge from "@/components/common/IconBadge";
@@ -34,6 +35,36 @@ export default function TestimonialsSection() {
           subtitle="We measure our success by the growth of the people we build for. Here's what partnering with Navya EdTech feels like."
         />
 
+        {testimonials.length === 0 ? (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={viewportOnce}
+            transition={{ duration: 0.5 }}
+            className="mx-auto mt-14 flex max-w-xl flex-col items-center gap-5 rounded-3xl glass p-10 text-center ring-1 ring-white/10"
+          >
+            <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-brand/15 ring-1 ring-brand/30">
+              <Quote className="text-brand-light" />
+            </div>
+            <p className="text-base leading-relaxed text-ink-muted">
+              We're collecting stories from the people we build for. Worked with
+              Navya EdTech? Be the first to share your experience.
+            </p>
+            <Link
+              to="/share-your-story"
+              data-cursor="hover"
+              className="group inline-flex items-center gap-2 rounded-2xl bg-brand-gradient px-6 py-3.5 text-sm font-semibold text-bg shadow-glow-sm transition-all duration-300 hover:shadow-glow"
+            >
+              <PenLine size={16} />
+              Share Your Experience
+              <ArrowRight
+                size={16}
+                className="transition-transform duration-200 group-hover:translate-x-0.5"
+              />
+            </Link>
+          </motion.div>
+        ) : (
+          <>
         <motion.div
           variants={staggerContainer(0.1)}
           initial="hidden"
@@ -60,6 +91,11 @@ export default function TestimonialsSection() {
                 ))}
               </div>
 
+              {/* SECURITY INVARIANT: testimonial quotes are visitor-authored
+                  (submitted unpublished, then admin-moderated). Always render
+                  them as plain text — React escapes this — and NEVER run a
+                  testimonial through <Markdown> or dangerouslySetInnerHTML, or
+                  it becomes a stored-XSS surface. */}
               <p className="relative mt-5 text-base leading-relaxed text-ink/90">
                 “{t.quote}”
               </p>
@@ -76,6 +112,32 @@ export default function TestimonialsSection() {
             </motion.div>
           ))}
         </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={viewportOnce}
+          transition={{ duration: 0.5 }}
+          className="mt-14 flex flex-col items-center gap-4 text-center"
+        >
+          <p className="text-sm text-ink-muted">
+            Worked with Navya EdTech? We'd love to feature your story.
+          </p>
+          <Link
+            to="/share-your-story"
+            data-cursor="hover"
+            className="group inline-flex items-center gap-2 rounded-2xl bg-brand-gradient px-6 py-3.5 text-sm font-semibold text-bg shadow-glow-sm transition-all duration-300 hover:shadow-glow"
+          >
+            <PenLine size={16} />
+            Share Your Experience
+            <ArrowRight
+              size={16}
+              className="transition-transform duration-200 group-hover:translate-x-0.5"
+            />
+          </Link>
+        </motion.div>
+          </>
+        )}
       </Container>
     </section>
   );

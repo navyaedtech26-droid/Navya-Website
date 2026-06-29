@@ -12,7 +12,7 @@ interface BaseProps {
 
 const variants: Record<Variant, string> = {
   primary:
-    "bg-brand-gradient text-white shadow-glow-sm hover:shadow-glow",
+    "bg-brand-gradient text-bg shadow-glow-sm hover:shadow-glow",
   secondary:
     "glass text-ink hover:bg-white/[0.07] hover:ring-brand/40",
   ghost: "text-ink-muted hover:text-ink",

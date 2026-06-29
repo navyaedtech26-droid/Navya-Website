@@ -3,6 +3,11 @@ import { fadeUp, staggerContainer, viewportOnce } from "@/lib/animations";
 import { cn } from "@/lib/utils";
 
 interface SectionHeadingProps {
+  /**
+   * Deprecated/no-op: eyebrow badges were removed site-wide. The prop is kept
+   * so existing call sites still compile; it renders nothing. Re-add the badge
+   * here (and in PageHero) if they're ever wanted back.
+   */
   eyebrow?: string;
   title: string;
   highlight?: string;
@@ -12,7 +17,6 @@ interface SectionHeadingProps {
 }
 
 export default function SectionHeading({
-  eyebrow,
   title,
   highlight,
   subtitle,
@@ -31,21 +35,12 @@ export default function SectionHeading({
         className
       )}
     >
-      {eyebrow && (
-        <motion.span
-          variants={fadeUp}
-          className="inline-flex items-center gap-2 rounded-full glass px-4 py-1.5 text-xs font-medium uppercase tracking-[0.2em] text-brand-light"
-        >
-          <span className="h-1.5 w-1.5 rounded-full bg-cyan-accent animate-pulse-glow" />
-          {eyebrow}
-        </motion.span>
-      )}
       <motion.h2
         variants={fadeUp}
         className="max-w-3xl font-display text-3xl font-semibold leading-[1.1] tracking-tight text-ink sm:text-4xl md:text-5xl"
       >
         {title}{" "}
-        {highlight && <span className="text-ink">{highlight}</span>}
+        {highlight && <span className="text-gradient">{highlight}</span>}
       </motion.h2>
       {subtitle && (
         <motion.p

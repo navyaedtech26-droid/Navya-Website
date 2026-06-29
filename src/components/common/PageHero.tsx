@@ -1,8 +1,9 @@
+import type { ReactNode } from "react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { ArrowRight, type LucideIcon } from "lucide-react";
 import Container from "@/components/common/Container";
-import LightPillar from "@/components/LightPillar";
+import HeroPillar, { HeroGlow } from "@/components/effects/HeroPillar";
 import { fadeUp, staggerContainer } from "@/lib/animations";
 import { useReducedMotion, useRichMotion } from "@/hooks/useMediaQuery";
 
@@ -17,7 +18,11 @@ export interface PageHeroAction {
 }
 
 interface PageHeroProps {
-  eyebrow: string;
+  /**
+   * Deprecated/no-op: eyebrow badges were removed site-wide. Kept so existing
+   * call sites still compile; it renders nothing. See SectionHeading.
+   */
+  eyebrow?: string;
   title: string;
   highlight?: string;
   subtitle: string;
@@ -25,16 +30,23 @@ interface PageHeroProps {
   highlights?: PageHeroHighlight[];
   primaryCta?: PageHeroAction;
   secondaryCta?: PageHeroAction;
+  /**
+   * Optional custom hero backdrop. When provided, it replaces the default
+   * LightPillar shader (e.g. the Contact page's animated beams). It should
+   * render its own absolute-fill background; the navbar scrim and bottom fade
+   * are kept on top regardless.
+   */
+  background?: ReactNode;
 }
 
 export default function PageHero({
-  eyebrow,
   title,
   highlight,
   subtitle,
   highlights,
   primaryCta,
   secondaryCta,
+  background,
 }: PageHeroProps) {
   // The hero shader is the single most expensive thing on a secondary page.
   // Gate its cost on the device: only desktop + fine-pointer + motion-allowed
@@ -50,37 +62,31 @@ export default function PageHero({
           of the page background that scrolls beneath it. */}
       <div className="absolute inset-0 -z-10 bg-bg-deep" />
 
-      {/* Animated LightPillar — scoped to the hero only (no longer full-page). */}
+      {/* Animated hero backdrop — a custom `background` (e.g. the Contact
+          beams) when supplied, otherwise the scoped LightPillar shader. */}
       <div aria-hidden className="absolute inset-0 -z-10 overflow-hidden">
-        {reduced ? (
-          // Static brand glow that echoes the pillar's shape without animation.
-          <div
-            className="absolute inset-0"
-            style={{
-              background:
-                "radial-gradient(55% 45% at 50% 0%, rgba(30,107,255,0.30), transparent 70%), radial-gradient(45% 60% at 50% 100%, rgba(14,165,233,0.18), transparent 72%)",
-            }}
-          />
+        {background ? (
+          background
+        ) : reduced ? (
+          // Reduced-motion: a static glow with no WebGL context or rAF loop —
+          // the three.js chunk is never even fetched.
+          <HeroGlow />
         ) : (
-          <LightPillar
-            topColor="#1E6BFF"
-            bottomColor="#0EA5E9"
-            intensity={1}
-            rotationSpeed={0.3}
-            glowAmount={0.002}
-            pillarWidth={3}
-            pillarHeight={0.4}
-            noiseIntensity={0.5}
-            pillarRotation={25}
-            interactive={false}
-            mixBlendMode="screen"
-            quality={rich ? "high" : "medium"}
-          />
+          <HeroPillar quality={rich ? "high" : "medium"} />
         )}
       </div>
 
       {/* Top accent glow */}
       <div className="absolute left-1/2 top-0 -z-10 h-72 w-72 -translate-x-1/2 rounded-full bg-brand/20 blur-[120px]" />
+
+      {/* Calm scrim over the navbar zone: suppresses the animated pillar's glow
+          back to the base navy behind the (transparent) fixed header, so the
+          navbar reads as static — the same as the home hero — instead of having
+          the shader shimmer through it. */}
+      <div
+        aria-hidden
+        className="absolute inset-x-0 top-0 -z-10 h-40 bg-gradient-to-b from-bg-deep via-bg-deep/80 to-transparent"
+      />
 
       {/* Smoothly fade the hero into the page's normal background below it. */}
       <div className="absolute inset-x-0 bottom-0 -z-10 h-40 bg-gradient-to-b from-transparent to-bg" />
@@ -92,13 +98,6 @@ export default function PageHero({
           animate="visible"
           className="mx-auto max-w-3xl text-center"
         >
-          <motion.span
-            variants={fadeUp}
-            className="inline-flex items-center gap-2 rounded-full glass px-4 py-1.5 text-xs font-medium uppercase tracking-[0.2em] text-brand-light"
-          >
-            <span className="h-1.5 w-1.5 rounded-full bg-cyan-accent animate-pulse-glow" />
-            {eyebrow}
-          </motion.span>
           <motion.h1
             variants={fadeUp}
             className="mt-6 font-display text-4xl font-semibold leading-[1.08] tracking-tight text-ink sm:text-5xl md:text-6xl"
@@ -138,7 +137,7 @@ export default function PageHero({
               {primaryCta && (
                 <Link
                   to={primaryCta.to}
-                  className="group inline-flex items-center justify-center gap-1.5 rounded-xl bg-brand px-6 py-3 text-sm font-semibold text-white shadow-glow-sm transition-all duration-200 hover:bg-brand-light hover:shadow-glow"
+                  className="group inline-flex items-center justify-center gap-1.5 rounded-xl bg-brand px-6 py-3 text-sm font-semibold text-bg shadow-glow-sm transition-all duration-200 hover:bg-brand-light hover:shadow-glow"
                 >
                   {primaryCta.label}
                   <ArrowRight

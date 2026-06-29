@@ -24,11 +24,11 @@ export default function ServicesOverview() {
           initial="hidden"
           whileInView="visible"
           viewport={viewportOnce}
-          className="mt-14 grid gap-6 md:grid-cols-2 lg:grid-cols-3"
+          className="mt-14 grid gap-6 md:auto-rows-fr md:grid-cols-2 lg:grid-cols-3"
         >
           {serviceCategories.map((cat) => (
-            <motion.div key={cat.id} variants={fadeUp}>
-              <TiltCard>
+            <motion.div key={cat.id} variants={fadeUp} className="h-full">
+              <TiltCard className="h-full">
                 <div className="flex h-full flex-col glass rounded-2xl p-8">
                   <div className="flex items-center gap-4">
                     <IconBadge icon={cat.icon} size="lg" />
@@ -61,7 +61,7 @@ export default function ServicesOverview() {
                   <Link
                     to="/services"
                     data-cursor="hover"
-                    className="group mt-8 inline-flex items-center gap-1.5 text-sm font-semibold text-brand-light transition-colors hover:text-cyan-accent"
+                    className="group mt-auto inline-flex items-center gap-1.5 pt-8 text-sm font-semibold text-brand-light transition-colors hover:text-cyan-accent"
                   >
                     Explore {cat.title}
                     <ArrowRight

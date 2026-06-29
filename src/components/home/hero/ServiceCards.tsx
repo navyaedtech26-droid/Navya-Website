@@ -63,19 +63,19 @@ export function ServiceCardItem({
     >
       <div
         ref={innerRef}
-        className="relative overflow-hidden rounded-2xl border border-[rgba(30,107,255,0.22)] bg-[rgba(13,22,40,0.82)] px-2.5 py-2 sm:px-3.5 sm:py-3 backdrop-blur-md transition-[transform,border-color,box-shadow] duration-200 ease-out group-hover:border-[rgba(30,107,255,0.55)] group-hover:shadow-[0_12px_40px_-12px_rgba(30,107,255,0.5)]"
+        className="relative overflow-hidden rounded-2xl border border-[rgba(245, 166, 35,0.22)] bg-[rgba(13,22,40,0.82)] px-2.5 py-2 sm:px-3.5 sm:py-3 backdrop-blur-md transition-[transform,border-color,box-shadow] duration-200 ease-out group-hover:border-[rgba(245, 166, 35,0.55)] group-hover:shadow-[0_12px_40px_-12px_rgba(245, 166, 35,0.5)]"
         style={{ transform: "perspective(620px)", transformStyle: "preserve-3d", willChange: "transform" }}
       >
         {/* cursor-tracking spotlight */}
         <span ref={glowRef} className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-200" />
         {/* sweep glow on hover */}
-        <span className="pointer-events-none absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-[rgba(30,107,255,0.14)] to-transparent transition-transform duration-700 group-hover:translate-x-full" />
+        <span className="pointer-events-none absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-[rgba(245, 166, 35,0.14)] to-transparent transition-transform duration-700 group-hover:translate-x-full" />
         {/* top accent line */}
-        <span className="absolute inset-x-3 top-0 h-px bg-gradient-to-r from-transparent via-[#1E6BFF]/70 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+        <span className="absolute inset-x-3 top-0 h-px bg-gradient-to-r from-transparent via-[#F5A623]/70 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
 
         <div className="relative flex items-center gap-2 sm:gap-2.5">
           <span
-            className="relative flex h-7 w-7 sm:h-9 sm:w-9 shrink-0 items-center justify-center rounded-lg sm:rounded-xl bg-gradient-to-br from-[#1E6BFF]/30 to-[#0EA5E9]/10 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:rotate-6"
+            className="relative flex h-7 w-7 sm:h-9 sm:w-9 shrink-0 items-center justify-center rounded-lg sm:rounded-xl bg-gradient-to-br from-[#F5A623]/30 to-[#FF7A59]/10 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:rotate-6"
             style={{ color: `rgb(${accent})`, boxShadow: `inset 0 0 0 1px rgba(${accent},0.4)` }}
           >
             <span className="absolute inset-0 rounded-lg sm:rounded-xl blur-md opacity-60" style={{ background: `rgba(${accent},0.25)` }} />
@@ -93,7 +93,7 @@ export function ServiceCardItem({
         <p className="relative mt-2 sm:mt-2.5 text-[0.78rem] sm:text-[0.95rem] font-bold leading-tight text-white">
           {card.title}
         </p>
-        <p className="relative mt-0.5 text-[9px] sm:text-[10px] leading-snug text-[#E2E8F0]">
+        <p className="relative mt-0.5 text-[9px] sm:text-[10px] leading-snug text-[#E9DCEB]">
           {card.sub}
         </p>
       </div>

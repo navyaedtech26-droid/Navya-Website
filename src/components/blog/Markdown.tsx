@@ -1,5 +1,5 @@
 import { Fragment, type ReactNode } from "react";
-import { cn } from "@/lib/utils";
+import { cn, safeUrl } from "@/lib/utils";
 
 /**
  * Dependency-free Markdown renderer for blog post bodies. Covers the subset of
@@ -27,10 +27,14 @@ function renderInline(text: string): ReactNode[] {
     if (part.startsWith("![")) {
       const m = part.match(/^!\[([^\]]*)\]\(([^)]+)\)$/);
       if (m) {
+        // Images may legitimately use data: URLs (inline SVG/PNG); links may not.
+        const src = safeUrl(m[2], { allowData: true });
+        // Unsafe scheme (e.g. javascript:) → drop the image, keep the alt text.
+        if (!src) return <Fragment key={i}>{m[1]}</Fragment>;
         return (
           <img
             key={i}
-            src={m[2]}
+            src={src}
             alt={m[1]}
             loading="lazy"
             className="my-6 w-full rounded-2xl ring-1 ring-white/10"
@@ -41,11 +45,14 @@ function renderInline(text: string): ReactNode[] {
     if (part.startsWith("[")) {
       const m = part.match(/^\[([^\]]+)\]\(([^)]+)\)$/);
       if (m) {
-        const external = /^https?:\/\//.test(m[2]);
+        const href = safeUrl(m[2]);
+        // Unsafe scheme → render the label as plain text, never a live link.
+        if (!href) return <Fragment key={i}>{m[1]}</Fragment>;
+        const external = /^https?:\/\//i.test(href);
         return (
           <a
             key={i}
-            href={m[2]}
+            href={href}
             {...(external ? { target: "_blank", rel: "noreferrer" } : {})}
             className="font-medium text-brand-light underline-offset-2 hover:underline"
           >

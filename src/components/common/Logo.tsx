@@ -20,7 +20,7 @@ export default function Logo({ size = 36, showText = true, className }: LogoProp
         className="relative flex items-center justify-center rounded-xl bg-brand-gradient shadow-glow-sm"
         style={{ height: size, width: size }}
       >
-        <TridentMark className="text-white" size={size * 0.62} />
+        <TridentMark className="text-bg" size={size * 0.62} />
       </span>
       {showText && (
         <span className="font-display text-lg font-semibold tracking-tight">

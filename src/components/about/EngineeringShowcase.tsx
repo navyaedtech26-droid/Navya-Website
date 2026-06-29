@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { Cpu, GitBranch, ShieldCheck, Gauge } from "lucide-react";
 import Container from "@/components/common/Container";
+import IconBadge from "@/components/common/IconBadge";
 import Reveal from "@/components/effects/Reveal";
 import RotatingCube3D from "@/components/effects/RotatingCube3D";
 import { fadeUp, staggerContainer, viewportOnce } from "@/lib/animations";
@@ -58,9 +59,7 @@ export default function EngineeringShowcase() {
                   variants={fadeUp}
                   className="flex items-start gap-3 rounded-2xl glass p-4 ring-1 ring-white/10"
                 >
-                  <span className="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-brand/15 text-cyan-accent ring-1 ring-brand/30">
-                    <h.icon size={17} strokeWidth={1.75} />
-                  </span>
+                  <IconBadge icon={h.icon} size="sm" className="mt-0.5 shrink-0" />
                   <div>
                     <p className="font-display text-sm font-semibold text-ink">{h.title}</p>
                     <p className="mt-0.5 text-xs leading-relaxed text-ink-muted">{h.text}</p>

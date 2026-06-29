@@ -1,7 +1,6 @@
-import { Gauge, LayoutGrid, ShieldCheck, Headset } from "lucide-react";
 import Seo from "@/components/common/Seo";
 import PageTransition from "@/components/effects/PageTransition";
-import PageHero from "@/components/common/PageHero";
+import ServicesHero from "@/components/heroes/ServicesHero";
 import ServiceGrid from "@/components/services/ServiceGrid";
 import EngagementPlans from "@/components/services/EngagementPlans";
 import FaqSection from "@/components/common/FaqSection";
@@ -43,20 +42,7 @@ export default function Services() {
         ]}
       />
 
-      <PageHero
-        eyebrow="Our Services"
-        title="Websites, Systems & Social Built for"
-        highlight="Business Growth"
-        subtitle="From professional websites and complete business systems to result-driven social media, Navya EdTech builds solutions that are fast, secure, scalable, and easy to manage."
-        highlights={[
-          { icon: LayoutGrid, label: "Web · Systems · Social" },
-          { icon: Gauge, label: "Speed & SEO-first builds" },
-          { icon: ShieldCheck, label: "Secure & scalable" },
-          { icon: Headset, label: "Ongoing support" },
-        ]}
-        primaryCta={{ label: "Start Your Project", to: "/contact" }}
-        secondaryCta={{ label: "Read the Blog", to: "/blog" }}
-      />
+      <ServicesHero />
 
       <ServiceGrid
         eyebrow="Website Development"

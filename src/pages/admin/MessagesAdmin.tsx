@@ -29,6 +29,7 @@ import {
   EmptyState,
 } from "@/components/admin/ui";
 import { Skeleton, SkeletonGroup } from "@/components/common/Skeleton";
+import { useToast } from "@/components/common/Toast";
 import { formatDate, cn } from "@/lib/utils";
 
 type Filter = "all" | ContactStatus;
@@ -41,6 +42,7 @@ const FILTERS: { key: Filter; label: string }[] = [
 ];
 
 export default function MessagesAdmin() {
+  const toast = useToast();
   const [items, setItems] = useState<ContactSubmissionRow[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -73,21 +75,35 @@ export default function MessagesAdmin() {
   const patch = (saved: ContactSubmissionRow) =>
     setItems((prev) => prev.map((m) => (m.id === saved.id ? saved : m)));
 
-  const changeStatus = async (m: ContactSubmissionRow, status: ContactStatus) => {
+  const changeStatus = async (
+    m: ContactSubmissionRow,
+    status: ContactStatus,
+    opts?: { silent?: boolean }
+  ) => {
     setBusyId(m.id);
     const res = await setContactStatus(m.id, status);
     setBusyId(null);
-    if (res.error) return setError(res.error);
-    if (res.data) {
-      patch(res.data);
-      setOpen((cur) => (cur && cur.id === res.data!.id ? res.data! : cur));
+    if (res.error) {
+      toast.error(res.error);
+      return;
+    }
+    const saved = res.data;
+    if (saved) {
+      patch(saved);
+      setOpen((cur) => (cur && cur.id === saved.id ? saved : cur));
+      if (!opts?.silent) {
+        toast.success(
+          status === "archived" ? "Message archived." : "Message marked as read."
+        );
+      }
     }
   };
 
-  // Opening a message auto-marks an unread one as read.
+  // Opening a message auto-marks an unread one as read — silently, so it doesn't
+  // toast on every open.
   const openMessage = (m: ContactSubmissionRow) => {
     setOpen(m);
-    if (m.status === "new") changeStatus(m, "read");
+    if (m.status === "new") changeStatus(m, "read", { silent: true });
   };
 
   const handleDelete = async () => {
@@ -95,9 +111,13 @@ export default function MessagesAdmin() {
     setBusyId(deleting.id);
     const res = await deleteContact(deleting.id);
     setBusyId(null);
-    if (res.error) return setError(res.error);
+    if (res.error) {
+      toast.error(res.error);
+      return;
+    }
     setItems((prev) => prev.filter((m) => m.id !== deleting.id));
     setDeleting(null);
+    toast.success("Message deleted.");
   };
 
   return (
@@ -247,7 +267,7 @@ export default function MessagesAdmin() {
               )}
               <a
                 href={`mailto:${open.email}`}
-                className="inline-flex items-center gap-2 rounded-xl bg-brand-gradient px-5 py-2.5 text-sm font-semibold text-white shadow-glow-sm transition-shadow hover:shadow-glow"
+                className="inline-flex items-center gap-2 rounded-xl bg-brand-gradient px-5 py-2.5 text-sm font-semibold text-bg shadow-glow-sm transition-shadow hover:shadow-glow"
               >
                 <Mail size={15} />
                 Reply by email

@@ -44,8 +44,8 @@ export default function ProcessSection() {
                 className="relative flex gap-5 lg:flex-col lg:gap-4 lg:text-center"
               >
                 <div className="relative flex flex-col items-center lg:items-center">
-                  <div className="relative z-10 flex h-14 w-14 items-center justify-center rounded-2xl glass ring-1 ring-brand/30 shadow-glow-sm">
-                    <IconBadge icon={step.icon} className="h-10 w-10 bg-transparent ring-0" />
+                  <div className="relative z-10">
+                    <IconBadge icon={step.icon} size="lg" />
                   </div>
                   {/* mobile vertical connector */}
                   <span className="mt-2 h-full w-px flex-1 bg-gradient-to-b from-brand/40 to-transparent lg:hidden" />

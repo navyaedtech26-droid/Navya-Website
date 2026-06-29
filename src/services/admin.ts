@@ -15,6 +15,7 @@ import type {
   BlogPostRow,
   TestimonialRow,
   ContactSubmissionRow,
+  OverviewChartsPayload,
 } from "@/types/database";
 
 export interface Result<T> {
@@ -50,6 +51,7 @@ export async function getDashboardStats(): Promise<Result<DashboardStats>> {
   // `head: true` + `count: 'exact'` returns only the count, no rows.
   const head = { count: "exact" as const, head: true };
 
+  // Soft-deleted content (deleted_at not null) is excluded from every count.
   const [
     blogsTotal,
     blogsPublished,
@@ -59,11 +61,11 @@ export async function getDashboardStats(): Promise<Result<DashboardStats>> {
     contactsTotal,
     contactsNew,
   ] = await Promise.all([
-    sb.from("blog_posts").select("*", head),
-    sb.from("blog_posts").select("*", head).eq("status", "published"),
-    sb.from("blog_posts").select("*", head).eq("status", "draft"),
-    sb.from("testimonials").select("*", head),
-    sb.from("testimonials").select("*", head).eq("is_published", true),
+    sb.from("blog_posts").select("*", head).is("deleted_at", null),
+    sb.from("blog_posts").select("*", head).is("deleted_at", null).eq("status", "published"),
+    sb.from("blog_posts").select("*", head).is("deleted_at", null).eq("status", "draft"),
+    sb.from("testimonials").select("*", head).is("deleted_at", null),
+    sb.from("testimonials").select("*", head).is("deleted_at", null).eq("is_published", true),
     sb.from("contact_submissions").select("*", head),
     sb.from("contact_submissions").select("*", head).eq("status", "new"),
   ]);
@@ -115,51 +117,92 @@ function dayKey(d: Date): string {
   ).padStart(2, "0")}`;
 }
 
-/**
- * Fetch the raw rows the Overview charts need and aggregate them in the
- * browser. Volumes here are small (a marketing site), so a few full-column
- * selects are cheaper and simpler than server-side grouping.
- */
-export async function getOverviewCharts(days = 30): Promise<Result<OverviewCharts>> {
-  if (!isSupabaseConfigured || !supabase) return fail(NOT_CONFIGURED);
-  const sb = supabase;
-
-  const [contacts, blogs, testimonials] = await Promise.all([
-    sb.from("contact_submissions").select("created_at, status, service"),
-    sb.from("blog_posts").select("status"),
-    sb.from("testimonials").select("rating"),
-  ]);
-
-  const firstError = [contacts, blogs, testimonials].find((r) => r.error);
-  if (firstError?.error) return fail(firstError.error.message);
-
-  // --- contacts by day (zero-filled window) ---------------------------------
-  const buckets = new Map<string, number>();
+/** Build the zero-filled, locale-labelled trailing-day window the chart needs. */
+function emptyDaySeries(days: number): {
+  series: OverviewCharts["contactsByDay"];
+  index: Map<string, number>;
+} {
   const series: OverviewCharts["contactsByDay"] = [];
+  const index = new Map<string, number>();
   const today = new Date();
   for (let i = days - 1; i >= 0; i--) {
     const d = new Date(today);
     d.setDate(today.getDate() - i);
     const key = dayKey(d);
-    buckets.set(key, 0);
+    index.set(key, series.length);
     series.push({
       date: key,
       label: d.toLocaleDateString("en-US", { month: "short", day: "numeric" }),
       count: 0,
     });
   }
+  return { series, index };
+}
 
+/**
+ * Shape the server-side RPC payload into the OverviewCharts the UI expects.
+ * The RPC returns compact aggregates; we still build the zero-filled day window
+ * client-side (in the browser's timezone, which the RPC bucketed against) so
+ * the x-axis is continuous and labels are localized.
+ */
+function shapeRpcCharts(payload: OverviewChartsPayload, days: number): OverviewCharts {
+  const { series, index } = emptyDaySeries(days);
+  for (const { date, count } of payload.contactsByDay ?? []) {
+    const at = index.get(date);
+    if (at !== undefined) series[at].count = count;
+  }
+  return {
+    contactsByDay: series,
+    contactsByStatus: payload.contactsByStatus,
+    contactsByService: payload.contactsByService ?? [],
+    blogsByStatus: payload.blogsByStatus,
+    testimonialsByRating: payload.testimonialsByRating ?? [0, 0, 0, 0, 0],
+  };
+}
+
+/**
+ * Overview chart data. Prefers the `admin_overview_charts` Postgres RPC (one
+ * round trip, grouped server-side — see supabase/migrations/) and
+ * transparently falls back to aggregating raw rows in the browser when that
+ * function isn't deployed, so the dashboard works either way.
+ */
+export async function getOverviewCharts(days = 30): Promise<Result<OverviewCharts>> {
+  if (!isSupabaseConfigured || !supabase) return fail(NOT_CONFIGURED);
+  const sb = supabase;
+
+  const tz =
+    typeof Intl !== "undefined"
+      ? Intl.DateTimeFormat().resolvedOptions().timeZone || "UTC"
+      : "UTC";
+
+  const rpc = await sb.rpc("admin_overview_charts", { days, tz });
+  if (!rpc.error && rpc.data) {
+    return { data: shapeRpcCharts(rpc.data, days) };
+  }
+  // PGRST202 = function not found; fall through to client-side aggregation.
+  // Any other RPC error also falls back rather than failing the dashboard.
+
+  const [contacts, blogs, testimonials] = await Promise.all([
+    sb.from("contact_submissions").select("created_at, status, service"),
+    sb.from("blog_posts").select("status").is("deleted_at", null),
+    sb.from("testimonials").select("rating").is("deleted_at", null),
+  ]);
+
+  const firstError = [contacts, blogs, testimonials].find((r) => r.error);
+  if (firstError?.error) return fail(firstError.error.message);
+
+  // --- contacts by day (zero-filled window) ---------------------------------
+  const { series, index } = emptyDaySeries(days);
   const byStatus = { new: 0, read: 0, archived: 0 };
   const serviceCounts = new Map<string, number>();
 
   for (const row of contacts.data ?? []) {
-    const key = dayKey(new Date(row.created_at));
-    if (buckets.has(key)) buckets.set(key, (buckets.get(key) ?? 0) + 1);
+    const at = index.get(dayKey(new Date(row.created_at)));
+    if (at !== undefined) series[at].count += 1;
     if (row.status in byStatus) byStatus[row.status as keyof typeof byStatus] += 1;
     const svc = row.service?.trim();
     if (svc) serviceCounts.set(svc, (serviceCounts.get(svc) ?? 0) + 1);
   }
-  for (const point of series) point.count = buckets.get(point.date) ?? 0;
 
   const contactsByService = [...serviceCounts.entries()]
     .map(([service, count]) => ({ service, count }))
@@ -259,6 +302,7 @@ export async function listBlogPosts(): Promise<Result<BlogPostRow[]>> {
   const { data, error } = await supabase
     .from("blog_posts")
     .select("*")
+    .is("deleted_at", null)
     .order("updated_at", { ascending: false });
 
   if (error) return fail(error.message);
@@ -325,10 +369,19 @@ export async function updateBlogPost(
   return { data };
 }
 
+/**
+ * Soft-delete a post: stamps `deleted_at` so it drops out of every list/read
+ * but stays recoverable (and frees its slug for reuse — slug is unique only
+ * among live rows). See supabase/migrations/ for the schema.
+ */
 export async function deleteBlogPost(id: string): Promise<Result<true>> {
   if (!isSupabaseConfigured || !supabase) return fail(NOT_CONFIGURED);
 
-  const { error } = await supabase.from("blog_posts").delete().eq("id", id);
+  const { error } = await supabase
+    .from("blog_posts")
+    .update({ deleted_at: new Date().toISOString() })
+    .eq("id", id)
+    .is("deleted_at", null);
   if (error) return fail(error.message);
   return { data: true };
 }
@@ -350,6 +403,7 @@ export async function listTestimonials(): Promise<Result<TestimonialRow[]>> {
   const { data, error } = await supabase
     .from("testimonials")
     .select("*")
+    .is("deleted_at", null)
     .order("sort_order", { ascending: true })
     .order("created_at", { ascending: false });
 
@@ -400,10 +454,15 @@ export async function updateTestimonial(
   return { data };
 }
 
+/** Soft-delete a testimonial (recoverable; see supabase/migrations/). */
 export async function deleteTestimonial(id: string): Promise<Result<true>> {
   if (!isSupabaseConfigured || !supabase) return fail(NOT_CONFIGURED);
 
-  const { error } = await supabase.from("testimonials").delete().eq("id", id);
+  const { error } = await supabase
+    .from("testimonials")
+    .update({ deleted_at: new Date().toISOString() })
+    .eq("id", id)
+    .is("deleted_at", null);
   if (error) return fail(error.message);
   return { data: true };
 }

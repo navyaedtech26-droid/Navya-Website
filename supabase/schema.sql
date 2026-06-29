@@ -1,6 +1,11 @@
 -- =============================================================================
--- Navya EdTech — Supabase schema
+-- Navya EdTech — Supabase schema (consolidated snapshot)
 -- =============================================================================
+-- CANONICAL SCHEMA NOW LIVES IN `supabase/migrations/`. This file is a single
+-- paste-into-the-dashboard snapshot of the current state, kept for quick manual
+-- setup. Prefer `supabase db push` (see README §2). Do NOT add new changes here
+-- only — add a timestamped migration so deployments stay versioned and ordered.
+--
 -- Run this in the Supabase dashboard:  SQL Editor → New query → paste → Run.
 -- It is idempotent (safe to re-run): it creates tables, indexes, triggers and
 -- Row-Level Security (RLS) policies for the public website.
@@ -116,6 +121,10 @@ create table if not exists public.contact_submissions (
 create index if not exists idx_contact_submissions_created_at
   on public.contact_submissions (created_at desc);
 
+-- Speeds the per-email throttle lookup in enforce_contact_rules().
+create index if not exists idx_contact_submissions_email_lower
+  on public.contact_submissions (lower(email), created_at desc);
+
 alter table public.contact_submissions enable row level security;
 
 drop policy if exists "contact: anyone can submit" on public.contact_submissions;
@@ -191,11 +200,15 @@ create table if not exists public.testimonials (
   rating        int  not null default 5 check (rating between 1 and 5),
   is_published  boolean not null default true,
   sort_order    int  not null default 0,
+  deleted_at    timestamptz,                -- soft delete: live row when NULL
   created_at    timestamptz not null default now()
 );
 
 create index if not exists idx_testimonials_published
   on public.testimonials (is_published, sort_order);
+create index if not exists idx_testimonials_live
+  on public.testimonials (is_published, sort_order)
+  where deleted_at is null;
 
 alter table public.testimonials enable row level security;
 
@@ -204,7 +217,7 @@ drop policy if exists "testimonials: admin all"   on public.testimonials;
 
 create policy "testimonials: public read"
   on public.testimonials for select
-  using (is_published or public.is_admin());
+  using ((is_published and deleted_at is null) or public.is_admin());
 
 -- Visitors may submit a testimonial, but only as an UNPUBLISHED draft that an
 -- admin reviews before it appears on the site.
@@ -224,7 +237,7 @@ create policy "testimonials: admin all"
 -- =============================================================================
 create table if not exists public.blog_posts (
   id            uuid primary key default gen_random_uuid(),
-  slug          text not null unique,
+  slug          text not null,               -- unique among live rows (see index)
   title         text not null,
   excerpt       text,
   content       text,                        -- markdown / HTML
@@ -235,14 +248,25 @@ create table if not exists public.blog_posts (
   status        text not null default 'draft' check (status in ('draft', 'published')),
   read_minutes  int,
   published_at  timestamptz,
+  deleted_at    timestamptz,                 -- soft delete: live row when NULL
   created_at    timestamptz not null default now(),
   updated_at    timestamptz not null default now()
 );
+
+-- Slug is unique among *live* rows only, so a deleted post's slug can be reused.
+alter table public.blog_posts drop constraint if exists blog_posts_slug_key;
+create unique index if not exists idx_blog_posts_slug_unique
+  on public.blog_posts (slug)
+  where deleted_at is null;
 
 create index if not exists idx_blog_posts_status_pub
   on public.blog_posts (status, published_at desc);
 create index if not exists idx_blog_posts_slug
   on public.blog_posts (slug);
+-- Partial index for the hot public read (live published rows, newest first).
+create index if not exists idx_blog_posts_published
+  on public.blog_posts (published_at desc)
+  where status = 'published' and deleted_at is null;
 
 drop trigger if exists trg_blog_posts_updated_at on public.blog_posts;
 create trigger trg_blog_posts_updated_at
@@ -256,7 +280,10 @@ drop policy if exists "blog: admin all"              on public.blog_posts;
 
 create policy "blog: public read published"
   on public.blog_posts for select
-  using ((status = 'published' and published_at <= now()) or public.is_admin());
+  using (
+    (status = 'published' and published_at <= now() and deleted_at is null)
+    or public.is_admin()
+  );
 
 create policy "blog: admin all"
   on public.blog_posts for all
@@ -294,6 +321,129 @@ create policy "blog-images: admin delete"
   on storage.objects for delete
   to authenticated
   using (bucket_id = 'blog-images' and public.is_admin());
+
+-- =============================================================================
+-- Overview dashboard aggregation RPC (admin-only, server-side grouping)
+-- =============================================================================
+create or replace function public.admin_overview_charts(
+  days integer default 30,
+  tz   text    default 'UTC'
+)
+returns jsonb
+language plpgsql
+security definer
+set search_path = public
+as $$
+declare
+  result        jsonb;
+  window_start  date;
+begin
+  if not public.is_admin() then
+    raise exception 'Not authorized' using errcode = 'insufficient_privilege';
+  end if;
+
+  days := greatest(1, least(coalesce(days, 30), 1825));
+  window_start := ((now() at time zone tz)::date) - (days - 1);
+
+  select jsonb_build_object(
+    'contactsByDay', coalesce((
+      select jsonb_agg(jsonb_build_object('date', d, 'count', c) order by d)
+      from (
+        select (created_at at time zone tz)::date as d, count(*)::int as c
+        from public.contact_submissions
+        where (created_at at time zone tz)::date >= window_start
+        group by 1
+      ) t
+    ), '[]'::jsonb),
+    'contactsByStatus', jsonb_build_object(
+      'new',      coalesce((select count(*) from public.contact_submissions where status = 'new'), 0),
+      'read',     coalesce((select count(*) from public.contact_submissions where status = 'read'), 0),
+      'archived', coalesce((select count(*) from public.contact_submissions where status = 'archived'), 0)
+    ),
+    'contactsByService', coalesce((
+      select jsonb_agg(jsonb_build_object('service', service, 'count', c) order by c desc)
+      from (
+        select trim(service) as service, count(*)::int as c
+        from public.contact_submissions
+        where service is not null and trim(service) <> ''
+        group by trim(service)
+        order by c desc
+        limit 6
+      ) s
+    ), '[]'::jsonb),
+    'blogsByStatus', jsonb_build_object(
+      'published', coalesce((select count(*) from public.blog_posts where status = 'published' and deleted_at is null), 0),
+      'draft',     coalesce((select count(*) from public.blog_posts where status <> 'published' and deleted_at is null), 0)
+    ),
+    'testimonialsByRating', coalesce((
+      select jsonb_agg(coalesce(r.c, 0) order by r.rating)
+      from (
+        select g.rating,
+               (select count(*)::int from public.testimonials
+                where deleted_at is null
+                  and least(5, greatest(1, coalesce(rating, 0))) = g.rating) as c
+        from generate_series(1, 5) as g(rating)
+      ) r
+    ), '[0,0,0,0,0]'::jsonb)
+  )
+  into result;
+
+  return result;
+end;
+$$;
+
+revoke all on function public.admin_overview_charts(integer, text) from public, anon;
+grant execute on function public.admin_overview_charts(integer, text) to authenticated;
+
+-- =============================================================================
+-- Per-IP submission throttle (see migration 0005)
+-- =============================================================================
+-- Global per-IP rate limit for the public forms, on top of the per-email rule.
+-- Enforced by the `submit` Edge Function via register_ip_hit() (service role).
+create table if not exists public.ip_throttle (
+  ip           text        not null,
+  kind         text        not null,
+  window_start timestamptz not null default now(),
+  hits         integer     not null default 0,
+  primary key (ip, kind)
+);
+
+alter table public.ip_throttle enable row level security;
+revoke all on public.ip_throttle from anon, authenticated;
+create index if not exists idx_ip_throttle_window on public.ip_throttle (window_start);
+
+create or replace function public.register_ip_hit(
+  p_ip     text,
+  p_kind   text,
+  p_max    integer,
+  p_window interval
+) returns boolean
+language plpgsql
+security definer
+set search_path = public
+as $$
+declare
+  v_hits integer;
+begin
+  if p_ip is null or p_ip = '' then
+    return true;
+  end if;
+
+  insert into public.ip_throttle as t (ip, kind, window_start, hits)
+  values (p_ip, p_kind, now(), 1)
+  on conflict (ip, kind) do update
+    set hits = case when t.window_start < now() - p_window then 1
+                    else t.hits + 1 end,
+        window_start = case when t.window_start < now() - p_window then now()
+                            else t.window_start end
+  returning t.hits into v_hits;
+
+  return v_hits <= p_max;
+end;
+$$;
+
+revoke all on function public.register_ip_hit(text, text, integer, interval) from public;
+grant execute on function public.register_ip_hit(text, text, integer, interval) to service_role;
 
 -- =============================================================================
 -- Done. To make yourself an admin after signing up, run:

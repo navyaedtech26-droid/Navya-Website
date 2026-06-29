@@ -175,11 +175,6 @@ export default function MarkdownEditor({
       )}
 
       {error && <p className="text-xs text-red-400">{error}</p>}
-      <p className="text-xs text-ink-muted">
-        Supports Markdown: headings, bulleted &amp; numbered lists, **bold**,
-        *italic*, `code`, ``` code blocks, &gt; quotes, | tables |, --- rules,
-        [links](url) and ![images](url). Use the image button to upload.
-      </p>
     </div>
   );
 }

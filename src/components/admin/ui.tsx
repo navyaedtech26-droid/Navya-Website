@@ -133,7 +133,7 @@ export function Field({
 
 export const inputCls = cn(
   "w-full rounded-xl border border-white/10 bg-white/[0.03] px-3.5 py-2.5 text-sm text-ink placeholder:text-ink-muted/70 outline-none transition-all duration-200",
-  "focus:border-brand/60 focus:bg-white/[0.05] focus:shadow-[0_0_0_3px_rgba(30,107,255,0.18)]"
+  "focus:border-brand/60 focus:bg-white/[0.05] focus:shadow-[0_0_0_3px_rgba(245, 166, 35,0.18)]"
 );
 
 export function Badge({
@@ -236,6 +236,68 @@ export function ConfirmDialog({
   );
 }
 
+/**
+ * Column descriptor for {@link AdminTable}. `cell` renders the value for a row;
+ * `className`/`headerClassName` carry per-column styling such as responsive
+ * visibility (`"hidden sm:table-cell"`) or right-alignment for an actions column.
+ */
+export interface Column<T> {
+  /** Stable key for React and the column identity. */
+  key: string;
+  header: ReactNode;
+  cell: (row: T) => ReactNode;
+  /** Extra classes on the `<td>` (e.g. responsive hiding, muted text). */
+  className?: string;
+  /** Extra classes on the `<th>` (defaults to matching `className`). */
+  headerClassName?: string;
+}
+
+/**
+ * Generic, styled data table for the admin screens. Owns the table chrome
+ * (rounded border, header row, divided body, row hover) so pages only declare
+ * their columns and rows. Use for tabular data; card/list layouts (testimonials,
+ * messages) keep their bespoke markup.
+ */
+export function AdminTable<T>({
+  columns,
+  rows,
+  rowKey,
+}: {
+  columns: Column<T>[];
+  rows: T[];
+  rowKey: (row: T) => string;
+}) {
+  return (
+    <div className="overflow-hidden rounded-2xl border border-white/10">
+      <table className="w-full text-left text-sm">
+        <thead className="bg-bg-900/80 text-xs uppercase tracking-wide text-ink-muted">
+          <tr>
+            {columns.map((col) => (
+              <th
+                key={col.key}
+                className={cn("px-4 py-3 font-medium", col.headerClassName ?? col.className)}
+              >
+                {col.header}
+              </th>
+            ))}
+          </tr>
+        </thead>
+        <tbody className="divide-y divide-white/5">
+          {rows.map((row) => (
+            <tr key={rowKey(row)} className="bg-bg-900/40 hover:bg-white/[0.03]">
+              {columns.map((col) => (
+                <td key={col.key} className={cn("px-4 py-3", col.className)}>
+                  {col.cell(row)}
+                </td>
+              ))}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+}
+
 /** Centered "nothing here yet" panel with an icon, copy and an optional action. */
 export function EmptyState({
   icon: Icon,
@@ -282,7 +344,7 @@ export function FormActions({
       <button
         type="submit"
         disabled={busy}
-        className="inline-flex items-center gap-2 rounded-xl bg-brand-gradient px-5 py-2.5 text-sm font-semibold text-white shadow-glow-sm transition-shadow hover:shadow-glow disabled:opacity-70"
+        className="inline-flex items-center gap-2 rounded-xl bg-brand-gradient px-5 py-2.5 text-sm font-semibold text-bg shadow-glow-sm transition-shadow hover:shadow-glow disabled:opacity-70"
       >
         {busy && <Spinner size={16} />}
         {submitLabel}

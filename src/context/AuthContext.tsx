@@ -15,7 +15,10 @@ import {
 } from "react";
 import type { Session, User } from "@supabase/supabase-js";
 import { supabase, isSupabaseConfigured } from "@/lib/supabase";
+import { logger } from "@/lib/logger";
 import type { ProfileRow } from "@/types/database";
+
+const log = logger.scope("auth");
 
 interface AuthResult {
   error?: string;
@@ -26,6 +29,11 @@ interface AuthContextType {
   session: Session | null;
   user: User | null;
   profile: ProfileRow | null;
+  /**
+   * Set when the most recent profile fetch failed (network/RLS). The profile
+   * is cleared rather than left stale so the UI never trusts old data.
+   */
+  profileError: string | null;
   /** True only once the profile is loaded and its role is 'admin'. */
   isAdmin: boolean;
   signUp: (email: string, password: string, fullName?: string) => Promise<AuthResult>;
@@ -44,18 +52,31 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [loading, setLoading] = useState(true);
   const [session, setSession] = useState<Session | null>(null);
   const [profile, setProfile] = useState<ProfileRow | null>(null);
+  const [profileError, setProfileError] = useState<string | null>(null);
 
   const loadProfile = useCallback(async (userId: string | undefined) => {
     if (!supabase || !userId) {
       setProfile(null);
+      setProfileError(null);
       return;
     }
-    const { data } = await supabase
-      .from("profiles")
-      .select("*")
-      .eq("id", userId)
-      .maybeSingle();
-    setProfile(data ?? null);
+    // This runs fire-and-forget from onAuthStateChange, so any failure must be
+    // caught here — an unhandled rejection would otherwise leave the profile
+    // (and `isAdmin`) silently stale with nothing surfaced to the UI.
+    try {
+      const { data, error } = await supabase
+        .from("profiles")
+        .select("*")
+        .eq("id", userId)
+        .maybeSingle();
+      if (error) throw error;
+      setProfile(data ?? null);
+      setProfileError(null);
+    } catch (err) {
+      log.error("failed to load profile", err, { userId });
+      setProfile(null);
+      setProfileError("We couldn't load your account details. Please retry.");
+    }
   }, []);
 
   useEffect(() => {
@@ -64,15 +85,18 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       return;
     }
 
-    supabase.auth.getSession().then(({ data }) => {
-      setSession(data.session);
-      loadProfile(data.session?.user.id);
-      setLoading(false);
-    });
+    supabase.auth
+      .getSession()
+      .then(async ({ data }) => {
+        setSession(data.session);
+        await loadProfile(data.session?.user.id);
+      })
+      .catch((err) => log.error("failed to restore session", err))
+      .finally(() => setLoading(false));
 
     const { data: sub } = supabase.auth.onAuthStateChange((_event, next) => {
       setSession(next);
-      loadProfile(next?.user.id);
+      void loadProfile(next?.user.id);
     });
 
     return () => sub.subscription.unsubscribe();
@@ -101,6 +125,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     if (!supabase) return;
     await supabase.auth.signOut();
     setProfile(null);
+    setProfileError(null);
   }, []);
 
   const refreshProfile = useCallback(
@@ -135,6 +160,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         session,
         user: session?.user ?? null,
         profile,
+        profileError,
         isAdmin: profile?.role === "admin",
         signUp,
         signIn,

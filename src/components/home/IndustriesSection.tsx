@@ -29,7 +29,7 @@ export default function IndustriesSection() {
               <TiltCard intensity={7} className="h-full">
                 <div className="group flex h-full flex-col glass rounded-2xl p-6">
                   <div className="w-fit transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:scale-105">
-                    <IconBadge icon={industry.icon} size="lg" />
+                    <IconBadge icon={industry.icon} size="lg" color={industry.color} />
                   </div>
                   <h3 className="mt-5 font-display text-base font-semibold text-ink">
                     {industry.title}

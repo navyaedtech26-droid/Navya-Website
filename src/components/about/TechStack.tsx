@@ -10,7 +10,7 @@ export default function TechStack() {
   return (
     <section className="relative py-20">
       <Container>
-        <SectionHeading eyebrow="Our Toolkit" title="Technologies We" highlight="Build With" />
+        <SectionHeading title="Technologies We" highlight="Build With" />
 
         <motion.div
           initial="hidden"

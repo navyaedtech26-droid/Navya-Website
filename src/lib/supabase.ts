@@ -11,6 +11,7 @@
  */
 import { createClient, type SupabaseClient } from "@supabase/supabase-js";
 import type { Database } from "@/types/database";
+import { logger } from "@/lib/logger";
 
 const url = import.meta.env.VITE_SUPABASE_URL;
 const anonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
@@ -19,7 +20,7 @@ const anonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
 export const isSupabaseConfigured = Boolean(url && anonKey);
 
 if (!isSupabaseConfigured && import.meta.env.DEV) {
-  console.warn(
+  logger.warn(
     "[supabase] VITE_SUPABASE_URL / VITE_SUPABASE_ANON_KEY are not set — " +
       "database features are disabled and static fallbacks are used."
   );

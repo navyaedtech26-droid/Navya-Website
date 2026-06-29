@@ -7,11 +7,24 @@
     "dev": "vite",
     "prebuild": "node scripts/generate-feeds.mjs",
     "build": "tsc -b && vite build",
+    "analyze": "cross-env ANALYZE=true npm run build",
+    "typecheck": "tsc -b",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
     "generate:feeds": "node scripts/generate-feeds.mjs",
     "generate:og": "node scripts/generate-og-image.mjs",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "db:push": "supabase db push",
+    "db:diff": "supabase db diff",
+    "db:types": "supabase gen types typescript --linked --schema public > src/types/database.ts"
   },
   "dependencies": {
+    "@sentry/react": "^8.47.0",
     "@supabase/supabase-js": "^2.108.2",
     "chart.js": "^4.5.1",
     "clsx": "^2.1.1",
@@ -28,15 +41,31 @@
     "three": "^0.180.0"
   },
   "devDependencies": {
+    "@eslint/js": "^9.17.0",
     "@playwright/test": "^1.61.1",
+    "@testing-library/dom": "^10.4.1",
+    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/react": "^16.3.2",
     "@types/node": "^25.9.3",
     "@types/react": "^18.3.18",
     "@types/react-dom": "^18.3.5",
     "@vitejs/plugin-react": "^4.3.4",
+    "@vitest/coverage-v8": "^2.1.9",
     "autoprefixer": "^10.4.20",
+    "cross-env": "^7.0.3",
+    "eslint": "^9.17.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-react-hooks": "^5.1.0",
+    "eslint-plugin-react-refresh": "^0.4.16",
+    "globals": "^15.14.0",
+    "jsdom": "^25.0.1",
     "postcss": "^8.5.1",
+    "prettier": "^3.4.2",
+    "rollup-plugin-visualizer": "^5.14.0",
     "tailwindcss": "^3.4.17",
     "typescript": "^5.7.3",
-    "vite": "^6.0.7"
+    "typescript-eslint": "^8.18.2",
+    "vite": "^6.0.7",
+    "vitest": "^2.1.9"
   }
 }

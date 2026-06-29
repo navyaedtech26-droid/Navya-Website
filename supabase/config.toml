@@ -1,0 +1,42 @@
+# Supabase CLI project config. Versioned schema changes live in
+# supabase/migrations/ and are applied with `supabase db push` (see README).
+# Docs: https://supabase.com/docs/guides/cli/config
+project_id = "navya-edtech"
+
+[api]
+enabled = true
+port = 54321
+schemas = ["public", "storage"]
+extra_search_path = ["public", "extensions"]
+max_rows = 1000
+
+[db]
+port = 54322
+shadow_port = 54320
+# The major version of Postgres to use; match your hosted project.
+major_version = 15
+
+[db.migrations]
+# Apply migrations in lexical filename order (the timestamp prefix).
+enabled = true
+
+[studio]
+enabled = true
+port = 54323
+
+[auth]
+enabled = true
+# Set to your deployed origin so password-reset / magic links resolve correctly.
+site_url = "http://localhost:5173"
+additional_redirect_urls = ["http://localhost:5173"]
+jwt_expiry = 3600
+enable_signup = true
+
+[storage]
+enabled = true
+file_size_limit = "50MiB"
+
+# The bot-check submission function is called by anonymous visitors, so it does
+# not require a Supabase JWT (abuse is gated by Turnstile + the DB throttle).
+[functions.submit]
+verify_jwt = false

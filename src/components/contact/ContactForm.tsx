@@ -3,8 +3,11 @@ import { motion } from "framer-motion";
 import { Send } from "lucide-react";
 import { Field, Input, Textarea, Select } from "@/components/common/Field";
 import { Honeypot } from "@/components/common/Honeypot";
+import Turnstile from "@/components/common/Turnstile";
 import { Spinner } from "@/components/common/Spinner";
+import { useToast } from "@/components/common/Toast";
 import { useSpamGuard } from "@/hooks/useSpamGuard";
+import { isTurnstileConfigured } from "@/lib/turnstile";
 import { submitContact } from "@/services/contact";
 
 /** Cooldown between submissions from this browser. */
@@ -55,8 +58,9 @@ export default function ContactForm() {
   const [form, setForm] = useState<FormState>(initial);
   const [errors, setErrors] = useState<Errors>({});
   const [status, setStatus] = useState<"idle" | "loading" | "success">("idle");
-  const [submitError, setSubmitError] = useState<string | null>(null);
+  const [captchaToken, setCaptchaToken] = useState<string | null>(null);
   const guard = useSpamGuard("contact", SUBMIT_COOLDOWN_MS);
+  const toast = useToast();
 
   const update = (key: keyof FormState, value: string) => {
     setForm((f) => ({ ...f, [key]: value }));
@@ -77,41 +81,52 @@ export default function ContactForm() {
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    setSubmitError(null);
-    if (!validate()) return;
+    if (!validate()) {
+      toast.error("Please fix the highlighted fields and try again.");
+      return;
+    }
 
     const spamError = guard.check(
       "Please take a moment to review your details before sending."
     );
     if (spamError) {
-      setSubmitError(spamError);
+      toast.error(spamError);
+      return;
+    }
+
+    if (isTurnstileConfigured() && !captchaToken) {
+      toast.error("Please complete the verification below.");
       return;
     }
 
     setStatus("loading");
 
-    const result = await submitContact({
-      name: form.name,
-      email: form.email,
-      phone: form.phone,
-      service: form.service,
-      budget: form.budget,
-      message: form.message,
-      company_website: guard.honeypot,
-    });
+    const result = await submitContact(
+      {
+        name: form.name,
+        email: form.email,
+        phone: form.phone,
+        service: form.service,
+        budget: form.budget,
+        message: form.message,
+        company_website: guard.honeypot,
+      },
+      captchaToken ?? undefined
+    );
 
     if (result.ok) {
       guard.markUsed();
       setStatus("success");
     } else {
       setStatus("idle");
-      setSubmitError(result.error ?? "Something went wrong. Please try again.");
+      toast.error(result.error ?? "Something went wrong. Please try again.");
     }
   };
 
   if (status === "success") {
     return (
       <motion.div
+        role="status"
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
         className="flex min-h-[28rem] flex-col items-center justify-center rounded-3xl glass p-10 text-center ring-1 ring-white/10"
@@ -122,12 +137,12 @@ export default function ContactForm() {
           transition={{ type: "spring", stiffness: 200, damping: 14 }}
           className="flex h-20 w-20 items-center justify-center rounded-full bg-brand/20 ring-1 ring-brand/40"
         >
-          <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+          <svg width="40" height="40" viewBox="0 0 40 40" fill="none" aria-hidden="true">
             <motion.circle
               cx="20"
               cy="20"
               r="18"
-              stroke="#1E6BFF"
+              stroke="#F5A623"
               strokeWidth="2"
               initial={{ pathLength: 0 }}
               animate={{ pathLength: 1 }}
@@ -135,7 +150,7 @@ export default function ContactForm() {
             />
             <motion.path
               d="M12 20.5l5.5 5.5L29 14"
-              stroke="#3B82F6"
+              stroke="#FFB84D"
               strokeWidth="3"
               strokeLinecap="round"
               strokeLinejoin="round"
@@ -262,20 +277,18 @@ export default function ContactForm() {
         </Field>
       </div>
 
-      {submitError && (
-        <p
-          role="alert"
-          className="mt-5 rounded-xl border border-red-500/40 bg-red-500/10 px-4 py-3 text-sm text-red-300"
-        >
-          {submitError}
-        </p>
-      )}
+      <Turnstile
+        className="mt-6"
+        onVerify={setCaptchaToken}
+        onExpire={() => setCaptchaToken(null)}
+        onError={() => setCaptchaToken(null)}
+      />
 
       <button
         type="submit"
         disabled={status === "loading"}
         data-cursor="hover"
-        className="group mt-7 flex w-full items-center justify-center gap-2 rounded-2xl bg-brand-gradient px-6 py-4 text-sm font-semibold text-white shadow-glow-sm transition-all duration-300 hover:shadow-glow disabled:opacity-70"
+        className="group mt-7 flex w-full items-center justify-center gap-2 rounded-2xl bg-brand-gradient px-6 py-4 text-sm font-semibold text-bg shadow-glow-sm transition-all duration-300 hover:shadow-glow disabled:opacity-70"
       >
         {status === "loading" ? (
           <>

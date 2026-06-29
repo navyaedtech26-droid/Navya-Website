@@ -10,7 +10,7 @@ import { GlobeStage } from "@/components/home/hero/Globe";
 // hero/ subcomponents.
 export default function HeroSection() {
   return (
-    <section className="relative min-h-screen overflow-hidden bg-[#0A1628] flex items-center px-5 sm:px-8 lg:px-12 py-28 lg:py-32">
+    <section className="relative min-h-screen overflow-hidden bg-[#1A0F26] flex items-center px-5 sm:px-8 lg:px-12 py-28 lg:py-32">
 
       {/* Backgrounds */}
       <ParticleBg />
@@ -20,7 +20,7 @@ export default function HeroSection() {
         className="absolute inset-0 z-[1] pointer-events-none"
         style={{
           backgroundImage:
-            "linear-gradient(rgba(30,107,255,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(30,107,255,0.04) 1px, transparent 1px)",
+            "linear-gradient(rgba(245, 166, 35,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(245, 166, 35,0.04) 1px, transparent 1px)",
           backgroundSize: "60px 60px",
         }}
       />
@@ -29,7 +29,7 @@ export default function HeroSection() {
       <div
         className="absolute top-[-20%] right-[5%] w-[700px] h-[700px] rounded-full pointer-events-none z-[1]"
         style={{
-          background: "radial-gradient(ellipse, rgba(30,107,255,0.12) 0%, transparent 70%)",
+          background: "radial-gradient(ellipse, rgba(245, 166, 35,0.12) 0%, transparent 70%)",
           animation: "breathe 6s ease-in-out infinite",
         }}
       />
@@ -51,7 +51,7 @@ export default function HeroSection() {
         transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
       >
         <div className="flex h-9 w-5 items-start justify-center rounded-full border border-white/20 p-1">
-          <span className="h-2 w-1 rounded-full bg-[#1E6BFF]" />
+          <span className="h-2 w-1 rounded-full bg-[#F5A623]" />
         </div>
       </motion.div>
 
@@ -87,7 +87,8 @@ export default function HeroSection() {
         }
         @media (prefers-reduced-motion: reduce) {
           [class*="svcFloat"], [style*="svcFloat"],
-          [style*="heroGradient"], [style*="badgeSweep"] { animation: none !important; }
+          [style*="heroGradient"], [style*="badgeSweep"],
+          [style*="breathe"] { animation: none !important; }
         }
       `}</style>
     </section>

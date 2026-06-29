@@ -4,7 +4,39 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/png" href="/favicon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#0A1628" />
+    <meta name="theme-color" content="#1A0F26" />
+
+    <!-- Security headers that browsers honour from a <meta> tag. GitHub Pages
+         can't send real response headers; for the rest (HSTS, X-Frame-Options,
+         X-Content-Type-Options) front the site with a CDN like Cloudflare and
+         move this CSP there too. Notes:
+           • script-src has NO 'unsafe-inline' — there are no inline scripts
+             (the font media-swap was moved to main.tsx). gtag is the only
+             external script and is consent-gated.
+           • style-src needs 'unsafe-inline' for React/framer-motion inline
+             styles; that's far lower risk than inline script.
+           • connect-src wildcards Supabase (*.supabase.co) so it works across
+             projects; tighten to your exact host if you prefer. Add new origins
+             here if you introduce more third-party services. -->
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="
+        default-src 'self';
+        base-uri 'self';
+        object-src 'none';
+        form-action 'self';
+        script-src 'self' https://www.googletagmanager.com https://challenges.cloudflare.com;
+        style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
+        font-src 'self' https://fonts.gstatic.com data:;
+        img-src 'self' data: blob: https:;
+        media-src 'self' blob:;
+        worker-src 'self' blob:;
+        manifest-src 'self';
+        frame-src 'self' https://challenges.cloudflare.com;
+        connect-src 'self' https://*.supabase.co wss://*.supabase.co https://www.googletagmanager.com https://www.google-analytics.com https://*.google-analytics.com https://*.analytics.google.com https://*.ingest.sentry.io https://*.sentry.io https://challenges.cloudflare.com;
+      "
+    />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 
@@ -21,12 +53,14 @@
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
     />
 
-    <!-- Display, mono and fallback fonts: loaded without blocking first paint
-         (swapped from print to all once downloaded). -->
+    <!-- Display, mono and fallback fonts: loaded without blocking first paint.
+         media="print" keeps them out of the critical path; main.tsx flips them
+         to media="all" once the app boots (an inline onload handler would need
+         a CSP script-src exception, so the swap lives in JS instead). -->
     <link
       rel="stylesheet"
       media="print"
-      onload="this.media='all'"
+      data-defer-font
       href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Space+Grotesk:wght@400;500;600;700&family=Syne:wght@600;700&display=swap"
     />
     <noscript>

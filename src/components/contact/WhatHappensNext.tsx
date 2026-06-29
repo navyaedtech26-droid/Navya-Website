@@ -10,7 +10,7 @@ const steps = [
     icon: MessageSquare,
     step: "01",
     title: "We Reply Fast",
-    text: "Within 24 hours we'll reach out to set up a relaxed discovery call.",
+    text: "We reply instantly to set up a relaxed discovery call.",
   },
   {
     icon: Search,

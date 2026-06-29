@@ -8,8 +8,11 @@ import Container from "@/components/common/Container";
 import Reveal from "@/components/effects/Reveal";
 import { Field, Input, Textarea } from "@/components/common/Field";
 import { Honeypot } from "@/components/common/Honeypot";
+import Turnstile from "@/components/common/Turnstile";
 import { Spinner } from "@/components/common/Spinner";
+import { useToast } from "@/components/common/Toast";
 import { useSpamGuard } from "@/hooks/useSpamGuard";
+import { isTurnstileConfigured } from "@/lib/turnstile";
 import { submitTestimonial } from "@/services/testimonials";
 import { cn } from "@/lib/utils";
 
@@ -28,41 +31,49 @@ const COOLDOWN_MS = 30000;
 export default function ShareTestimonial() {
   const [form, setForm] = useState<FormState>(initial);
   const [status, setStatus] = useState<"idle" | "loading" | "success">("idle");
-  const [error, setError] = useState<string | null>(null);
+  const [captchaToken, setCaptchaToken] = useState<string | null>(null);
   const guard = useSpamGuard("testimonial", COOLDOWN_MS);
+  const toast = useToast();
 
   const set = <K extends keyof FormState>(key: K, value: FormState[K]) =>
     setForm((f) => ({ ...f, [key]: value }));
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    setError(null);
 
     if (!form.quote.trim() || !form.name.trim()) {
-      setError("Please share a few words and your name.");
+      toast.error("Please share a few words and your name.");
       return;
     }
     if (guard.isBot) return; // bot
     const spamError = guard.check("Please take a moment before submitting.");
     if (spamError) {
-      setError(spamError);
+      toast.error(spamError);
+      return;
+    }
+
+    if (isTurnstileConfigured() && !captchaToken) {
+      toast.error("Please complete the verification below.");
       return;
     }
 
     setStatus("loading");
-    const res = await submitTestimonial({
-      quote: form.quote,
-      name: form.name,
-      role: form.role,
-      company: form.company,
-      rating: form.rating,
-    });
+    const res = await submitTestimonial(
+      {
+        quote: form.quote,
+        name: form.name,
+        role: form.role,
+        company: form.company,
+        rating: form.rating,
+      },
+      captchaToken ?? undefined
+    );
     if (res.ok) {
       guard.markUsed();
       setStatus("success");
     } else {
       setStatus("idle");
-      setError(res.error ?? "Something went wrong. Please try again.");
+      toast.error(res.error ?? "Something went wrong. Please try again.");
     }
   };
 
@@ -87,12 +98,13 @@ export default function ShareTestimonial() {
           <Reveal>
             {status === "success" ? (
               <motion.div
+                role="status"
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
                 className="flex min-h-[24rem] flex-col items-center justify-center rounded-3xl glass p-10 text-center ring-1 ring-white/10"
               >
                 <div className="flex h-16 w-16 items-center justify-center rounded-full bg-brand/20 ring-1 ring-brand/40">
-                  <Heart className="text-brand-light" />
+                  <Heart className="text-brand-light" aria-hidden="true" />
                 </div>
                 <h3 className="mt-6 font-display text-2xl font-semibold text-ink">
                   Thank you!
@@ -180,17 +192,18 @@ export default function ShareTestimonial() {
                   </div>
                 </div>
 
-                {error && (
-                  <p className="mt-5 rounded-xl border border-red-500/40 bg-red-500/10 px-4 py-3 text-sm text-red-300">
-                    {error}
-                  </p>
-                )}
+                <Turnstile
+                  className="mt-5"
+                  onVerify={setCaptchaToken}
+                  onExpire={() => setCaptchaToken(null)}
+                  onError={() => setCaptchaToken(null)}
+                />
 
                 <button
                   type="submit"
                   disabled={status === "loading"}
                   data-cursor="hover"
-                  className="group mt-7 flex w-full items-center justify-center gap-2 rounded-2xl bg-brand-gradient px-6 py-4 text-sm font-semibold text-white shadow-glow-sm transition-all duration-300 hover:shadow-glow disabled:opacity-70"
+                  className="group mt-7 flex w-full items-center justify-center gap-2 rounded-2xl bg-brand-gradient px-6 py-4 text-sm font-semibold text-bg shadow-glow-sm transition-all duration-300 hover:shadow-glow disabled:opacity-70"
                 >
                   {status === "loading" ? (
                     <>

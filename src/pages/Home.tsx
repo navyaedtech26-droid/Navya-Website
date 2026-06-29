@@ -5,6 +5,7 @@ import TechStack from "@/components/home/TechStack";
 import ServicesOverview from "@/components/home/ServicesOverview";
 import FeaturesSection from "@/components/home/FeaturesSection";
 import IndustriesSection from "@/components/home/IndustriesSection";
+import CaseStudiesSection from "@/components/home/CaseStudiesSection";
 import ProcessSection from "@/components/home/ProcessSection";
 import TestimonialsSection from "@/components/home/TestimonialsSection";
 import FaqSection from "@/components/common/FaqSection";
@@ -27,6 +28,7 @@ export default function Home() {
       <ServicesOverview />
       <FeaturesSection />
       <IndustriesSection />
+      <CaseStudiesSection />
       <ProcessSection />
       <TestimonialsSection />
       <FaqSection

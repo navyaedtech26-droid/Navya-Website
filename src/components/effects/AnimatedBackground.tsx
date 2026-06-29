@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { useReducedMotion } from "@/hooks/useMediaQuery";
+import { useRichMotion } from "@/hooks/useMediaQuery";
 
 // The orbs are huge (40rem) and heavily blurred (120px). Animating their
 // position (x/y) forces the browser to repaint that enormous blurred layer
@@ -13,7 +13,12 @@ const orbs = [
 ];
 
 export default function AnimatedBackground() {
-  const reduced = useReducedMotion();
+  // Only desktop + fine-pointer + motion-allowed visitors get the animated
+  // layers. Secondary pages already run a per-hero WebGL shader; compositing
+  // that on top of three animating 120px-blurred orbs + a blurred beam is
+  // expensive on low-end mobile, so there we render the same backdrop fully
+  // static — the orbs and grid still set the mood, just without the rAF cost.
+  const rich = useRichMotion();
 
   return (
     <div className="pointer-events-none fixed inset-0 -z-10 overflow-hidden">
@@ -23,13 +28,14 @@ export default function AnimatedBackground() {
       {/* Grid */}
       <div className="absolute inset-0 grid-bg opacity-60 [mask-image:radial-gradient(ellipse_at_center,black_30%,transparent_75%)]" />
 
-      {/* Moving radial orbs */}
+      {/* Radial orbs — animated (opacity only, GPU-composited) on rich-motion
+          desktops, static everywhere else. */}
       {orbs.map((orb, i) => (
         <motion.div
           key={i}
           className={`absolute rounded-full blur-[120px] ${orb.className}`}
-          style={{ willChange: reduced ? undefined : "opacity" }}
-          animate={reduced ? undefined : { opacity: orb.opacity }}
+          style={{ willChange: rich ? "opacity" : undefined }}
+          animate={rich ? { opacity: orb.opacity } : undefined}
           transition={{
             duration: orb.dur,
             repeat: Infinity,
@@ -38,8 +44,9 @@ export default function AnimatedBackground() {
         />
       ))}
 
-      {/* Slow gradient beam */}
-      {!reduced && (
+      {/* Slow gradient beam — desktop only; an extra full-height blurred layer
+          is the first thing to drop on constrained devices. */}
+      {rich && (
         <motion.div
           className="absolute left-1/2 top-0 h-[120vh] w-[60vw] -translate-x-1/2 rotate-12 bg-gradient-to-b from-brand/10 via-transparent to-transparent blur-3xl"
           animate={{ opacity: [0.3, 0.6, 0.3] }}

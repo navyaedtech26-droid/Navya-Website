@@ -1,14 +1,12 @@
-import { Rocket, Users, Code2, HeartHandshake } from "lucide-react";
 import Seo from "@/components/common/Seo";
 import PageTransition from "@/components/effects/PageTransition";
-import PageHero from "@/components/common/PageHero";
+import AboutHero from "@/components/heroes/AboutHero";
 import CompanyStory from "@/components/about/CompanyStory";
 import MissionVision from "@/components/about/MissionVision";
 import Milestones from "@/components/about/Milestones";
 import CoreValues from "@/components/about/CoreValues";
 import EngineeringShowcase from "@/components/about/EngineeringShowcase";
 import WhyChooseUs from "@/components/about/WhyChooseUs";
-import TechStack from "@/components/about/TechStack";
 import CTASection from "@/components/common/CTASection";
 import { breadcrumbSchema } from "@/lib/structuredData";
 
@@ -25,20 +23,7 @@ export default function About() {
         ])}
       />
 
-      <PageHero
-        eyebrow="About Us"
-        title="Innovate. Build."
-        highlight="Elevate."
-        subtitle="We are Navya EdTech, a digital solutions company helping businesses grow through modern websites and smart systems."
-        highlights={[
-          { icon: Rocket, label: "Built for growth" },
-          { icon: Users, label: "Senior, hands-on team" },
-          { icon: Code2, label: "Modern tech stack" },
-          { icon: HeartHandshake, label: "Long-term partnership" },
-        ]}
-        primaryCta={{ label: "Work With Us", to: "/contact" }}
-        secondaryCta={{ label: "Our Services", to: "/services" }}
-      />
+      <AboutHero />
 
       <CompanyStory />
       <MissionVision />
@@ -46,7 +31,6 @@ export default function About() {
       <CoreValues />
       <EngineeringShowcase />
       <WhyChooseUs />
-      <TechStack />
 
       <CTASection
         title="Let's Build the Future Together"

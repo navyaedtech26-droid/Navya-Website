@@ -1,13 +1,13 @@
 /**
- * Testimonial management: list, create, edit, delete, and toggle the published
- * flag. `sort_order` controls the order they appear on the public site
- * (ascending).
+ * Testimonial moderation: list, edit, delete, reorder, and toggle the published
+ * flag on quotes that VISITORS submit via the public "Share your story" form.
+ * Admins don't author testimonials here — they only manage submitted ones.
+ * `sort_order` controls the order they appear on the public site (ascending).
  */
 import { useEffect, useState, type FormEvent } from "react";
-import { Plus, Pencil, Trash2, Star, MessageSquareQuote } from "lucide-react";
+import { Pencil, Trash2, Star, MessageSquareQuote, ExternalLink } from "lucide-react";
 import {
   listTestimonials,
-  createTestimonial,
   updateTestimonial,
   deleteTestimonial,
   TESTIMONIAL_ICON_KEYS,
@@ -28,6 +28,7 @@ import {
 } from "@/components/admin/ui";
 import { Skeleton, SkeletonGroup } from "@/components/common/Skeleton";
 import { Spinner } from "@/components/common/Spinner";
+import { useToast } from "@/components/common/Toast";
 import { cn } from "@/lib/utils";
 
 const EMPTY: TestimonialInput = {
@@ -42,12 +43,13 @@ const EMPTY: TestimonialInput = {
 };
 
 export default function TestimonialsAdmin() {
+  const toast = useToast();
   const [items, setItems] = useState<TestimonialRow[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
+  const [filter, setFilter] = useState<"all" | "pending" | "published">("all");
   const [editing, setEditing] = useState<TestimonialRow | null>(null);
-  const [creating, setCreating] = useState(false);
   const [deleting, setDeleting] = useState<TestimonialRow | null>(null);
   const [deleteBusy, setDeleteBusy] = useState(false);
   const [togglingId, setTogglingId] = useState<string | null>(null);
@@ -69,14 +71,9 @@ export default function TestimonialsAdmin() {
     );
 
   const handleSaved = (saved: TestimonialRow) => {
-    setItems((prev) => {
-      const exists = prev.some((t) => t.id === saved.id);
-      return sortItems(
-        exists ? prev.map((t) => (t.id === saved.id ? saved : t)) : [saved, ...prev]
-      );
-    });
-    setCreating(false);
+    setItems((prev) => sortItems(prev.map((t) => (t.id === saved.id ? saved : t))));
     setEditing(null);
+    toast.success("Changes saved.");
   };
 
   const togglePublish = async (t: TestimonialRow) => {
@@ -84,10 +81,14 @@ export default function TestimonialsAdmin() {
     const res = await updateTestimonial(t.id, { is_published: !t.is_published });
     setTogglingId(null);
     if (res.error) {
-      setError(res.error);
+      toast.error(res.error);
       return;
     }
-    if (res.data) handleSaved(res.data);
+    const updated = res.data;
+    if (updated) {
+      setItems((prev) => sortItems(prev.map((x) => (x.id === updated.id ? updated : x))));
+      toast.success(updated.is_published ? "Testimonial published." : "Testimonial hidden.");
+    }
   };
 
   const handleDelete = async () => {
@@ -96,30 +97,74 @@ export default function TestimonialsAdmin() {
     const res = await deleteTestimonial(deleting.id);
     setDeleteBusy(false);
     if (res.error) {
-      setError(res.error);
+      toast.error(res.error);
       return;
     }
     setItems((prev) => prev.filter((t) => t.id !== deleting.id));
     setDeleting(null);
+    toast.success("Testimonial deleted.");
   };
+
+  const pendingCount = items.filter((t) => !t.is_published).length;
+  const publishedCount = items.length - pendingCount;
+  const visible = items.filter((t) =>
+    filter === "all" ? true : filter === "pending" ? !t.is_published : t.is_published
+  );
+
+  const filters: { key: typeof filter; label: string; count: number }[] = [
+    { key: "all", label: "All", count: items.length },
+    { key: "pending", label: "Pending review", count: pendingCount },
+    { key: "published", label: "Published", count: publishedCount },
+  ];
 
   return (
     <div className="space-y-8">
       <PageHeader
         title="Testimonials"
-        subtitle="Client quotes shown across the site. Lower sort order appears first."
+        subtitle="Quotes submitted by visitors through the public “Share your story” form. They arrive under Pending review — publish to feature them. Lower sort order appears first."
         action={
-          <button
-            onClick={() => setCreating(true)}
-            className="inline-flex items-center gap-2 rounded-xl bg-brand-gradient px-4 py-2.5 text-sm font-semibold text-white shadow-glow-sm transition-shadow hover:shadow-glow"
+          <a
+            href="/share-your-story"
+            target="_blank"
+            rel="noreferrer"
+            className="inline-flex items-center gap-2 rounded-xl border border-white/10 px-4 py-2.5 text-sm font-semibold text-ink-muted transition-colors hover:text-ink"
           >
-            <Plus size={16} />
-            New testimonial
-          </button>
+            <ExternalLink size={16} />
+            View submission form
+          </a>
         }
       />
 
       {error && <Alert kind="error">{error}</Alert>}
+
+      {!loading && items.length > 0 && (
+        <div className="flex flex-wrap items-center gap-2">
+          {filters.map((f) => (
+            <button
+              key={f.key}
+              onClick={() => setFilter(f.key)}
+              className={cn(
+                "inline-flex items-center gap-2 rounded-full px-3.5 py-1.5 text-sm font-medium ring-1 transition-colors",
+                filter === f.key
+                  ? "bg-brand/15 text-brand-light ring-brand/40"
+                  : "text-ink-muted ring-white/10 hover:bg-white/5 hover:text-ink"
+              )}
+            >
+              {f.label}
+              <span
+                className={cn(
+                  "rounded-full px-1.5 text-xs",
+                  f.key === "pending" && f.count > 0
+                    ? "bg-amber-500/20 text-amber-300"
+                    : "bg-white/10 text-ink-muted"
+                )}
+              >
+                {f.count}
+              </span>
+            </button>
+          ))}
+        </div>
+      )}
 
       {loading ? (
         <GridSkeleton />
@@ -127,20 +172,28 @@ export default function TestimonialsAdmin() {
         <EmptyState
           icon={MessageSquareQuote}
           title="No testimonials yet"
-          description="Add client quotes to build trust. The public site falls back to sample quotes until you publish real ones."
+          description="When visitors submit their story through the public form, it'll appear here for you to review and publish. Until then, the site shows sample quotes."
           action={
-            <button
-              onClick={() => setCreating(true)}
-              className="inline-flex items-center gap-2 rounded-xl bg-brand-gradient px-4 py-2.5 text-sm font-semibold text-white shadow-glow-sm transition-shadow hover:shadow-glow"
+            <a
+              href="/share-your-story"
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex items-center gap-2 rounded-xl border border-white/10 px-4 py-2.5 text-sm font-semibold text-ink-muted transition-colors hover:text-ink"
             >
-              <Plus size={16} />
-              New testimonial
-            </button>
+              <ExternalLink size={16} />
+              View submission form
+            </a>
           }
         />
+      ) : visible.length === 0 ? (
+        <p className="rounded-2xl border border-dashed border-white/10 bg-bg-900/30 px-6 py-10 text-center text-sm text-ink-muted">
+          {filter === "pending"
+            ? "No testimonials awaiting review. New submissions from the site will appear here."
+            : "No published testimonials yet."}
+        </p>
       ) : (
         <div className="grid gap-4 sm:grid-cols-2">
-          {items.map((t) => (
+          {visible.map((t) => (
             <article
               key={t.id}
               className="flex flex-col rounded-2xl border border-white/10 bg-bg-900/50 p-5"
@@ -155,8 +208,8 @@ export default function TestimonialsAdmin() {
                     />
                   ))}
                 </div>
-                <Badge tone={t.is_published ? "green" : "neutral"}>
-                  {t.is_published ? "Published" : "Hidden"}
+                <Badge tone={t.is_published ? "green" : "amber"}>
+                  {t.is_published ? "Published" : "Pending review"}
                 </Badge>
               </div>
 
@@ -198,12 +251,9 @@ export default function TestimonialsAdmin() {
       )}
 
       <TestimonialForm
-        open={creating || editing !== null}
+        open={editing !== null}
         item={editing}
-        onClose={() => {
-          setCreating(false);
-          setEditing(null);
-        }}
+        onClose={() => setEditing(null)}
         onSaved={handleSaved}
       />
 
@@ -262,6 +312,7 @@ function TestimonialForm({
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     setError(null);
+    if (!item) return; // edit-only: testimonials originate from the public form
 
     if (!form.quote.trim() || !form.name.trim()) {
       setError("Quote and name are required.");
@@ -277,9 +328,7 @@ function TestimonialForm({
     };
 
     setBusy(true);
-    const res = item
-      ? await updateTestimonial(item.id, payload)
-      : await createTestimonial(payload);
+    const res = await updateTestimonial(item.id, payload);
     setBusy(false);
 
     if (res.error) {
@@ -290,12 +339,7 @@ function TestimonialForm({
   };
 
   return (
-    <Modal
-      open={open}
-      onClose={onClose}
-      title={item ? "Edit testimonial" : "New testimonial"}
-      wide
-    >
+    <Modal open={open} onClose={onClose} title="Edit testimonial" wide>
       <form onSubmit={handleSubmit} className="flex flex-col gap-4">
         <Field label="Quote" htmlFor="quote">
           <textarea
@@ -393,11 +437,7 @@ function TestimonialForm({
 
         {error && <Alert kind="error">{error}</Alert>}
 
-        <FormActions
-          onCancel={onClose}
-          busy={busy}
-          submitLabel={item ? "Save changes" : "Create"}
-        />
+        <FormActions onCancel={onClose} busy={busy} submitLabel="Save changes" />
       </form>
     </Modal>
   );

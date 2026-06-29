@@ -80,14 +80,14 @@ export default function Navbar() {
             <Link
               to="/contact"
               data-cursor="hover"
-              className="hidden rounded-xl bg-brand-gradient px-5 py-2.5 text-sm font-semibold text-white shadow-glow-sm transition-shadow duration-300 hover:shadow-glow sm:inline-flex"
+              className="hidden rounded-xl bg-brand-gradient px-5 py-2.5 text-sm font-semibold text-bg shadow-glow-sm transition-shadow duration-300 hover:shadow-glow sm:inline-flex"
             >
               Let's Talk
             </Link>
             <button
               onClick={() => setMenuOpen(true)}
               aria-label="Open menu"
-              className="flex h-11 w-11 items-center justify-center rounded-xl glass text-ink lg:hidden"
+              className="flex h-11 w-11 items-center justify-center rounded-xl border border-white/15 bg-bg-900/85 text-ink shadow-sm backdrop-blur-md transition-colors hover:bg-bg-900 lg:hidden"
             >
               <Menu size={20} />
             </button>

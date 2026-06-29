@@ -4,28 +4,28 @@ export default {
   theme: {
     extend: {
       colors: {
-        // Navya EdTech — PRD "Dark Navy / Brand Blue" design system
+        // Navya EdTech — "Aubergine & Amber" design system
         bg: {
-          DEFAULT: "#0A1628", // Primary Navy — page backgrounds
-          deep: "#060E1B", // deeper navy for contrast pockets
-          900: "#0F172A", // Secondary Dark — cards, navbars, overlays
+          DEFAULT: "#1A0F26", // Deep Aubergine — page backgrounds
+          deep: "#120A1B", // deeper aubergine for contrast pockets
+          900: "#221634", // Lifted Aubergine — cards, navbars, overlays
         },
-        surface: "#1E293B", // Surface Dark — section backgrounds, containers
+        surface: "#2E1D40", // Plum Surface — section backgrounds, containers
         brand: {
-          DEFAULT: "#1E6BFF", // Brand Blue — primary CTAs, headings, links
-          light: "#3B82F6", // Light Blue — hover states, secondary accents
+          DEFAULT: "#F5A623", // Amber Gold — primary CTAs, headings, links
+          light: "#FFB84D", // Light Amber — hover states, secondary accents
         },
         cyan: {
-          // Accent Cyan — icons, highlights, borders
-          accent: "#0EA5E9",
+          // Warm Coral accent — icons, highlights, borders
+          accent: "#FF7A59",
         },
         depth: {
-          DEFAULT: "#1E3A8A",
-          light: "#3B82F6",
+          DEFAULT: "#5B2A6B", // Orchid plum — depth/gradient pockets
+          light: "#FFB84D",
         },
         ink: {
-          DEFAULT: "#F8FAFC", // Text Primary
-          muted: "#E2E8F0", // Text Secondary — near-white for a uniform white text scheme
+          DEFAULT: "#FBF7F4", // Text Primary — warm white
+          muted: "#E9DCEB", // Text Secondary — warm muted lilac-white
         },
       },
       fontFamily: {
@@ -38,14 +38,14 @@ export default {
         "3xl": "1.5rem",
       },
       boxShadow: {
-        glow: "0 0 60px rgba(30,107,255,0.35)", // Glow Blue
-        "glow-sm": "0 0 24px rgba(30,107,255,0.25)",
-        "glow-cyan": "0 0 50px rgba(14,165,233,0.3)",
+        glow: "0 0 60px rgba(245, 166, 35,0.35)", // Amber glow
+        "glow-sm": "0 0 24px rgba(245, 166, 35,0.25)",
+        "glow-cyan": "0 0 50px rgba(255, 122, 89,0.3)", // Coral glow
       },
       backgroundImage: {
-        "brand-gradient": "linear-gradient(135deg, #1E6BFF 0%, #3B82F6 100%)",
+        "brand-gradient": "linear-gradient(135deg, #F5A623 0%, #FF7A59 100%)",
         "grid-pattern":
-          "linear-gradient(rgba(30,107,255,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(30,107,255,0.05) 1px, transparent 1px)",
+          "linear-gradient(rgba(245, 166, 35,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(245, 166, 35,0.05) 1px, transparent 1px)",
       },
       keyframes: {
         shimmer: {

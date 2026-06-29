@@ -1,18 +1,31 @@
 import { useEffect, useRef } from "react";
 import { ACCENT } from "./data";
+import { useReducedMotion, useRichMotion } from "@/hooks/useMediaQuery";
 
 // ─── Particle Background ──────────────────────────────────────────────────────
 // Drifting twinkling particles plus occasional shooting stars across the hero.
+//
+// Tiered by device so the hero feels calm and premium on phones rather than
+// busy: reduced-motion users get nothing (the static grid + spotlight already
+// set the mood); non-rich devices (mobile / coarse-pointer) get a lighter,
+// meteor-free field; only rich desktops get the full lively treatment. This is
+// the biggest lever for "fewer simultaneous animations on mobile".
 export function ParticleBg() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const reduced = useReducedMotion();
+  const rich = useRichMotion();
 
   useEffect(() => {
+    if (reduced) return; // no canvas mounted — nothing to animate
     const canvas = canvasRef.current;
     if (!canvas) return;
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
-    const particles = Array.from({ length: 80 }, () => {
+    const PARTICLE_COUNT = rich ? 80 : 32;
+    const ENABLE_METEORS = rich;
+
+    const particles = Array.from({ length: PARTICLE_COUNT }, () => {
       // ~85% blue, a few neon-green / gold sparks
       const roll = Math.random();
       const color = roll > 0.92 ? ACCENT.green : roll > 0.84 ? ACCENT.gold : ACCENT.blue;
@@ -73,12 +86,15 @@ export function ParticleBg() {
         ctx!.fill();
       });
 
-      // Shooting stars — fire often so the whole hero stays lively
-      meteorTimer -= 1;
-      if (meteorTimer <= 0) {
-        meteors.push(spawnMeteor());
-        if (Math.random() > 0.6) meteors.push(spawnMeteor()); // occasional pair
-        meteorTimer = 35 + Math.random() * 90;
+      // Shooting stars — rich desktops only; on mobile they're the first thing
+      // to drop for a calmer field.
+      if (ENABLE_METEORS) {
+        meteorTimer -= 1;
+        if (meteorTimer <= 0) {
+          meteors.push(spawnMeteor());
+          if (Math.random() > 0.6) meteors.push(spawnMeteor()); // occasional pair
+          meteorTimer = 35 + Math.random() * 90;
+        }
       }
       meteors.forEach((m) => {
         m.x += m.vx;
@@ -121,7 +137,10 @@ export function ParticleBg() {
       cancelAnimationFrame(animId);
       window.removeEventListener("resize", resize);
     };
-  }, []);
+  }, [reduced, rich]);
+
+  // Reduced-motion: render no canvas at all (skip the rAF loop entirely).
+  if (reduced) return null;
 
   return <canvas ref={canvasRef} className="absolute inset-0 w-full h-full pointer-events-none z-0" />;
 }

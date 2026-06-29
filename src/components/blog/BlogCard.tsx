@@ -79,7 +79,7 @@ export default function BlogCard({ post }: { post: BlogPostSummary }) {
           </div>
         </div>
 
-        <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-white/5 text-ink-muted ring-1 ring-white/10 transition-all duration-300 group-hover:bg-brand group-hover:text-white group-hover:ring-brand">
+        <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-white/5 text-ink-muted ring-1 ring-white/10 transition-all duration-300 group-hover:bg-brand group-hover:text-bg group-hover:ring-brand">
           <ArrowUpRight
             size={16}
             className="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"

@@ -42,6 +42,8 @@ export type TestimonialRow = {
   rating: number;
   is_published: boolean;
   sort_order: number;
+  /** Soft delete: live row when null (see supabase/migrations/). */
+  deleted_at: string | null;
   created_at: string;
 };
 
@@ -58,8 +60,19 @@ export type BlogPostRow = {
   status: "draft" | "published";
   read_minutes: number | null;
   published_at: string | null;
+  /** Soft delete: live row when null (see supabase/migrations/). */
+  deleted_at: string | null;
   created_at: string;
   updated_at: string;
+};
+
+/** JSON returned by the `admin_overview_charts` RPC (see supabase/migrations/). */
+export type OverviewChartsPayload = {
+  contactsByDay: { date: string; count: number }[];
+  contactsByStatus: { new: number; read: number; archived: number };
+  contactsByService: { service: string; count: number }[];
+  blogsByStatus: { published: number; draft: number };
+  testimonialsByRating: number[];
 };
 
 /** Minimal generic-friendly Database type for `createClient<Database>()`. */
@@ -94,7 +107,13 @@ export interface Database {
       };
     };
     Views: Record<string, never>;
-    Functions: Record<string, never>;
+    Functions: {
+      /** Server-side aggregation for the admin Overview charts. */
+      admin_overview_charts: {
+        Args: { days?: number; tz?: string };
+        Returns: OverviewChartsPayload;
+      };
+    };
     Enums: Record<string, never>;
     CompositeTypes: Record<string, never>;
   };

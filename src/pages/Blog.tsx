@@ -1,19 +1,9 @@
 import { useEffect, useMemo, useState } from "react";
 import { useSearchParams } from "react-router-dom";
-import {
-  PenLine,
-  Search,
-  X,
-  ChevronLeft,
-  ChevronRight,
-  Code2,
-  Gauge,
-  ShoppingCart,
-  Layers,
-} from "lucide-react";
+import { PenLine, Search, X, ChevronLeft, ChevronRight } from "lucide-react";
 import Seo from "@/components/common/Seo";
 import PageTransition from "@/components/effects/PageTransition";
-import PageHero from "@/components/common/PageHero";
+import BlogHero from "@/components/heroes/BlogHero";
 import Container from "@/components/common/Container";
 import Reveal from "@/components/effects/Reveal";
 import CTASection from "@/components/common/CTASection";
@@ -83,18 +73,7 @@ export default function Blog() {
         ])}
       />
 
-      <PageHero
-        eyebrow="Insights"
-        title="The Navya EdTech"
-        highlight="Blog"
-        subtitle="Practical articles on building fast, modern websites and business systems, written by the team that ships them."
-        highlights={[
-          { icon: Code2, label: "Web development" },
-          { icon: Gauge, label: "Performance & SEO" },
-          { icon: ShoppingCart, label: "E-commerce" },
-          { icon: Layers, label: "Business systems" },
-        ]}
-      />
+      <BlogHero />
 
       <section className="relative py-12">
         <Container>
@@ -124,7 +103,7 @@ export default function Blog() {
                     onChange={(e) => setQuery(e.target.value)}
                     placeholder="Search articles…"
                     aria-label="Search articles"
-                    className="w-full rounded-xl border border-white/10 bg-white/[0.03] py-3 pl-11 pr-10 text-sm text-ink placeholder:text-ink-muted/70 outline-none transition-all duration-200 focus:border-brand/60 focus:bg-white/[0.05] focus:shadow-[0_0_0_3px_rgba(30,107,255,0.18)]"
+                    className="w-full rounded-xl border border-white/10 bg-white/[0.03] py-3 pl-11 pr-10 text-sm text-ink placeholder:text-ink-muted/70 outline-none transition-all duration-200 focus:border-brand/60 focus:bg-white/[0.05] focus:shadow-[0_0_0_3px_rgba(245, 166, 35,0.18)]"
                   />
                   {query && (
                     <button

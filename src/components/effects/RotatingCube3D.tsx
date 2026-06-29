@@ -1,7 +1,8 @@
 import { Code2, Database, Cloud, Cpu, Boxes, Globe, type LucideIcon } from "lucide-react";
 import { useReducedMotion } from "@/hooks/useMediaQuery";
 
-// Six faces of a CSS-3D cube that rotates continuously in space.
+// Six faces of a CSS-3D cube. Each face is pushed out by half the cube size
+// along its own axis, so together they enclose a solid box.
 const faces: { icon: LucideIcon; label: string; transform: string }[] = [
   { icon: Globe, label: "Web", transform: "rotateY(0deg) translateZ(var(--half))" },
   { icon: Database, label: "Data", transform: "rotateY(90deg) translateZ(var(--half))" },
@@ -21,7 +22,7 @@ export default function RotatingCube3D({ size = 200 }: RotatingCube3DProps) {
 
   return (
     <div
-      className="relative flex items-center justify-center [perspective:1100px]"
+      className="relative flex items-center justify-center [perspective:850px]"
       style={{ width: size, height: size }}
     >
       {/* Glow puddle */}
@@ -34,14 +35,19 @@ export default function RotatingCube3D({ size = 200 }: RotatingCube3DProps) {
             width: size,
             height: size,
             "--half": `${half}px`,
-            animation: reduced ? undefined : "cube-spin 18s linear infinite",
+            // Base orientation shows a corner (three faces at once) so the box
+            // always reads as a 3D cube — including the static reduced-motion
+            // state. Otherwise it animates by tumbling on two axes.
+            transform: "rotateX(-24deg) rotateY(-32deg)",
+            animation: reduced ? undefined : "cube-tumble 18s linear infinite",
+            transformOrigin: "center",
           } as React.CSSProperties
         }
       >
         {faces.map(({ icon: Icon, label, transform }) => (
           <div
             key={label}
-            className="absolute inset-0 flex flex-col items-center justify-center gap-2 rounded-2xl border border-brand/30 bg-gradient-to-br from-bg-900/80 to-surface/60 text-brand-light shadow-glow-sm backdrop-blur-sm"
+            className="absolute inset-0 flex flex-col items-center justify-center gap-2 rounded-2xl border border-cyan-accent/30 bg-gradient-to-br from-bg-900/85 to-surface/65 text-brand-light shadow-[inset_0_0_28px_rgba(245, 166, 35,0.18)] backdrop-blur-sm"
             style={{ transform, backfaceVisibility: "hidden" }}
           >
             <Icon size={size * 0.18} strokeWidth={1.5} className="text-cyan-accent" />
@@ -53,9 +59,9 @@ export default function RotatingCube3D({ size = 200 }: RotatingCube3DProps) {
       </div>
 
       <style>{`
-        @keyframes cube-spin {
-          0% { transform: rotateX(-20deg) rotateY(0deg); }
-          100% { transform: rotateX(-20deg) rotateY(360deg); }
+        @keyframes cube-tumble {
+          from { transform: rotateX(-24deg) rotateY(-32deg); }
+          to   { transform: rotateX(336deg) rotateY(328deg); }
         }
       `}</style>
     </div>

@@ -1,0 +1,81 @@
+name: CI
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
+
+# Cancel superseded runs on the same ref to save minutes.
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  quality:
+    name: Lint, typecheck & build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: ESLint
+        run: npm run lint
+
+      - name: Typecheck
+        run: npm run typecheck
+
+      - name: Unit tests + coverage
+        # Fails the build if coverage drops below the thresholds in vitest.config.ts.
+        run: npm run test:coverage
+
+      - name: Build
+        run: npm run build
+        env:
+          VITE_SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}
+          VITE_SUPABASE_ANON_KEY: ${{ secrets.VITE_SUPABASE_ANON_KEY }}
+          VITE_GA_MEASUREMENT_ID: ${{ secrets.VITE_GA_MEASUREMENT_ID }}
+          VITE_SENTRY_DSN: ${{ secrets.VITE_SENTRY_DSN }}
+          VITE_TURNSTILE_SITE_KEY: ${{ secrets.VITE_TURNSTILE_SITE_KEY }}
+
+  # Regenerate the TypeScript types from the live schema and fail if they drift
+  # from what's committed — so src/types/database.ts can never silently fall out
+  # of sync with the database. Opt-in: runs only once the repo variable
+  # SUPABASE_PROJECT_REF (the project ref, e.g. "abcdefgh...") is set, with a
+  # SUPABASE_ACCESS_TOKEN secret (Supabase dashboard → Account → Access Tokens).
+  db-types:
+    name: DB types drift check
+    runs-on: ubuntu-latest
+    if: ${{ vars.SUPABASE_PROJECT_REF != '' }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Supabase CLI
+        uses: supabase/setup-cli@v1
+        with:
+          version: latest
+
+      - name: Generate types from the live schema
+        run: >
+          supabase gen types typescript
+          --project-id "${{ vars.SUPABASE_PROJECT_REF }}"
+          --schema public > src/types/database.ts
+        env:
+          SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
+
+      - name: Fail if types are out of date
+        run: |
+          if ! git diff --exit-code src/types/database.ts; then
+            echo "::error::src/types/database.ts is out of date. Run 'npm run db:types' and commit the result."
+            exit 1
+          fi

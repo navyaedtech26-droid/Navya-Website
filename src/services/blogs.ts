@@ -2,7 +2,10 @@
  * Blog posts. Public reads are limited to published rows by RLS.
  */
 import { supabase, isSupabaseConfigured } from "@/lib/supabase";
+import { logger } from "@/lib/logger";
 import type { BlogPostRow } from "@/types/database";
+
+const log = logger.scope("blogs");
 
 export type BlogPost = BlogPostRow;
 
@@ -27,11 +30,12 @@ export async function getPublishedPosts(limit = 200): Promise<BlogPostSummary[]>
     .from("blog_posts")
     .select(LIST_COLUMNS)
     .eq("status", "published")
+    .is("deleted_at", null)
     .order("published_at", { ascending: false })
     .limit(limit);
 
   if (error) {
-    console.error("[blogs] list failed:", error.message);
+    log.error("list failed", error);
     return [];
   }
   return (data ?? []) as BlogPostSummary[];
@@ -52,12 +56,13 @@ export async function getRelatedPosts(
     .from("blog_posts")
     .select(LIST_COLUMNS)
     .eq("status", "published")
+    .is("deleted_at", null)
     .neq("id", post.id)
     .order("published_at", { ascending: false })
     .limit(30);
 
   if (error) {
-    console.error("[blogs] related failed:", error.message);
+    log.error("related failed", error);
     return [];
   }
 
@@ -86,10 +91,11 @@ export async function getPostBySlug(slug: string): Promise<BlogPost | null> {
     .select("*")
     .eq("slug", slug)
     .eq("status", "published")
+    .is("deleted_at", null)
     .maybeSingle();
 
   if (error) {
-    console.error("[blogs] getBySlug failed:", error.message);
+    log.error("getBySlug failed", error);
     return null;
   }
   return data;

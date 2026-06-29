@@ -37,6 +37,14 @@ export default function AdminLayout() {
 
   return (
     <div className="min-h-[100svh] bg-bg text-ink">
+      {/* Skip past the sidebar/top bar straight to the section content. */}
+      <a
+        href="#admin-main"
+        className="sr-only z-[60] rounded-xl bg-brand px-4 py-2 text-sm font-semibold text-bg outline-none ring-2 ring-white/80 focus:not-sr-only focus:fixed focus:left-4 focus:top-4"
+      >
+        Skip to content
+      </a>
+
       {/* Mobile top bar */}
       <header className="sticky top-0 z-30 flex items-center justify-between border-b border-white/10 bg-bg-900/80 px-5 py-4 backdrop-blur lg:hidden">
         <Link to="/admin" className="flex items-center gap-2">
@@ -145,7 +153,7 @@ export default function AdminLayout() {
         </aside>
 
         {/* Main content */}
-        <main className="min-w-0 flex-1 px-5 py-8 sm:px-8 lg:px-10 lg:py-10">
+        <main id="admin-main" tabIndex={-1} className="min-w-0 flex-1 px-5 py-8 outline-none sm:px-8 lg:px-10 lg:py-10">
           <div className="mx-auto max-w-5xl">
             <Outlet />
           </div>

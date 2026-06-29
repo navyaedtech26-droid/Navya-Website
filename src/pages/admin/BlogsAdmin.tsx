@@ -13,6 +13,8 @@ import {
   X,
   ChevronLeft,
   ChevronRight,
+  ChevronDown,
+  Sparkles,
 } from "lucide-react";
 import {
   listBlogPosts,
@@ -33,14 +35,20 @@ import {
   ConfirmDialog,
   EmptyState,
   FormActions,
+  AdminTable,
+  type Column,
 } from "@/components/admin/ui";
 import MarkdownEditor from "@/components/admin/MarkdownEditor";
 import { Skeleton, SkeletonGroup } from "@/components/common/Skeleton";
+import { useToast } from "@/components/common/Toast";
 import { cn, formatDate } from "@/lib/utils";
 
 const PAGE_SIZE = 10;
 const STATUS_FILTERS = ["all", "published", "draft"] as const;
 type StatusFilter = (typeof STATUS_FILTERS)[number];
+
+/** Default byline when the author field is left blank. */
+const DEFAULT_AUTHOR = "Navya EdTech";
 
 /** Build a URL-friendly slug from a title. */
 function slugify(value: string): string {
@@ -49,6 +57,34 @@ function slugify(value: string): string {
     .trim()
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/^-+|-+$/g, "");
+}
+
+/** Strip common Markdown syntax to plain text (for excerpt + word count). */
+function toPlainText(md: string): string {
+  return md
+    .replace(/```[\s\S]*?```/g, " ") // fenced code
+    .replace(/`[^`]*`/g, " ") // inline code
+    .replace(/!\[[^\]]*\]\([^)]*\)/g, " ") // images
+    .replace(/\[([^\]]*)\]\([^)]*\)/g, "$1") // links → label
+    .replace(/^>\s?/gm, "") // blockquotes
+    .replace(/^#{1,6}\s+/gm, "") // headings
+    .replace(/[*_~#>|]/g, " ") // residual symbols
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+/** First ~160 chars of the body, cut on a word boundary, for listing cards. */
+function deriveExcerpt(plain: string, max = 160): string {
+  if (plain.length <= max) return plain;
+  const cut = plain.slice(0, max);
+  const lastSpace = cut.lastIndexOf(" ");
+  return `${(lastSpace > 60 ? cut.slice(0, lastSpace) : cut).trim()}…`;
+}
+
+/** Estimate reading time at ~200 words per minute (min 1). */
+function estimateReadMinutes(plain: string): number {
+  const words = plain ? plain.split(/\s+/).filter(Boolean).length : 0;
+  return Math.max(1, Math.round(words / 200));
 }
 
 const EMPTY: BlogPostInput = {
@@ -64,6 +100,7 @@ const EMPTY: BlogPostInput = {
 };
 
 export default function BlogsAdmin() {
+  const toast = useToast();
   const [posts, setPosts] = useState<BlogPostRow[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -114,16 +151,16 @@ export default function BlogsAdmin() {
     load();
   }, []);
 
-  const handleSaved = (saved: BlogPostRow) => {
+  const handleSaved = (saved: BlogPostRow, isNew: boolean) => {
     setPosts((prev) => {
-      const exists = prev.some((p) => p.id === saved.id);
-      const next = exists
-        ? prev.map((p) => (p.id === saved.id ? saved : p))
-        : [saved, ...prev];
+      const next = isNew
+        ? [saved, ...prev]
+        : prev.map((p) => (p.id === saved.id ? saved : p));
       return [...next].sort((a, b) => b.updated_at.localeCompare(a.updated_at));
     });
     setCreating(false);
     setEditing(null);
+    toast.success(isNew ? "Post created." : "Changes saved.");
   };
 
   const handleDelete = async () => {
@@ -132,12 +169,57 @@ export default function BlogsAdmin() {
     const res = await deleteBlogPost(deleting.id);
     setDeleteBusy(false);
     if (res.error) {
-      setError(res.error);
+      toast.error(res.error);
       return;
     }
     setPosts((prev) => prev.filter((p) => p.id !== deleting.id));
     setDeleting(null);
+    toast.success("Post deleted.");
   };
+
+  // Table columns — declared here so cells can reach edit/delete handlers.
+  const columns: Column<BlogPostRow>[] = [
+    {
+      key: "title",
+      header: "Title",
+      cell: (post) => (
+        <>
+          <p className="font-medium text-ink">{post.title}</p>
+          <p className="text-xs text-ink-muted">/{post.slug}</p>
+          <div className="mt-1 sm:hidden">
+            <StatusBadge status={post.status} />
+          </div>
+        </>
+      ),
+    },
+    {
+      key: "status",
+      header: "Status",
+      className: "hidden sm:table-cell",
+      cell: (post) => <StatusBadge status={post.status} />,
+    },
+    {
+      key: "updated",
+      header: "Updated",
+      className: "hidden text-ink-muted md:table-cell",
+      cell: (post) => formatDate(post.updated_at),
+    },
+    {
+      key: "actions",
+      header: "Actions",
+      headerClassName: "text-right",
+      cell: (post) => (
+        <div className="flex justify-end gap-1">
+          <IconButton label="Edit" onClick={() => setEditing(post)}>
+            <Pencil size={16} />
+          </IconButton>
+          <IconButton label="Delete" danger onClick={() => setDeleting(post)}>
+            <Trash2 size={16} />
+          </IconButton>
+        </div>
+      ),
+    },
+  ];
 
   return (
     <div className="space-y-8">
@@ -147,7 +229,7 @@ export default function BlogsAdmin() {
         action={
           <button
             onClick={() => setCreating(true)}
-            className="inline-flex items-center gap-2 rounded-xl bg-brand-gradient px-4 py-2.5 text-sm font-semibold text-white shadow-glow-sm transition-shadow hover:shadow-glow"
+            className="inline-flex items-center gap-2 rounded-xl bg-brand-gradient px-4 py-2.5 text-sm font-semibold text-bg shadow-glow-sm transition-shadow hover:shadow-glow"
           >
             <Plus size={16} />
             New post
@@ -167,7 +249,7 @@ export default function BlogsAdmin() {
           action={
             <button
               onClick={() => setCreating(true)}
-              className="inline-flex items-center gap-2 rounded-xl bg-brand-gradient px-4 py-2.5 text-sm font-semibold text-white shadow-glow-sm transition-shadow hover:shadow-glow"
+              className="inline-flex items-center gap-2 rounded-xl bg-brand-gradient px-4 py-2.5 text-sm font-semibold text-bg shadow-glow-sm transition-shadow hover:shadow-glow"
             >
               <Plus size={16} />
               New post
@@ -194,51 +276,7 @@ export default function BlogsAdmin() {
             />
           ) : (
             <>
-              <div className="overflow-hidden rounded-2xl border border-white/10">
-                <table className="w-full text-left text-sm">
-                  <thead className="bg-bg-900/80 text-xs uppercase tracking-wide text-ink-muted">
-                    <tr>
-                      <th className="px-4 py-3 font-medium">Title</th>
-                      <th className="hidden px-4 py-3 font-medium sm:table-cell">Status</th>
-                      <th className="hidden px-4 py-3 font-medium md:table-cell">Updated</th>
-                      <th className="px-4 py-3 text-right font-medium">Actions</th>
-                    </tr>
-                  </thead>
-                  <tbody className="divide-y divide-white/5">
-                    {visible.map((post) => (
-                      <tr key={post.id} className="bg-bg-900/40 hover:bg-white/[0.03]">
-                        <td className="px-4 py-3">
-                          <p className="font-medium text-ink">{post.title}</p>
-                          <p className="text-xs text-ink-muted">/{post.slug}</p>
-                          <div className="mt-1 sm:hidden">
-                            <StatusBadge status={post.status} />
-                          </div>
-                        </td>
-                        <td className="hidden px-4 py-3 sm:table-cell">
-                          <StatusBadge status={post.status} />
-                        </td>
-                        <td className="hidden px-4 py-3 text-ink-muted md:table-cell">
-                          {formatDate(post.updated_at)}
-                        </td>
-                        <td className="px-4 py-3">
-                          <div className="flex justify-end gap-1">
-                            <IconButton label="Edit" onClick={() => setEditing(post)}>
-                              <Pencil size={16} />
-                            </IconButton>
-                            <IconButton
-                              label="Delete"
-                              danger
-                              onClick={() => setDeleting(post)}
-                            >
-                              <Trash2 size={16} />
-                            </IconButton>
-                          </div>
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
+              <AdminTable columns={columns} rows={visible} rowKey={(p) => p.id} />
 
               {totalPages > 1 && (
                 <Pagination
@@ -287,13 +325,16 @@ function BlogForm({
   open: boolean;
   post: BlogPostRow | null;
   onClose: () => void;
-  onSaved: (p: BlogPostRow) => void;
+  onSaved: (p: BlogPostRow, isNew: boolean) => void;
 }) {
   const [form, setForm] = useState<BlogPostInput>(EMPTY);
   const [tagsText, setTagsText] = useState("");
   const [slugTouched, setSlugTouched] = useState(false);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  // The optional fields stay collapsed by default to keep the form to the three
+  // things that matter (title, content, status).
+  const [showMore, setShowMore] = useState(false);
 
   // Re-seed the form whenever the modal opens for a new target.
   useEffect(() => {
@@ -312,10 +353,16 @@ function BlogForm({
       });
       setTagsText((post.tags ?? []).join(", "));
       setSlugTouched(true);
+      // Auto-expand details when editing a post that already has custom ones,
+      // so existing data isn't hidden.
+      setShowMore(
+        Boolean(post.excerpt || post.category || post.read_minutes || (post.tags?.length ?? 0))
+      );
     } else {
       setForm(EMPTY);
       setTagsText("");
       setSlugTouched(false);
+      setShowMore(false);
     }
     setError(null);
   }, [open, post]);
@@ -333,24 +380,33 @@ function BlogForm({
     e.preventDefault();
     setError(null);
 
-    if (!form.title.trim() || !form.slug.trim()) {
-      setError("Title and slug are required.");
+    if (!form.title.trim()) {
+      setError("Please give the post a title.");
+      return;
+    }
+    if (!form.content?.trim()) {
+      setError("Please write some content before saving.");
       return;
     }
 
+    // Derive the boring-but-useful fields from what was typed, so the author
+    // only has to fill them in if they want to override the defaults.
+    const plain = toPlainText(form.content);
+    const slug = slugify(form.slug || form.title);
+
     const payload: BlogPostInput = {
       ...form,
-      slug: slugify(form.slug),
+      slug,
       title: form.title.trim(),
-      excerpt: form.excerpt?.trim() || null,
-      content: form.content?.trim() || null,
-      author: form.author?.trim() || null,
+      excerpt: form.excerpt?.trim() || deriveExcerpt(plain) || null,
+      content: form.content.trim(),
+      author: form.author?.trim() || DEFAULT_AUTHOR,
       category: form.category?.trim() || null,
       tags: tagsText
         .split(",")
         .map((t) => t.trim())
         .filter(Boolean),
-      read_minutes: form.read_minutes || null,
+      read_minutes: form.read_minutes || estimateReadMinutes(plain),
     };
 
     setBusy(true);
@@ -363,113 +419,163 @@ function BlogForm({
       setError(res.error);
       return;
     }
-    if (res.data) onSaved(res.data);
+    if (res.data) onSaved(res.data, !post);
   };
 
   return (
     <Modal open={open} onClose={onClose} title={post ? "Edit post" : "New post"} wide>
       <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+        {/* ── The essentials ─────────────────────────────────────────────── */}
         <Field label="Title" htmlFor="title">
           <input
             id="title"
             value={form.title}
             onChange={(e) => onTitleChange(e.target.value)}
-            placeholder="How we cut load times in half"
+            placeholder="Why your business needs a fast website"
             className={inputCls}
+            autoFocus
           />
         </Field>
 
-        <Field label="Slug" htmlFor="slug" hint="Used in the URL: /blog/your-slug">
-          <input
-            id="slug"
-            value={form.slug}
-            onChange={(e) => {
-              setSlugTouched(true);
-              set("slug", e.target.value);
-            }}
-            placeholder="how-we-cut-load-times"
-            className={inputCls}
-          />
-        </Field>
-
-        <div className="grid gap-4 sm:grid-cols-2">
-          <Field label="Author" htmlFor="author">
-            <input
-              id="author"
-              value={form.author ?? ""}
-              onChange={(e) => set("author", e.target.value)}
-              placeholder="Navya Team"
-              className={inputCls}
-            />
-          </Field>
-          <Field label="Category" htmlFor="category">
-            <input
-              id="category"
-              value={form.category ?? ""}
-              onChange={(e) => set("category", e.target.value)}
-              placeholder="Engineering"
-              className={inputCls}
-            />
-          </Field>
-        </div>
-
-        <Field label="Excerpt" htmlFor="excerpt" hint="Short summary shown on listing cards.">
-          <textarea
-            id="excerpt"
-            value={form.excerpt ?? ""}
-            onChange={(e) => set("excerpt", e.target.value)}
-            rows={2}
-            className={inputCls}
-          />
-        </Field>
-
+        {/* MarkdownEditor renders its own "Content" label, so it isn't wrapped
+            in a <Field> (that would duplicate the label). */}
         <MarkdownEditor
           value={form.content ?? ""}
           onChange={(v) => set("content", v)}
         />
 
-        <Field label="Read minutes" htmlFor="read" hint="Estimated reading time.">
-          <input
-            id="read"
-            type="number"
-            min={1}
-            value={form.read_minutes ?? ""}
-            onChange={(e) =>
-              set("read_minutes", e.target.value ? Number(e.target.value) : null)
-            }
-            placeholder="5"
-            className={inputCls}
-          />
+        <Field label="Status">
+          <div role="radiogroup" aria-label="Post status" className="grid grid-cols-2 gap-2.5">
+            <StatusOption
+              selected={form.status === "draft"}
+              onSelect={() => set("status", "draft")}
+              title="Draft"
+              description="Only you can see it"
+            />
+            <StatusOption
+              selected={form.status === "published"}
+              onSelect={() => set("status", "published")}
+              title="Published"
+              description="Live on the site"
+            />
+          </div>
         </Field>
 
-        <Field label="Tags" htmlFor="tags" hint="Comma-separated, e.g. react, performance">
-          <input
-            id="tags"
-            value={tagsText}
-            onChange={(e) => setTagsText(e.target.value)}
-            placeholder="react, performance"
-            className={inputCls}
-          />
-        </Field>
-
-        <Field label="Status" htmlFor="status">
-          <select
-            id="status"
-            value={form.status}
-            onChange={(e) => set("status", e.target.value as BlogPostInput["status"])}
-            className={inputCls}
+        {/* ── Optional details (collapsed) ──────────────────────────────── */}
+        <div className="rounded-xl border border-white/10">
+          <button
+            type="button"
+            onClick={() => setShowMore((v) => !v)}
+            aria-expanded={showMore}
+            className="flex w-full items-center justify-between gap-2 px-3.5 py-2.5 text-sm font-medium text-ink-muted transition-colors hover:text-ink"
           >
-            <option value="draft">Draft</option>
-            <option value="published">Published</option>
-          </select>
-        </Field>
+            <span className="flex items-center gap-2">
+              <Sparkles size={15} className="text-brand-light" />
+              Optional details
+              <span className="text-xs font-normal text-ink-muted/70">
+                slug · summary · author · category · tags
+              </span>
+            </span>
+            <ChevronDown
+              size={16}
+              className={cn("transition-transform", showMore && "rotate-180")}
+            />
+          </button>
+
+          {showMore && (
+            <div className="flex flex-col gap-4 border-t border-white/10 p-3.5">
+              <Field label="Slug" htmlFor="slug" hint="The URL: /blog/your-slug">
+                <input
+                  id="slug"
+                  value={form.slug}
+                  onChange={(e) => {
+                    setSlugTouched(true);
+                    set("slug", e.target.value);
+                  }}
+                  placeholder="auto-generated from the title"
+                  className={inputCls}
+                />
+              </Field>
+
+              <Field
+                label="Summary"
+                htmlFor="excerpt"
+                hint="Shown on listing cards. Leave blank to use the opening lines."
+              >
+                <textarea
+                  id="excerpt"
+                  value={form.excerpt ?? ""}
+                  onChange={(e) => set("excerpt", e.target.value)}
+                  rows={2}
+                  placeholder="Auto-generated from your content"
+                  className={inputCls}
+                />
+              </Field>
+
+              <div className="grid gap-4 sm:grid-cols-2">
+                <Field label="Author" htmlFor="author" hint={`Defaults to “${DEFAULT_AUTHOR}”.`}>
+                  <input
+                    id="author"
+                    value={form.author ?? ""}
+                    onChange={(e) => set("author", e.target.value)}
+                    placeholder={DEFAULT_AUTHOR}
+                    className={inputCls}
+                  />
+                </Field>
+                <Field label="Category" htmlFor="category">
+                  <input
+                    id="category"
+                    value={form.category ?? ""}
+                    onChange={(e) => set("category", e.target.value)}
+                    placeholder="Web Performance"
+                    className={inputCls}
+                  />
+                </Field>
+              </div>
+
+              <Field label="Tags" htmlFor="tags" hint="Comma-separated, e.g. react, performance">
+                <input
+                  id="tags"
+                  value={tagsText}
+                  onChange={(e) => setTagsText(e.target.value)}
+                  placeholder="react, performance"
+                  className={inputCls}
+                />
+              </Field>
+
+              <Field
+                label="Reading time"
+                htmlFor="read"
+                hint="Minutes. Leave blank to estimate from word count."
+              >
+                <input
+                  id="read"
+                  type="number"
+                  min={1}
+                  value={form.read_minutes ?? ""}
+                  onChange={(e) =>
+                    set("read_minutes", e.target.value ? Number(e.target.value) : null)
+                  }
+                  placeholder="auto"
+                  className={inputCls}
+                />
+              </Field>
+            </div>
+          )}
+        </div>
 
         {error && <Alert kind="error">{error}</Alert>}
 
         <FormActions
           onCancel={onClose}
           busy={busy}
-          submitLabel={post ? "Save changes" : "Create post"}
+          submitLabel={
+            post
+              ? "Save changes"
+              : form.status === "published"
+                ? "Publish post"
+                : "Save draft"
+          }
         />
       </form>
     </Modal>
@@ -632,6 +738,39 @@ function NoResults({ onReset }: { onReset: () => void }) {
         Clear filters
       </button>
     </div>
+  );
+}
+
+/** One choice in the Draft/Published toggle — a clear card, not a dropdown row. */
+function StatusOption({
+  selected,
+  onSelect,
+  title,
+  description,
+}: {
+  selected: boolean;
+  onSelect: () => void;
+  title: string;
+  description: string;
+}) {
+  return (
+    <button
+      type="button"
+      role="radio"
+      aria-checked={selected}
+      onClick={onSelect}
+      className={cn(
+        "flex flex-col items-start gap-0.5 rounded-xl border px-4 py-3 text-left transition-all duration-200",
+        selected
+          ? "border-brand/60 bg-brand/10 shadow-[0_0_0_3px_rgba(245, 166, 35,0.15)]"
+          : "border-white/10 bg-white/[0.02] hover:border-white/20 hover:bg-white/[0.04]"
+      )}
+    >
+      <span className={cn("text-sm font-semibold", selected ? "text-ink" : "text-ink-muted")}>
+        {title}
+      </span>
+      <span className="text-xs text-ink-muted">{description}</span>
+    </button>
   );
 }
 
