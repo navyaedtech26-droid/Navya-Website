@@ -62,7 +62,7 @@ export class ErrorBoundary extends Component<Props, State> {
         <div className="flex flex-wrap items-center justify-center gap-3">
           <button
             onClick={this.reset}
-            className="rounded-2xl bg-brand-gradient px-6 py-3 text-sm font-medium text-bg shadow-glow-sm transition-all hover:shadow-glow focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-light"
+            className="rounded-2xl bg-brand-gradient px-6 py-3 text-sm font-medium text-white shadow-glow-sm transition-all hover:shadow-glow focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-light"
           >
             Try again
           </button>

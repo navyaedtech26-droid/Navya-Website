@@ -35,9 +35,9 @@ ChartJS.register(
 // Shared theme tokens (mirror tailwind.config.js).
 const INK_MUTED = "#94A3B8";
 const GRID = "rgba(255,255,255,0.06)";
-const BRAND = "#F5A623";
-const BRAND_LIGHT = "#FFB84D";
-const CYAN = "#FF7A59";
+const BRAND = "#1E6BFF";
+const BRAND_LIGHT = "#3B82F6";
+const CYAN = "#0EA5E9";
 
 // Palette for categorical charts (doughnut/bar slices). Hues are spread out so
 // adjacent categories are easy to distinguish.
@@ -66,10 +66,10 @@ ChartJS.defaults.font.family =
   '"Inter", "DM Sans", system-ui, sans-serif';
 
 const tooltipStyle = {
-  backgroundColor: "#221634",
+  backgroundColor: "#0F172A",
   borderColor: "rgba(255,255,255,0.1)",
   borderWidth: 1,
-  titleColor: "#FBF7F4",
+  titleColor: "#F8FAFC",
   bodyColor: INK_MUTED,
   padding: 10,
   cornerRadius: 8,
@@ -119,10 +119,10 @@ export function TrendChart({
             borderColor: BRAND_LIGHT,
             backgroundColor: (ctx) => {
               const { ctx: c, chartArea } = ctx.chart;
-              if (!chartArea) return "rgba(245, 166, 35,0.15)";
+              if (!chartArea) return "rgba(30, 107, 255,0.15)";
               const g = c.createLinearGradient(0, chartArea.top, 0, chartArea.bottom);
-              g.addColorStop(0, "rgba(245, 166, 35,0.35)");
-              g.addColorStop(1, "rgba(245, 166, 35,0)");
+              g.addColorStop(0, "rgba(30, 107, 255,0.35)");
+              g.addColorStop(1, "rgba(30, 107, 255,0)");
               return g;
             },
             fill: true,
@@ -170,7 +170,7 @@ export function BreakdownChart({
           {
             data,
             backgroundColor: colors,
-            borderColor: "#221634",
+            borderColor: "#0F172A",
             borderWidth: 2,
             hoverOffset: 6,
           },

@@ -18,7 +18,7 @@ export default function HeroSpotlight() {
 
   const px = useTransform(sx, (n) => `${n * 100}%`);
   const py = useTransform(sy, (n) => `${n * 100}%`);
-  const background = useMotionTemplate`radial-gradient(600px circle at ${px} ${py}, rgba(245, 166, 35,0.14), transparent 65%)`;
+  const background = useMotionTemplate`radial-gradient(600px circle at ${px} ${py}, rgba(30, 107, 255,0.14), transparent 65%)`;
 
   useEffect(() => {
     if (!enabled) return;

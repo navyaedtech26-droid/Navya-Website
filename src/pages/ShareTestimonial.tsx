@@ -203,7 +203,7 @@ export default function ShareTestimonial() {
                   type="submit"
                   disabled={status === "loading"}
                   data-cursor="hover"
-                  className="group mt-7 flex w-full items-center justify-center gap-2 rounded-2xl bg-brand-gradient px-6 py-4 text-sm font-semibold text-bg shadow-glow-sm transition-all duration-300 hover:shadow-glow disabled:opacity-70"
+                  className="group mt-7 flex w-full items-center justify-center gap-2 rounded-2xl bg-brand-gradient px-6 py-4 text-sm font-semibold text-white shadow-glow-sm transition-all duration-300 hover:shadow-glow disabled:opacity-70"
                 >
                   {status === "loading" ? (
                     <>

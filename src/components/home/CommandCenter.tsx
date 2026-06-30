@@ -112,14 +112,14 @@ export default function CommandCenter() {
             <svg viewBox="0 0 200 56" className="h-full w-full" preserveAspectRatio="none">
               <defs>
                 <linearGradient id="lineFill" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="0%" stopColor="rgba(245, 166, 35,0.4)" />
-                  <stop offset="100%" stopColor="rgba(245, 166, 35,0)" />
+                  <stop offset="0%" stopColor="rgba(30, 107, 255,0.4)" />
+                  <stop offset="100%" stopColor="rgba(30, 107, 255,0)" />
                 </linearGradient>
               </defs>
               <motion.path
                 d="M0,44 C30,20 50,40 80,28 C110,16 130,36 160,18 C175,10 190,20 200,12"
                 fill="none"
-                stroke="#F5A623"
+                stroke="#1E6BFF"
                 strokeWidth="2"
                 strokeLinecap="round"
                 initial={{ pathLength: 0 }}
@@ -149,7 +149,7 @@ export default function CommandCenter() {
               cy="50"
               r="40"
               fill="none"
-              stroke="#F5A623"
+              stroke="#1E6BFF"
               strokeWidth="7"
               strokeLinecap="round"
               strokeDasharray={2 * Math.PI * 40}

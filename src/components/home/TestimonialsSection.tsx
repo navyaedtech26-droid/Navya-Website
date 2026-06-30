@@ -53,7 +53,7 @@ export default function TestimonialsSection() {
             <Link
               to="/share-your-story"
               data-cursor="hover"
-              className="group inline-flex items-center gap-2 rounded-2xl bg-brand-gradient px-6 py-3.5 text-sm font-semibold text-bg shadow-glow-sm transition-all duration-300 hover:shadow-glow"
+              className="group inline-flex items-center gap-2 rounded-2xl bg-brand-gradient px-6 py-3.5 text-sm font-semibold text-white shadow-glow-sm transition-all duration-300 hover:shadow-glow"
             >
               <PenLine size={16} />
               Share Your Experience
@@ -126,7 +126,7 @@ export default function TestimonialsSection() {
           <Link
             to="/share-your-story"
             data-cursor="hover"
-            className="group inline-flex items-center gap-2 rounded-2xl bg-brand-gradient px-6 py-3.5 text-sm font-semibold text-bg shadow-glow-sm transition-all duration-300 hover:shadow-glow"
+            className="group inline-flex items-center gap-2 rounded-2xl bg-brand-gradient px-6 py-3.5 text-sm font-semibold text-white shadow-glow-sm transition-all duration-300 hover:shadow-glow"
           >
             <PenLine size={16} />
             Share Your Experience

@@ -169,7 +169,7 @@ export function useGlobeCanvas(hoverRef: HoverRef) {
       }
       ctx!.strokeStyle = bright
         ? `rgba(147,197,253,${Math.min(0.9, alpha + 0.4)})`
-        : `rgba(245, 166, 35,${alpha})`;
+        : `rgba(30, 107, 255,${alpha})`;
       ctx!.lineWidth = bright ? 1.8 : 1;
       ctx!.stroke();
     }
@@ -200,7 +200,7 @@ export function useGlobeCanvas(hoverRef: HoverRef) {
         ctx!.translate(CX + p.x, CY + p.y);
         ctx!.rotate(ang);
         if (depth > 0.55) {
-          ctx!.shadowColor = accent ? "rgba(245,200,70,0.7)" : "rgba(245, 166, 35,0.7)";
+          ctx!.shadowColor = accent ? "rgba(245,200,70,0.7)" : "rgba(30, 107, 255,0.7)";
           ctx!.shadowBlur = 8;
         }
         ctx!.fillStyle = accent
@@ -270,7 +270,7 @@ export function useGlobeCanvas(hoverRef: HoverRef) {
 
       // Globe glow
       const grd = ctx!.createRadialGradient(CX, CY, 0, CX, CY, R * 1.3);
-      grd.addColorStop(0, "rgba(245, 166, 35,0.08)");
+      grd.addColorStop(0, "rgba(30, 107, 255,0.08)");
       grd.addColorStop(1, "transparent");
       ctx!.fillStyle = grd;
       ctx!.beginPath();
@@ -282,7 +282,7 @@ export function useGlobeCanvas(hoverRef: HoverRef) {
       ctx!.arc(CX, CY, R, 0, Math.PI * 2);
       ctx!.fillStyle = "rgba(18,18,20,0.6)";
       ctx!.fill();
-      ctx!.strokeStyle = "rgba(245, 166, 35,0.2)";
+      ctx!.strokeStyle = "rgba(30, 107, 255,0.2)";
       ctx!.lineWidth = 1;
       ctx!.stroke();
 
@@ -349,7 +349,7 @@ export function useGlobeCanvas(hoverRef: HoverRef) {
         const alpha = ((p.z + 1) / 2) * 0.4;
         ctx!.beginPath();
         ctx!.arc(CX + p.x, CY + p.y, 1, 0, Math.PI * 2);
-        ctx!.fillStyle = `rgba(245, 166, 35,${alpha})`;
+        ctx!.fillStyle = `rgba(30, 107, 255,${alpha})`;
         ctx!.fill();
       });
 
@@ -432,7 +432,7 @@ export function useGlobeCanvas(hoverRef: HoverRef) {
         ctx!.beginPath();
         ctx!.moveTo(eqPts[0].x, eqPts[0].y);
         eqPts.forEach((pt) => ctx!.lineTo(pt.x, pt.y));
-        ctx!.strokeStyle = "rgba(245, 166, 35,0.12)";
+        ctx!.strokeStyle = "rgba(30, 107, 255,0.12)";
         ctx!.lineWidth = 1.5;
         ctx!.stroke();
       }

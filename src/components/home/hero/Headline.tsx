@@ -90,7 +90,7 @@ export function Headline() {
         initial={{ opacity: 0, y: 16 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.4, ease: easeEntrance, delay: 0.45 }}
-        className="mt-3 text-sm leading-relaxed text-[#E9DCEB] max-w-[440px]"
+        className="mt-3 text-sm leading-relaxed text-[#E2E8F0] max-w-[440px]"
       >
         We study your business, market, competitors, and growth possibilities, then build
         high-performance websites, business systems, and social media that scale your brand.
@@ -108,7 +108,7 @@ export function Headline() {
           whileHover={{ y: -2 }}
           whileTap={{ scale: 0.97 }}
           transition={{ type: "spring", stiffness: 400, damping: 22 }}
-          className="group relative overflow-hidden px-7 py-3.5 rounded-lg bg-[#F5A623] text-[#1A0F26] text-sm font-bold tracking-wide hover:shadow-[0_8px_30px_rgba(245, 166, 35,0.4)]"
+          className="group relative overflow-hidden px-7 py-3.5 rounded-lg bg-[#F5A623] text-[#0A1628] text-sm font-bold tracking-wide hover:shadow-[0_8px_30px_rgba(245, 166, 35,0.4)]"
         >
           {/* shine sweep on hover */}
           <span className="pointer-events-none absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/40 to-transparent transition-transform duration-700 ease-out group-hover:translate-x-full" />
@@ -122,7 +122,7 @@ export function Headline() {
           whileHover={{ y: -2 }}
           whileTap={{ scale: 0.97 }}
           transition={{ type: "spring", stiffness: 400, damping: 22 }}
-          className="px-7 py-3.5 rounded-lg border border-[#2E1D40] bg-transparent text-white text-sm font-semibold transition-colors hover:border-[rgba(245, 166, 35,0.5)] hover:bg-[rgba(245, 166, 35,0.06)]"
+          className="px-7 py-3.5 rounded-lg border border-[#1E293B] bg-transparent text-white text-sm font-semibold transition-colors hover:border-[rgba(245, 166, 35,0.5)] hover:bg-[rgba(245, 166, 35,0.06)]"
         >
           View Our Services
         </motion.button>

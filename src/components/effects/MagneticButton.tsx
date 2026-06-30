@@ -18,7 +18,7 @@ interface MagneticButtonProps {
 }
 
 const variants: Record<Variant, string> = {
-  primary: "bg-brand-gradient text-bg shadow-glow-sm",
+  primary: "bg-brand-gradient text-white shadow-glow-sm",
   secondary: "glass text-ink ring-1 ring-white/10",
 };
 

@@ -47,7 +47,7 @@ export default function RotatingCube3D({ size = 200 }: RotatingCube3DProps) {
         {faces.map(({ icon: Icon, label, transform }) => (
           <div
             key={label}
-            className="absolute inset-0 flex flex-col items-center justify-center gap-2 rounded-2xl border border-cyan-accent/30 bg-gradient-to-br from-bg-900/85 to-surface/65 text-brand-light shadow-[inset_0_0_28px_rgba(245, 166, 35,0.18)] backdrop-blur-sm"
+            className="absolute inset-0 flex flex-col items-center justify-center gap-2 rounded-2xl border border-cyan-accent/30 bg-gradient-to-br from-bg-900/85 to-surface/65 text-brand-light shadow-[inset_0_0_28px_rgba(30, 107, 255,0.18)] backdrop-blur-sm"
             style={{ transform, backfaceVisibility: "hidden" }}
           >
             <Icon size={size * 0.18} strokeWidth={1.5} className="text-cyan-accent" />

@@ -57,7 +57,7 @@ export default function CookieConsent() {
                 <button
                   onClick={accept}
                   data-cursor="hover"
-                  className="rounded-xl bg-brand-gradient px-5 py-2.5 text-sm font-semibold text-bg shadow-glow-sm transition-all duration-300 hover:shadow-glow"
+                  className="rounded-xl bg-brand-gradient px-5 py-2.5 text-sm font-semibold text-white shadow-glow-sm transition-all duration-300 hover:shadow-glow"
                 >
                   Accept
                 </button>

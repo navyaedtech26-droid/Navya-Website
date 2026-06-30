@@ -44,7 +44,7 @@ function StoryVisual() {
           width={420}
           height={162}
           decoding="async"
-          className="w-2/3 max-w-[15rem] object-contain drop-shadow-[0_0_24px_rgba(245, 166, 35,0.35)] transition-transform duration-500 group-hover:scale-105"
+          className="w-2/3 max-w-[15rem] object-contain drop-shadow-[0_0_24px_rgba(30, 107, 255,0.35)] transition-transform duration-500 group-hover:scale-105"
         />
       </motion.div>
     </div>

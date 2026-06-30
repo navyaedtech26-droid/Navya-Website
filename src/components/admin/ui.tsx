@@ -133,7 +133,7 @@ export function Field({
 
 export const inputCls = cn(
   "w-full rounded-xl border border-white/10 bg-white/[0.03] px-3.5 py-2.5 text-sm text-ink placeholder:text-ink-muted/70 outline-none transition-all duration-200",
-  "focus:border-brand/60 focus:bg-white/[0.05] focus:shadow-[0_0_0_3px_rgba(245, 166, 35,0.18)]"
+  "focus:border-brand/60 focus:bg-white/[0.05] focus:shadow-[0_0_0_3px_rgba(30, 107, 255,0.18)]"
 );
 
 export function Badge({
@@ -344,7 +344,7 @@ export function FormActions({
       <button
         type="submit"
         disabled={busy}
-        className="inline-flex items-center gap-2 rounded-xl bg-brand-gradient px-5 py-2.5 text-sm font-semibold text-bg shadow-glow-sm transition-shadow hover:shadow-glow disabled:opacity-70"
+        className="inline-flex items-center gap-2 rounded-xl bg-brand-gradient px-5 py-2.5 text-sm font-semibold text-white shadow-glow-sm transition-shadow hover:shadow-glow disabled:opacity-70"
       >
         {busy && <Spinner size={16} />}
         {submitLabel}

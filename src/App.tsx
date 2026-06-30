@@ -98,7 +98,7 @@ export default function App() {
           navbar straight to the page content. Visually hidden until focused. */}
       <a
         href="#main-content"
-        className="sr-only z-[100] rounded-xl bg-brand px-4 py-2 text-sm font-semibold text-bg shadow-glow-sm outline-none ring-2 ring-white/80 focus:not-sr-only focus:fixed focus:left-4 focus:top-4"
+        className="sr-only z-[100] rounded-xl bg-brand px-4 py-2 text-sm font-semibold text-white shadow-glow-sm outline-none ring-2 ring-white/80 focus:not-sr-only focus:fixed focus:left-4 focus:top-4"
       >
         Skip to content
       </a>

@@ -34,11 +34,11 @@ const opacityMap = {
  * Same diagonal angle and coral→amber hue ramp as the canvas, just frozen.
  */
 const STATIC_BEAMS = [
-  { left: "8%", hue: 16, width: 90, opacity: 0.22 },
-  { left: "27%", hue: 24, width: 130, opacity: 0.18 },
-  { left: "47%", hue: 32, width: 110, opacity: 0.26 },
-  { left: "66%", hue: 40, width: 150, opacity: 0.16 },
-  { left: "85%", hue: 46, width: 100, opacity: 0.2 },
+  { left: "8%", hue: 205, width: 90, opacity: 0.22 },
+  { left: "27%", hue: 215, width: 130, opacity: 0.18 },
+  { left: "47%", hue: 225, width: 110, opacity: 0.26 },
+  { left: "66%", hue: 240, width: 150, opacity: 0.16 },
+  { left: "85%", hue: 250, width: 100, opacity: 0.2 },
 ] as const;
 
 function createBeam(width: number, height: number): Beam {
@@ -51,8 +51,8 @@ function createBeam(width: number, height: number): Beam {
     angle,
     speed: 0.6 + Math.random() * 1.2,
     opacity: 0.12 + Math.random() * 0.16,
-    // Brand-tuned hue range: warm coral → amber, matching the site palette.
-    hue: 14 + Math.random() * 34,
+    // Brand-tuned hue range: deep blue → cyan, matching the site palette.
+    hue: 200 + Math.random() * 60,
     pulse: Math.random() * Math.PI * 2,
     pulseSpeed: 0.02 + Math.random() * 0.03,
   };
@@ -116,7 +116,7 @@ export default function BeamsBackground({
         column * spacing + spacing / 2 + (Math.random() - 0.5) * spacing * 0.5;
       beam.width = 100 + Math.random() * 100;
       beam.speed = 0.5 + Math.random() * 0.4;
-      beam.hue = 14 + (index * 34) / totalBeams;
+      beam.hue = 200 + (index * 60) / totalBeams;
       beam.opacity = 0.2 + Math.random() * 0.1;
       return beam;
     }
@@ -188,7 +188,7 @@ export default function BeamsBackground({
             className="absolute inset-0"
             style={{
               background:
-                "radial-gradient(55% 45% at 50% 0%, rgba(245, 166, 35,0.22), transparent 70%)",
+                "radial-gradient(55% 45% at 50% 0%, rgba(30, 107, 255,0.22), transparent 70%)",
             }}
           />
           {STATIC_BEAMS.map((beam) => (

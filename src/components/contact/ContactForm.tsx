@@ -142,7 +142,7 @@ export default function ContactForm() {
               cx="20"
               cy="20"
               r="18"
-              stroke="#F5A623"
+              stroke="#1E6BFF"
               strokeWidth="2"
               initial={{ pathLength: 0 }}
               animate={{ pathLength: 1 }}
@@ -150,7 +150,7 @@ export default function ContactForm() {
             />
             <motion.path
               d="M12 20.5l5.5 5.5L29 14"
-              stroke="#FFB84D"
+              stroke="#3B82F6"
               strokeWidth="3"
               strokeLinecap="round"
               strokeLinejoin="round"
@@ -288,7 +288,7 @@ export default function ContactForm() {
         type="submit"
         disabled={status === "loading"}
         data-cursor="hover"
-        className="group mt-7 flex w-full items-center justify-center gap-2 rounded-2xl bg-brand-gradient px-6 py-4 text-sm font-semibold text-bg shadow-glow-sm transition-all duration-300 hover:shadow-glow disabled:opacity-70"
+        className="group mt-7 flex w-full items-center justify-center gap-2 rounded-2xl bg-brand-gradient px-6 py-4 text-sm font-semibold text-white shadow-glow-sm transition-all duration-300 hover:shadow-glow disabled:opacity-70"
       >
         {status === "loading" ? (
           <>

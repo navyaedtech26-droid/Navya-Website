@@ -86,7 +86,7 @@ export default function ServicesHero() {
         <motion.div variants={fadeUp} className="mt-9 flex flex-col gap-3 sm:flex-row">
           <Link
             to="/contact"
-            className="group inline-flex items-center justify-center gap-1.5 rounded-xl bg-brand px-6 py-3 text-sm font-semibold text-bg shadow-glow-sm transition-all duration-200 hover:bg-brand-light hover:shadow-glow"
+            className="group inline-flex items-center justify-center gap-1.5 rounded-xl bg-brand px-6 py-3 text-sm font-semibold text-white shadow-glow-sm transition-all duration-200 hover:bg-brand-light hover:shadow-glow"
           >
             Start Your Project
             <ArrowRight size={16} className="transition-transform duration-200 group-hover:translate-x-0.5" />

@@ -80,7 +80,7 @@ export default function Navbar() {
             <Link
               to="/contact"
               data-cursor="hover"
-              className="hidden rounded-xl bg-brand-gradient px-5 py-2.5 text-sm font-semibold text-bg shadow-glow-sm transition-shadow duration-300 hover:shadow-glow sm:inline-flex"
+              className="hidden rounded-xl bg-brand-gradient px-5 py-2.5 text-sm font-semibold text-white shadow-glow-sm transition-shadow duration-300 hover:shadow-glow sm:inline-flex"
             >
               Let's Talk
             </Link>

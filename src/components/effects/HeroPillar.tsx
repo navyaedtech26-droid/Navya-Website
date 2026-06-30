@@ -19,7 +19,7 @@ export function HeroGlow() {
       className="absolute inset-0"
       style={{
         background:
-          "radial-gradient(55% 45% at 50% 0%, rgba(245, 166, 35,0.30), transparent 70%), radial-gradient(45% 60% at 50% 100%, rgba(255, 122, 89,0.18), transparent 72%)",
+          "radial-gradient(55% 45% at 50% 0%, rgba(30, 107, 255,0.30), transparent 70%), radial-gradient(45% 60% at 50% 100%, rgba(14, 165, 233,0.18), transparent 72%)",
       }}
     />
   );
@@ -39,8 +39,8 @@ export default function HeroPillar({ quality }: HeroPillarProps) {
   return (
     <Suspense fallback={<HeroGlow />}>
       <LightPillar
-        topColor="#F5A623"
-        bottomColor="#FF7A59"
+        topColor="#1E6BFF"
+        bottomColor="#0EA5E9"
         intensity={1}
         rotationSpeed={0.3}
         glowAmount={0.002}

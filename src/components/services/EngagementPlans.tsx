@@ -67,7 +67,7 @@ export default function EngagementPlans() {
                     data-cursor="hover"
                     className={`group mt-8 inline-flex items-center justify-center gap-1.5 rounded-lg px-5 py-3 text-sm font-semibold transition-all duration-300 ${
                       plan.highlighted
-                        ? "bg-brand text-bg-900 hover:-translate-y-0.5 hover:shadow-glow"
+                        ? "bg-brand text-white hover:-translate-y-0.5 hover:shadow-glow"
                         : "border border-white/10 text-ink hover:border-brand/50 hover:bg-brand/10"
                     }`}
                   >

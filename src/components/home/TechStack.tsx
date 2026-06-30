@@ -16,7 +16,7 @@ export default function TechStack() {
         className="pointer-events-none absolute inset-x-0 top-1/4 -z-10 mx-auto h-[420px] max-w-4xl rounded-full opacity-60 blur-3xl"
         style={{
           background:
-            "radial-gradient(ellipse at center, rgba(245, 166, 35,0.12), transparent 70%)",
+            "radial-gradient(ellipse at center, rgba(30, 107, 255,0.12), transparent 70%)",
         }}
       />
 

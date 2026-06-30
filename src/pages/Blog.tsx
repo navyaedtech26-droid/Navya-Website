@@ -103,7 +103,7 @@ export default function Blog() {
                     onChange={(e) => setQuery(e.target.value)}
                     placeholder="Search articles…"
                     aria-label="Search articles"
-                    className="w-full rounded-xl border border-white/10 bg-white/[0.03] py-3 pl-11 pr-10 text-sm text-ink placeholder:text-ink-muted/70 outline-none transition-all duration-200 focus:border-brand/60 focus:bg-white/[0.05] focus:shadow-[0_0_0_3px_rgba(245, 166, 35,0.18)]"
+                    className="w-full rounded-xl border border-white/10 bg-white/[0.03] py-3 pl-11 pr-10 text-sm text-ink placeholder:text-ink-muted/70 outline-none transition-all duration-200 focus:border-brand/60 focus:bg-white/[0.05] focus:shadow-[0_0_0_3px_rgba(30, 107, 255,0.18)]"
                   />
                   {query && (
                     <button

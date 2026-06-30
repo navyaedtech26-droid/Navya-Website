@@ -15,7 +15,7 @@ const ACCENTS: Record<CaseStudy["accent"], string> = {
 /** Icon-badge accent colour matching the cover gradient. */
 const ACCENT_HEX: Record<CaseStudy["accent"], string> = {
   blue: "#F5A623",
-  cyan: "#FF7A59",
+  cyan: "#0EA5E9",
   violet: "#A78BFA",
 };
 

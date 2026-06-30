@@ -229,7 +229,7 @@ export default function BlogsAdmin() {
         action={
           <button
             onClick={() => setCreating(true)}
-            className="inline-flex items-center gap-2 rounded-xl bg-brand-gradient px-4 py-2.5 text-sm font-semibold text-bg shadow-glow-sm transition-shadow hover:shadow-glow"
+            className="inline-flex items-center gap-2 rounded-xl bg-brand-gradient px-4 py-2.5 text-sm font-semibold text-white shadow-glow-sm transition-shadow hover:shadow-glow"
           >
             <Plus size={16} />
             New post
@@ -249,7 +249,7 @@ export default function BlogsAdmin() {
           action={
             <button
               onClick={() => setCreating(true)}
-              className="inline-flex items-center gap-2 rounded-xl bg-brand-gradient px-4 py-2.5 text-sm font-semibold text-bg shadow-glow-sm transition-shadow hover:shadow-glow"
+              className="inline-flex items-center gap-2 rounded-xl bg-brand-gradient px-4 py-2.5 text-sm font-semibold text-white shadow-glow-sm transition-shadow hover:shadow-glow"
             >
               <Plus size={16} />
               New post
@@ -762,7 +762,7 @@ function StatusOption({
       className={cn(
         "flex flex-col items-start gap-0.5 rounded-xl border px-4 py-3 text-left transition-all duration-200",
         selected
-          ? "border-brand/60 bg-brand/10 shadow-[0_0_0_3px_rgba(245, 166, 35,0.15)]"
+          ? "border-brand/60 bg-brand/10 shadow-[0_0_0_3px_rgba(30, 107, 255,0.15)]"
           : "border-white/10 bg-white/[0.02] hover:border-white/20 hover:bg-white/[0.04]"
       )}
     >

@@ -51,7 +51,7 @@ export default function ContactHero() {
         <motion.a
           variants={fadeUp}
           href="#contact-form"
-          className="group mt-9 inline-flex items-center justify-center gap-1.5 rounded-xl bg-brand px-6 py-3 text-sm font-semibold text-bg shadow-glow-sm transition-all duration-200 hover:bg-brand-light hover:shadow-glow"
+          className="group mt-9 inline-flex items-center justify-center gap-1.5 rounded-xl bg-brand px-6 py-3 text-sm font-semibold text-white shadow-glow-sm transition-all duration-200 hover:bg-brand-light hover:shadow-glow"
         >
           Start the conversation
           <motion.span

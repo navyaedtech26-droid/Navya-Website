@@ -267,7 +267,7 @@ export default function MessagesAdmin() {
               )}
               <a
                 href={`mailto:${open.email}`}
-                className="inline-flex items-center gap-2 rounded-xl bg-brand-gradient px-5 py-2.5 text-sm font-semibold text-bg shadow-glow-sm transition-shadow hover:shadow-glow"
+                className="inline-flex items-center gap-2 rounded-xl bg-brand-gradient px-5 py-2.5 text-sm font-semibold text-white shadow-glow-sm transition-shadow hover:shadow-glow"
               >
                 <Mail size={15} />
                 Reply by email
