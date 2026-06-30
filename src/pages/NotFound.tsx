@@ -12,7 +12,7 @@ export default function NotFound() {
   return (
     <PageTransition>
       <Seo
-        title="404: Page Not Found | Navya EdTech"
+        title="404 — Page Not Found | Navya EdTech"
         description="The page you are looking for could not be found. Return to Navya EdTech's homepage."
         path="/404"
         index={false}

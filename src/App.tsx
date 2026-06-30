@@ -98,7 +98,14 @@ export default function App() {
           navbar straight to the page content. Visually hidden until focused. */}
       <a
         href="#main-content"
-        className="sr-only z-[100] rounded-xl bg-brand px-4 py-2 text-sm font-semibold text-white shadow-glow-sm outline-none ring-2 ring-white/80 focus:not-sr-only focus:fixed focus:left-4 focus:top-4"
+        onClick={(e) => {
+          // Firefox and WebKit don't reliably move keyboard focus to a
+          // tabindex=-1 target on fragment-link activation. Drive the focus
+          // move explicitly so the skip link works across all engines.
+          e.preventDefault();
+          mainRef.current?.focus();
+        }}
+        className="fixed left-4 top-4 z-[100] -translate-y-24 rounded-xl bg-brand px-4 py-2 text-sm font-semibold text-white shadow-glow-sm outline-none ring-2 ring-white/80 transition-transform focus:translate-y-0"
       >
         Skip to content
       </a>
