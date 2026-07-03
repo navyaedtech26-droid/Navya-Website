@@ -46,7 +46,7 @@ export default function HeroShell({
             alt={bgImageAlt ?? ""}
             aria-hidden={bgImageAlt ? undefined : true}
             loading="eager"
-            fetchpriority="high"
+            fetchPriority="high"
             decoding="async"
             className="absolute inset-0 -z-20 h-full w-full object-cover object-center"
           />

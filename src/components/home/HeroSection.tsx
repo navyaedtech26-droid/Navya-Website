@@ -20,7 +20,7 @@ export default function HeroSection() {
         alt=""
         aria-hidden
         loading="eager"
-        fetchpriority="high"
+        fetchPriority="high"
         decoding="async"
         className="absolute inset-0 z-0 h-full w-full object-cover object-center pointer-events-none"
       />
