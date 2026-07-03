@@ -56,6 +56,7 @@ export default function Services() {
         title="Apps That"
         highlight="Engage"
         items={appServices}
+        background="bg-mist"
       />
 
       <ServiceGrid
@@ -70,6 +71,7 @@ export default function Services() {
         title="Data That"
         highlight="Drives Decisions"
         items={biServices}
+        background="bg-mist"
       />
 
       <ServiceGrid

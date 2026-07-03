@@ -7,9 +7,10 @@ import { staggerContainer, viewportOnce } from "@/lib/animations";
 
 export default function CaseStudiesSection() {
   return (
-    <section className="relative py-24">
+    <section className="relative bg-mist py-16 md:py-20">
       <Container>
         <SectionHeading
+          tone="light"
           eyebrow="Selected Work"
           title="Outcomes We've"
           highlight="Delivered"

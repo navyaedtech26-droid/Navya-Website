@@ -18,6 +18,7 @@ export default function Contact() {
         title="Contact | Navya EdTech"
         description="Contact Navya EdTech to build your website, e-commerce platform, or business management system."
         path="/contact"
+        pageType="ContactPage"
         jsonLd={[
           breadcrumbSchema([
             { name: "Home", path: "/" },

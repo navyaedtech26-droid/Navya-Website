@@ -6,6 +6,7 @@ import {
   faqPageSchema,
   articleSchema,
   breadcrumbSchema,
+  webPageSchema,
 } from "@/lib/structuredData";
 
 describe("serviceListSchema", () => {
@@ -80,6 +81,31 @@ describe("articleSchema", () => {
     expect(schema.dateModified).toBe("2026-01-01T00:00:00Z");
     expect(schema.description).toBeUndefined();
     expect(schema.image).toBeUndefined();
+  });
+});
+
+describe("webPageSchema", () => {
+  it("builds a WebPage linked to the website and organization", () => {
+    const schema = webPageSchema({
+      title: "About | Navya EdTech",
+      description: "Learn about us",
+      path: "/about",
+      type: "AboutPage",
+    });
+    expect(schema).toMatchObject({
+      "@type": "AboutPage",
+      "@id": `${SITE_URL}/about#webpage`,
+      url: `${SITE_URL}/about`,
+      name: "About | Navya EdTech",
+      isPartOf: { "@id": `${SITE_URL}/#website` },
+      publisher: { "@id": `${SITE_URL}/#organization` },
+    });
+  });
+
+  it("defaults to a generic WebPage type", () => {
+    expect(webPageSchema({ title: "T", description: "D", path: "/" })["@type"]).toBe(
+      "WebPage"
+    );
   });
 });
 

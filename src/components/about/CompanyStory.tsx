@@ -12,18 +12,19 @@ function StoryVisual() {
   return (
     <div className="relative mx-auto flex aspect-square w-full max-w-md items-center justify-center">
       {/* Static brand glow */}
-      <div className="absolute inset-0 rounded-full bg-brand/15 blur-[90px]" />
+      <div className="absolute inset-0 rounded-full bg-primary/10 blur-[90px]" />
 
       {/* Static concentric rings for a subtle techy depth (no animation) */}
-      <div className="pointer-events-none absolute inset-[5%] rounded-full border border-dashed border-cyan-accent/15" />
-      <div className="pointer-events-none absolute inset-[17%] rounded-full border border-cyan-accent/10" />
+      <div className="pointer-events-none absolute inset-[5%] rounded-full border border-dashed border-primary/15" />
+      <div className="pointer-events-none absolute inset-[17%] rounded-full border border-primary/10" />
 
-      {/* Logo card — gently zooms and rotates on hover */}
+      {/* Logo card — a deep-navy brand panel so the white logo reads on the
+          light page; gently zooms and rotates on hover. */}
       <motion.div
         whileHover={{ scale: 1.05, rotate: 2.5 }}
         whileTap={{ scale: 1.02, rotate: 1 }}
         transition={{ type: "spring", stiffness: 220, damping: 16 }}
-        className="group relative flex aspect-square w-[74%] items-center justify-center rounded-[2rem] glass shadow-glow ring-1 ring-white/10"
+        className="group relative flex aspect-square w-[74%] items-center justify-center rounded-[2rem] bg-bg shadow-card-hover ring-1 ring-line"
       >
         {/* Static corner ticks → framed, "command-center" card look */}
         {[
@@ -34,7 +35,7 @@ function StoryVisual() {
         ].map((pos) => (
           <span
             key={pos}
-            className={`absolute h-5 w-5 rounded-[4px] border-cyan-accent/40 ${pos}`}
+            className={`absolute h-5 w-5 rounded-[4px] border-primary/40 ${pos}`}
           />
         ))}
 
@@ -58,17 +59,17 @@ export default function CompanyStory() {
         <div className="grid items-center gap-12 lg:grid-cols-2">
           <div>
             <Reveal>
-              <span className="inline-flex items-center gap-2 rounded-full glass px-4 py-1.5 text-xs font-medium uppercase tracking-[0.2em] text-brand-light">
-                <Sparkles size={13} className="text-cyan-accent" /> Our Story
+              <span className="inline-flex items-center gap-2 rounded-full border border-line bg-white px-4 py-1.5 text-xs font-medium uppercase tracking-[0.2em] text-primary shadow-sm">
+                <Sparkles size={13} className="text-primary" /> Our Story
               </span>
             </Reveal>
             <Reveal delay={0.1}>
-              <h2 className="mt-5 font-display text-3xl font-semibold leading-tight text-ink sm:text-4xl">
-                A digital partner built for <span className="text-ink">modern businesses</span>
+              <h2 className="mt-5 font-display text-3xl font-semibold leading-tight text-heading sm:text-4xl">
+                A digital partner built for <span className="text-primary">modern businesses</span>
               </h2>
             </Reveal>
             <Reveal delay={0.2}>
-              <p className="mt-5 text-base leading-relaxed text-ink-muted">
+              <p className="mt-5 text-base leading-relaxed text-faint">
                 Navya EdTech began with a simple belief: great technology should be
                 accessible to every growing business. We pair editorial design with
                 serious engineering to ship websites and systems that feel premium and
@@ -76,7 +77,7 @@ export default function CompanyStory() {
               </p>
             </Reveal>
             <Reveal delay={0.3}>
-              <p className="mt-4 text-base leading-relaxed text-ink-muted">
+              <p className="mt-4 text-base leading-relaxed text-faint">
                 From a first landing page to a full ERP rollout, we obsess over speed,
                 clarity, and the details that make software a joy to use, so your team
                 and your customers feel the difference.

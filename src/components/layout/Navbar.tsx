@@ -27,16 +27,22 @@ export default function Navbar() {
         initial={isDesktop ? (reduceMotion ? { opacity: 0 } : { y: -24, opacity: 0 }) : false}
         animate={{ y: 0, opacity: 1 }}
         transition={isDesktop ? { duration: 0.4, ease: easeEntrance } : { duration: 0 }}
-        className="fixed inset-x-0 top-0 z-50 flex justify-center px-4 pt-4"
+        className="fixed inset-x-0 top-0 z-50"
       >
         <nav
           className={cn(
-            "flex w-full max-w-7xl items-center justify-between rounded-2xl px-5 py-3 transition-all duration-300",
+            // A full-bleed deep-navy bar that matches the footer surface, on
+            // every page. It deepens slightly and gains a shadow on scroll; the
+            // bottom hairline keeps it separated from the content below.
+            "w-full border-b transition-all duration-300",
             scrolled
-              ? "glass shadow-glow-sm"
-              : "border border-transparent bg-transparent"
+              ? "border-white/10 bg-bg shadow-lg shadow-bg/30"
+              : "border-white/5 bg-bg/95 backdrop-blur-md"
           )}
         >
+          {/* Inner content is capped to the site grid so the logo and CTA line
+              up with the page content below rather than the screen edges. */}
+          <div className="mx-auto flex w-full max-w-7xl items-center justify-between px-5 py-3 sm:px-8">
           <Link
             to="/"
             data-cursor="hover"
@@ -66,7 +72,7 @@ export default function Navbar() {
                     {link.label}
                     <span
                       className={cn(
-                        "absolute inset-x-3 -bottom-0.5 h-0.5 origin-left rounded-full bg-brand-gradient transition-transform duration-300",
+                        "absolute inset-x-3 -bottom-0.5 h-0.5 origin-left rounded-full bg-primary transition-transform duration-300",
                         isActive ? "scale-x-100" : "scale-x-0 group-hover:scale-x-100"
                       )}
                     />
@@ -80,7 +86,7 @@ export default function Navbar() {
             <Link
               to="/contact"
               data-cursor="hover"
-              className="hidden rounded-xl bg-brand-gradient px-5 py-2.5 text-sm font-semibold text-white shadow-glow-sm transition-shadow duration-300 hover:shadow-glow sm:inline-flex"
+              className="hidden rounded-xl bg-primary px-5 py-2.5 text-sm font-semibold text-white shadow-primary-sm transition-colors duration-300 hover:bg-primary-dark sm:inline-flex"
             >
               Let's Talk
             </Link>
@@ -91,6 +97,7 @@ export default function Navbar() {
             >
               <Menu size={20} />
             </button>
+          </div>
           </div>
         </nav>
       </motion.header>

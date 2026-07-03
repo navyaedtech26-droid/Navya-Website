@@ -10,8 +10,8 @@ import { fadeUp, staggerContainer, viewportOnce } from "@/lib/animations";
 
 export default function EngagementPlans() {
   return (
-    <section className="relative py-24">
-      <div className="pointer-events-none absolute left-1/2 top-0 h-72 w-[36rem] -translate-x-1/2 rounded-full bg-brand/10 blur-[140px]" />
+    <section className="relative bg-mist py-16 md:py-20">
+      <div className="pointer-events-none absolute left-1/2 top-0 h-72 w-[36rem] -translate-x-1/2 rounded-full bg-primary/[0.06] blur-[140px]" />
       <Container className="relative">
         <SectionHeading
           eyebrow="How We Work Together"
@@ -31,30 +31,30 @@ export default function EngagementPlans() {
             <motion.div key={plan.name} variants={fadeUp} className="h-full">
               <TiltCard intensity={6} className="h-full">
                 <div
-                  className={`relative flex h-full flex-col overflow-hidden rounded-2xl glass p-8 ${
-                    plan.highlighted ? "ring-1 ring-brand/50 shadow-glow" : "ring-1 ring-white/10"
+                  className={`relative flex h-full flex-col overflow-hidden rounded-2xl card-light p-8 ${
+                    plan.highlighted ? "border-primary/60 shadow-card-hover" : ""
                   }`}
                 >
                   {plan.highlighted && (
                     <>
-                      <div className="absolute inset-x-0 -top-px h-px bg-gradient-to-r from-transparent via-brand to-transparent" />
-                      <span className="absolute right-5 top-5 rounded-full bg-brand/20 px-3 py-1 text-[10px] font-bold uppercase tracking-[0.15em] text-cyan-accent ring-1 ring-brand/40">
+                      <div className="absolute inset-x-0 -top-px h-px bg-gradient-to-r from-transparent via-primary to-transparent" />
+                      <span className="absolute right-5 top-5 rounded-full bg-primary/10 px-3 py-1 text-[10px] font-bold uppercase tracking-[0.15em] text-primary ring-1 ring-primary/30">
                         Most Popular
                       </span>
                     </>
                   )}
 
                   <IconBadge icon={plan.icon} size="lg" />
-                  <h3 className="mt-5 font-display text-2xl font-semibold text-ink">{plan.name}</h3>
-                  <p className="mt-1 text-sm font-medium text-brand-light">{plan.tagline}</p>
-                  <p className="mt-3 text-xs uppercase tracking-wide text-ink-muted">
+                  <h3 className="mt-5 font-display text-2xl font-semibold text-heading">{plan.name}</h3>
+                  <p className="mt-1 text-sm font-medium text-primary">{plan.tagline}</p>
+                  <p className="mt-3 text-xs uppercase tracking-wide text-faint">
                     Best for {plan.bestFor}
                   </p>
 
                   <ul className="mt-6 flex flex-col gap-3">
                     {plan.features.map((feature) => (
-                      <li key={feature} className="flex items-start gap-2.5 text-sm text-ink/90">
-                        <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-md bg-brand/20 text-cyan-accent">
+                      <li key={feature} className="flex items-start gap-2.5 text-sm text-heading/90">
+                        <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-md bg-primary/10 text-primary">
                           <Check size={12} strokeWidth={3} />
                         </span>
                         {feature}
@@ -67,8 +67,8 @@ export default function EngagementPlans() {
                     data-cursor="hover"
                     className={`group mt-8 inline-flex items-center justify-center gap-1.5 rounded-lg px-5 py-3 text-sm font-semibold transition-all duration-300 ${
                       plan.highlighted
-                        ? "bg-brand text-white hover:-translate-y-0.5 hover:shadow-glow"
-                        : "border border-white/10 text-ink hover:border-brand/50 hover:bg-brand/10"
+                        ? "bg-primary text-white hover:-translate-y-0.5 hover:bg-primary-dark"
+                        : "border border-line text-heading hover:border-primary/50 hover:bg-primary/5"
                     }`}
                   >
                     Get a Quote
@@ -88,10 +88,10 @@ export default function EngagementPlans() {
           initial="hidden"
           whileInView="visible"
           viewport={viewportOnce}
-          className="mt-10 text-center text-sm text-ink-muted"
+          className="mt-10 text-center text-sm text-faint"
         >
           Not sure which fits?{" "}
-          <Link to="/contact" data-cursor="hover" className="font-semibold text-brand-light hover:text-cyan-accent">
+          <Link to="/contact" data-cursor="hover" className="font-semibold text-primary hover:text-primary-dark">
             Talk to us
           </Link>{" "}
           and we'll shape the right plan around your goals.

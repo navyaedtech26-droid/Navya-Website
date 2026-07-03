@@ -7,6 +7,12 @@ interface IconBadgeProps {
   size?: "sm" | "md" | "lg";
   /** Accent colour (hex, e.g. "#F5A623"). Defaults to the brand amber. */
   color?: string;
+  /**
+   * Surface treatment. "dark" (default) = glossy, glowing squircle for navy
+   * pages. "light" = flat, soft-tinted square for white surfaces (calm, no
+   * blur bloom) per the professional redesign. Default is unchanged.
+   */
+  tone?: "dark" | "light";
 }
 
 const sizes = {
@@ -29,9 +35,25 @@ export default function IconBadge({
   icon: Icon,
   className,
   size = "md",
-  color = "#F5A623",
+  color = "#2563EB",
+  tone = "light",
 }: IconBadgeProps) {
   const s = sizes[size];
+
+  // Light surfaces: a calm, flat tinted tile — soft color fill, hairline
+  // border, no glow bloom or glossy highlight. Keeps the accent to a small
+  // 2-5% footprint as the distribution rule intends.
+  if (tone === "light") {
+    return (
+      <div
+        className={cn("relative flex items-center justify-center border", s.box, className)}
+        style={{ background: `${color}14`, borderColor: `${color}33` }}
+      >
+        <Icon size={s.icon} strokeWidth={2} className="relative z-10" style={{ color }} />
+      </div>
+    );
+  }
+
   return (
     <div
       className={cn("relative isolate flex items-center justify-center border", s.box, className)}

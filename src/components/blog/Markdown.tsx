@@ -37,7 +37,7 @@ function renderInline(text: string): ReactNode[] {
             src={src}
             alt={m[1]}
             loading="lazy"
-            className="my-6 w-full rounded-2xl ring-1 ring-white/10"
+            className="my-6 w-full rounded-2xl ring-1 ring-line"
           />
         );
       }
@@ -54,7 +54,7 @@ function renderInline(text: string): ReactNode[] {
             key={i}
             href={href}
             {...(external ? { target: "_blank", rel: "noreferrer" } : {})}
-            className="font-medium text-brand-light underline-offset-2 hover:underline"
+            className="font-medium text-primary underline-offset-2 hover:underline"
           >
             {m[1]}
           </a>
@@ -63,14 +63,14 @@ function renderInline(text: string): ReactNode[] {
     }
     if (part.startsWith("**") && part.endsWith("**")) {
       return (
-        <strong key={i} className="font-semibold text-ink">
+        <strong key={i} className="font-semibold text-heading">
           {part.slice(2, -2)}
         </strong>
       );
     }
     if (part.startsWith("~~") && part.endsWith("~~")) {
       return (
-        <s key={i} className="text-ink-muted/70">
+        <s key={i} className="text-heading/50">
           {part.slice(2, -2)}
         </s>
       );
@@ -79,7 +79,7 @@ function renderInline(text: string): ReactNode[] {
       return (
         <code
           key={i}
-          className="rounded-md bg-white/10 px-1.5 py-0.5 text-[0.9em] text-cyan-accent"
+          className="rounded-md bg-haze px-1.5 py-0.5 text-[0.9em] text-primary ring-1 ring-line"
         >
           {part.slice(1, -1)}
         </code>
@@ -121,13 +121,13 @@ function splitRow(line: string): string[] {
 
 function CodeBlock({ lang, code }: { lang: string; code: string }) {
   return (
-    <div className="my-6 overflow-hidden rounded-2xl ring-1 ring-white/10">
+    <div className="my-6 overflow-hidden rounded-2xl ring-1 ring-line">
       {lang && (
-        <div className="border-b border-white/10 bg-white/[0.03] px-4 py-2 font-mono text-xs uppercase tracking-wide text-ink-muted">
+        <div className="border-b border-white/10 bg-bg-900 px-4 py-2 font-mono text-xs uppercase tracking-wide text-ink-muted">
           {lang}
         </div>
       )}
-      <pre className="overflow-x-auto bg-bg-900/80 p-4 text-sm leading-relaxed">
+      <pre className="overflow-x-auto bg-bg-900 p-4 text-sm leading-relaxed">
         <code className="font-mono text-ink-muted">{code}</code>
       </pre>
     </div>
@@ -149,9 +149,9 @@ function Blockquote({ lines }: { lines: string[] }) {
   if (current.length) paras.push(current);
 
   return (
-    <blockquote className="my-6 border-l-4 border-brand/50 bg-white/[0.02] py-1 pl-5 pr-4">
+    <blockquote className="my-6 border-l-4 border-primary/50 bg-mist py-1 pl-5 pr-4">
       {paras.map((p, i) => (
-        <p key={i} className="my-2 leading-relaxed text-ink-muted">
+        <p key={i} className="my-2 leading-relaxed text-heading/80">
           {renderInline(p.join(" "))}
         </p>
       ))}
@@ -169,15 +169,15 @@ function Table({
   rows: string[][];
 }) {
   return (
-    <div className="my-6 overflow-x-auto rounded-2xl ring-1 ring-white/10">
+    <div className="my-6 overflow-x-auto rounded-2xl ring-1 ring-line">
       <table className="w-full border-collapse text-sm">
         <thead>
-          <tr className="bg-white/[0.03]">
+          <tr className="bg-mist">
             {head.map((cell, i) => (
               <th
                 key={i}
                 className={cn(
-                  "border-b border-white/10 px-4 py-2.5 font-semibold text-ink",
+                  "border-b border-line px-4 py-2.5 font-semibold text-heading",
                   alignClass(align[i] ?? "left")
                 )}
               >
@@ -188,12 +188,12 @@ function Table({
         </thead>
         <tbody>
           {rows.map((row, r) => (
-            <tr key={r} className="border-b border-white/5 last:border-0">
+            <tr key={r} className="border-b border-line last:border-0">
               {row.map((cell, c) => (
                 <td
                   key={c}
                   className={cn(
-                    "px-4 py-2.5 text-ink-muted",
+                    "px-4 py-2.5 text-heading/80",
                     alignClass(align[c] ?? "left")
                   )}
                 >
@@ -263,7 +263,7 @@ export default function Markdown({ content }: { content: string }) {
 
     // Horizontal rule.
     if (/^(?:-{3,}|\*{3,}|_{3,})$/.test(line)) {
-      push(<hr className="my-8 border-white/10" />);
+      push(<hr className="my-8 border-line" />);
       i++;
       continue;
     }
@@ -305,7 +305,7 @@ export default function Markdown({ content }: { content: string }) {
         i++;
       }
       push(
-        <ol className="my-4 list-decimal space-y-2 pl-6 text-ink-muted">
+        <ol className="my-4 list-decimal space-y-2 pl-6 text-heading/80">
           {items.map((item, n) => (
             <li key={n}>{renderInline(item)}</li>
           ))}
@@ -322,7 +322,7 @@ export default function Markdown({ content }: { content: string }) {
         i++;
       }
       push(
-        <ul className="my-4 list-disc space-y-2 pl-6 text-ink-muted">
+        <ul className="my-4 list-disc space-y-2 pl-6 text-heading/80">
           {items.map((item, n) => (
             <li key={n}>{renderInline(item)}</li>
           ))}
@@ -334,7 +334,7 @@ export default function Markdown({ content }: { content: string }) {
     // Headings.
     if (line.startsWith("### ")) {
       push(
-        <h3 className="mt-8 font-display text-xl font-semibold text-ink">
+        <h3 className="mt-8 font-display text-xl font-semibold text-heading">
           {renderInline(line.slice(4))}
         </h3>
       );
@@ -343,7 +343,7 @@ export default function Markdown({ content }: { content: string }) {
     }
     if (line.startsWith("## ")) {
       push(
-        <h2 className="mt-10 font-display text-2xl font-semibold text-ink">
+        <h2 className="mt-10 font-display text-2xl font-semibold text-heading">
           {renderInline(line.slice(3))}
         </h2>
       );
@@ -352,7 +352,7 @@ export default function Markdown({ content }: { content: string }) {
     }
     if (line.startsWith("# ")) {
       push(
-        <h2 className="mt-10 font-display text-3xl font-semibold text-ink">
+        <h2 className="mt-10 font-display text-3xl font-semibold text-heading">
           {renderInline(line.slice(2))}
         </h2>
       );
@@ -368,7 +368,7 @@ export default function Markdown({ content }: { content: string }) {
       i++;
     }
     push(
-      <p className="my-4 leading-relaxed text-ink-muted">
+      <p className="my-4 leading-relaxed text-heading/80">
         {renderInline(para.join(" "))}
       </p>
     );

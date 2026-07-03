@@ -268,21 +268,22 @@ export function useGlobeCanvas(hoverRef: HoverRef) {
         ctx!.fill();
       });
 
-      // Globe glow
+      // Globe glow — soft blue bloom so the dark planet lifts off the white hero
       const grd = ctx!.createRadialGradient(CX, CY, 0, CX, CY, R * 1.3);
-      grd.addColorStop(0, "rgba(30, 107, 255,0.08)");
+      grd.addColorStop(0, "rgba(37,99,235,0.10)");
       grd.addColorStop(1, "transparent");
       ctx!.fillStyle = grd;
       ctx!.beginPath();
       ctx!.arc(CX, CY, R * 1.3, 0, Math.PI * 2);
       ctx!.fill();
 
-      // Globe body
+      // Globe body — solid deep navy: a clean, premium dark focal object that
+      // reads crisply on the white hero (rather than a muddy translucent grey).
       ctx!.beginPath();
       ctx!.arc(CX, CY, R, 0, Math.PI * 2);
-      ctx!.fillStyle = "rgba(18,18,20,0.6)";
+      ctx!.fillStyle = "rgba(10,22,40,0.96)";
       ctx!.fill();
-      ctx!.strokeStyle = "rgba(30, 107, 255,0.2)";
+      ctx!.strokeStyle = "rgba(37,99,235,0.30)";
       ctx!.lineWidth = 1;
       ctx!.stroke();
 

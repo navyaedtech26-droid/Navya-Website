@@ -8,6 +8,7 @@ import CTASection from "@/components/common/CTASection";
 import Reveal from "@/components/effects/Reveal";
 import BlogCard from "@/components/blog/BlogCard";
 import Markdown from "@/components/blog/Markdown";
+import ArticleAside from "@/components/blog/ArticleAside";
 import { LoadingScreen } from "@/components/common/Spinner";
 import { useAsync } from "@/hooks/useAsync";
 import {
@@ -15,7 +16,7 @@ import {
   getRelatedPosts,
   type BlogPostSummary,
 } from "@/services/blogs";
-import { articleSchema, breadcrumbSchema } from "@/lib/structuredData";
+import { articleSchema, breadcrumbSchema, SITE_URL } from "@/lib/structuredData";
 import { formatDate } from "@/lib/utils";
 
 export default function BlogPostPage() {
@@ -54,15 +55,15 @@ export default function BlogPostPage() {
           index={false}
         />
         <Container className="flex min-h-[60svh] flex-col items-center justify-center py-32 text-center">
-          <h1 className="font-display text-3xl font-semibold text-ink">
+          <h1 className="font-display text-3xl font-semibold text-heading">
             Article not found
           </h1>
-          <p className="mt-3 text-ink-muted">
+          <p className="mt-3 text-faint">
             This post may have been moved or unpublished.
           </p>
           <Link
             to="/blog"
-            className="mt-7 inline-flex items-center gap-2 rounded-xl glass px-5 py-2.5 text-sm font-medium text-ink-muted transition-colors hover:text-ink"
+            className="mt-7 inline-flex items-center gap-2 rounded-xl border border-line bg-white px-5 py-2.5 text-sm font-medium text-heading shadow-sm transition-colors hover:bg-mist"
           >
             <ArrowLeft size={16} />
             Back to blog
@@ -98,13 +99,13 @@ export default function BlogPostPage() {
         ]}
       />
 
-      <article className="relative pb-12 pt-36">
-        <div className="absolute left-1/2 top-0 h-72 w-72 -translate-x-1/2 rounded-full bg-brand/20 blur-[120px]" />
-        <Container className="relative max-w-3xl">
+      <article className="relative pb-12 pt-28">
+        <div className="absolute left-1/2 top-0 h-72 w-72 -translate-x-1/2 rounded-full bg-primary/[0.07] blur-[120px]" />
+        <Container className="relative max-w-5xl">
           <Link
             to="/blog"
             data-cursor="hover"
-            className="inline-flex items-center gap-2 text-sm font-medium text-ink-muted transition-colors hover:text-ink"
+            className="inline-flex items-center gap-2 text-sm font-medium text-faint transition-colors hover:text-heading"
           >
             <ArrowLeft size={16} />
             All articles
@@ -115,15 +116,15 @@ export default function BlogPostPage() {
               <Link
                 to={`/blog?category=${encodeURIComponent(post.category)}`}
                 data-cursor="hover"
-                className="rounded-full glass px-3 py-1 text-xs font-medium text-brand-light ring-1 ring-white/10 transition-colors hover:text-ink"
+                className="rounded-full border border-line bg-white px-3 py-1 text-xs font-medium text-primary shadow-sm transition-colors hover:text-primary-dark"
               >
                 {post.category}
               </Link>
             )}
-            <h1 className="mt-5 font-display text-3xl font-semibold leading-tight tracking-tight text-ink sm:text-4xl md:text-5xl">
+            <h1 className="mt-5 font-display text-3xl font-semibold leading-tight tracking-tight text-heading sm:text-4xl md:text-5xl">
               {post.title}
             </h1>
-            <div className="mt-5 flex flex-wrap items-center gap-4 text-sm text-ink-muted">
+            <div className="mt-5 flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-faint">
               {post.author && <span>By {post.author}</span>}
               {post.published_at && (
                 <span className="inline-flex items-center gap-1.5">
@@ -140,35 +141,33 @@ export default function BlogPostPage() {
             </div>
           </header>
 
-          <div className="mt-10">
-            {post.content ? (
-              <Markdown content={post.content} />
-            ) : (
-              <p className="text-ink-muted">{post.excerpt}</p>
-            )}
-          </div>
-
-          {post.tags.length > 0 && (
-            <div className="mt-10 flex flex-wrap gap-2 border-t border-white/10 pt-6">
-              {post.tags.map((tag) => (
-                <Link
-                  key={tag}
-                  to={`/blog?tag=${encodeURIComponent(tag)}`}
-                  data-cursor="hover"
-                  className="rounded-full bg-white/5 px-3 py-1 text-xs text-ink-muted ring-1 ring-white/10 transition-colors hover:text-brand-light"
-                >
-                  #{tag}
-                </Link>
-              ))}
+          {/* Editorial two-column body: readable prose on the left, a sticky
+              rail (share / topics / CTA) on the right that fills the width on
+              wide screens. On mobile the rail stacks below the article. */}
+          <div className="mt-10 grid grid-cols-1 gap-x-12 gap-y-12 lg:grid-cols-[minmax(0,1fr)_15rem]">
+            {/* min-w-0 lets wide code blocks / tables scroll inside their own
+                track instead of stretching the grid column. */}
+            <div className="min-w-0">
+              {post.content ? (
+                <Markdown content={post.content} />
+              ) : (
+                <p className="text-faint">{post.excerpt}</p>
+              )}
             </div>
-          )}
+
+            <ArticleAside
+              url={`${SITE_URL}/blog/${post.slug}`}
+              title={post.title}
+              tags={post.tags}
+            />
+          </div>
         </Container>
       </article>
 
       {related.length > 0 && (
         <section className="relative py-12">
           <Container className="max-w-5xl">
-            <h2 className="mb-8 font-display text-2xl font-semibold text-ink">
+            <h2 className="mb-8 font-display text-2xl font-semibold text-heading">
               Related articles
             </h2>
             <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">

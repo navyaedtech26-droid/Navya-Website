@@ -41,6 +41,7 @@ export const techGroups: TechGroup[] = [
     label: "Backend & APIs",
     items: [
       { name: "Node.js", logo: icon("nodejs/nodejs-original.svg"), color: "#5FA04E" },
+      { name: "Laravel", logo: icon("laravel/laravel-original.svg"), color: "#FF2D20" },
     ],
   },
 ];

@@ -10,9 +10,10 @@ import { fadeUp, staggerContainer, viewportOnce } from "@/lib/animations";
 
 export default function ServicesOverview() {
   return (
-    <section className="relative py-24">
+    <section className="relative bg-paper py-16 md:py-20">
       <Container>
         <SectionHeading
+          tone="light"
           eyebrow="What We Do"
           title="We Don't Just Build."
           highlight="We Transform."
@@ -29,18 +30,18 @@ export default function ServicesOverview() {
           {serviceCategories.map((cat) => (
             <motion.div key={cat.id} variants={fadeUp} className="h-full">
               <TiltCard className="h-full">
-                <div className="flex h-full flex-col glass rounded-2xl p-8">
+                <div className="flex h-full flex-col card-light rounded-2xl p-8 transition-shadow duration-300 hover:shadow-card-hover">
                   <div className="flex items-center gap-4">
-                    <IconBadge icon={cat.icon} size="lg" />
+                    <IconBadge icon={cat.icon} size="lg" tone="light" color="#2563EB" />
                     <div>
-                      <h3 className="font-display text-xl font-semibold text-ink">
+                      <h3 className="font-display text-xl font-semibold text-heading">
                         {cat.title}
                       </h3>
-                      <p className="text-sm text-ink-muted">{cat.subtitle}</p>
+                      <p className="text-sm text-heading/70">{cat.subtitle}</p>
                     </div>
                   </div>
 
-                  <p className="mt-5 text-sm leading-relaxed text-ink-muted">
+                  <p className="mt-5 text-sm leading-relaxed text-heading/80">
                     {cat.description}
                   </p>
 
@@ -48,9 +49,9 @@ export default function ServicesOverview() {
                     {cat.items.map((item) => (
                       <li
                         key={item}
-                        className="flex items-center gap-2 text-sm text-ink/90"
+                        className="flex items-center gap-2 text-sm text-heading/90"
                       >
-                        <span className="flex h-5 w-5 items-center justify-center rounded-md bg-brand/20 text-cyan-accent">
+                        <span className="flex h-5 w-5 items-center justify-center rounded-md bg-primary/10 text-primary">
                           <Check size={12} strokeWidth={3} />
                         </span>
                         {item}
@@ -61,7 +62,7 @@ export default function ServicesOverview() {
                   <Link
                     to="/services"
                     data-cursor="hover"
-                    className="group mt-auto inline-flex items-center gap-1.5 pt-8 text-sm font-semibold text-brand-light transition-colors hover:text-cyan-accent"
+                    className="group mt-auto inline-flex items-center gap-1.5 pt-8 text-sm font-semibold text-primary transition-colors hover:text-primary-dark"
                   >
                     Explore {cat.title}
                     <ArrowRight

@@ -15,8 +15,8 @@ const highlights = [
 
 export default function EngineeringShowcase() {
   return (
-    <section className="relative overflow-hidden py-24">
-      <div className="absolute inset-0 grid-bg opacity-20 [mask-image:radial-gradient(ellipse_at_center,black,transparent_75%)]" />
+    <section className="relative overflow-hidden py-16 md:py-20">
+      <div className="absolute inset-0 light-grid opacity-70 [mask-image:radial-gradient(ellipse_at_center,black,transparent_75%)]" />
       <Container className="relative">
         <div className="grid items-center gap-14 lg:grid-cols-2">
           {/* 3D cube */}
@@ -27,19 +27,19 @@ export default function EngineeringShowcase() {
           {/* Copy */}
           <div className="order-1 lg:order-2">
             <Reveal>
-              <span className="inline-flex items-center gap-2 rounded-full glass px-4 py-1.5 text-xs font-medium uppercase tracking-[0.2em] text-brand-light">
-                <span className="h-1.5 w-1.5 rounded-full bg-cyan-accent animate-pulse-glow" />
+              <span className="inline-flex items-center gap-2 rounded-full border border-line bg-white px-4 py-1.5 text-xs font-medium uppercase tracking-[0.2em] text-primary shadow-sm">
+                <span className="h-1.5 w-1.5 rounded-full bg-primary animate-pulse-glow" />
                 Engineering Excellence
               </span>
             </Reveal>
             <Reveal delay={0.1}>
-              <h2 className="mt-5 font-display text-3xl font-semibold leading-tight text-ink sm:text-4xl">
+              <h2 className="mt-5 font-display text-3xl font-semibold leading-tight text-heading sm:text-4xl">
                 Beautiful on the surface.{" "}
-                <span className="text-ink">Serious underneath.</span>
+                <span className="text-primary">Serious underneath.</span>
               </h2>
             </Reveal>
             <Reveal delay={0.2}>
-              <p className="mt-5 text-base leading-relaxed text-ink-muted">
+              <p className="mt-5 text-base leading-relaxed text-faint">
                 We pair editorial design with real engineering discipline. Every project is
                 built on a foundation that's fast, secure, and ready to scale, so what looks
                 great today still performs under pressure tomorrow.
@@ -57,12 +57,12 @@ export default function EngineeringShowcase() {
                 <motion.div
                   key={h.title}
                   variants={fadeUp}
-                  className="flex items-start gap-3 rounded-2xl glass p-4 ring-1 ring-white/10"
+                  className="flex items-start gap-3 rounded-2xl card-light p-4"
                 >
                   <IconBadge icon={h.icon} size="sm" className="mt-0.5 shrink-0" />
                   <div>
-                    <p className="font-display text-sm font-semibold text-ink">{h.title}</p>
-                    <p className="mt-0.5 text-xs leading-relaxed text-ink-muted">{h.text}</p>
+                    <p className="font-display text-sm font-semibold text-heading">{h.title}</p>
+                    <p className="mt-0.5 text-xs leading-relaxed text-faint">{h.text}</p>
                   </div>
                 </motion.div>
               ))}

@@ -3,8 +3,12 @@
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/png" href="/favicon.png" />
+    <link rel="apple-touch-icon" href="/favicon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#0A1628" />
+    <meta name="apple-mobile-web-app-title" content="Navya EdTech" />
+    <meta name="application-name" content="Navya EdTech" />
 
     <!-- Security headers that browsers honour from a <meta> tag. GitHub Pages
          can't send real response headers; for the rest (HSTS, X-Frame-Options,
@@ -39,6 +43,10 @@
     <meta name="referrer" content="strict-origin-when-cross-origin" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <!-- DNS prefetch for consent-gated third parties (analytics) so the lookup
+         is warm if/when the user accepts cookies and the script loads. -->
+    <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
+    <link rel="dns-prefetch" href="https://www.google-analytics.com" />
 
     <!-- Primary (body) font: Inter. Preloaded so body text paints as early as
          possible. Only the weights actually used in the app are requested
@@ -69,24 +77,13 @@
         href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Space+Grotesk:wght@400;500;600;700&family=Syne:wght@600;700&display=swap"
       />
     </noscript>
+    <!-- Fallback <title> only. Title, description, canonical, OpenGraph,
+         Twitter and JSON-LD are all owned by the <Seo> component
+         (react-helmet-async) so each route emits its own, and the prerender
+         step (scripts/prerender.mjs) bakes the per-page set into static HTML.
+         Keeping duplicate og:/twitter: tags here would double them up on every
+         prerendered page, so they intentionally live only in <Seo>. -->
     <title>Navya EdTech | High-Performance Websites & Digital Systems</title>
-    <meta
-      name="description"
-      content="Navya EdTech builds high-performance websites and business management systems for modern businesses. Innovate. Build. Elevate."
-    />
-    <meta name="author" content="Navya EdTech" />
-    <meta property="og:type" content="website" />
-    <meta property="og:site_name" content="Navya EdTech" />
-    <meta property="og:title" content="Navya EdTech | High-Performance Websites & Digital Systems" />
-    <meta property="og:description" content="High-performance websites & business systems, built to scale your business. Innovate. Build. Elevate." />
-    <meta property="og:image" content="https://navyaedtech.com/og-image.png" />
-    <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content="Navya EdTech — Innovate. Build. Elevate." />
-    <meta property="og:url" content="https://navyaedtech.com/" />
-    <meta property="og:locale" content="en_US" />
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:image" content="https://navyaedtech.com/og-image.png" />
     <link
       rel="alternate"
       type="application/rss+xml"

@@ -74,7 +74,7 @@ function SocialLinks({ socials, name }: { socials: Founder["socials"]; name: str
 
 export default function TeamSection() {
   return (
-    <section className="relative py-24">
+    <section className="relative py-16 md:py-20">
       <Container>
         <SectionHeading
           eyebrow="The People Behind It"

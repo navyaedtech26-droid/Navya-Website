@@ -75,33 +75,33 @@ export default function AdminLogin() {
         index={false}
       />
 
-      <section className="relative flex min-h-[100svh] items-center justify-center overflow-hidden bg-bg py-20">
-        <div className="absolute left-1/2 top-1/3 h-80 w-80 -translate-x-1/2 rounded-full bg-brand/20 blur-[120px]" />
-        <div className="grid-bg pointer-events-none absolute inset-0 opacity-40" />
+      <section className="relative flex min-h-[100svh] items-center justify-center overflow-hidden bg-mist py-20">
+        <div className="absolute left-1/2 top-1/3 h-80 w-80 -translate-x-1/2 rounded-full bg-primary/[0.06] blur-[120px]" />
+        <div className="light-grid pointer-events-none absolute inset-0 opacity-60 [mask-image:radial-gradient(ellipse_at_center,black,transparent_75%)]" />
 
         <Container className="relative max-w-md">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="rounded-3xl glass p-8 ring-1 ring-white/10 sm:p-10"
+            className="rounded-3xl card-light p-8 sm:p-10"
           >
             <div className="flex items-center gap-3">
-              <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-brand/20 ring-1 ring-brand/40">
-                <ShieldCheck size={20} className="text-brand-light" />
+              <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-primary/10 ring-1 ring-primary/30">
+                <ShieldCheck size={20} className="text-primary" />
               </div>
               <div>
-                <h1 className="font-display text-xl font-semibold text-ink">
+                <h1 className="font-display text-xl font-semibold text-heading">
                   Admin Dashboard
                 </h1>
-                <p className="text-sm text-ink-muted">Sign in to manage content</p>
+                <p className="text-sm text-faint">Sign in to manage content</p>
               </div>
             </div>
 
             {!isSupabaseConfigured && (
-              <p className="mt-6 rounded-xl border border-amber-500/40 bg-amber-500/10 px-4 py-3 text-sm text-amber-300">
+              <p className="mt-6 rounded-xl border border-amber-300 bg-amber-50 px-4 py-3 text-sm text-amber-700">
                 Supabase is not configured. Add your keys to
-                <code className="mx-1 rounded bg-white/10 px-1">.env</code>
+                <code className="mx-1 rounded bg-amber-100 px-1">.env</code>
                 to enable the dashboard.
               </p>
             )}
@@ -135,7 +135,7 @@ export default function AdminLogin() {
                     aria-label={showPassword ? "Hide password" : "Show password"}
                     aria-pressed={showPassword}
                     title={showPassword ? "Hide password" : "Show password"}
-                    className="absolute inset-y-0 right-0 flex items-center px-3.5 text-ink-muted transition-colors hover:text-ink focus:outline-none focus-visible:text-brand-light"
+                    className="absolute inset-y-0 right-0 flex items-center px-3.5 text-faint transition-colors hover:text-heading focus:outline-none focus-visible:text-primary"
                   >
                     {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
                   </button>
@@ -145,14 +145,14 @@ export default function AdminLogin() {
               <div className="-mt-1 flex justify-end">
                 <Link
                   to="/admin/forgot-password"
-                  className="text-xs font-medium text-ink-muted transition-colors hover:text-brand-light"
+                  className="text-xs font-medium text-faint transition-colors hover:text-primary"
                 >
                   Forgot password?
                 </Link>
               </div>
 
               {error && (
-                <p className="rounded-xl border border-red-500/40 bg-red-500/10 px-4 py-2.5 text-sm text-red-300">
+                <p className="rounded-xl border border-red-300 bg-red-50 px-4 py-2.5 text-sm text-red-600">
                   {error}
                 </p>
               )}
@@ -160,7 +160,7 @@ export default function AdminLogin() {
               <button
                 type="submit"
                 disabled={loading || authLoading || !isSupabaseConfigured}
-                className="mt-1 flex w-full items-center justify-center gap-2 rounded-2xl bg-brand-gradient px-6 py-3.5 text-sm font-semibold text-white shadow-glow-sm transition-all duration-300 hover:shadow-glow disabled:opacity-70"
+                className="mt-1 flex w-full items-center justify-center gap-2 rounded-2xl bg-primary px-6 py-3.5 text-sm font-semibold text-white shadow-primary-sm transition-colors duration-300 hover:bg-primary-dark disabled:opacity-70"
               >
                 {loading ? (
                   <>
@@ -174,8 +174,8 @@ export default function AdminLogin() {
             </form>
           </motion.div>
 
-          <p className="mt-6 text-center text-xs text-ink-muted">
-            <Link to="/" className="transition-colors hover:text-ink">
+          <p className="mt-6 text-center text-xs text-faint">
+            <Link to="/" className="transition-colors hover:text-heading">
               ← Back to website
             </Link>
           </p>

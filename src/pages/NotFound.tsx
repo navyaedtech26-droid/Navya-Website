@@ -3,7 +3,6 @@ import { motion } from "framer-motion";
 import PageTransition from "@/components/effects/PageTransition";
 import Container from "@/components/common/Container";
 import MagneticButton from "@/components/effects/MagneticButton";
-import FloatingOrbs from "@/components/effects/FloatingOrbs";
 import { fadeUp, staggerContainer } from "@/lib/animations";
 import { useReducedMotion } from "@/hooks/useMediaQuery";
 
@@ -19,8 +18,7 @@ export default function NotFound() {
       />
 
       <section className="relative flex min-h-[100svh] items-center justify-center overflow-hidden py-32">
-        <FloatingOrbs count={6} />
-        <div className="absolute left-1/2 top-1/2 h-96 w-96 -translate-x-1/2 -translate-y-1/2 rounded-full bg-brand/20 blur-[120px]" />
+        <div className="absolute left-1/2 top-1/2 h-96 w-96 -translate-x-1/2 -translate-y-1/2 rounded-full bg-primary/[0.06] blur-[120px]" />
 
         <Container className="relative">
           <motion.div
@@ -30,14 +28,14 @@ export default function NotFound() {
             className="mx-auto max-w-xl text-center"
           >
             <motion.div variants={fadeUp} className="relative inline-block">
-              <h1 className="font-display text-[7rem] font-bold leading-none tracking-tighter text-ink sm:text-[11rem]">
+              <h1 className="font-display text-[7rem] font-bold leading-none tracking-tighter text-heading sm:text-[11rem]">
                 404
               </h1>
               {!reduced && (
                 <>
                   <motion.span
                     aria-hidden
-                    className="absolute inset-0 font-display text-[7rem] font-bold leading-none tracking-tighter text-cyan-accent/40 sm:text-[11rem]"
+                    className="absolute inset-0 font-display text-[7rem] font-bold leading-none tracking-tighter text-secondary/30 sm:text-[11rem]"
                     animate={{ x: [0, -3, 2, 0], opacity: [0.4, 0.2, 0.5, 0.4] }}
                     transition={{ duration: 0.4, repeat: Infinity, repeatDelay: 2.5 }}
                   >
@@ -45,7 +43,7 @@ export default function NotFound() {
                   </motion.span>
                   <motion.span
                     aria-hidden
-                    className="absolute inset-0 font-display text-[7rem] font-bold leading-none tracking-tighter text-brand/40 sm:text-[11rem]"
+                    className="absolute inset-0 font-display text-[7rem] font-bold leading-none tracking-tighter text-primary/30 sm:text-[11rem]"
                     animate={{ x: [0, 3, -2, 0], opacity: [0.4, 0.5, 0.2, 0.4] }}
                     transition={{ duration: 0.4, repeat: Infinity, repeatDelay: 2.5, delay: 0.1 }}
                   >
@@ -57,11 +55,11 @@ export default function NotFound() {
 
             <motion.p
               variants={fadeUp}
-              className="mt-4 font-display text-xl font-medium text-ink"
+              className="mt-4 font-display text-xl font-medium text-heading"
             >
               This page drifted off the grid.
             </motion.p>
-            <motion.p variants={fadeUp} className="mt-3 text-ink-muted">
+            <motion.p variants={fadeUp} className="mt-3 text-faint">
               The page you're looking for doesn't exist or has been moved.
             </motion.p>
 

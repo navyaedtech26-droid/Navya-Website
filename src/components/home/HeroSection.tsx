@@ -1,41 +1,40 @@
 import { motion } from "framer-motion";
-import { ParticleBg } from "@/components/home/hero/ParticleBg";
 import { Headline } from "@/components/home/hero/Headline";
 import { GlobeStage } from "@/components/home/hero/Globe";
 
 // ─── Main HeroSection ─────────────────────────────────────────────────────────
-// Thin shell that composes the hero: animated background, the marketing copy
-// (Headline) and the interactive 3D globe with tethered service cards
-// (GlobeStage). The heavy canvas logic lives in `@/hooks/useGlobeCanvas` and the
-// hero/ subcomponents.
+// Thin shell that composes the hero: the marketing copy (Headline) and the
+// interactive 3D globe with tethered service cards (GlobeStage). The heavy
+// canvas logic lives in `@/hooks/useGlobeCanvas` and the hero/ subcomponents.
+//
+// Light redesign: a calm white hero. The dark star-field is dropped in favour
+// of a single restrained brand wash + a faint blueprint grid (toned-down
+// effects), keeping the neutral background at ~75% weight.
 export default function HeroSection() {
   return (
-    <section className="relative min-h-screen overflow-hidden bg-[#0A1628] flex items-center px-5 sm:px-8 lg:px-12 py-28 lg:py-32">
+    <section className="relative min-h-screen overflow-hidden bg-paper flex items-center px-5 sm:px-8 py-28 lg:py-32">
 
-      {/* Backgrounds */}
-      <ParticleBg />
-
-      {/* Grid overlay */}
-      <div
-        className="absolute inset-0 z-[1] pointer-events-none"
-        style={{
-          backgroundImage:
-            "linear-gradient(rgba(30, 107, 255,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(30, 107, 255,0.04) 1px, transparent 1px)",
-          backgroundSize: "60px 60px",
-        }}
+      {/* Page-specific background photo, edge to edge behind the content */}
+      <img
+        src="/home/home5.avif"
+        alt=""
+        aria-hidden
+        loading="eager"
+        fetchpriority="high"
+        decoding="async"
+        className="absolute inset-0 z-0 h-full w-full object-cover object-center pointer-events-none"
       />
+      {/* Light scrim: keeps the dark hero copy legible over the photograph */}
+      <div className="absolute inset-0 z-0 pointer-events-none bg-gradient-to-br from-paper/90 via-paper/78 to-paper/88" />
 
-      {/* Spotlight */}
-      <div
-        className="absolute top-[-20%] right-[5%] w-[700px] h-[700px] rounded-full pointer-events-none z-[1]"
-        style={{
-          background: "radial-gradient(ellipse, rgba(30, 107, 255,0.12) 0%, transparent 70%)",
-          animation: "breathe 6s ease-in-out infinite",
-        }}
-      />
+      {/* Faint blueprint grid — low-contrast texture, masked to fade out */}
+      <div className="absolute inset-0 z-[1] pointer-events-none light-grid [mask-image:radial-gradient(ellipse_at_center,black_25%,transparent_78%)]" />
+
+      {/* Single restrained brand wash (no multi-stop gradient soup) */}
+      <div className="absolute inset-0 z-[1] pointer-events-none bg-hero-wash" />
 
       {/* Main grid */}
-      <div className="relative z-10 grid grid-cols-1 lg:grid-cols-[1.1fr_0.9fr] gap-10 lg:gap-16 items-center max-w-[1200px] mx-auto w-full">
+      <div className="relative z-10 grid grid-cols-1 lg:grid-cols-[1.1fr_0.9fr] gap-10 lg:gap-16 items-center max-w-7xl mx-auto w-full">
 
         {/* ── LEFT: marketing copy ── */}
         <Headline />
@@ -50,8 +49,8 @@ export default function HeroSection() {
         animate={{ y: [0, 8, 0] }}
         transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
       >
-        <div className="flex h-9 w-5 items-start justify-center rounded-full border border-white/20 p-1">
-          <span className="h-2 w-1 rounded-full bg-[#1E6BFF]" />
+        <div className="flex h-9 w-5 items-start justify-center rounded-full border border-heading/20 p-1">
+          <span className="h-2 w-1 rounded-full bg-primary" />
         </div>
       </motion.div>
 

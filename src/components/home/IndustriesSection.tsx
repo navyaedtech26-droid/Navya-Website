@@ -8,9 +8,10 @@ import { fadeUp, staggerContainer, viewportOnce } from "@/lib/animations";
 
 export default function IndustriesSection() {
   return (
-    <section className="relative py-24">
+    <section className="relative bg-paper py-16 md:py-20">
       <Container>
         <SectionHeading
+          tone="light"
           eyebrow="Who We Help"
           title="Solutions for Every"
           highlight="Industry"
@@ -27,14 +28,14 @@ export default function IndustriesSection() {
           {industries.map((industry) => (
             <motion.div key={industry.title} variants={fadeUp}>
               <TiltCard intensity={7} className="h-full">
-                <div className="group flex h-full flex-col glass rounded-2xl p-6">
+                <div className="group flex h-full flex-col card-light rounded-2xl p-6 transition-shadow duration-300 hover:shadow-card-hover">
                   <div className="w-fit transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:scale-105">
-                    <IconBadge icon={industry.icon} size="lg" color={industry.color} />
+                    <IconBadge icon={industry.icon} size="lg" color={industry.color} tone="light" />
                   </div>
-                  <h3 className="mt-5 font-display text-base font-semibold text-ink">
+                  <h3 className="mt-5 font-display text-base font-semibold text-heading">
                     {industry.title}
                   </h3>
-                  <p className="mt-2 text-sm leading-relaxed text-ink-muted">
+                  <p className="mt-2 text-sm leading-relaxed text-faint">
                     {industry.description}
                   </p>
                 </div>

@@ -14,20 +14,21 @@ const HIGHLIGHTS = [
 export default function ContactHero() {
   return (
     <HeroShell
+      bgImage="/contact/contact.avif"
       backdrop={<BeamsBackground intensity="strong" />}
       contentClassName="mx-auto max-w-3xl text-center"
     >
       <motion.div variants={staggerContainer(0.12)} initial="hidden" animate="visible">
         <motion.h1
           variants={fadeUp}
-          className="font-display text-4xl font-semibold leading-[1.06] tracking-tight text-ink sm:text-5xl md:text-6xl"
+          className="font-display text-4xl font-semibold leading-[1.06] tracking-tight text-heading sm:text-5xl md:text-6xl"
         >
-          Let&apos;s build something <span className="text-gradient">great together</span>
+          Let&apos;s build something <span className="text-primary">great together</span>
         </motion.h1>
 
         <motion.p
           variants={fadeUp}
-          className="mx-auto mt-6 max-w-2xl text-base leading-relaxed text-ink-muted sm:text-lg"
+          className="mx-auto mt-6 max-w-2xl text-base leading-relaxed text-faint sm:text-lg"
         >
           Have an idea or project? Tell us what you&apos;re building and we&apos;ll turn it into a powerful digital
           solution.
@@ -40,9 +41,9 @@ export default function ContactHero() {
           {HIGHLIGHTS.map(({ icon: Icon, label }) => (
             <li
               key={label}
-              className="inline-flex items-center gap-2 rounded-full glass px-3.5 py-1.5 text-xs font-medium text-ink-muted ring-1 ring-white/10 sm:text-sm"
+              className="inline-flex items-center gap-2 rounded-full border border-line bg-white px-3.5 py-1.5 text-xs font-medium text-faint shadow-sm sm:text-sm"
             >
-              <Icon size={15} className="text-cyan-accent" strokeWidth={2} />
+              <Icon size={15} className="text-primary" strokeWidth={2} />
               {label}
             </li>
           ))}
@@ -51,7 +52,7 @@ export default function ContactHero() {
         <motion.a
           variants={fadeUp}
           href="#contact-form"
-          className="group mt-9 inline-flex items-center justify-center gap-1.5 rounded-xl bg-brand px-6 py-3 text-sm font-semibold text-white shadow-glow-sm transition-all duration-200 hover:bg-brand-light hover:shadow-glow"
+          className="group mt-9 inline-flex items-center justify-center gap-1.5 rounded-xl bg-primary px-6 py-3 text-sm font-semibold text-white shadow-primary-sm transition-colors duration-200 hover:bg-primary-dark"
         >
           Start the conversation
           <motion.span

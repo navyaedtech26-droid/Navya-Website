@@ -7,7 +7,7 @@ import { fadeUp, staggerContainer, viewportOnce } from "@/lib/animations";
 
 export default function CoreValues() {
   return (
-    <section className="relative py-20">
+    <section className="relative bg-mist py-20">
       <Container>
         <SectionHeading eyebrow="What Drives Us" title="Our Core" highlight="Values" />
         <motion.div
@@ -21,15 +21,15 @@ export default function CoreValues() {
             <motion.div
               key={value.title}
               variants={fadeUp}
-              className="group rounded-2xl glass p-7 text-center transition-all duration-300 hover:-translate-y-1 hover:shadow-glow"
+              className="group rounded-2xl card-light p-7 text-center transition-all duration-300 hover:-translate-y-1 hover:shadow-card-hover"
             >
               <div className="flex justify-center">
                 <IconBadge icon={value.icon} size="lg" />
               </div>
-              <h3 className="mt-5 font-display text-lg font-semibold text-ink">
+              <h3 className="mt-5 font-display text-lg font-semibold text-heading">
                 {value.title}
               </h3>
-              <p className="mt-2 text-sm leading-relaxed text-ink-muted">
+              <p className="mt-2 text-sm leading-relaxed text-faint">
                 {value.description}
               </p>
             </motion.div>

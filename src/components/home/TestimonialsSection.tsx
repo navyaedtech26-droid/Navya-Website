@@ -5,7 +5,6 @@ import { Star, Quote, PenLine, ArrowRight } from "lucide-react";
 import Container from "@/components/common/Container";
 import SectionHeading from "@/components/common/SectionHeading";
 import IconBadge from "@/components/common/IconBadge";
-import FloatingOrbs from "@/components/effects/FloatingOrbs";
 import { testimonials as staticTestimonials, type Testimonial } from "@/data/testimonials";
 import { getTestimonials } from "@/services/testimonials";
 import { fadeUp, staggerContainer, viewportOnce } from "@/lib/animations";
@@ -26,9 +25,10 @@ export default function TestimonialsSection() {
   }, []);
 
   return (
-    <section className="relative py-24">
+    <section className="relative bg-sky py-16 md:py-20">
       <Container>
         <SectionHeading
+          tone="light"
           eyebrow="Client Stories"
           title="Trusted by Businesses"
           highlight="Like Yours"
@@ -41,19 +41,19 @@ export default function TestimonialsSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={viewportOnce}
             transition={{ duration: 0.5 }}
-            className="mx-auto mt-14 flex max-w-xl flex-col items-center gap-5 rounded-3xl glass p-10 text-center ring-1 ring-white/10"
+            className="mx-auto mt-14 flex max-w-xl flex-col items-center gap-5 rounded-3xl card-light p-10 text-center"
           >
-            <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-brand/15 ring-1 ring-brand/30">
-              <Quote className="text-brand-light" />
+            <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-primary/10 ring-1 ring-primary/20">
+              <Quote className="text-primary" />
             </div>
-            <p className="text-base leading-relaxed text-ink-muted">
+            <p className="text-base leading-relaxed text-faint">
               We're collecting stories from the people we build for. Worked with
               Navya EdTech? Be the first to share your experience.
             </p>
             <Link
               to="/share-your-story"
               data-cursor="hover"
-              className="group inline-flex items-center gap-2 rounded-2xl bg-brand-gradient px-6 py-3.5 text-sm font-semibold text-white shadow-glow-sm transition-all duration-300 hover:shadow-glow"
+              className="group inline-flex items-center gap-2 rounded-2xl bg-primary px-6 py-3.5 text-sm font-semibold text-white shadow-primary-sm transition-colors duration-300 hover:bg-primary-dark"
             >
               <PenLine size={16} />
               Share Your Experience
@@ -76,18 +76,11 @@ export default function TestimonialsSection() {
             <motion.div
               key={t.name}
               variants={fadeUp}
-              className="group relative overflow-hidden rounded-3xl glass p-8 ring-1 ring-white/10 transition-all duration-300 hover:-translate-y-1 hover:shadow-glow"
+              className="group relative overflow-hidden rounded-3xl card-light p-8 transition-all duration-300 hover:-translate-y-1 hover:shadow-card-hover"
             >
-              <FloatingOrbs count={5} />
-              <Quote
-                size={56}
-                strokeWidth={1}
-                className="absolute right-5 top-4 text-brand/10 transition-colors duration-300 group-hover:text-brand/20"
-              />
-
               <div className="relative flex gap-1">
                 {Array.from({ length: t.rating }).map((_, i) => (
-                  <Star key={i} size={16} className="fill-cyan-accent text-cyan-accent" />
+                  <Star key={i} size={16} className="fill-accent text-accent" />
                 ))}
               </div>
 
@@ -96,15 +89,15 @@ export default function TestimonialsSection() {
                   them as plain text — React escapes this — and NEVER run a
                   testimonial through <Markdown> or dangerouslySetInnerHTML, or
                   it becomes a stored-XSS surface. */}
-              <p className="relative mt-5 text-base leading-relaxed text-ink/90">
+              <p className="relative mt-5 text-base leading-relaxed text-heading/90">
                 “{t.quote}”
               </p>
 
-              <div className="relative mt-7 flex items-center gap-4 border-t border-white/10 pt-6">
-                <IconBadge icon={t.icon} />
+              <div className="relative mt-7 flex items-center gap-4 border-t border-line pt-6">
+                <IconBadge icon={t.icon} tone="light" color="#2563EB" />
                 <div>
-                  <p className="font-display text-sm font-semibold text-ink">{t.name}</p>
-                  <p className="text-xs text-ink-muted">
+                  <p className="font-display text-sm font-semibold text-heading">{t.name}</p>
+                  <p className="text-xs text-faint">
                     {t.role} · {t.company}
                   </p>
                 </div>
@@ -120,13 +113,13 @@ export default function TestimonialsSection() {
           transition={{ duration: 0.5 }}
           className="mt-14 flex flex-col items-center gap-4 text-center"
         >
-          <p className="text-sm text-ink-muted">
+          <p className="text-sm text-faint">
             Worked with Navya EdTech? We'd love to feature your story.
           </p>
           <Link
             to="/share-your-story"
             data-cursor="hover"
-            className="group inline-flex items-center gap-2 rounded-2xl bg-brand-gradient px-6 py-3.5 text-sm font-semibold text-white shadow-glow-sm transition-all duration-300 hover:shadow-glow"
+            className="group inline-flex items-center gap-2 rounded-2xl bg-primary px-6 py-3.5 text-sm font-semibold text-white shadow-primary-sm transition-colors duration-300 hover:bg-primary-dark"
           >
             <PenLine size={16} />
             Share Your Experience

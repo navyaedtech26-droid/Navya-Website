@@ -4,11 +4,11 @@
 
 @layer base {
   :root {
-    color-scheme: dark;
+    color-scheme: light;
   }
 
   * {
-    border-color: #1E293B;
+    border-color: #DBE1E8;
   }
 
   html {
@@ -27,18 +27,18 @@
   }
 
   body {
-    @apply bg-bg text-ink font-body antialiased;
+    @apply bg-paper text-heading font-body antialiased;
     /* Safety net against incidental horizontal overflow. `clip` (not `hidden`)
        avoids creating a scroll container, so it keeps `position: sticky`
        working and doesn't interfere with scroll anchoring. It is not a license
        to hide real overflow bugs — children must still fit at 320px. */
     overflow-x: clip;
-    background-color: #0A1628;
+    background-color: #FFFFFF;
   }
 
   ::selection {
-    background: rgba(30, 107, 255, 0.3);
-    color: #ffffff;
+    background: rgba(37, 99, 235, 0.18);
+    color: #111827;
   }
 
   /* Custom scrollbar */
@@ -46,12 +46,15 @@
     width: 10px;
   }
   ::-webkit-scrollbar-track {
-    background: #0A1628;
+    background: #F1F5F9;
   }
   ::-webkit-scrollbar-thumb {
-    background: linear-gradient(180deg, #1E6BFF, #3B82F6);
+    background: #CBD5E1;
     border-radius: 999px;
-    border: 2px solid #0A1628;
+    border: 2px solid #F1F5F9;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #94A3B8;
   }
 }
 
@@ -73,6 +76,30 @@
     background-image: linear-gradient(rgba(30, 107, 255, 0.05) 1px, transparent 1px),
       linear-gradient(90deg, rgba(30, 107, 255, 0.05) 1px, transparent 1px);
     background-size: 60px 60px;
+  }
+
+  /* ── Light system helpers (professional redesign) ──────────────────────── */
+
+  /* Card on a light surface: white fill, hairline border, soft neutral
+     shadow. Replaces the dark `.glass` treatment on migrated (light) pages. */
+  .card-light {
+    background: #ffffff;
+    border: 1px solid #d7dde5;
+    box-shadow: 0 1px 2px rgba(16, 24, 40, 0.06), 0 6px 20px rgba(16, 24, 40, 0.1);
+  }
+
+  /* Faint blueprint grid for light hero backgrounds — very low contrast so it
+     sits behind content as texture, not decoration that competes. */
+  .light-grid {
+    background-image: linear-gradient(rgba(17, 24, 39, 0.035) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(17, 24, 39, 0.035) 1px, transparent 1px);
+    background-size: 64px 64px;
+  }
+
+  /* Blue highlight word on light backgrounds — the light-mode counterpart to
+     `.text-gradient` (gold), used inside SectionHeading tone="light". */
+  .text-highlight {
+    color: #2563eb;
   }
 
   .noise {
@@ -108,6 +135,25 @@
   }
 }
 
+/* Continuous right→left marquee. The track holds two identical copies of the
+   content, so translating by -50% scrolls exactly one copy out of view and lands
+   the second copy where the first began — a seamless, jump-free loop (like a news
+   ticker). Kept at the top level (outside @layer) so the keyframes are never
+   tree-shaken. Honours prefers-reduced-motion via the global reduce block below. */
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-marquee {
+  animation: marquee 26s linear infinite;
+  will-change: transform;
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
@@ -116,5 +162,14 @@
     animation-iteration-count: 1 !important;
     transition-duration: 0.001ms !important;
     scroll-behavior: auto !important;
+  }
+
+  /* The tech marquee is a gentle, continuous, hover-pausable logo strip — not a
+     flashing or attention-grabbing effect. Keep it running even when reduced
+     motion is requested (e.g. Windows "Animation effects: Off"), otherwise the
+     global rule above snaps it to its end frame and it looks frozen/broken. */
+  .animate-marquee {
+    animation-duration: 26s !important;
+    animation-iteration-count: infinite !important;
   }
 }

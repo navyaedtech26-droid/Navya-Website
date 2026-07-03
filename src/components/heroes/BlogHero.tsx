@@ -40,26 +40,27 @@ export default function BlogHero() {
 
   return (
     <HeroShell
+      bgImage="/blogs/blog.avif"
       backdrop={<MastheadBackdrop still={reduced} />}
       contentClassName="mx-auto max-w-3xl text-center"
     >
       <motion.div variants={staggerContainer(0.12)} initial="hidden" animate="visible">
         <motion.h1
           variants={fadeUp}
-          className="font-display text-5xl font-semibold leading-[1.02] tracking-tight text-ink sm:text-6xl md:text-7xl"
+          className="font-display text-5xl font-semibold leading-[1.02] tracking-tight text-heading sm:text-6xl md:text-7xl"
         >
-          The Navya EdTech <span className="text-gradient">Blog</span>
+          The Navya EdTech <span className="text-primary">Blog</span>
         </motion.h1>
 
-        {/* Amber rule under the masthead. */}
+        {/* Brand rule under the masthead. */}
         <motion.div
           variants={fadeUp}
-          className="mx-auto mt-6 h-px w-40 bg-gradient-to-r from-transparent via-brand to-transparent"
+          className="mx-auto mt-6 h-px w-40 bg-gradient-to-r from-transparent via-primary to-transparent"
         />
 
         <motion.p
           variants={fadeUp}
-          className="mx-auto mt-6 max-w-2xl text-base leading-relaxed text-ink-muted sm:text-lg"
+          className="mx-auto mt-6 max-w-2xl text-base leading-relaxed text-faint sm:text-lg"
         >
           Practical articles on building fast, modern websites and business systems, written by the team that ships
           them.
@@ -81,9 +82,9 @@ export default function BlogHero() {
           {ticker.map(({ icon: Icon, label }, i) => (
             <li
               key={`${label}-${i}`}
-              className="inline-flex shrink-0 items-center gap-2 rounded-full glass px-4 py-2 text-sm font-medium text-ink-muted ring-1 ring-white/10"
+              className="inline-flex shrink-0 items-center gap-2 rounded-full border border-line bg-white px-4 py-2 text-sm font-medium text-faint shadow-sm"
             >
-              <Icon size={15} className="text-cyan-accent" strokeWidth={2} />
+              <Icon size={15} className="text-primary" strokeWidth={2} />
               {label}
             </li>
           ))}

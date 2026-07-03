@@ -18,10 +18,10 @@ export default function LegalLayout({ doc }: { doc: LegalDoc }) {
         subtitle={doc.intro}
       />
 
-      <section className="relative pb-24">
+      <section className="relative pb-16 md:pb-20">
         <Container className="relative max-w-3xl">
-          <p className="mb-10 text-sm text-ink-muted">
-            Last updated: <span className="text-ink">{doc.updated}</span>
+          <p className="mb-10 text-sm text-faint">
+            Last updated: <span className="text-heading">{doc.updated}</span>
           </p>
 
           <motion.div
@@ -35,16 +35,16 @@ export default function LegalLayout({ doc }: { doc: LegalDoc }) {
               <motion.div
                 key={section.heading}
                 variants={fadeUp}
-                className="rounded-2xl glass p-6 ring-1 ring-white/10 sm:p-7"
+                className="rounded-2xl card-light p-6 sm:p-7"
               >
-                <h2 className="font-display text-lg font-semibold text-ink sm:text-xl">
+                <h2 className="font-display text-lg font-semibold text-heading sm:text-xl">
                   {section.heading}
                 </h2>
 
                 {section.paragraphs?.map((p, i) => (
                   <p
                     key={i}
-                    className="mt-3 text-sm leading-relaxed text-ink-muted sm:text-base"
+                    className="mt-3 text-sm leading-relaxed text-heading/80 sm:text-base"
                   >
                     {p}
                   </p>
@@ -55,9 +55,9 @@ export default function LegalLayout({ doc }: { doc: LegalDoc }) {
                     {section.list.map((item, i) => (
                       <li
                         key={i}
-                        className="flex gap-3 text-sm leading-relaxed text-ink-muted sm:text-base"
+                        className="flex gap-3 text-sm leading-relaxed text-heading/80 sm:text-base"
                       >
-                        <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-cyan-accent" />
+                        <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-primary" />
                         {item}
                       </li>
                     ))}

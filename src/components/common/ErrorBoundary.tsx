@@ -48,13 +48,13 @@ export class ErrorBoundary extends Component<Props, State> {
     return (
       <div
         role="alert"
-        className="flex min-h-[100svh] flex-col items-center justify-center gap-6 bg-bg px-6 text-center"
+        className="flex min-h-[100svh] flex-col items-center justify-center gap-6 bg-paper px-6 text-center"
       >
         <div className="max-w-md">
-          <h1 className="font-display text-2xl font-semibold text-ink">
+          <h1 className="font-display text-2xl font-semibold text-heading">
             Something went wrong
           </h1>
-          <p className="mt-3 text-sm text-ink-muted">
+          <p className="mt-3 text-sm text-faint">
             An unexpected error interrupted the page. You can try again, or reload if the
             problem persists.
           </p>
@@ -62,13 +62,13 @@ export class ErrorBoundary extends Component<Props, State> {
         <div className="flex flex-wrap items-center justify-center gap-3">
           <button
             onClick={this.reset}
-            className="rounded-2xl bg-brand-gradient px-6 py-3 text-sm font-medium text-white shadow-glow-sm transition-all hover:shadow-glow focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-light"
+            className="rounded-2xl bg-primary px-6 py-3 text-sm font-medium text-white shadow-primary-sm transition-colors hover:bg-primary-dark focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
           >
             Try again
           </button>
           <button
             onClick={() => window.location.reload()}
-            className="rounded-2xl px-6 py-3 text-sm font-medium text-ink-muted ring-1 ring-white/10 transition-colors hover:text-ink"
+            className="rounded-2xl border border-line bg-white px-6 py-3 text-sm font-medium text-heading transition-colors hover:bg-mist"
           >
             Reload page
           </button>

@@ -129,13 +129,13 @@ export default function ContactForm() {
         role="status"
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
-        className="flex min-h-[28rem] flex-col items-center justify-center rounded-3xl glass p-10 text-center ring-1 ring-white/10"
+        className="flex min-h-[28rem] flex-col items-center justify-center rounded-3xl card-light p-10 text-center"
       >
         <motion.div
           initial={{ scale: 0 }}
           animate={{ scale: 1 }}
           transition={{ type: "spring", stiffness: 200, damping: 14 }}
-          className="flex h-20 w-20 items-center justify-center rounded-full bg-brand/20 ring-1 ring-brand/40"
+          className="flex h-20 w-20 items-center justify-center rounded-full bg-primary/10 ring-1 ring-primary/30"
         >
           <svg width="40" height="40" viewBox="0 0 40 40" fill="none" aria-hidden="true">
             <motion.circle
@@ -160,8 +160,8 @@ export default function ContactForm() {
             />
           </svg>
         </motion.div>
-        <h3 className="mt-6 font-display text-2xl font-semibold text-ink">Thank you!</h3>
-        <p className="mt-3 max-w-sm text-ink-muted">
+        <h3 className="mt-6 font-display text-2xl font-semibold text-heading">Thank you!</h3>
+        <p className="mt-3 max-w-sm text-faint">
           Your message has been received. We will respond within 24 hours.
         </p>
         <button
@@ -169,7 +169,7 @@ export default function ContactForm() {
             setForm(initial);
             setStatus("idle");
           }}
-          className="mt-7 rounded-xl glass px-5 py-2.5 text-sm font-medium text-ink-muted transition-colors hover:text-ink"
+          className="mt-7 rounded-xl border border-line bg-white px-5 py-2.5 text-sm font-medium text-heading shadow-sm transition-colors hover:bg-mist"
         >
           Send another message
         </button>
@@ -181,7 +181,7 @@ export default function ContactForm() {
     <form
       onSubmit={handleSubmit}
       noValidate
-      className="rounded-3xl glass p-7 ring-1 ring-white/10 sm:p-9"
+      className="rounded-3xl card-light p-7 sm:p-9"
     >
       <Honeypot
         id="company_website"
@@ -234,7 +234,7 @@ export default function ContactForm() {
               Select a service
             </option>
             {services.map((s) => (
-              <option key={s} value={s} className="bg-surface text-ink">
+              <option key={s} value={s} className="bg-white text-heading">
                 {s}
               </option>
             ))}
@@ -251,7 +251,7 @@ export default function ContactForm() {
               Select a budget range
             </option>
             {budgets.map((b) => (
-              <option key={b} value={b} className="bg-surface text-ink">
+              <option key={b} value={b} className="bg-white text-heading">
                 {b}
               </option>
             ))}
@@ -288,7 +288,7 @@ export default function ContactForm() {
         type="submit"
         disabled={status === "loading"}
         data-cursor="hover"
-        className="group mt-7 flex w-full items-center justify-center gap-2 rounded-2xl bg-brand-gradient px-6 py-4 text-sm font-semibold text-white shadow-glow-sm transition-all duration-300 hover:shadow-glow disabled:opacity-70"
+        className="group mt-7 flex w-full items-center justify-center gap-2 rounded-2xl bg-primary px-6 py-4 text-sm font-semibold text-white shadow-primary-sm transition-colors duration-300 hover:bg-primary-dark disabled:opacity-70"
       >
         {status === "loading" ? (
           <>

@@ -32,12 +32,14 @@ export default function Home() {
       <ProcessSection />
       <TestimonialsSection />
       <FaqSection
+        tone="light"
         title="Frequently Asked"
         highlight="Questions"
         subtitle="Everything you need to know before we start building together."
         items={generalFaqs}
       />
       <CTASection
+        tone="light"
         title="Ready to Build Something Great?"
         subtitle="Let's turn your ideas into powerful digital solutions."
         buttonLabel="Let's Work Together"

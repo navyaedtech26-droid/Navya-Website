@@ -41,7 +41,7 @@ const TestimonialsAdmin = lazy(() => import("@/pages/admin/TestimonialsAdmin"));
 const MessagesAdmin = lazy(() => import("@/pages/admin/MessagesAdmin"));
 
 function RouteFallback() {
-  return <LoadingScreen className="min-h-[100svh] bg-bg" />;
+  return <LoadingScreen className="min-h-[100svh] bg-paper" />;
 }
 
 /** The admin dashboard is a self-contained area without the public chrome. */

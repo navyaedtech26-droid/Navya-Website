@@ -27,18 +27,18 @@ export default function CookieConsent() {
           aria-label="Cookie consent"
         >
           <Container className="max-w-4xl">
-            <div className="flex flex-col gap-5 rounded-2xl glass p-5 ring-1 ring-white/10 shadow-glow-sm sm:flex-row sm:items-center sm:gap-6 sm:p-6">
+            <div className="flex flex-col gap-5 rounded-2xl card-light p-5 shadow-card-hover sm:flex-row sm:items-center sm:gap-6 sm:p-6">
               <div className="flex items-start gap-3">
-                <span className="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-brand/20 text-cyan-accent ring-1 ring-brand/40">
+                <span className="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary ring-1 ring-primary/30">
                   <Cookie size={18} strokeWidth={1.9} />
                 </span>
-                <p className="text-sm leading-relaxed text-ink-muted">
+                <p className="text-sm leading-relaxed text-faint">
                   We use cookies to analyze traffic and improve your experience.
                   See our{" "}
                   <Link
                     to="/privacy-policy"
                     data-cursor="hover"
-                    className="font-medium text-brand-light underline-offset-2 hover:underline"
+                    className="font-medium text-primary underline-offset-2 hover:underline"
                   >
                     Privacy Policy
                   </Link>{" "}
@@ -50,14 +50,14 @@ export default function CookieConsent() {
                 <button
                   onClick={decline}
                   data-cursor="hover"
-                  className="rounded-xl glass px-5 py-2.5 text-sm font-medium text-ink-muted ring-1 ring-white/10 transition-colors hover:text-ink"
+                  className="rounded-xl border border-line bg-white px-5 py-2.5 text-sm font-medium text-heading transition-colors hover:bg-mist"
                 >
                   Decline
                 </button>
                 <button
                   onClick={accept}
                   data-cursor="hover"
-                  className="rounded-xl bg-brand-gradient px-5 py-2.5 text-sm font-semibold text-white shadow-glow-sm transition-all duration-300 hover:shadow-glow"
+                  className="rounded-xl bg-primary px-5 py-2.5 text-sm font-semibold text-white shadow-primary-sm transition-colors duration-300 hover:bg-primary-dark"
                 >
                   Accept
                 </button>

@@ -91,6 +91,7 @@ export default function ShareTestimonial() {
         title="Share Your"
         highlight="Experience"
         subtitle="If we've built something for you, tell us how it went. Approved stories are featured on our site."
+        bgImage="/testimonials/testimonials.avif"
       />
 
       <section className="relative py-12">
@@ -101,15 +102,15 @@ export default function ShareTestimonial() {
                 role="status"
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
-                className="flex min-h-[24rem] flex-col items-center justify-center rounded-3xl glass p-10 text-center ring-1 ring-white/10"
+                className="flex min-h-[24rem] flex-col items-center justify-center rounded-3xl card-light p-10 text-center"
               >
-                <div className="flex h-16 w-16 items-center justify-center rounded-full bg-brand/20 ring-1 ring-brand/40">
-                  <Heart className="text-brand-light" aria-hidden="true" />
+                <div className="flex h-16 w-16 items-center justify-center rounded-full bg-primary/10 ring-1 ring-primary/30">
+                  <Heart className="text-primary" aria-hidden="true" />
                 </div>
-                <h3 className="mt-6 font-display text-2xl font-semibold text-ink">
+                <h3 className="mt-6 font-display text-2xl font-semibold text-heading">
                   Thank you!
                 </h3>
-                <p className="mt-3 max-w-sm text-ink-muted">
+                <p className="mt-3 max-w-sm text-faint">
                   Your story has been received. Our team will review it and may
                   feature it on the site soon.
                 </p>
@@ -118,7 +119,7 @@ export default function ShareTestimonial() {
               <form
                 onSubmit={handleSubmit}
                 noValidate
-                className="rounded-3xl glass p-7 ring-1 ring-white/10 sm:p-9"
+                className="rounded-3xl card-light p-7 sm:p-9"
               >
                 <Honeypot
                   id="company_url"
@@ -168,7 +169,7 @@ export default function ShareTestimonial() {
                   </Field>
 
                   <div className="flex flex-col gap-2">
-                    <span className="text-sm font-medium text-ink">Your rating</span>
+                    <span className="text-sm font-medium text-heading">Your rating</span>
                     <div className="flex items-center gap-1.5">
                       {[1, 2, 3, 4, 5].map((n) => (
                         <button
@@ -182,8 +183,8 @@ export default function ShareTestimonial() {
                             size={26}
                             className={cn(
                               n <= form.rating
-                                ? "fill-amber-300 text-amber-300"
-                                : "text-white/20"
+                                ? "fill-accent text-accent"
+                                : "text-slate-300"
                             )}
                           />
                         </button>
@@ -203,7 +204,7 @@ export default function ShareTestimonial() {
                   type="submit"
                   disabled={status === "loading"}
                   data-cursor="hover"
-                  className="group mt-7 flex w-full items-center justify-center gap-2 rounded-2xl bg-brand-gradient px-6 py-4 text-sm font-semibold text-white shadow-glow-sm transition-all duration-300 hover:shadow-glow disabled:opacity-70"
+                  className="group mt-7 flex w-full items-center justify-center gap-2 rounded-2xl bg-primary px-6 py-4 text-sm font-semibold text-white shadow-primary-sm transition-colors duration-300 hover:bg-primary-dark disabled:opacity-70"
                 >
                   {status === "loading" ? (
                     <>

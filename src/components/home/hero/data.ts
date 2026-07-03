@@ -50,12 +50,15 @@ export const CONNECTIONS: [number, number][] = [
 export const CARD_NODE = [6, 0, 2, 4]; // New York, Tokyo, Singapore, London
 
 // ─── Accent palette (sprinkled in small places) ───────────────────────────────
+// Professional light-system palette: primary blue, secondary indigo, accent
+// amber. `green`/`gold` keys are retained as aliases so the globe hook keeps
+// compiling, but now map onto on-brand colours that read on a white hero.
 export const ACCENT = {
-  blue: "30, 107, 255",
-  green: "57,255,150",
-  gold: "245,200,70",
+  blue: "37, 99, 235", // primary #2563EB
+  green: "99, 102, 241", // secondary indigo #6366F1
+  gold: "245, 158, 11", // accent amber #F59E0B
 };
-// Per-card tether / linked-node accent
+// Per-card tether / linked-node accent — mostly blue, with one indigo + one amber
 export const CARD_ACCENT = [ACCENT.blue, ACCENT.green, ACCENT.gold, ACCENT.blue];
 // A handful of city nodes that glow off-blue (rest stay blue)
 export const CITY_COLOR: Record<number, string> = {
@@ -66,9 +69,9 @@ export const CITY_COLOR: Record<number, string> = {
 };
 
 export const ORBITAL_RINGS = [
-  { tilt: 0.4, speed: 0.004, phase: 0, color: "rgba(30, 107, 255,0.35)", dash: [6, 8], dot: ACCENT.blue },
-  { tilt: -0.6, speed: -0.003, phase: Math.PI, color: "rgba(57,255,150,0.18)", dash: [3, 12], dot: ACCENT.green },
-  { tilt: 0.9, speed: 0.005, phase: Math.PI / 2, color: "rgba(245,200,70,0.2)", dash: [8, 6], dot: ACCENT.gold },
+  { tilt: 0.4, speed: 0.004, phase: 0, color: "rgba(37,99,235,0.35)", dash: [6, 8], dot: ACCENT.blue },
+  { tilt: -0.6, speed: -0.003, phase: Math.PI, color: "rgba(99,102,241,0.28)", dash: [3, 12], dot: ACCENT.green },
+  { tilt: 0.9, speed: 0.005, phase: Math.PI / 2, color: "rgba(245,158,11,0.28)", dash: [8, 6], dot: ACCENT.gold },
 ];
 
 export interface ServiceCard {

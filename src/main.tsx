@@ -1,5 +1,5 @@
 import { StrictMode } from "react";
-import { createRoot } from "react-dom/client";
+import { createRoot, hydrateRoot } from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
 import { HelmetProvider } from "react-helmet-async";
 import { ConsentProvider } from "@/context/ConsentContext";
@@ -23,14 +23,18 @@ for (const link of document.querySelectorAll<HTMLLinkElement>(
   link.media = "all";
 }
 
-createRoot(document.getElementById("root")!).render(
+const container = document.getElementById("root")!;
+
+const tree = (
   <StrictMode>
     <ErrorBoundary>
       <HelmetProvider>
         <AuthProvider>
           <ConsentProvider>
             <ToastProvider>
-              <BrowserRouter>
+              <BrowserRouter
+                future={{ v7_startTransition: true, v7_relativeSplatPath: true }}
+              >
                 <App />
               </BrowserRouter>
             </ToastProvider>
@@ -40,3 +44,13 @@ createRoot(document.getElementById("root")!).render(
     </ErrorBoundary>
   </StrictMode>
 );
+
+// When the route was prerendered (scripts/prerender.mjs bakes static HTML into
+// #root at build time), hydrate that markup instead of throwing it away —
+// crawlers and first paint get real content, and React attaches to it. On a
+// non-prerendered shell (#root empty) we render from scratch as before.
+if (container.hasChildNodes()) {
+  hydrateRoot(container, tree);
+} else {
+  createRoot(container).render(tree);
+}

@@ -33,7 +33,7 @@ export function LoadingScreen({
       role="status"
       aria-live="polite"
       className={cn(
-        "flex items-center justify-center text-ink-muted",
+        "flex items-center justify-center text-primary",
         className ?? "min-h-[60svh]"
       )}
     >

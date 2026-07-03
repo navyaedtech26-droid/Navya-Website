@@ -15,11 +15,23 @@ export const organizationSchema = {
   name: SITE_NAME,
   url: SITE_URL,
   email: SITE_EMAIL,
-  logo: `${SITE_URL}/logo.png`,
-  image: `${SITE_URL}/logo.png`,
+  logo: {
+    "@type": "ImageObject",
+    url: `${SITE_URL}/logo.png`,
+    width: 1577,
+    height: 656,
+  },
+  image: `${SITE_URL}/og-image.png`,
   slogan: "Innovate. Build. Elevate.",
   description:
     "Navya EdTech builds high-performance websites, e-commerce platforms, and business management systems for modern businesses.",
+  // Country-level address only — Navya operates remotely across Nepal. Add a
+  // street address + geo here if/when a public office location exists, which is
+  // what unlocks Google local-pack / map rich results.
+  address: {
+    "@type": "PostalAddress",
+    addressCountry: "NP",
+  },
   areaServed: { "@type": "Country", name: "Nepal" },
   knowsAbout: [
     "Website Development",
@@ -35,8 +47,9 @@ export const organizationSchema = {
     availableLanguage: ["English", "Nepali"],
   },
   sameAs: [
-    "https://instagram.com/navyaedtech",
-    "https://tiktok.com/@navyaedtech",
+    "https://www.instagram.com/navyaedtech/",
+    "https://www.tiktok.com/@navyaedtech",
+    "https://www.linkedin.com/company/navya-edtech/",
   ],
 };
 
@@ -114,6 +127,33 @@ export function articleSchema(post: {
     author: { "@type": "Organization", name: post.author ?? SITE_NAME },
     publisher: { "@id": `${SITE_URL}/#organization` },
     mainEntityOfPage: `${SITE_URL}/blog/${post.slug}`,
+  };
+}
+
+/**
+ * Build a WebPage entity for a given route. Emitted on every page by the Seo
+ * component so each URL is a first-class node in the site graph, linked back to
+ * the WebSite and Organization. `isPartOf` / `publisher` reference the global
+ * entities by @id so search engines can stitch the graph together.
+ */
+export function webPageSchema(page: {
+  title: string;
+  description: string;
+  path: string;
+  type?: "WebPage" | "AboutPage" | "ContactPage" | "CollectionPage";
+}) {
+  const url = `${SITE_URL}${page.path}`;
+  return {
+    "@context": "https://schema.org",
+    "@type": page.type ?? "WebPage",
+    "@id": `${url}#webpage`,
+    url,
+    name: page.title,
+    description: page.description,
+    inLanguage: "en",
+    isPartOf: { "@id": `${SITE_URL}/#website` },
+    publisher: { "@id": `${SITE_URL}/#organization` },
+    primaryImageOfPage: `${SITE_URL}/og-image.png`,
   };
 }
 

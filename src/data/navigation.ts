@@ -11,7 +11,11 @@ export const navLinks: NavLink[] = [
 export const contactInfo = {
   email: "navyaedtech26@gmail.com",
   instagram: "@navyaedtech",
-  instagramUrl: "https://instagram.com/navyaedtech",
+  instagramUrl: "https://www.instagram.com/navyaedtech/",
   tiktok: "@navyaedtech",
-  tiktokUrl: "https://tiktok.com/@navyaedtech",
+  tiktokUrl: "https://www.tiktok.com/@navyaedtech",
+  linkedin: "Navya EdTech",
+  linkedinUrl: "https://www.linkedin.com/company/navya-edtech/",
+  googleReviewUrl:
+    "https://www.google.com/maps/place//data=!4m3!3m2!1s0x39eb19be697c9993:0x75f007ad4fb045ec!12e1?source=g.page.m.ia._&laa=nmx-review-solicitation-ia2",
 };

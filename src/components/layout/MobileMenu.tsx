@@ -56,7 +56,7 @@ export default function MobileMenu({ open, onClose }: MobileMenuProps) {
                 to={link.href}
                 onClick={onClose}
                 className={`flex items-center justify-between rounded-2xl px-4 py-4 font-display text-2xl font-medium ${
-                  active ? "text-gradient" : "text-ink hover:text-brand-light"
+                  active ? "text-primary" : "text-ink hover:text-brand-light"
                 }`}
               >
                 {link.label}
@@ -72,6 +72,7 @@ export default function MobileMenu({ open, onClose }: MobileMenuProps) {
           </a>
           <p>Instagram {contactInfo.instagram}</p>
           <p>TikTok {contactInfo.tiktok}</p>
+          <p>LinkedIn {contactInfo.linkedin}</p>
         </div>
       </aside>
     </>

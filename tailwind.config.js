@@ -33,6 +33,33 @@ export default {
           DEFAULT: "#F8FAFC", // Text Primary
           muted: "#E2E8F0", // Text Secondary
         },
+
+        // ── Professional light system (70-30-10 distribution) ───────────────
+        // New semantic palette for the light redesign. Added alongside the
+        // legacy dark tokens above so pages not yet migrated keep rendering.
+        // Distribution intent: neutrals 70-80%, primary 10-15%, secondary
+        // 5-8%, accent 2-5%.
+        primary: {
+          DEFAULT: "#2563EB", // Primary Brand Blue — CTAs, links, key emphasis
+          light: "#3B82F6", // hover / lighter fills
+          dark: "#1D4ED8", // active / pressed
+        },
+        secondary: {
+          DEFAULT: "#6366F1", // Indigo — icons, small labels, borders
+          dark: "#4F46E5",
+        },
+        accent: {
+          DEFAULT: "#F59E0B", // Amber — highlights, badges, key numbers only
+          dark: "#D97706",
+        },
+        // Neutrals — the 70-80% foundation.
+        paper: "#FFFFFF", // page / card background
+        mist: "#F8FAFC", // very light gray section background
+        haze: "#F1F5F9", // alt light section / subtle fills
+        sky: "#EFF6FF", // very light blue (testimonials band)
+        line: "#DBE1E8", // borders & dividers
+        faint: "#4B5563", // secondary / muted text
+        heading: "#111827", // headings & primary body text
       },
       fontFamily: {
         display: ['"Space Grotesk"', '"Syne"', "system-ui", "sans-serif"],
@@ -48,9 +75,19 @@ export default {
         "glow-sm": "0 0 24px rgba(30, 107, 255,0.25)",
         "glow-cyan": "0 0 50px rgba(14, 165, 233,0.3)",
         "glow-gold": "0 0 50px rgba(245, 166, 35,0.3)", // Gold accent glow
+        // Light-theme elevation — soft, neutral, professional (no colored glow).
+        card: "0 1px 2px rgba(16,24,40,0.06), 0 6px 20px rgba(16,24,40,0.10)",
+        "card-hover": "0 12px 34px rgba(16,24,40,0.14)",
+        "primary-sm": "0 6px 16px -6px rgba(37,99,235,0.45)", // subtle blue CTA lift
       },
       backgroundImage: {
         "brand-gradient": "linear-gradient(135deg, #1E6BFF 0%, #3B82F6 100%)",
+        // Very subtle light hero wash — a single restrained tint, not a
+        // multi-stop gradient. Reads as calm white with a hint of brand.
+        "hero-wash":
+          "radial-gradient(60% 55% at 78% 12%, rgba(37,99,235,0.08) 0%, transparent 60%), radial-gradient(50% 40% at 8% 90%, rgba(99,102,241,0.06) 0%, transparent 55%)",
+        "light-grid":
+          "linear-gradient(rgba(17,24,39,0.035) 1px, transparent 1px), linear-gradient(90deg, rgba(17,24,39,0.035) 1px, transparent 1px)",
         "gold-gradient": "linear-gradient(120deg, #FFB84D 0%, #F5A623 50%, #FF8A3D 100%)",
         "grid-pattern":
           "linear-gradient(rgba(30, 107, 255,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(30, 107, 255,0.05) 1px, transparent 1px)",

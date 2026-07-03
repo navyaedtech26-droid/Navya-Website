@@ -3,48 +3,67 @@ import { motion } from "framer-motion";
 import Container from "@/components/common/Container";
 
 interface HeroShellProps {
-  /** The page-specific animated backdrop (rendered behind content, aria-hidden). */
-  backdrop: ReactNode;
+  /**
+   * Legacy page-specific dark backdrop. Retained for API compatibility but no
+   * longer rendered: the light theme uses a single calm wash for every hero.
+   */
+  backdrop?: ReactNode;
   children: ReactNode;
   /** Width constraint + alignment of the content column. */
   contentClassName?: string;
   /** Hide the bottom scroll cue (e.g. when the hero is shorter). */
   hideScrollCue?: boolean;
+  /**
+   * Page-specific background photograph (served from /public). Rendered edge to
+   * edge behind the content, softened by a light scrim so the dark hero copy
+   * stays legible while the image texture reads through.
+   */
+  bgImage?: string;
+  /** Accessible description of the background image (decorative if omitted). */
+  bgImageAlt?: string;
 }
 
 /**
- * Shared chrome for the secondary-page heroes: full-height section, deep
- * aubergine base, navbar scrim, bottom fade into the page, and the animated
- * scroll cue. Each page supplies its own distinctive `backdrop` + content
- * layout so the heroes stay visually unique while the framing stays consistent.
+ * Shared chrome for the secondary-page heroes: full-height section on a calm
+ * white canvas with an optional page-specific background photo, a single
+ * restrained brand wash + faint blueprint grid, and the animated scroll cue.
+ * Consistent, professional framing across all pages.
  */
 export default function HeroShell({
-  backdrop,
   children,
   contentClassName,
   hideScrollCue,
+  bgImage,
+  bgImageAlt,
 }: HeroShellProps) {
   return (
-    <section className="relative isolate flex min-h-screen items-center overflow-hidden pb-24 pt-32 sm:pt-36">
-      {/* Deep base so every backdrop reads consistently. */}
-      <div className="absolute inset-0 -z-10 bg-bg-deep" />
-
-      {/* Page-specific animated backdrop. */}
-      <div aria-hidden className="absolute inset-0 -z-10 overflow-hidden">
-        {backdrop}
-      </div>
-
-      {/* Calm scrim under the fixed navbar so the header reads static. */}
+    <section className="relative isolate flex min-h-screen items-center overflow-hidden bg-paper pb-16 pt-28 sm:pt-36">
+      {/* Page-specific background photo + readability scrim. */}
+      {bgImage && (
+        <>
+          <img
+            src={bgImage}
+            alt={bgImageAlt ?? ""}
+            aria-hidden={bgImageAlt ? undefined : true}
+            loading="eager"
+            fetchpriority="high"
+            decoding="async"
+            className="absolute inset-0 -z-20 h-full w-full object-cover object-center"
+          />
+          {/* Light scrim: keeps dark hero copy legible over the photograph. */}
+          <div
+            aria-hidden
+            className="absolute inset-0 -z-10 bg-gradient-to-br from-paper/90 via-paper/78 to-paper/88"
+          />
+        </>
+      )}
+      {/* Faint blueprint grid, masked so it dissolves toward the edges. */}
       <div
         aria-hidden
-        className="absolute inset-x-0 top-0 -z-10 h-40 bg-gradient-to-b from-bg-deep via-bg-deep/80 to-transparent"
+        className="absolute inset-0 -z-10 light-grid opacity-70 [mask-image:radial-gradient(ellipse_at_center,black_20%,transparent_78%)]"
       />
-
-      {/* Fade the hero into the page background below it. */}
-      <div
-        aria-hidden
-        className="absolute inset-x-0 bottom-0 -z-10 h-40 bg-gradient-to-b from-transparent to-bg"
-      />
+      {/* Single restrained brand wash. */}
+      <div aria-hidden className="absolute inset-0 -z-10 bg-hero-wash" />
 
       <Container className="relative">
         <div className={contentClassName ?? "mx-auto max-w-3xl text-center"}>
@@ -59,8 +78,8 @@ export default function HeroShell({
           animate={{ y: [0, 8, 0] }}
           transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
         >
-          <div className="flex h-9 w-5 items-start justify-center rounded-full border border-white/20 p-1">
-            <span className="h-2 w-1 rounded-full bg-brand" />
+          <div className="flex h-9 w-5 items-start justify-center rounded-full border border-heading/20 p-1">
+            <span className="h-2 w-1 rounded-full bg-primary" />
           </div>
         </motion.div>
       )}

@@ -79,10 +79,15 @@ async function fetchPublishedPosts(env) {
 }
 
 function buildSitemap(posts) {
+  // Static marketing pages don't carry their own timestamps, so stamp them with
+  // the build date — every deploy refreshes <lastmod>, which is a legitimate
+  // signal (the page genuinely shipped that day) and nudges re-crawls.
+  const buildDate = new Date().toISOString().slice(0, 10);
   const urls = [
     ...STATIC_ROUTES.map(
       (r) =>
         `  <url>\n    <loc>${SITE_URL}${r.path}</loc>\n` +
+        `    <lastmod>${buildDate}</lastmod>\n` +
         `    <changefreq>${r.changefreq}</changefreq>\n` +
         `    <priority>${r.priority}</priority>\n  </url>`
     ),

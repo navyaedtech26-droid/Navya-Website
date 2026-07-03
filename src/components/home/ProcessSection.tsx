@@ -7,9 +7,10 @@ import { fadeUp, staggerContainer, viewportOnce, easeEntrance } from "@/lib/anim
 
 export default function ProcessSection() {
   return (
-    <section className="relative py-24">
+    <section className="relative bg-paper py-16 md:py-20">
       <Container>
         <SectionHeading
+          tone="light"
           eyebrow="Our Approach"
           title="How We Transform"
           highlight="Your Business"
@@ -19,9 +20,9 @@ export default function ProcessSection() {
         <div className="relative mt-16">
           {/* Desktop connector line that draws on scroll */}
           <div className="absolute left-0 right-0 top-7 hidden lg:block">
-            <div className="relative h-px w-full bg-white/10">
+            <div className="relative h-px w-full bg-line">
               <motion.div
-                className="absolute inset-y-0 left-0 bg-gradient-to-r from-brand via-brand-light to-cyan-accent"
+                className="absolute inset-y-0 left-0 bg-gradient-to-r from-primary via-primary-light to-secondary"
                 initial={{ width: "0%" }}
                 whileInView={{ width: "100%" }}
                 viewport={{ once: true, margin: "-120px" }}
@@ -45,20 +46,20 @@ export default function ProcessSection() {
               >
                 <div className="relative flex flex-col items-center lg:items-center">
                   <div className="relative z-10">
-                    <IconBadge icon={step.icon} size="lg" />
+                    <IconBadge icon={step.icon} size="lg" tone="light" color="#2563EB" />
                   </div>
                   {/* mobile vertical connector */}
-                  <span className="mt-2 h-full w-px flex-1 bg-gradient-to-b from-brand/40 to-transparent lg:hidden" />
+                  <span className="mt-2 h-full w-px flex-1 bg-gradient-to-b from-primary/40 to-transparent lg:hidden" />
                 </div>
 
                 <div className="lg:mt-3">
-                  <span className="font-display text-xs font-bold tracking-widest text-cyan-accent">
+                  <span className="font-display text-xs font-bold tracking-widest text-primary">
                     STEP {step.step}
                   </span>
-                  <h3 className="mt-1 font-display text-base font-semibold text-ink">
+                  <h3 className="mt-1 font-display text-base font-semibold text-heading">
                     {step.title}
                   </h3>
-                  <p className="mt-2 text-sm leading-relaxed text-ink-muted">
+                  <p className="mt-2 text-sm leading-relaxed text-faint">
                     {step.description}
                   </p>
                 </div>

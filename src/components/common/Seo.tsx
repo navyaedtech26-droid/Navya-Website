@@ -4,6 +4,7 @@ import {
   SITE_NAME,
   organizationSchema,
   websiteSchema,
+  webPageSchema,
 } from "@/lib/structuredData";
 
 // Default 1200×630 social-share card (see scripts/generate-og-image.mjs).
@@ -25,6 +26,12 @@ interface SeoProps {
   index?: boolean;
   /** OpenGraph object type. Use "article" for blog posts. */
   type?: "website" | "article";
+  /**
+   * schema.org WebPage subtype for this route. Lets a page declare itself as an
+   * AboutPage / ContactPage / CollectionPage instead of a generic WebPage,
+   * which gives search engines a stronger signal about its purpose.
+   */
+  pageType?: "WebPage" | "AboutPage" | "ContactPage" | "CollectionPage";
   /** Article metadata — only emitted when `type` is "article". */
   article?: {
     publishedTime?: string | null;
@@ -53,10 +60,12 @@ export default function Seo({
   imageAlt = SITE_NAME,
   index = true,
   type = "website",
+  pageType = "WebPage",
   article,
   jsonLd,
 }: SeoProps) {
   const url = `${SITE_URL}${path}`;
+  const pageSchema = webPageSchema({ title, description, path, type: pageType });
   // Resolve relative image paths (e.g. blog cover images) to absolute URLs,
   // which OpenGraph/Twitter require.
   const imageUrl = image.startsWith("http") ? image : `${SITE_URL}${image}`;
@@ -85,6 +94,9 @@ export default function Seo({
       <meta property="og:url" content={url} />
       <meta property="og:image" content={imageUrl} />
       <meta property="og:image:alt" content={imageAlt} />
+      {isDefaultImage && (
+        <meta property="og:image:type" content="image/png" />
+      )}
       {isDefaultImage && (
         <meta property="og:image:width" content={DEFAULT_OG_WIDTH} />
       )}
@@ -124,6 +136,14 @@ export default function Seo({
       <script type="application/ld+json">
         {JSON.stringify(websiteSchema)}
       </script>
+
+      {/* Per-route WebPage entity (skipped on noindex pages so they don't
+          enter the site graph). */}
+      {index && (
+        <script type="application/ld+json">
+          {JSON.stringify(pageSchema)}
+        </script>
+      )}
 
       {/* Page-specific structured data */}
       {extraSchemas.map((schema, i) => (

@@ -14,6 +14,12 @@ interface SectionHeadingProps {
   subtitle?: string;
   align?: "left" | "center";
   className?: string;
+  /**
+   * Surface the heading sits on. "dark" (default) = legacy navy pages: light
+   * text + gold highlight. "light" = professional redesign: near-black heading
+   * + blue highlight. Default keeps every non-migrated page byte-identical.
+   */
+  tone?: "dark" | "light";
 }
 
 export default function SectionHeading({
@@ -22,7 +28,9 @@ export default function SectionHeading({
   subtitle,
   align = "center",
   className,
+  tone = "light",
 }: SectionHeadingProps) {
+  const light = tone === "light";
   return (
     <motion.div
       variants={staggerContainer(0.12)}
@@ -37,16 +45,22 @@ export default function SectionHeading({
     >
       <motion.h2
         variants={fadeUp}
-        className="max-w-3xl font-display text-3xl font-semibold leading-[1.1] tracking-tight text-ink sm:text-4xl md:text-5xl"
+        className={cn(
+          "max-w-3xl font-display text-3xl font-semibold leading-[1.1] tracking-tight sm:text-4xl md:text-5xl",
+          light ? "text-heading" : "text-ink"
+        )}
       >
         {title}{" "}
-        {highlight && <span className="text-gradient">{highlight}</span>}
+        {highlight && (
+          <span className={light ? "text-primary" : "text-gradient"}>{highlight}</span>
+        )}
       </motion.h2>
       {subtitle && (
         <motion.p
           variants={fadeUp}
           className={cn(
-            "max-w-2xl text-base leading-relaxed text-ink-muted sm:text-lg",
+            "max-w-2xl text-base leading-relaxed sm:text-lg",
+            light ? "text-faint" : "text-ink-muted",
             align === "center" && "mx-auto"
           )}
         >

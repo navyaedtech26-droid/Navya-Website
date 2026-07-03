@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { Mail, Instagram, Music2 } from "lucide-react";
+import { Mail, Instagram, Music2, Linkedin, Star } from "lucide-react";
 import Container from "@/components/common/Container";
 import { navLinks, contactInfo } from "@/data/navigation";
 
@@ -14,12 +14,10 @@ const serviceLinks = [
 
 export default function Footer() {
   return (
-    <footer className="relative mt-24 pb-10 pt-10">
-      <Container>
-        {/* Frosted card surface so the footer reads as an intentional panel
-            (matching the form/cards) rather than transparent text floating on
-            the page background. */}
-        <div className="overflow-hidden rounded-3xl glass px-6 py-12 ring-1 ring-white/10 sm:px-10 sm:py-14">
+    <footer className="relative border-t border-white/10 bg-bg">
+      {/* Full-bleed deep-navy band that bookends the flush navbar; content is
+          held to the site grid via Container so it aligns with the page. */}
+      <Container className="py-14 sm:py-16">
           <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-4">
             {/* Brand */}
             <div className="space-y-4">
@@ -123,6 +121,30 @@ export default function Footer() {
                     TikTok {contactInfo.tiktok}
                   </a>
                 </li>
+                <li>
+                  <a
+                    href={contactInfo.linkedinUrl}
+                    target="_blank"
+                    rel="noreferrer"
+                    data-cursor="hover"
+                    className="group flex items-center gap-2.5 text-ink-muted transition-colors hover:text-brand-light"
+                  >
+                    <SocialIcon icon={Linkedin} />
+                    LinkedIn {contactInfo.linkedin}
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href={contactInfo.googleReviewUrl}
+                    target="_blank"
+                    rel="noreferrer"
+                    data-cursor="hover"
+                    className="group flex items-center gap-2.5 text-ink-muted transition-colors hover:text-brand-light"
+                  >
+                    <SocialIcon icon={Star} />
+                    Review Us On Google
+                  </a>
+                </li>
               </ul>
             </div>
           </div>
@@ -162,7 +184,6 @@ export default function Footer() {
               </Link>
             </div>
           </div>
-        </div>
       </Container>
     </footer>
   );
@@ -170,7 +191,7 @@ export default function Footer() {
 
 function SocialIcon({ icon: Icon }: { icon: typeof Mail }) {
   return (
-    <span className="flex h-8 w-8 items-center justify-center rounded-lg glass text-cyan-accent transition-all duration-300 group-hover:shadow-glow-sm group-hover:ring-1 group-hover:ring-brand/40">
+    <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-white/5 text-cyan-accent ring-1 ring-white/10 transition-all duration-300 group-hover:bg-white/10 group-hover:ring-brand/40">
       <Icon size={15} strokeWidth={1.9} />
     </span>
   );

@@ -48,6 +48,15 @@ export function safeUrl(
   return allowed.has(scheme) ? raw : null;
 }
 
+/** Two-letter monogram from a person's name (fallback: brand initials "NE"). */
+export function authorInitials(name?: string | null): string {
+  if (!name) return "NE";
+  const parts = name.trim().split(/\s+/).filter(Boolean);
+  if (parts.length === 0) return "NE";
+  if (parts.length === 1) return parts[0].slice(0, 2).toUpperCase();
+  return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase();
+}
+
 /** Format an ISO timestamp as e.g. "Jun 18, 2026". Returns "" on bad input. */
 export function formatDate(iso: string | null | undefined): string {
   if (!iso) return "";

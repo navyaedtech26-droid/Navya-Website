@@ -17,6 +17,7 @@ export default function About() {
         title="About | Navya EdTech"
         description="Learn about Navya EdTech, a digital solutions company helping businesses grow through innovation."
         path="/about"
+        pageType="AboutPage"
         jsonLd={breadcrumbSchema([
           { name: "Home", path: "/" },
           { name: "About", path: "/about" },
