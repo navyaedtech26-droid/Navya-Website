@@ -32,3 +32,6 @@ npm-debug.log*
 
 # Vitest coverage
 /coverage/
+
+# Claude Code skills (local tooling, not part of the app)
+.claude/skills/
