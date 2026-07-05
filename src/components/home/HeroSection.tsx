@@ -19,6 +19,8 @@ export default function HeroSection() {
         src="/home/home5.avif"
         alt=""
         aria-hidden
+        width={1692}
+        height={929}
         loading="eager"
         fetchPriority="high"
         decoding="async"
@@ -68,6 +70,10 @@ export default function HeroSection() {
           0% { transform: translateX(0) skewX(-12deg); }
           45%, 100% { transform: translateX(420%) skewX(-12deg); }
         }
+        @keyframes logoPulse {
+          0%, 100% { transform: scale(1); filter: drop-shadow(0 0 0 rgba(30,107,255,0)); }
+          50% { transform: scale(1.045); filter: drop-shadow(0 0 18px rgba(30,107,255,0.35)); }
+        }
         @keyframes svcFloatA {
           0%, 100% { transform: translate3d(0, 0, 0) rotate(-1.2deg); }
           50% { transform: translate3d(4px, -12px, 0) rotate(1deg); }
@@ -87,7 +93,7 @@ export default function HeroSection() {
         @media (prefers-reduced-motion: reduce) {
           [class*="svcFloat"], [style*="svcFloat"],
           [style*="heroGradient"], [style*="badgeSweep"],
-          [style*="breathe"] { animation: none !important; }
+          [style*="breathe"], [style*="logoPulse"] { animation: none !important; }
         }
       `}</style>
     </section>

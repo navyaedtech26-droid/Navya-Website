@@ -40,12 +40,12 @@ function StoryVisual() {
         ))}
 
         <img
-          src="/logo.png"
+          src="/logo.webp"
           alt="Navya EdTech"
-          width={420}
-          height={162}
+          width={614}
+          height={719}
           decoding="async"
-          className="w-2/3 max-w-[15rem] object-contain drop-shadow-[0_0_24px_rgba(30, 107, 255,0.35)] transition-transform duration-500 group-hover:scale-105"
+          className="w-2/3 max-w-[15rem] object-contain drop-shadow-[0_0_24px_rgba(30,107,255,0.35)] transition-transform duration-500 group-hover:scale-105"
         />
       </motion.div>
     </div>
@@ -65,22 +65,22 @@ export default function CompanyStory() {
             </Reveal>
             <Reveal delay={0.1}>
               <h2 className="mt-5 font-display text-3xl font-semibold leading-tight text-heading sm:text-4xl">
-                A digital partner built for <span className="text-primary">modern businesses</span>
+                A transformation partner for <span className="text-primary">ambitious businesses</span>
               </h2>
             </Reveal>
             <Reveal delay={0.2}>
               <p className="mt-5 text-base leading-relaxed text-faint">
-                Navya EdTech began with a simple belief: great technology should be
-                accessible to every growing business. We pair editorial design with
-                serious engineering to ship websites and systems that feel premium and
-                perform under pressure.
+                Navya EdTech began with one conviction: enterprise-grade technology — and
+                the returns it creates — shouldn't be reserved for the giants. We pair
+                editorial design with serious engineering to ship platforms that look
+                premium and move real business metrics.
               </p>
             </Reveal>
             <Reveal delay={0.3}>
               <p className="mt-4 text-base leading-relaxed text-faint">
-                From a first landing page to a full ERP rollout, we obsess over speed,
-                clarity, and the details that make software a joy to use, so your team
-                and your customers feel the difference.
+                From a first landing page to a full ERP rollout, we obsess over the details
+                that drive results — speed that converts, clarity that lowers cost, and
+                systems your team and customers actually love to use.
               </p>
             </Reveal>
           </div>

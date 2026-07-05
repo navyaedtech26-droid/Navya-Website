@@ -5,31 +5,33 @@ import HeroShell from "./HeroShell";
 import { fadeUp, staggerContainer } from "@/lib/animations";
 
 const CHIPS = [
-  { icon: Gauge, label: "Speed & SEO-first builds" },
+  { icon: Gauge, label: "Revenue-focused builds" },
   { icon: ShieldCheck, label: "Secure & scalable" },
-  { icon: Headset, label: "Ongoing support" },
+  { icon: Headset, label: "Measurable outcomes" },
 ];
 
 export default function ServicesHero() {
   return (
     <HeroShell
       bgImage="/services/services.avif"
+      bgImageWidth={1584}
+      bgImageHeight={672}
       contentClassName="mx-auto max-w-3xl text-center"
     >
       <motion.div variants={staggerContainer(0.12)} initial="hidden" animate="visible">
         <motion.h1
           variants={fadeUp}
-          className="font-display text-4xl font-semibold leading-[1.06] tracking-tight text-heading sm:text-5xl md:text-6xl"
+          className="type-display text-heading"
         >
-          Websites, Systems &amp; Social built for <span className="text-primary">Business Growth</span>
+          Capabilities engineered for <span className="text-primary">Business Growth</span>
         </motion.h1>
 
         <motion.p
           variants={fadeUp}
           className="mx-auto mt-6 max-w-2xl text-base leading-relaxed text-faint sm:text-lg"
         >
-          From professional websites and complete business systems to result-driven social media, Navya EdTech builds
-          solutions that are fast, secure, scalable, and easy to manage.
+          From revenue-driving websites to operations that automate cost away, Navya EdTech delivers digital systems
+          measured by one thing: the business results they produce.
         </motion.p>
 
         <motion.ul

@@ -1,5 +1,6 @@
 import Seo from "@/components/common/Seo";
 import { motion } from "framer-motion";
+import { useLocation } from "react-router-dom";
 import PageTransition from "@/components/effects/PageTransition";
 import Container from "@/components/common/Container";
 import MagneticButton from "@/components/effects/MagneticButton";
@@ -8,12 +9,13 @@ import { useReducedMotion } from "@/hooks/useMediaQuery";
 
 export default function NotFound() {
   const reduced = useReducedMotion();
+  const location = useLocation();
   return (
     <PageTransition>
       <Seo
         title="404 — Page Not Found | Navya EdTech"
         description="The page you are looking for could not be found. Return to Navya EdTech's homepage."
-        path="/404"
+        path={location.pathname}
         index={false}
       />
 
@@ -29,7 +31,8 @@ export default function NotFound() {
           >
             <motion.div variants={fadeUp} className="relative inline-block">
               <h1 className="font-display text-[7rem] font-bold leading-none tracking-tighter text-heading sm:text-[11rem]">
-                404
+                <span aria-hidden="true">404</span>
+                <span className="sr-only">Page Not Found</span>
               </h1>
               {!reduced && (
                 <>

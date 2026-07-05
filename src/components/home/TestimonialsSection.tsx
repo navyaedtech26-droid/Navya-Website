@@ -29,10 +29,10 @@ export default function TestimonialsSection() {
       <Container>
         <SectionHeading
           tone="light"
-          eyebrow="Client Stories"
+          eyebrow="Client Impact"
           title="Trusted by Businesses"
           highlight="Like Yours"
-          subtitle="We measure our success by the growth of the people we build for. Here's what partnering with Navya EdTech feels like."
+          subtitle="We measure our success in one currency: the growth of the businesses we build for. Here is what that partnership delivers."
         />
 
         {testimonials.length === 0 ? (
@@ -94,7 +94,7 @@ export default function TestimonialsSection() {
               </p>
 
               <div className="relative mt-7 flex items-center gap-4 border-t border-line pt-6">
-                <IconBadge icon={t.icon} tone="light" color="#2563EB" />
+                <IconBadge icon={t.icon} tone="light" color="#081E4D" />
                 <div>
                   <p className="font-display text-sm font-semibold text-heading">{t.name}</p>
                   <p className="text-xs text-faint">

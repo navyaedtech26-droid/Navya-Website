@@ -17,14 +17,14 @@ export const organizationSchema = {
   email: SITE_EMAIL,
   logo: {
     "@type": "ImageObject",
-    url: `${SITE_URL}/logo.png`,
+    url: `${SITE_URL}/logo.jpg`,
     width: 1577,
     height: 656,
   },
-  image: `${SITE_URL}/og-image.png`,
-  slogan: "Innovate. Build. Elevate.",
+  image: `${SITE_URL}/og-image.jpg`,
+  slogan: "Digital transformation that drives growth.",
   description:
-    "Navya EdTech builds high-performance websites, e-commerce platforms, and business management systems for modern businesses.",
+    "Navya EdTech turns digital investment into measurable growth — revenue-driving websites, cost-cutting business systems, and business intelligence for founders, schools, hospitals, and enterprises.",
   // Country-level address only — Navya operates remotely across Nepal. Add a
   // street address + geo here if/when a public office location exists, which is
   // what unlocks Google local-pack / map rich results.
@@ -153,7 +153,50 @@ export function webPageSchema(page: {
     inLanguage: "en",
     isPartOf: { "@id": `${SITE_URL}/#website` },
     publisher: { "@id": `${SITE_URL}/#organization` },
-    primaryImageOfPage: `${SITE_URL}/og-image.png`,
+    primaryImageOfPage: `${SITE_URL}/og-image.jpg`,
+  };
+}
+
+/**
+ * Review + AggregateRating for the Organization, built from real published
+ * testimonials — never fabricated, so this returns `null` (render nothing)
+ * when there are none yet rather than emitting a zero-review AggregateRating,
+ * which structured-data validators flag as invalid.
+ *
+ * Re-declares the Organization node under its existing `@id` rather than
+ * inventing a new entity, so consumers that assemble the page's JSON-LD into
+ * one graph merge these facts onto the same Organization described by
+ * `organizationSchema` instead of treating it as an unrelated duplicate.
+ */
+export function reviewsSchema(
+  items: { name: string; quote: string; rating: number }[]
+) {
+  if (items.length === 0) return null;
+  const ratingValue =
+    Math.round((items.reduce((sum, t) => sum + t.rating, 0) / items.length) * 10) /
+    10;
+  return {
+    "@context": "https://schema.org",
+    "@type": "ProfessionalService",
+    "@id": `${SITE_URL}/#organization`,
+    aggregateRating: {
+      "@type": "AggregateRating",
+      ratingValue,
+      reviewCount: items.length,
+      bestRating: 5,
+      worstRating: 1,
+    },
+    review: items.map((t) => ({
+      "@type": "Review",
+      author: { "@type": "Person", name: t.name },
+      reviewRating: {
+        "@type": "Rating",
+        ratingValue: t.rating,
+        bestRating: 5,
+        worstRating: 1,
+      },
+      reviewBody: t.quote,
+    })),
   };
 }
 

@@ -40,6 +40,23 @@ export function GlobeStage() {
   return (
     <div ref={containerRef} className="relative h-[380px] sm:h-[440px] lg:h-[520px]">
       <GlobeCanvas hoverRef={hoverRef} />
+
+      {/* Navya mark — the "seed" the growth structure blooms from */}
+      <div className="absolute inset-0 z-10 flex items-center justify-center pointer-events-none">
+        <div
+          className="w-[112px] sm:w-[150px] lg:w-[176px] overflow-hidden rounded-full"
+          style={{ animation: "logoPulse 4.5s ease-in-out infinite" }}
+        >
+          <img
+            src="/logo-navy.webp"
+            alt=""
+            aria-hidden
+            className="w-full h-full"
+            style={{ aspectRatio: "614 / 600", objectFit: "cover", objectPosition: "top" }}
+          />
+        </div>
+      </div>
+
       <ConnectorCanvas containerRef={containerRef} cardRefs={cardRefs} hoverRef={hoverRef} />
 
       {SERVICE_CARDS.map((card, i) => (

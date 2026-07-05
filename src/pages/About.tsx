@@ -15,7 +15,13 @@ export default function About() {
     <PageTransition>
       <Seo
         title="About | Navya EdTech"
-        description="Learn about Navya EdTech, a digital solutions company helping businesses grow through innovation."
+        description="Navya EdTech is a digital transformation partner helping founders and enterprises turn technology investment into revenue, efficiency, and lasting competitive advantage."
+        keywords={[
+          "about Navya EdTech",
+          "digital transformation partner Nepal",
+          "web development company Nepal",
+          "business systems consultancy",
+        ]}
         path="/about"
         pageType="AboutPage"
         jsonLd={breadcrumbSchema([
@@ -34,9 +40,9 @@ export default function About() {
       <WhyChooseUs />
 
       <CTASection
-        title="Let's Build the Future Together"
-        subtitle="Partner with a team that treats your growth as the goal."
-        buttonLabel="Get in Touch"
+        title="Let's Build Your Competitive Advantage"
+        subtitle="Partner with a team measured by one thing: the growth we create for you."
+        buttonLabel="Book a Strategy Call"
       />
     </PageTransition>
   );

@@ -22,6 +22,18 @@ import Contact from "@/pages/Contact";
 // load on demand so they don't weigh down the initial download of the home page.
 const Blog = lazy(() => import("@/pages/Blog"));
 const BlogPost = lazy(() => import("@/pages/BlogPost"));
+const ServiceWebsites = lazy(() => import("@/pages/services/Websites"));
+const Industries = lazy(() => import("@/pages/Industries"));
+const IndustrySchools = lazy(() => import("@/pages/industries/Schools"));
+const IndustryColleges = lazy(() => import("@/pages/industries/Colleges"));
+const IndustryHospitals = lazy(() => import("@/pages/industries/Hospitals"));
+const IndustryManufacturing = lazy(() => import("@/pages/industries/Manufacturing"));
+const IndustryHotels = lazy(() => import("@/pages/industries/Hotels"));
+const IndustryRestaurants = lazy(() => import("@/pages/industries/Restaurants"));
+const IndustryRetail = lazy(() => import("@/pages/industries/Retail"));
+const IndustryNGOs = lazy(() => import("@/pages/industries/NGOs"));
+const IndustryRealEstate = lazy(() => import("@/pages/industries/RealEstate"));
+const IndustryTravelAgencies = lazy(() => import("@/pages/industries/TravelAgencies"));
 const ShareTestimonial = lazy(() => import("@/pages/ShareTestimonial"));
 const PrivacyPolicy = lazy(() => import("@/pages/PrivacyPolicy"));
 const Terms = lazy(() => import("@/pages/Terms"));
@@ -122,6 +134,18 @@ export default function App() {
             <Routes location={location} key={location.pathname}>
               <Route path="/" element={<Home />} />
               <Route path="/services" element={<Services />} />
+              <Route path="/services/websites" element={<ServiceWebsites />} />
+              <Route path="/industries" element={<Industries />} />
+              <Route path="/industries/schools" element={<IndustrySchools />} />
+              <Route path="/industries/colleges" element={<IndustryColleges />} />
+              <Route path="/industries/hospitals" element={<IndustryHospitals />} />
+              <Route path="/industries/manufacturing" element={<IndustryManufacturing />} />
+              <Route path="/industries/hotels" element={<IndustryHotels />} />
+              <Route path="/industries/restaurants" element={<IndustryRestaurants />} />
+              <Route path="/industries/retail" element={<IndustryRetail />} />
+              <Route path="/industries/ngos" element={<IndustryNGOs />} />
+              <Route path="/industries/real-estate" element={<IndustryRealEstate />} />
+              <Route path="/industries/travel-agencies" element={<IndustryTravelAgencies />} />
               <Route path="/about" element={<About />} />
               <Route path="/contact" element={<Contact />} />
               <Route path="/blog" element={<Blog />} />

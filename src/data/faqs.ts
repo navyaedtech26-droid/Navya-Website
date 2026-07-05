@@ -22,7 +22,7 @@ export const generalFaqs: Faq[] = [
   {
     question: "Do you provide support after launch?",
     answer:
-      "Yes. We don't disappear at launch. We offer ongoing maintenance, performance monitoring, and growth support so your platform keeps improving long after it goes live.",
+      "Yes. We don't disappear at launch. We offer ongoing maintenance, performance monitoring, and growth support so your platform keeps compounding returns long after it goes live.",
   },
   {
     question: "Can you redesign or upgrade my existing website?",
@@ -68,7 +68,7 @@ export const contactFaqs: Faq[] = [
   {
     question: "How much does a project cost?",
     answer:
-      "Every project is scoped to your needs, so pricing varies. After understanding your requirements we share a transparent, itemized quote so you know exactly what you're paying for before anything begins.",
+      "Every engagement is scoped to the outcome you need, so pricing reflects the value at stake. After understanding your goals we share a transparent, itemized quote — and the business case behind it — before anything begins.",
   },
   {
     question: "Do I need to have everything figured out first?",

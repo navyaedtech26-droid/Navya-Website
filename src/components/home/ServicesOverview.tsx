@@ -14,10 +14,10 @@ export default function ServicesOverview() {
       <Container>
         <SectionHeading
           tone="light"
-          eyebrow="What We Do"
-          title="We Don't Just Build."
-          highlight="We Transform."
-          subtitle="From websites and business systems to social media growth: digital solutions designed after understanding your business."
+          eyebrow="Business Outcomes"
+          title="Digital Capabilities That"
+          highlight="Pay for Themselves"
+          subtitle="From revenue-generating websites to operations that run themselves — every engagement is measured by the growth, savings, and efficiency it delivers."
         />
 
         <motion.div
@@ -32,7 +32,7 @@ export default function ServicesOverview() {
               <TiltCard className="h-full">
                 <div className="flex h-full flex-col card-light rounded-2xl p-8 transition-shadow duration-300 hover:shadow-card-hover">
                   <div className="flex items-center gap-4">
-                    <IconBadge icon={cat.icon} size="lg" tone="light" color="#2563EB" />
+                    <IconBadge icon={cat.icon} size="lg" tone="light" color="#081E4D" />
                     <div>
                       <h3 className="font-display text-xl font-semibold text-heading">
                         {cat.title}

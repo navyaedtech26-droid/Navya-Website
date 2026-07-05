@@ -11,7 +11,7 @@ export default function FeaturesSection() {
       <Container>
         <SectionHeading
           tone="light"
-          eyebrow="Why It Works"
+          eyebrow="The Business Case"
           title="Built for Performance."
           highlight="Designed for Growth."
         />

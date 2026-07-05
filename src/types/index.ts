@@ -45,3 +45,171 @@ export interface ValueItem {
   title: string;
   description: string;
 }
+
+/**
+ * Structured content for a dedicated per-service deep-dive page
+ * (e.g. /services/websites) — problem/impact/ROI/workflow/implementation/
+ * timeline/technology/case study/FAQ/CTA, in that order.
+ */
+export interface ServicePainPoint {
+  title: string;
+  description: string;
+}
+
+export interface ServiceImpactPoint {
+  icon: LucideIcon;
+  title: string;
+  description: string;
+}
+
+export interface ServiceWorkflowStep {
+  step: string;
+  title: string;
+  description: string;
+}
+
+export interface ServiceTimelinePhase {
+  phase: string;
+  duration: string;
+  description: string;
+}
+
+export interface ServiceTechGroup {
+  category: string;
+  items: string[];
+}
+
+export interface ServiceCaseStudy {
+  /** True for an honest, unnamed representative engagement rather than a named client. */
+  illustrative?: boolean;
+  client: string;
+  industry: string;
+  challenge: string;
+  approach: string;
+  outcome: string;
+}
+
+export interface ServicePage {
+  slug: string;
+  icon: LucideIcon;
+  title: string;
+  highlight: string;
+  heroSubtitle: string;
+  seoDescription: string;
+  /** Terms this page is written to rank for — rendered as a meta keywords tag. */
+  seoKeywords: string[];
+  businessProblem: {
+    title: string;
+    highlight: string;
+    intro: string;
+    painPoints: ServicePainPoint[];
+  };
+  businessImpact: {
+    title: string;
+    highlight: string;
+    intro: string;
+    points: ServiceImpactPoint[];
+  };
+  roi: {
+    title: string;
+    highlight: string;
+    intro: string;
+    points: string[];
+  };
+  workflow: ServiceWorkflowStep[];
+  implementation: {
+    title: string;
+    highlight: string;
+    intro: string;
+    deliverables: string[];
+  };
+  timeline: ServiceTimelinePhase[];
+  technology: ServiceTechGroup[];
+  caseStudy: ServiceCaseStudy;
+  faqs: { question: string; answer: string }[];
+  cta: {
+    title: string;
+    subtitle: string;
+    buttonLabel: string;
+  };
+}
+
+/**
+ * Structured content for a dedicated per-industry landing page
+ * (e.g. /industries/schools) — challenges/solutions/ROI/features/case
+ * study/FAQ/CTA, plus SEO keywords and internal-linking slugs.
+ */
+export interface IndustryChallenge {
+  title: string;
+  description: string;
+}
+
+export interface IndustrySolution {
+  icon: LucideIcon;
+  title: string;
+  description: string;
+}
+
+export interface IndustryFeature {
+  icon: LucideIcon;
+  title: string;
+  description: string;
+}
+
+export interface IndustryCaseStudy {
+  /** True for an honest, unnamed representative engagement rather than a named client. */
+  illustrative?: boolean;
+  client: string;
+  challenge: string;
+  approach: string;
+  outcome: string;
+}
+
+export interface IndustryPage {
+  slug: string;
+  icon: LucideIcon;
+  /** Accent colour (hex) — matches the homepage Industries grid. */
+  color: string;
+  title: string;
+  highlight: string;
+  heroSubtitle: string;
+  seoTitle: string;
+  seoDescription: string;
+  /** Terms this page is written to rank for — rendered as a meta keywords tag. */
+  seoKeywords: string[];
+  challenges: {
+    title: string;
+    highlight: string;
+    intro: string;
+    items: IndustryChallenge[];
+  };
+  solutions: {
+    title: string;
+    highlight: string;
+    intro: string;
+    items: IndustrySolution[];
+  };
+  roi: {
+    title: string;
+    highlight: string;
+    intro: string;
+    points: string[];
+  };
+  features: {
+    title: string;
+    highlight: string;
+    intro: string;
+    items: IndustryFeature[];
+  };
+  caseStudy: IndustryCaseStudy;
+  faqs: { question: string; answer: string }[];
+  cta: {
+    title: string;
+    subtitle: string;
+    buttonLabel: string;
+  };
+  /** Slugs of other /industries/* pages to cross-link ("Related Industries"). */
+  relatedIndustries: string[];
+  /** Ids from serviceCategories (@/data/services) to cross-link into /services. */
+  relatedServices: string[];
+}

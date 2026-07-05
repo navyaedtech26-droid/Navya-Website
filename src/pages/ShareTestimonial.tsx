@@ -92,6 +92,8 @@ export default function ShareTestimonial() {
         highlight="Experience"
         subtitle="If we've built something for you, tell us how it went. Approved stories are featured on our site."
         bgImage="/testimonials/testimonials.avif"
+        bgImageWidth={1717}
+        bgImageHeight={916}
       />
 
       <section className="relative py-12">

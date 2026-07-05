@@ -7,14 +7,14 @@ import { staggerContainer, viewportOnce } from "@/lib/animations";
 
 export default function CaseStudiesSection() {
   return (
-    <section className="relative bg-mist py-16 md:py-20">
+    <section id="case-studies" className="relative bg-mist py-16 md:py-20 scroll-mt-24">
       <Container>
         <SectionHeading
           tone="light"
-          eyebrow="Selected Work"
-          title="Outcomes We've"
+          eyebrow="Proven Outcomes"
+          title="Results We've"
           highlight="Delivered"
-          subtitle="Real clients we've partnered with — from complete ERP systems and online stores to brand-building social media."
+          subtitle="Real partnerships where digital investment became a business advantage — unified operations, new revenue channels, and brands that command attention."
         />
 
         <motion.div

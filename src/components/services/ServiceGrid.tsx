@@ -1,5 +1,6 @@
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, ArrowRight } from "lucide-react";
 import { motion, useReducedMotion } from "framer-motion";
+import { Link } from "react-router-dom";
 import Container from "@/components/common/Container";
 import SectionHeading from "@/components/common/SectionHeading";
 import TiltCard from "@/components/effects/TiltCard";
@@ -14,6 +15,9 @@ interface ServiceGridProps {
   items: ServiceItem[];
   /** Optional section background utility for alternating rhythm (e.g. "bg-mist"). */
   background?: string;
+  /** Optional link to a dedicated deep-dive page for this whole category. */
+  moreHref?: string;
+  moreLabel?: string;
 }
 
 /** Two very soft, slowly drifting brand tints that sit behind the grid. */
@@ -93,6 +97,8 @@ export default function ServiceGrid({
   highlight,
   items,
   background,
+  moreHref,
+  moreLabel,
 }: ServiceGridProps) {
   return (
     <section className={`relative py-16 ${background ?? ""}`}>
@@ -120,6 +126,25 @@ export default function ServiceGrid({
             <ServiceCard key={item.title} item={item} index={index} />
           ))}
         </motion.div>
+
+        {moreHref && (
+          <motion.div
+            variants={fadeUp}
+            initial="hidden"
+            whileInView="visible"
+            viewport={viewportOnce}
+            className="mt-10 flex justify-start"
+          >
+            <Link
+              to={moreHref}
+              data-cursor="hover"
+              className="group inline-flex items-center gap-1.5 text-sm font-semibold text-primary"
+            >
+              {moreLabel ?? "See the full breakdown"}
+              <ArrowRight size={15} className="transition-transform duration-300 group-hover:translate-x-1" />
+            </Link>
+          </motion.div>
+        )}
       </Container>
     </section>
   );

@@ -41,6 +41,8 @@ export default function BlogHero() {
   return (
     <HeroShell
       bgImage="/blogs/blog.avif"
+      bgImageWidth={1584}
+      bgImageHeight={672}
       backdrop={<MastheadBackdrop still={reduced} />}
       contentClassName="mx-auto max-w-3xl text-center"
     >

@@ -182,5 +182,5 @@ export default function AdminResetPassword() {
 
 const inputCls = cn(
   "w-full rounded-xl border border-line bg-white px-4 py-3 text-sm text-heading placeholder:text-faint/70 outline-none transition-all duration-200",
-  "focus:border-primary/60 focus:shadow-[0_0_0_3px_rgba(37,99,235,0.15)]"
+  "focus:border-primary/60 focus:shadow-[0_0_0_3px_rgba(8,30,77,0.15)]"
 );

@@ -23,25 +23,25 @@ export default function MobileMenu({ open, onClose }: MobileMenuProps) {
   return (
     <>
       <div
-        className="fixed inset-0 z-[60] bg-bg-deep/70 backdrop-blur-sm lg:hidden"
+        className="fixed inset-0 z-[60] bg-heading/40 backdrop-blur-sm lg:hidden"
         onClick={onClose}
       />
-      <aside className="fixed right-0 top-0 z-[70] flex h-[100dvh] w-[82%] max-w-sm flex-col glass border-l border-white/10 px-7 py-7 lg:hidden">
+      <aside className="fixed right-0 top-0 z-[70] flex h-[100dvh] w-[82%] max-w-sm flex-col card-light border-l border-line px-7 py-7 lg:hidden">
         <div className="flex items-center justify-between">
           <Link to="/" onClick={onClose} aria-label="Navya EdTech home">
             <img
-              src="/logo.png"
+              src="/logo-navy.webp"
               alt="NavyaEdTech"
-              width={420}
-              height={162}
+              width={614}
+              height={719}
               decoding="async"
-              className="h-9 w-auto object-contain"
+              className="h-11 w-auto object-contain"
             />
           </Link>
           <button
             onClick={onClose}
             aria-label="Close menu"
-            className="flex h-11 w-11 items-center justify-center rounded-xl glass text-ink-muted hover:text-ink"
+            className="flex h-11 w-11 items-center justify-center rounded-xl border border-line bg-paper text-faint hover:bg-haze hover:text-heading"
           >
             <X size={20} />
           </button>
@@ -56,18 +56,18 @@ export default function MobileMenu({ open, onClose }: MobileMenuProps) {
                 to={link.href}
                 onClick={onClose}
                 className={`flex items-center justify-between rounded-2xl px-4 py-4 font-display text-2xl font-medium ${
-                  active ? "text-primary" : "text-ink hover:text-brand-light"
+                  active ? "text-primary" : "text-heading hover:text-primary"
                 }`}
               >
                 {link.label}
-                <ArrowUpRight size={20} className="text-ink-muted" />
+                <ArrowUpRight size={20} className="text-faint" />
               </Link>
             );
           })}
         </nav>
 
-        <div className="mt-auto space-y-3 border-t border-white/10 pt-6 text-sm text-ink-muted">
-          <a href={`mailto:${contactInfo.email}`} className="block hover:text-ink">
+        <div className="mt-auto space-y-3 border-t border-line pt-6 text-sm text-faint">
+          <a href={`mailto:${contactInfo.email}`} className="block hover:text-primary">
             {contactInfo.email}
           </a>
           <p>Instagram {contactInfo.instagram}</p>

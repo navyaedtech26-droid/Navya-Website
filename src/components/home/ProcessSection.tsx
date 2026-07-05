@@ -11,10 +11,10 @@ export default function ProcessSection() {
       <Container>
         <SectionHeading
           tone="light"
-          eyebrow="Our Approach"
+          eyebrow="The Engagement"
           title="How We Transform"
           highlight="Your Business"
-          subtitle="We study your business, market, competitors, and growth possibilities before suggesting the right digital solution."
+          subtitle="Before we write a line of code, we map where new revenue, cost savings, and efficiency will come from — so every build is tied to a business case, not a feature list."
         />
 
         <div className="relative mt-16">
@@ -46,7 +46,7 @@ export default function ProcessSection() {
               >
                 <div className="relative flex flex-col items-center lg:items-center">
                   <div className="relative z-10">
-                    <IconBadge icon={step.icon} size="lg" tone="light" color="#2563EB" />
+                    <IconBadge icon={step.icon} size="lg" tone="light" color="#081E4D" />
                   </div>
                   {/* mobile vertical connector */}
                   <span className="mt-2 h-full w-px flex-1 bg-gradient-to-b from-primary/40 to-transparent lg:hidden" />

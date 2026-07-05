@@ -74,6 +74,12 @@ export default function Blog() {
       <Seo
         title="Blog | Navya EdTech"
         description="Insights on web development, performance, e-commerce, and business systems from the Navya EdTech team."
+        keywords={[
+          "web development blog",
+          "e-commerce insights",
+          "business systems blog",
+          "website performance tips",
+        ]}
         path="/blog"
         pageType="CollectionPage"
         jsonLd={breadcrumbSchema([
@@ -139,7 +145,7 @@ export default function Blog() {
                         onChange={(e) => setQuery(e.target.value)}
                         placeholder="Search articles…"
                         aria-label="Search articles"
-                        className="w-full rounded-xl border border-line bg-white py-3 pl-11 pr-10 text-sm text-heading placeholder:text-faint/70 outline-none transition-all duration-200 focus:border-primary/60 focus:shadow-[0_0_0_3px_rgba(37,99,235,0.15)]"
+                        className="w-full rounded-xl border border-line bg-white py-3 pl-11 pr-10 text-sm text-heading placeholder:text-faint/70 outline-none transition-all duration-200 focus:border-primary/60 focus:shadow-[0_0_0_3px_rgba(8,30,77,0.15)]"
                       />
                       {query && (
                         <button

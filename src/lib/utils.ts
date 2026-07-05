@@ -57,6 +57,30 @@ export function authorInitials(name?: string | null): string {
   return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase();
 }
 
+/**
+ * Strip markdown syntax down to plain text and truncate to `maxLen` chars on a
+ * word boundary. Used to derive a meta description from post body content when
+ * no author-written excerpt exists, so the tag never just repeats the title.
+ */
+export function plainTextExcerpt(
+  markdown: string | null | undefined,
+  maxLen = 160
+): string | null {
+  if (!markdown) return null;
+  const text = markdown
+    .replace(/```[\s\S]*?```/g, " ") // fenced code blocks
+    .replace(/`([^`]*)`/g, "$1") // inline code -> its text
+    .replace(/!\[[^\]]*\]\([^)]*\)/g, " ") // images
+    .replace(/\[([^\]]*)\]\([^)]*\)/g, "$1") // links -> link text
+    .replace(/^#{1,6}\s+/gm, "") // heading markers
+    .replace(/[*_>#-]/g, " ") // remaining emphasis/quote/list markers
+    .replace(/\s+/g, " ")
+    .trim();
+  if (!text) return null;
+  if (text.length <= maxLen) return text;
+  return text.slice(0, maxLen).replace(/\s+\S*$/, "") + "…";
+}
+
 /** Format an ISO timestamp as e.g. "Jun 18, 2026". Returns "" on bad input. */
 export function formatDate(iso: string | null | undefined): string {
   if (!iso) return "";

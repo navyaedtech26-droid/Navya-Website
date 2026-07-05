@@ -23,7 +23,7 @@ export default function CTASection({ title, subtitle, buttonLabel, tone = "light
     <div className="relative">
       <motion.h2
         variants={fadeUp}
-        className="mx-auto max-w-2xl font-display text-3xl font-semibold leading-tight tracking-tight text-ink sm:text-4xl md:text-5xl"
+        className="mx-auto max-w-2xl type-heading-l text-ink"
       >
         {title}
       </motion.h2>

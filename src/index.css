@@ -37,7 +37,7 @@
   }
 
   ::selection {
-    background: rgba(37, 99, 235, 0.18);
+    background: rgba(8, 30, 77, 0.18);
     color: #111827;
   }
 
@@ -64,6 +64,20 @@
     border: 1px solid rgba(255, 255, 255, 0.08);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
+  }
+
+  /* ── Named type scale (light system) ────────────────────────────────────
+     Consolidates the two responsive heading combos that recur verbatim
+     across the site so they're declared once instead of copy-pasted. */
+  /* Named `type-*` (not `text-*`) on purpose: tailwind-merge's default
+     conflict detection treats any unrecognized `text-*` class as a text-color
+     utility, so pairing "text-display" with a real color class like
+     "text-heading" via `cn()` silently drops one of them as a "conflict". */
+  .type-display {
+    @apply font-display text-4xl font-semibold leading-[1.06] tracking-tight sm:text-5xl md:text-6xl;
+  }
+  .type-heading-l {
+    @apply font-display text-3xl font-semibold leading-[1.1] tracking-tight sm:text-4xl md:text-5xl;
   }
 
   /* Golden words — the gold accent kept on the navy/blue base. */
@@ -99,7 +113,7 @@
   /* Blue highlight word on light backgrounds — the light-mode counterpart to
      `.text-gradient` (gold), used inside SectionHeading tone="light". */
   .text-highlight {
-    color: #2563eb;
+    color: #123a6e;
   }
 
   .noise {

@@ -6,7 +6,7 @@
  * for text/icons/spines where contrast on white matters.
  */
 const PALETTE = [
-  { tint: "#2563EB", ink: "#1D4ED8" }, // primary / blue
+  { tint: "#081E4D", ink: "#051433" }, // primary / navy
   { tint: "#6366F1", ink: "#4F46E5" }, // secondary / indigo
   { tint: "#F59E0B", ink: "#D97706" }, // accent / amber
 ] as const;

@@ -17,7 +17,7 @@ import {
   type BlogPostSummary,
 } from "@/services/blogs";
 import { articleSchema, breadcrumbSchema, SITE_URL } from "@/lib/structuredData";
-import { formatDate } from "@/lib/utils";
+import { formatDate, plainTextExcerpt } from "@/lib/utils";
 
 export default function BlogPostPage() {
   const { slug = "" } = useParams();
@@ -77,7 +77,9 @@ export default function BlogPostPage() {
     <PageTransition>
       <Seo
         title={`${post.title} | Navya EdTech`}
-        description={post.excerpt ?? post.title}
+        description={
+          post.excerpt ?? plainTextExcerpt(post.content) ?? post.title
+        }
         path={`/blog/${post.slug}`}
         type="article"
         image={post.cover_image ?? undefined}
@@ -121,7 +123,7 @@ export default function BlogPostPage() {
                 {post.category}
               </Link>
             )}
-            <h1 className="mt-5 font-display text-3xl font-semibold leading-tight tracking-tight text-heading sm:text-4xl md:text-5xl">
+            <h1 className="mt-5 type-heading-l text-heading">
               {post.title}
             </h1>
             <div className="mt-5 flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-faint">

@@ -35,7 +35,7 @@ export default function IconBadge({
   icon: Icon,
   className,
   size = "md",
-  color = "#2563EB",
+  color = "#081E4D",
   tone = "light",
 }: IconBadgeProps) {
   const s = sizes[size];

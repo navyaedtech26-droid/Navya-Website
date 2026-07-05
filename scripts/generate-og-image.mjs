@@ -1,5 +1,5 @@
 /**
- * Build-time generator for the default social-share card, `public/og-image.png`
+ * Build-time generator for the default social-share card, `public/og-image.jpg`
  * (1200×630, the size Facebook, LinkedIn, Slack and X expect for
  * `summary_large_image`). Individual blog posts override this with their own
  * cover image; this card is the fallback for every other page.
@@ -7,10 +7,13 @@
  * It renders a branded HTML template with the Chromium that ships with
  * Playwright (already a devDependency for the test suite) and screenshots it,
  * so the card is reproducible from source instead of a hand-exported asset.
+ * Screenshotted as JPEG rather than PNG — the card is a fully opaque gradient
+ * render with no transparency, so JPEG is substantially smaller with no
+ * visible quality loss, and every OG/Twitter scraper supports it.
  *
  *   npm run generate:og
  *
- * Re-run whenever the brand mark or tagline changes, then commit the PNG.
+ * Re-run whenever the brand mark or tagline changes, then commit the JPEG.
  */
 import { chromium } from "@playwright/test";
 import { readFileSync, writeFileSync } from "node:fs";
@@ -31,8 +34,8 @@ const DOMAIN = "navyaedtech.com";
 
 // Inline the logo as a data URI so the template is fully self-contained and
 // renders identically offline (no dependency on a running dev server).
-const logoData = readFileSync(resolve(PUBLIC_DIR, "logo.png")).toString("base64");
-const logoUri = `data:image/png;base64,${logoData}`;
+const logoData = readFileSync(resolve(PUBLIC_DIR, "logo.jpg")).toString("base64");
+const logoUri = `data:image/jpeg;base64,${logoData}`;
 
 const html = `<!doctype html>
 <html lang="en">
@@ -155,9 +158,9 @@ async function main() {
     await page.setContent(html, { waitUntil: "networkidle" });
     // Wait for the webfonts so the headline isn't captured in a fallback face.
     await page.evaluate(() => document.fonts.ready).catch(() => {});
-    const buffer = await page.screenshot({ type: "png" });
-    writeFileSync(resolve(PUBLIC_DIR, "og-image.png"), buffer);
-    console.log(`[og] Wrote public/og-image.png (${WIDTH}×${HEIGHT}).`);
+    const buffer = await page.screenshot({ type: "jpeg", quality: 85 });
+    writeFileSync(resolve(PUBLIC_DIR, "og-image.jpg"), buffer);
+    console.log(`[og] Wrote public/og-image.jpg (${WIDTH}×${HEIGHT}).`);
   } finally {
     await browser.close();
   }

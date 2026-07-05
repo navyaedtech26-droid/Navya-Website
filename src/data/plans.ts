@@ -14,7 +14,7 @@ export const plans: Plan[] = [
   {
     icon: Rocket,
     name: "Launch",
-    tagline: "Get online, fast",
+    tagline: "Establish credibility & capture leads",
     bestFor: "Startups & small businesses",
     features: [
       "Responsive marketing website",
@@ -28,7 +28,7 @@ export const plans: Plan[] = [
   {
     icon: Layers,
     name: "Growth",
-    tagline: "Scale with confidence",
+    tagline: "Convert more and scale revenue",
     bestFor: "Growing brands & teams",
     features: [
       "Everything in Launch",
@@ -43,7 +43,7 @@ export const plans: Plan[] = [
   {
     icon: Building2,
     name: "Enterprise",
-    tagline: "Built for operations",
+    tagline: "Cut cost and run at scale",
     bestFor: "Established companies",
     features: [
       "Custom system development",

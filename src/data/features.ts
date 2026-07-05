@@ -12,31 +12,31 @@ export const features: FeatureItem[] = [
   {
     icon: Zap,
     title: "Fast & Responsive",
-    description: "Sub-second loads and smooth interactions on every connection.",
+    description: "Sub-second load times that lift conversions and keep customers from bouncing.",
   },
   {
     icon: Smartphone,
     title: "Mobile Friendly",
-    description: "Designed mobile-first so it looks perfect in every hand.",
+    description: "A flawless experience for the majority of customers who arrive on mobile.",
   },
   {
     icon: Search,
     title: "SEO Optimized",
-    description: "Built to rank with clean markup, speed, and structured data.",
+    description: "Engineered to rank, so you win high-intent traffic without paying for every click.",
   },
   {
     icon: ShieldCheck,
     title: "Secure & Reliable",
-    description: "Hardened, monitored, and built on modern security best practices.",
+    description: "Hardened and monitored to protect your revenue, data, and reputation.",
   },
   {
     icon: Settings2,
     title: "Easy to Manage",
-    description: "Intuitive admin tools so you stay in control without a developer.",
+    description: "Your team runs the platform without a developer, cutting cost and delay.",
   },
   {
     icon: Layers,
     title: "Clean & Scalable",
-    description: "Modular, maintainable code that grows alongside your business.",
+    description: "Architecture that absorbs growth, so scaling never means starting over.",
   },
 ];

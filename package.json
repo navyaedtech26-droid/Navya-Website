@@ -20,6 +20,7 @@
     "format:check": "prettier --check .",
     "generate:feeds": "node scripts/generate-feeds.mjs",
     "generate:og": "node scripts/generate-og-image.mjs",
+    "generate:favicons": "node scripts/generate-favicons.mjs",
     "preview": "vite preview",
     "db:push": "supabase db push",
     "db:diff": "supabase db diff",
@@ -39,8 +40,7 @@
     "react-dom": "^18.3.1",
     "react-helmet-async": "^2.0.5",
     "react-router-dom": "^6.28.0",
-    "tailwind-merge": "^2.6.0",
-    "three": "^0.180.0"
+    "tailwind-merge": "^2.6.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.17.0",

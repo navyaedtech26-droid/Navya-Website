@@ -24,7 +24,7 @@ export default function Services() {
     <PageTransition>
       <Seo
         title="Services | Navya EdTech"
-        description="Explore Navya EdTech website development, app development, e-commerce, ERP, CRM, billing, LMS, business intelligence, system development, and social media services."
+        description="Outcome-driven capabilities from Navya EdTech: revenue-driving websites and e-commerce, cost-cutting ERP, CRM, billing and LMS systems, business intelligence, and social media that converts."
         path="/services"
         jsonLd={[
           breadcrumbSchema([
@@ -49,6 +49,8 @@ export default function Services() {
         title="Websites That"
         highlight="Convert"
         items={websiteServices}
+        moreHref="/services/websites"
+        moreLabel="See the business case for a website rebuild"
       />
 
       <ServiceGrid
@@ -76,8 +78,8 @@ export default function Services() {
 
       <ServiceGrid
         eyebrow="Social Media Services"
-        title="Grow Your Brand"
-        highlight="Online"
+        title="Attention That Becomes"
+        highlight="Revenue"
         items={socialMediaServices}
       />
 
@@ -86,15 +88,15 @@ export default function Services() {
       <FaqSection
         eyebrow="Services FAQ"
         title="Answers Before You"
-        highlight="Begin"
-        subtitle="The practical details on how we build, deploy, and support your project."
+        highlight="Invest"
+        subtitle="The practical details behind how we deliver, deploy, and protect your investment."
         items={servicesFaqs}
       />
 
       <CTASection
-        title="Have a Project in Mind?"
-        subtitle="Tell us what you're building and we'll make it real."
-        buttonLabel="Start Your Project"
+        title="Ready to Build the Business Case?"
+        subtitle="Tell us the outcome you need. We'll show you the fastest, lowest-risk path to it."
+        buttonLabel="Book a Strategy Call"
       />
     </PageTransition>
   );

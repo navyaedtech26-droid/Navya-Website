@@ -15,23 +15,25 @@ export default function ContactHero() {
   return (
     <HeroShell
       bgImage="/contact/contact.avif"
+      bgImageWidth={1584}
+      bgImageHeight={672}
       backdrop={<BeamsBackground intensity="strong" />}
       contentClassName="mx-auto max-w-3xl text-center"
     >
       <motion.div variants={staggerContainer(0.12)} initial="hidden" animate="visible">
         <motion.h1
           variants={fadeUp}
-          className="font-display text-4xl font-semibold leading-[1.06] tracking-tight text-heading sm:text-5xl md:text-6xl"
+          className="type-display text-heading"
         >
-          Let&apos;s build something <span className="text-primary">great together</span>
+          Let&apos;s build your next <span className="text-primary">growth engine</span>
         </motion.h1>
 
         <motion.p
           variants={fadeUp}
           className="mx-auto mt-6 max-w-2xl text-base leading-relaxed text-faint sm:text-lg"
         >
-          Have an idea or project? Tell us what you&apos;re building and we&apos;ll turn it into a powerful digital
-          solution.
+          Tell us the outcome you&apos;re after — more revenue, lower cost, a better customer experience — and we&apos;ll
+          map the fastest, lowest-risk path to it.
         </motion.p>
 
         <motion.ul

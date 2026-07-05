@@ -9,8 +9,10 @@ import {
 
 // Default 1200×630 social-share card (see scripts/generate-og-image.mjs).
 // Blog posts override this with their own cover image; every other page falls
-// back to this branded card.
-const DEFAULT_OG = `${SITE_URL}/og-image.png`;
+// back to this branded card. JPEG (not PNG) — it's a flat, opaque gradient
+// render with no transparency, so JPEG shrinks it substantially with no
+// visible quality loss, and every OG/Twitter scraper supports it universally.
+const DEFAULT_OG = `${SITE_URL}/og-image.jpg`;
 const DEFAULT_OG_WIDTH = "1200";
 const DEFAULT_OG_HEIGHT = "630";
 
@@ -22,6 +24,8 @@ interface SeoProps {
   image?: string;
   /** Alt text describing the social-share image. */
   imageAlt?: string;
+  /** Target terms for this page, rendered as <meta name="keywords">. */
+  keywords?: string[];
   /** Set false on pages that should not be indexed (e.g. 404, forms). */
   index?: boolean;
   /** OpenGraph object type. Use "article" for blog posts. */
@@ -58,6 +62,7 @@ export default function Seo({
   path = "/",
   image = DEFAULT_OG,
   imageAlt = SITE_NAME,
+  keywords,
   index = true,
   type = "website",
   pageType = "WebPage",
@@ -79,6 +84,9 @@ export default function Seo({
       <html lang="en" />
       <title>{title}</title>
       <meta name="description" content={description} />
+      {keywords && keywords.length > 0 && (
+        <meta name="keywords" content={keywords.join(", ")} />
+      )}
       <link rel="canonical" href={url} />
       <meta
         name="robots"
@@ -95,7 +103,7 @@ export default function Seo({
       <meta property="og:image" content={imageUrl} />
       <meta property="og:image:alt" content={imageAlt} />
       {isDefaultImage && (
-        <meta property="og:image:type" content="image/png" />
+        <meta property="og:image:type" content="image/jpeg" />
       )}
       {isDefaultImage && (
         <meta property="og:image:width" content={DEFAULT_OG_WIDTH} />

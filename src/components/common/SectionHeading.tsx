@@ -46,7 +46,7 @@ export default function SectionHeading({
       <motion.h2
         variants={fadeUp}
         className={cn(
-          "max-w-3xl font-display text-3xl font-semibold leading-[1.1] tracking-tight sm:text-4xl md:text-5xl",
+          "max-w-3xl type-heading-l",
           light ? "text-heading" : "text-ink"
         )}
       >

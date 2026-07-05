@@ -41,6 +41,9 @@ interface PageHeroProps {
   bgImage?: string;
   /** Accessible description of the background image (decorative if omitted). */
   bgImageAlt?: string;
+  /** Intrinsic dimensions of `bgImage`, in pixels — sets the img's width/height attributes. */
+  bgImageWidth?: number;
+  bgImageHeight?: number;
 }
 
 export default function PageHero({
@@ -52,6 +55,8 @@ export default function PageHero({
   secondaryCta,
   bgImage,
   bgImageAlt,
+  bgImageWidth,
+  bgImageHeight,
 }: PageHeroProps) {
   return (
     <section className="relative isolate flex min-h-screen items-center overflow-hidden bg-paper pb-16 pt-28 sm:pt-36">
@@ -62,6 +67,8 @@ export default function PageHero({
             src={bgImage}
             alt={bgImageAlt ?? ""}
             aria-hidden={bgImageAlt ? undefined : true}
+            width={bgImageWidth}
+            height={bgImageHeight}
             loading="eager"
             fetchPriority="high"
             decoding="async"
@@ -91,7 +98,7 @@ export default function PageHero({
         >
           <motion.h1
             variants={fadeUp}
-            className="mt-6 font-display text-4xl font-semibold leading-[1.08] tracking-tight text-heading sm:text-5xl md:text-6xl"
+            className="mt-6 type-display text-heading"
           >
             {title}{" "}
             {highlight && <span className="text-primary">{highlight}</span>}

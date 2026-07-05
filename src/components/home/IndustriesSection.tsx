@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 import Container from "@/components/common/Container";
 import SectionHeading from "@/components/common/SectionHeading";
 import IconBadge from "@/components/common/IconBadge";
@@ -12,10 +13,10 @@ export default function IndustriesSection() {
       <Container>
         <SectionHeading
           tone="light"
-          eyebrow="Who We Help"
-          title="Solutions for Every"
-          highlight="Industry"
-          subtitle="From first-time founders to established operations, we build digital solutions tailored to the realities of your sector."
+          eyebrow="Industries We Transform"
+          title="Measurable Impact, Every"
+          highlight="Sector"
+          subtitle="From schools and hospitals to retailers and enterprises, we translate sector-specific challenges into revenue, efficiency, and a better customer experience."
         />
 
         <motion.div
@@ -26,9 +27,12 @@ export default function IndustriesSection() {
           className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-4"
         >
           {industries.map((industry) => (
-            <motion.div key={industry.title} variants={fadeUp}>
+            <motion.div key={industry.slug} variants={fadeUp}>
               <TiltCard intensity={7} className="h-full">
-                <div className="group flex h-full flex-col card-light rounded-2xl p-6 transition-shadow duration-300 hover:shadow-card-hover">
+                <Link
+                  to={`/industries/${industry.slug}`}
+                  className="group flex h-full flex-col card-light rounded-2xl p-6 transition-shadow duration-300 hover:shadow-card-hover"
+                >
                   <div className="w-fit transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:scale-105">
                     <IconBadge icon={industry.icon} size="lg" color={industry.color} tone="light" />
                   </div>
@@ -38,7 +42,7 @@ export default function IndustriesSection() {
                   <p className="mt-2 text-sm leading-relaxed text-faint">
                     {industry.description}
                   </p>
-                </div>
+                </Link>
               </TiltCard>
             </motion.div>
           ))}

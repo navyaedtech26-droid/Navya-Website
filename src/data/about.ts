@@ -17,22 +17,22 @@ export const coreValues: ValueItem[] = [
   {
     icon: Lightbulb,
     title: "Innovation",
-    description: "We chase better ways to solve real problems, not trends for their own sake.",
+    description: "We chase the smartest path to your outcome, not trends for their own sake.",
   },
   {
     icon: Gem,
     title: "Quality",
-    description: "Every detail is crafted to a standard we'd be proud to put our name on.",
+    description: "Every detail is engineered to a standard we'd stake our name on.",
   },
   {
     icon: ShieldCheck,
     title: "Reliability",
-    description: "We ship on time, communicate clearly, and stand behind our work.",
+    description: "We ship on time, communicate clearly, and stand behind the results.",
   },
   {
     icon: HeartHandshake,
     title: "Client Success",
-    description: "Your growth is the metric that matters. We win when you win.",
+    description: "Your growth is the only metric that matters. We win when you win.",
   },
 ];
 
@@ -40,32 +40,32 @@ export const whyChooseUs: FeatureItem[] = [
   {
     icon: Sparkles,
     title: "Modern UI/UX",
-    description: "Interfaces that feel premium, intuitive, and on-brand.",
+    description: "Interfaces that build trust and turn visitors into customers.",
   },
   {
     icon: Gauge,
     title: "Fast Performance",
-    description: "Optimized to the millisecond for speed and smoothness.",
+    description: "Speed that directly lifts conversion, ranking, and retention.",
   },
   {
     icon: Code2,
     title: "Clean Code",
-    description: "Readable, tested, and maintainable engineering.",
+    description: "Maintainable engineering that lowers your long-term cost of ownership.",
   },
   {
     icon: Network,
     title: "Scalable Architecture",
-    description: "Systems designed to grow without breaking.",
+    description: "Systems that grow with demand without breaking or rebuilding.",
   },
   {
     icon: Search,
     title: "SEO-Friendly Development",
-    description: "Built from the ground up to be discoverable.",
+    description: "Discoverability built in, so your best customers find you first.",
   },
   {
     icon: UserCheck,
     title: "Client-Focused Approach",
-    description: "Transparent, collaborative, and always responsive.",
+    description: "A transparent, responsive partnership focused on your results.",
   },
 ];
 

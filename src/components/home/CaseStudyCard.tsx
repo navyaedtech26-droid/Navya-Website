@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 import { ArrowUpRight } from "lucide-react";
 import { fadeUp } from "@/lib/animations";
 import { cn } from "@/lib/utils";
@@ -14,7 +15,7 @@ const ACCENTS: Record<CaseStudy["accent"], string> = {
 
 /** Icon-badge accent colour matching the cover tint. */
 const ACCENT_HEX: Record<CaseStudy["accent"], string> = {
-  blue: "#2563EB",
+  blue: "#081E4D",
   cyan: "#0EA5E9",
   violet: "#6366F1",
 };
@@ -63,9 +64,15 @@ export default function CaseStudyCard({ study }: { study: CaseStudy }) {
     </>
   );
 
+  const isInternal = study.href?.startsWith("/");
+
   return (
     <motion.div variants={fadeUp} className="h-full">
-      {study.href ? (
+      {isInternal ? (
+        <Link to={study.href!} aria-label={`${study.client} case study`} className={cardClass}>
+          {body}
+        </Link>
+      ) : study.href ? (
         <a
           href={study.href}
           target="_blank"

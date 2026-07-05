@@ -27,15 +27,13 @@ export default defineConfig({
     rollupOptions: {
       output: {
         // Split the heaviest libraries into their own chunks so they are
-        // cached independently and don't bloat the initial download. three.js
-        // is lazy-loaded by the hero (HeroPillar), chart.js ships only with the
-        // (already lazy) admin area, and framer-motion loads alongside whichever
-        // route first needs it.
+        // cached independently and don't bloat the initial download. chart.js
+        // ships only with the (already lazy) admin area, and framer-motion
+        // loads alongside whichever route first needs it.
         manualChunks: {
           "vendor-react": ["react", "react-dom", "react-router-dom"],
           "vendor-motion": ["framer-motion"],
           "vendor-charts": ["chart.js", "react-chartjs-2"],
-          "vendor-three": ["three"],
         },
       },
     },

@@ -21,6 +21,9 @@ interface HeroShellProps {
   bgImage?: string;
   /** Accessible description of the background image (decorative if omitted). */
   bgImageAlt?: string;
+  /** Intrinsic dimensions of `bgImage`, in pixels — sets the img's width/height attributes. */
+  bgImageWidth?: number;
+  bgImageHeight?: number;
 }
 
 /**
@@ -35,6 +38,8 @@ export default function HeroShell({
   hideScrollCue,
   bgImage,
   bgImageAlt,
+  bgImageWidth,
+  bgImageHeight,
 }: HeroShellProps) {
   return (
     <section className="relative isolate flex min-h-screen items-center overflow-hidden bg-paper pb-16 pt-28 sm:pt-36">
@@ -45,6 +50,8 @@ export default function HeroShell({
             src={bgImage}
             alt={bgImageAlt ?? ""}
             aria-hidden={bgImageAlt ? undefined : true}
+            width={bgImageWidth}
+            height={bgImageHeight}
             loading="eager"
             fetchPriority="high"
             decoding="async"

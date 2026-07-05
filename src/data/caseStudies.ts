@@ -32,7 +32,14 @@ export interface CaseStudy {
   tags: string[];
   /** Cover gradient accent. */
   accent: "blue" | "cyan" | "violet";
-  /** Optional link to a full write-up; omit for a presentational card. */
+  /**
+   * Optional link — an internal path (e.g. "/industries/retail") for
+   * cross-linking to a relevant landing page, or an external URL to a full
+   * write-up. Omit for a presentational card. Only set an industry-page link
+   * when the client's sector genuinely matches one of the ten dedicated
+   * `/industries/*` pages; otherwise point at the general `/services` page
+   * rather than guessing a vertical that isn't a real match.
+   */
   href?: string;
 }
 
@@ -43,7 +50,7 @@ export const caseStudies: CaseStudy[] = [
     category: "ERP & Website",
     industry: "Retail & E-Commerce",
     summary:
-      "A complete online store paired with a custom ERP — orders, inventory and billing all managed from one connected dashboard.",
+      "A unified online store and custom ERP that put orders, inventory, and billing on one dashboard — replacing manual work with a single source of truth.",
     metrics: [
       { value: "ERP", label: "Built end to end" },
       { value: "Online Store", label: "Designed & launched" },
@@ -51,6 +58,7 @@ export const caseStudies: CaseStudy[] = [
     ],
     tags: ["ERP", "Website", "Online Store", "Inventory"],
     accent: "blue",
+    href: "/industries/retail",
   },
   {
     icon: Radar,
@@ -58,7 +66,7 @@ export const caseStudies: CaseStudy[] = [
     category: "Custom ERP",
     industry: "Operations & Tracking",
     summary:
-      "A customized ERP with an integrated tracking system, giving the team real-time visibility across their day-to-day operations.",
+      "A tailored ERP with built-in tracking that gave the team real-time visibility across daily operations — turning guesswork into confident decisions.",
     metrics: [
       { value: "Custom", label: "ERP tailored to them" },
       { value: "Tracking", label: "Built-in & real-time" },
@@ -66,6 +74,7 @@ export const caseStudies: CaseStudy[] = [
     ],
     tags: ["Custom ERP", "Tracking", "Dashboard", "Automation"],
     accent: "cyan",
+    href: "/services",
   },
   {
     icon: Megaphone,
@@ -73,7 +82,7 @@ export const caseStudies: CaseStudy[] = [
     category: "Social Media",
     industry: "Sports & Cricket",
     summary:
-      "Social media posts and content that gave the team a bold, consistent presence and kept fans engaged across platforms.",
+      "A bold, consistent social presence that grew engagement and kept fans connected across every platform.",
     metrics: [
       { value: "Content", label: "Posts & creatives" },
       { value: "On-brand", label: "Consistent identity" },
@@ -81,5 +90,6 @@ export const caseStudies: CaseStudy[] = [
     ],
     tags: ["Social Media", "Content", "Design", "Branding"],
     accent: "violet",
+    href: "/services",
   },
 ];

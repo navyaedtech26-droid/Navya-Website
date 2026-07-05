@@ -31,18 +31,18 @@ export default function Navbar() {
       >
         <nav
           className={cn(
-            // A full-bleed deep-navy bar that matches the footer surface, on
-            // every page. It deepens slightly and gains a shadow on scroll; the
-            // bottom hairline keeps it separated from the content below.
+            // A full-bleed white bar consistent with the rest of the light
+            // site. It gains a soft card shadow on scroll; the bottom
+            // hairline keeps it separated from the content below.
             "w-full border-b transition-all duration-300",
             scrolled
-              ? "border-white/10 bg-bg shadow-lg shadow-bg/30"
-              : "border-white/5 bg-bg/95 backdrop-blur-md"
+              ? "border-line bg-paper shadow-card"
+              : "border-transparent bg-paper/90 backdrop-blur-md"
           )}
         >
           {/* Inner content is capped to the site grid so the logo and CTA line
               up with the page content below rather than the screen edges. */}
-          <div className="mx-auto flex w-full max-w-7xl items-center justify-between px-5 py-3 sm:px-8">
+          <div className="mx-auto flex w-full max-w-7xl items-center justify-between px-5 py-2.5 sm:px-8 sm:py-3">
           <Link
             to="/"
             data-cursor="hover"
@@ -50,12 +50,12 @@ export default function Navbar() {
             aria-label="Navya EdTech home"
           >
             <img
-              src="/logo.png"
+              src="/logo-navy.webp"
               alt="NavyaEdTech"
-              width={420}
-              height={162}
+              width={614}
+              height={719}
               decoding="async"
-              className="h-9 w-auto object-contain transition-transform duration-300 group-hover:scale-105 sm:h-10"
+              className="h-10 w-auto object-contain transition-transform duration-300 group-hover:scale-105 sm:h-12"
             />
           </Link>
 
@@ -65,7 +65,7 @@ export default function Navbar() {
                 key={link.href}
                 to={link.href}
                 data-cursor="hover"
-                className="group relative rounded-xl px-4 py-2 text-sm font-medium text-ink-muted transition-colors hover:text-ink aria-[current=page]:text-ink"
+                className="group relative rounded-xl px-4 py-2 text-sm font-medium text-faint transition-colors hover:bg-haze hover:text-heading aria-[current=page]:text-heading"
               >
                 {({ isActive }) => (
                   <>
@@ -86,14 +86,14 @@ export default function Navbar() {
             <Link
               to="/contact"
               data-cursor="hover"
-              className="hidden rounded-xl bg-primary px-5 py-2.5 text-sm font-semibold text-white shadow-primary-sm transition-colors duration-300 hover:bg-primary-dark sm:inline-flex"
+              className="hidden rounded-xl bg-brand-gradient px-5 py-2.5 text-sm font-semibold text-white shadow-glow-sm transition-shadow duration-300 hover:shadow-glow sm:inline-flex"
             >
               Let's Talk
             </Link>
             <button
               onClick={() => setMenuOpen(true)}
               aria-label="Open menu"
-              className="flex h-11 w-11 items-center justify-center rounded-xl border border-white/15 bg-bg-900/85 text-ink shadow-sm backdrop-blur-md transition-colors hover:bg-bg-900 lg:hidden"
+              className="flex h-11 w-11 items-center justify-center rounded-xl border border-line bg-paper text-heading shadow-sm transition-colors hover:bg-haze lg:hidden"
             >
               <Menu size={20} />
             </button>

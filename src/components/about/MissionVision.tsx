@@ -8,13 +8,13 @@ const panels = [
   {
     icon: Target,
     label: "Mission",
-    text: "We help businesses grow through digital innovation.",
+    text: "To turn digital investment into measurable business growth.",
     glow: "from-primary/10",
   },
   {
     icon: Telescope,
     label: "Vision",
-    text: "To be the most trusted digital partner for modern businesses.",
+    text: "To be the most trusted transformation partner for ambitious businesses.",
     glow: "from-secondary/10",
   },
 ];
@@ -40,7 +40,7 @@ export default function MissionVision() {
                 className={`absolute -right-16 -top-16 h-48 w-48 rounded-full bg-gradient-to-br ${panel.glow} to-transparent blur-2xl`}
               />
               <div className="relative">
-                <IconBadge icon={panel.icon} size="lg" color={panel.label === "Vision" ? "#6366F1" : "#2563EB"} />
+                <IconBadge icon={panel.icon} size="lg" color={panel.label === "Vision" ? "#6366F1" : "#081E4D"} />
                 <p className="mt-6 font-display text-xs font-bold uppercase tracking-[0.25em] text-primary">
                   {panel.label}
                 </p>

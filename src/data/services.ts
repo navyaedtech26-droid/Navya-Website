@@ -39,9 +39,9 @@ export const serviceCategories: ServiceCategory[] = [
     id: "websites",
     icon: Globe,
     title: "Website Development",
-    subtitle: "From landing pages to full e-commerce",
+    subtitle: "Your highest-performing sales asset",
     description:
-      "Beautiful, fast, conversion-focused websites engineered to grow your brand and your revenue.",
+      "Conversion-engineered websites that turn traffic into qualified leads and revenue — fast, credible, and built to rank.",
     items: [
       "Static Websites",
       "Dynamic Websites",
@@ -54,9 +54,9 @@ export const serviceCategories: ServiceCategory[] = [
     id: "apps",
     icon: Smartphone,
     title: "App Development",
-    subtitle: "Mobile apps that engage users",
+    subtitle: "Own a place on every customer's screen",
     description:
-      "Native and cross-platform mobile apps built for performance, beautiful UX, and real business results.",
+      "Mobile and web apps that deepen engagement, unlock new revenue streams, and keep customers coming back.",
     items: [
       "iOS Apps",
       "Android Apps",
@@ -70,9 +70,9 @@ export const serviceCategories: ServiceCategory[] = [
     id: "systems",
     icon: LayoutDashboard,
     title: "System Development",
-    subtitle: "Software that runs your operations",
+    subtitle: "Automate the work that drains your margin",
     description:
-      "Custom business platforms that automate workflows, centralize data, and scale with your team.",
+      "Custom ERP, CRM, and LMS platforms that eliminate manual work, centralize data, and cut operating cost as you scale.",
     items: [
       "Inventory Management",
       "CRM Systems",
@@ -87,9 +87,9 @@ export const serviceCategories: ServiceCategory[] = [
     id: "business-intelligence",
     icon: LineChart,
     title: "Business Intelligence",
-    subtitle: "Turn data into decisions",
+    subtitle: "Decisions backed by evidence, not instinct",
     description:
-      "Dashboards, analytics, and reporting that transform raw data into clear, actionable insights.",
+      "Dashboards and analytics that turn scattered data into the clear, real-time insight leaders act on.",
     items: [
       "BI Dashboards",
       "Data Visualization",
@@ -103,9 +103,9 @@ export const serviceCategories: ServiceCategory[] = [
     id: "social",
     icon: Share2,
     title: "Social Media Services",
-    subtitle: "Grow your brand online",
+    subtitle: "Turn attention into pipeline",
     description:
-      "Creative, strategic, and result-driven social media solutions that boost reach, engagement, and brand growth.",
+      "Strategy-led content and campaigns that build authority, grow reach, and convert audiences into paying customers.",
     items: [
       "Content Creation",
       "Script Writing",
@@ -123,27 +123,27 @@ export const websiteServices: ServiceItem[] = [
   {
     icon: Globe,
     title: "Static Website",
-    description: "Lightning-fast brochure sites with pixel-perfect, hand-crafted design.",
+    description: "Instant-loading sites that build instant credibility and capture every visitor's attention.",
   },
   {
     icon: LayoutDashboard,
     title: "Dynamic Website",
-    description: "Content-driven sites with CMS, dashboards, and live, manageable data.",
+    description: "Content you control in minutes, so marketing moves at the speed of your business — no developer required.",
   },
   {
     icon: ShoppingCart,
     title: "E-Commerce Website",
-    description: "Full storefronts with carts, payments, and inventory built to convert.",
+    description: "Storefronts engineered to convert browsers into buyers and sell around the clock.",
   },
   {
     icon: Smartphone,
     title: "Responsive Business Website",
-    description: "Flawless layouts that adapt to every device, from phones to widescreens.",
+    description: "A flawless experience on every device, so you never lose a customer to a broken layout.",
   },
   {
     icon: Search,
     title: "SEO-Friendly Website",
-    description: "Optimized structure, speed, and metadata so customers actually find you.",
+    description: "Built to rank, so your best customers find you first — and you spend less on ads to reach them.",
   },
 ];
 
@@ -151,32 +151,32 @@ export const appServices: ServiceItem[] = [
   {
     icon: Smartphone,
     title: "iOS App Development",
-    description: "Native iPhone and iPad apps crafted for speed, polish, and the Apple ecosystem.",
+    description: "Premium iPhone and iPad experiences that keep high-value customers engaged and loyal.",
   },
   {
     icon: TabletSmartphone,
     title: "Android App Development",
-    description: "High-performance Android apps built to reach the widest possible audience.",
+    description: "Reach the widest possible market with fast, reliable apps that scale to millions of users.",
   },
   {
     icon: MonitorSmartphone,
     title: "Cross-Platform Apps",
-    description: "One codebase, every device — Flutter and React Native apps that ship faster.",
+    description: "One investment, every device — reach your entire audience faster and at lower cost.",
   },
   {
     icon: AppWindow,
     title: "Progressive Web Apps",
-    description: "Installable, offline-ready web apps that feel native without the app store.",
+    description: "App-grade experiences without the app store, driving engagement at a fraction of the cost.",
   },
   {
     icon: Palette,
     title: "App UI/UX Design",
-    description: "Intuitive, beautiful interfaces designed to keep users engaged and coming back.",
+    description: "Intuitive design that lifts adoption, retention, and the lifetime value of every user.",
   },
   {
     icon: Wrench,
     title: "App Maintenance & Support",
-    description: "Updates, monitoring, and improvements that keep your app fast and reliable.",
+    description: "Proactive monitoring and updates that protect uptime, reputation, and revenue.",
   },
 ];
 
@@ -184,37 +184,37 @@ export const systemServices: ServiceItem[] = [
   {
     icon: Boxes,
     title: "Inventory Management System",
-    description: "Track stock, suppliers, and movements in real time with smart alerts.",
+    description: "Real-time stock visibility that eliminates waste, stockouts, and the cost of guesswork.",
   },
   {
     icon: Users,
     title: "CRM System",
-    description: "Manage leads, customers, and pipelines from one intelligent hub.",
+    description: "One source of truth for every lead and customer, so no revenue slips through the cracks.",
   },
   {
     icon: Receipt,
     title: "Billing System",
-    description: "Automated invoicing, payments, and financial reporting made simple.",
+    description: "Automated invoicing and payments that accelerate cash flow and end manual errors.",
   },
   {
     icon: GraduationCap,
     title: "Learning Management System",
-    description: "Deliver courses, track progress, and engage learners at scale.",
+    description: "Deliver training at scale, track outcomes, and turn learning into a revenue channel.",
   },
   {
     icon: Server,
     title: "ERP System",
-    description: "Unify finance, HR, inventory, and operations in one platform.",
+    description: "Unify finance, HR, inventory, and operations to cut cost and run leaner as you grow.",
   },
   {
     icon: BarChart3,
     title: "BI Implementation",
-    description: "Turn raw data into dashboards and decisions that drive growth.",
+    description: "Turn raw data into the dashboards and decisions that drive measurable growth.",
   },
   {
     icon: Store,
     title: "E-Commerce System",
-    description: "Scalable backend for catalogs, orders, and multi-channel selling.",
+    description: "A scalable backend for catalogs, orders, and multi-channel selling that grows with demand.",
   },
 ];
 
@@ -222,32 +222,32 @@ export const biServices: ServiceItem[] = [
   {
     icon: LayoutDashboard,
     title: "BI Dashboards",
-    description: "Interactive dashboards that surface the metrics that matter, in real time.",
+    description: "Real-time visibility into the metrics that move the business, on a single screen.",
   },
   {
     icon: BarChart3,
     title: "Data Visualization",
-    description: "Clear, compelling charts that turn complex datasets into instant understanding.",
+    description: "Complex data made instantly clear, so teams align and act faster.",
   },
   {
     icon: PieChart,
     title: "Reporting & Analytics",
-    description: "Automated reports and deep analytics that reveal what's driving your business.",
+    description: "Automated reporting that reveals exactly what's driving revenue — and what's driving cost.",
   },
   {
     icon: TrendingUp,
     title: "KPI & Performance Tracking",
-    description: "Live scorecards that track goals and KPIs and keep every team aligned.",
+    description: "Live scorecards that keep every team accountable to the numbers that matter.",
   },
   {
     icon: Database,
     title: "Data Warehousing",
-    description: "Centralize data from every source into one clean, query-ready foundation.",
+    description: "One clean, unified data foundation that turns fragmented systems into a strategic asset.",
   },
   {
     icon: Brain,
     title: "Predictive Insights",
-    description: "Forecasting and trend analysis that help you act before the competition.",
+    description: "Forecasting that helps you act before the market — and the competition — does.",
   },
 ];
 
@@ -255,42 +255,42 @@ export const socialMediaServices: ServiceItem[] = [
   {
     icon: Camera,
     title: "Content Creation",
-    description: "Scroll-stopping visuals and photography that capture your brand's story.",
+    description: "Scroll-stopping content that builds authority and keeps your brand top of mind.",
   },
   {
     icon: PenLine,
     title: "Script Writing",
-    description: "Sharp, on-brand scripts that turn views into engagement and action.",
+    description: "On-brand storytelling that turns passive views into engagement and action.",
   },
   {
     icon: Film,
     title: "Video Production",
-    description: "Polished, high-impact videos crafted to perform across every platform.",
+    description: "High-impact video that earns attention and drives measurable reach.",
   },
   {
     icon: Megaphone,
     title: "Social Media Handling",
-    description: "End-to-end account management, posting, and community engagement.",
+    description: "End-to-end management that keeps your brand consistent, active, and growing.",
   },
   {
     icon: Clapperboard,
     title: "Reels & Graphic Posts",
-    description: "Trend-ready reels and striking graphics designed to grow your reach.",
+    description: "Trend-ready creative engineered to expand reach and grow your audience.",
   },
   {
     icon: Newspaper,
     title: "Blog Content",
-    description: "SEO-aware articles that build authority and drive organic traffic.",
+    description: "SEO-driven articles that build authority and compound organic traffic over time.",
   },
   {
     icon: Rocket,
     title: "Paid Boosting",
-    description: "Targeted ad campaigns that maximize reach with measurable ROI.",
+    description: "Targeted campaigns that maximize reach and return on every ad dollar.",
   },
   {
     icon: PieChart,
     title: "Analytics & Strategy",
-    description: "Data-driven insights and roadmaps that keep your growth on track.",
+    description: "Data-driven strategy that keeps your growth measurable and on track.",
   },
 ];
 

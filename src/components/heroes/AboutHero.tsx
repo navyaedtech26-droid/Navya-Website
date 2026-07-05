@@ -5,9 +5,9 @@ import HeroShell from "./HeroShell";
 import { fadeUp, staggerContainer } from "@/lib/animations";
 
 const HIGHLIGHTS = [
-  { icon: Rocket, label: "Built for growth" },
+  { icon: Rocket, label: "Outcome-driven" },
   { icon: Users, label: "Senior, hands-on team" },
-  { icon: Code2, label: "Modern tech stack" },
+  { icon: Code2, label: "Enterprise-grade stack" },
   { icon: HeartHandshake, label: "Long-term partnership" },
 ];
 
@@ -15,22 +15,24 @@ export default function AboutHero() {
   return (
     <HeroShell
       bgImage="/about/about.avif"
+      bgImageWidth={1584}
+      bgImageHeight={672}
       contentClassName="mx-auto max-w-3xl text-center"
     >
       <motion.div variants={staggerContainer(0.12)} initial="hidden" animate="visible">
         <motion.h1
           variants={fadeUp}
-          className="font-display text-4xl font-semibold leading-[1.06] tracking-tight text-heading sm:text-5xl md:text-6xl"
+          className="type-display text-heading"
         >
-          Innovate. Build. <span className="text-primary">Elevate.</span>
+          Technology, measured by <span className="text-primary">business results.</span>
         </motion.h1>
 
         <motion.p
           variants={fadeUp}
           className="mx-auto mt-6 max-w-2xl text-base leading-relaxed text-faint sm:text-lg"
         >
-          We are Navya EdTech, a digital solutions company helping businesses grow through modern websites and smart
-          systems.
+          We&apos;re Navya EdTech — a digital transformation partner helping founders and enterprises turn technology
+          investment into revenue, efficiency, and lasting competitive advantage.
         </motion.p>
 
         <motion.ul

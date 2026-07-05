@@ -16,7 +16,13 @@ export default function Contact() {
     <PageTransition>
       <Seo
         title="Contact | Navya EdTech"
-        description="Contact Navya EdTech to build your website, e-commerce platform, or business management system."
+        description="Talk to Navya EdTech about the outcome you need — more revenue, lower cost, or a better customer experience — and we'll map the fastest, lowest-risk path to it."
+        keywords={[
+          "contact Navya EdTech",
+          "book a strategy call",
+          "digital transformation consultation",
+          "website development inquiry Nepal",
+        ]}
         path="/contact"
         pageType="ContactPage"
         jsonLd={[
@@ -49,14 +55,14 @@ export default function Contact() {
         eyebrow="Before You Reach Out"
         title="Common"
         highlight="Questions"
-        subtitle="A few answers to help you feel ready for that first conversation."
+        subtitle="A few answers to help you walk into that first conversation ready to talk outcomes."
         items={contactFaqs}
       />
 
       <CTASection
-        title="Have a Project in Mind?"
-        subtitle="Tell us what you're building and we'll make it real."
-        buttonLabel="Start the Conversation"
+        title="Ready to Turn Digital Into Growth?"
+        subtitle="Tell us the outcome you need and we'll map the fastest path to it."
+        buttonLabel="Book a Strategy Call"
       />
     </PageTransition>
   );

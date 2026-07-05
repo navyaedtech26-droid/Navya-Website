@@ -7,9 +7,9 @@ export default {
         // Navya EdTech — Navy + Blue base (matches the logo) with a gold accent
         // layer kept for highlight words (text-gradient) and IconBadge icons.
         bg: {
-          DEFAULT: "#0A1628", // Primary Navy — page backgrounds
-          deep: "#060E1B", // deeper navy for contrast pockets
-          900: "#0F172A", // Secondary Dark — cards, navbars, overlays
+          DEFAULT: "#081E4D", // Primary Navy — matches the logo background exactly
+          deep: "#061637", // deeper navy for contrast pockets
+          900: "#0B2968", // Secondary Dark — cards, navbars, overlays
         },
         surface: "#1E293B", // Surface Dark — section backgrounds, containers
         brand: {
@@ -40,9 +40,9 @@ export default {
         // Distribution intent: neutrals 70-80%, primary 10-15%, secondary
         // 5-8%, accent 2-5%.
         primary: {
-          DEFAULT: "#2563EB", // Primary Brand Blue — CTAs, links, key emphasis
-          light: "#3B82F6", // hover / lighter fills
-          dark: "#1D4ED8", // active / pressed
+          DEFAULT: "#081E4D", // Logo Navy — exact match to the logo/navbar/footer surface
+          light: "#123A6E", // hover / lighter fills
+          dark: "#051433", // active / pressed — deeper than the logo navy
         },
         secondary: {
           DEFAULT: "#6366F1", // Indigo — icons, small labels, borders
@@ -70,6 +70,14 @@ export default {
         "2xl": "1rem",
         "3xl": "1.5rem",
       },
+      transitionDuration: {
+        // Named motion-timing tiers — see the "Hover effects & animation
+        // timing" section of the design system. Additive alongside the
+        // numeric Tailwind scale (duration-200, duration-300, etc.).
+        fast: "150ms",
+        base: "200ms",
+        slow: "300ms",
+      },
       boxShadow: {
         glow: "0 0 60px rgba(30, 107, 255,0.35)", // Blue glow
         "glow-sm": "0 0 24px rgba(30, 107, 255,0.25)",
@@ -78,14 +86,14 @@ export default {
         // Light-theme elevation — soft, neutral, professional (no colored glow).
         card: "0 1px 2px rgba(16,24,40,0.06), 0 6px 20px rgba(16,24,40,0.10)",
         "card-hover": "0 12px 34px rgba(16,24,40,0.14)",
-        "primary-sm": "0 6px 16px -6px rgba(37,99,235,0.45)", // subtle blue CTA lift
+        "primary-sm": "0 6px 16px -6px rgba(8,30,77,0.45)", // subtle navy CTA lift
       },
       backgroundImage: {
         "brand-gradient": "linear-gradient(135deg, #1E6BFF 0%, #3B82F6 100%)",
         // Very subtle light hero wash — a single restrained tint, not a
         // multi-stop gradient. Reads as calm white with a hint of brand.
         "hero-wash":
-          "radial-gradient(60% 55% at 78% 12%, rgba(37,99,235,0.08) 0%, transparent 60%), radial-gradient(50% 40% at 8% 90%, rgba(99,102,241,0.06) 0%, transparent 55%)",
+          "radial-gradient(60% 55% at 78% 12%, rgba(8,30,77,0.08) 0%, transparent 60%), radial-gradient(50% 40% at 8% 90%, rgba(99,102,241,0.06) 0%, transparent 55%)",
         "light-grid":
           "linear-gradient(rgba(17,24,39,0.035) 1px, transparent 1px), linear-gradient(90deg, rgba(17,24,39,0.035) 1px, transparent 1px)",
         "gold-gradient": "linear-gradient(120deg, #FFB84D 0%, #F5A623 50%, #FF8A3D 100%)",

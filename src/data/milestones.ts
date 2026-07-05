@@ -9,24 +9,24 @@ export const milestones: Milestone[] = [
     year: "2023",
     title: "The Beginning",
     description:
-      "Navya EdTech was founded on a simple belief: great technology should be accessible to every growing business, not just the giants.",
+      "Founded on one conviction: enterprise-grade technology, and the returns it creates, should be within reach of every ambitious business — not just the giants.",
   },
   {
     year: "2024",
     title: "Building Momentum",
     description:
-      "We expanded from websites into full business systems like ERP, CRM, and LMS platforms, helping clients automate and scale their operations.",
+      "We expanded from websites into full business systems — ERP, CRM, and LMS — helping clients automate operations and take cost out of every workflow.",
   },
   {
     year: "2025",
     title: "Full-Stack Growth Partner",
     description:
-      "Social media, content, and paid growth joined our services, making us a single partner for everything a modern brand needs online.",
+      "Social, content, and paid growth joined our capabilities, making us a single partner accountable for measurable digital growth.",
   },
   {
     year: "Today",
-    title: "50+ Projects & Counting",
+    title: "50+ Businesses Transformed",
     description:
-      "With 40+ happy clients across industries, we keep doing what we love: turning ambitious ideas into powerful digital solutions.",
+      "With 40+ businesses served across industries, we keep doing one thing: turning digital investment into revenue, efficiency, and measurable outcomes.",
   },
 ];

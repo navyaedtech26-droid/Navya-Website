@@ -49,11 +49,11 @@ export default function AdminLayout() {
       <header className="sticky top-0 z-30 flex items-center justify-between border-b border-white/10 bg-bg-900/80 px-5 py-4 backdrop-blur lg:hidden">
         <Link to="/admin" className="flex items-center gap-2">
           <img
-            src="/logo.png"
+            src="/logo.webp"
             alt="Navya EdTech"
-            width={420}
-            height={162}
-            className="h-8 w-auto object-contain"
+            width={614}
+            height={719}
+            className="h-9 w-auto object-contain"
           />
           <span className="rounded-md bg-brand/15 px-1.5 py-0.5 text-[11px] font-semibold uppercase tracking-wide text-brand-light ring-1 ring-brand/30">
             Admin
@@ -91,11 +91,11 @@ export default function AdminLayout() {
             className="hidden items-center gap-2 px-2 lg:flex"
           >
             <img
-              src="/logo.png"
+              src="/logo.webp"
               alt="Navya EdTech"
-              width={420}
-              height={162}
-              className="h-9 w-auto object-contain"
+              width={614}
+              height={719}
+              className="h-10 w-auto object-contain"
             />
             <span className="rounded-md bg-brand/15 px-1.5 py-0.5 text-[11px] font-semibold uppercase tracking-wide text-brand-light ring-1 ring-brand/30">
               Admin

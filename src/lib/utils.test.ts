@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { cn, safeUrl, formatDate } from "@/lib/utils";
+import { cn, safeUrl, formatDate, plainTextExcerpt } from "@/lib/utils";
 
 describe("cn", () => {
   it("joins truthy class values", () => {
@@ -73,5 +73,41 @@ describe("formatDate", () => {
     expect(formatDate(null)).toBe("");
     expect(formatDate(undefined)).toBe("");
     expect(formatDate("not-a-date")).toBe("");
+  });
+});
+
+describe("plainTextExcerpt", () => {
+  it("returns null for null, undefined or empty input", () => {
+    expect(plainTextExcerpt(null)).toBeNull();
+    expect(plainTextExcerpt(undefined)).toBeNull();
+    expect(plainTextExcerpt("")).toBeNull();
+  });
+
+  it("strips markdown syntax down to plain text", () => {
+    const md = "# Heading\n\nSome **bold** text with a [link](https://x.com) and `code`.";
+    expect(plainTextExcerpt(md)).toBe(
+      "Heading Some bold text with a link and code."
+    );
+  });
+
+  it("strips images and fenced code blocks", () => {
+    const md = "![alt](cover.png)\n\n```js\nconst x = 1;\n```\n\nReal content here.";
+    expect(plainTextExcerpt(md)).toBe("Real content here.");
+  });
+
+  it("truncates long content on a word boundary with an ellipsis", () => {
+    const md = "word ".repeat(60).trim();
+    const result = plainTextExcerpt(md, 40)!;
+    expect(result.length).toBeLessThanOrEqual(41);
+    expect(result.endsWith("…")).toBe(true);
+    expect(result).not.toMatch(/\s…$/);
+  });
+
+  it("returns the full text untruncated when under the length limit", () => {
+    expect(plainTextExcerpt("Short post body.", 160)).toBe("Short post body.");
+  });
+
+  it("returns null when the markdown strips down to nothing", () => {
+    expect(plainTextExcerpt("![alt](cover.png)")).toBeNull();
   });
 });

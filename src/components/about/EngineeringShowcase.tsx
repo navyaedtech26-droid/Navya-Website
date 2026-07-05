@@ -7,10 +7,10 @@ import RotatingCube3D from "@/components/effects/RotatingCube3D";
 import { fadeUp, staggerContainer, viewportOnce } from "@/lib/animations";
 
 const highlights = [
-  { icon: Gauge, title: "Performance-First", text: "Optimized to the millisecond for fast loads and smooth motion." },
-  { icon: ShieldCheck, title: "Secure by Design", text: "Hardened, monitored, and built on modern best practices." },
-  { icon: GitBranch, title: "Clean Architecture", text: "Modular, version-controlled code that scales without breaking." },
-  { icon: Cpu, title: "Future-Ready", text: "Built to evolve as your product and traffic grow." },
+  { icon: Gauge, title: "Performance-First", text: "Speed that directly lifts conversion, ranking, and retention." },
+  { icon: ShieldCheck, title: "Secure by Design", text: "Hardened and monitored to protect your revenue and reputation." },
+  { icon: GitBranch, title: "Clean Architecture", text: "Maintainable code that lowers your long-term cost of ownership." },
+  { icon: Cpu, title: "Future-Ready", text: "Built to evolve as your product, traffic, and revenue grow." },
 ];
 
 export default function EngineeringShowcase() {
@@ -40,9 +40,9 @@ export default function EngineeringShowcase() {
             </Reveal>
             <Reveal delay={0.2}>
               <p className="mt-5 text-base leading-relaxed text-faint">
-                We pair editorial design with real engineering discipline. Every project is
-                built on a foundation that's fast, secure, and ready to scale, so what looks
-                great today still performs under pressure tomorrow.
+                We pair editorial design with real engineering discipline. Every platform is
+                built to be fast, secure, and ready to scale — protecting your investment so
+                what performs today still performs under pressure tomorrow.
               </p>
             </Reveal>
 

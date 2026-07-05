@@ -1,12 +1,14 @@
 import type { LucideIcon } from "lucide-react";
 import {
-  Store,
+  School,
   GraduationCap,
   Stethoscope,
+  Factory,
+  Hotel,
   UtensilsCrossed,
+  Store,
+  HeartHandshake,
   Home,
-  Truck,
-  Landmark,
   Plane,
 } from "lucide-react";
 
@@ -16,55 +18,79 @@ export interface Industry {
   description: string;
   /** Accent colour for the industry's icon badge (hex). */
   color: string;
+  /** Slug of the dedicated /industries/:slug deep-dive page. */
+  slug: string;
 }
 
 export const industries: Industry[] = [
   {
-    icon: Store,
-    title: "Retail & E-Commerce",
-    description: "Storefronts, carts, and inventory built to sell around the clock.",
-    color: "#F5A623",
+    icon: School,
+    title: "Schools",
+    description: "Admissions, attendance, fees, and parent communication on one platform.",
+    color: "#38BDF8",
+    slug: "schools",
   },
   {
     icon: GraduationCap,
-    title: "Education & EdTech",
-    description: "Learning platforms and portals that scale with every new cohort.",
-    color: "#38BDF8",
+    title: "Colleges & Universities",
+    description: "Enrollment, scheduling, and records systems that scale with every program.",
+    color: "#6366F1",
+    slug: "colleges",
   },
   {
     icon: Stethoscope,
-    title: "Healthcare & Clinics",
-    description: "Secure booking, records, and patient systems you can rely on.",
+    title: "Hospitals & Clinics",
+    description: "Booking, records, and billing systems that give staff time back for patients.",
     color: "#2DD4BF",
+    slug: "hospitals",
+  },
+  {
+    icon: Factory,
+    title: "Manufacturing",
+    description: "Real-time inventory and production visibility that cuts waste and stockouts.",
+    color: "#F59E0B",
+    slug: "manufacturing",
+  },
+  {
+    icon: Hotel,
+    title: "Hotels & Resorts",
+    description: "Direct booking engines that keep more margin out of OTA commission.",
+    color: "#FB7185",
+    slug: "hotels",
   },
   {
     icon: UtensilsCrossed,
-    title: "Food & Hospitality",
-    description: "Ordering, reservations, and menus that delight guests online.",
-    color: "#FB7185",
+    title: "Restaurants & Cafes",
+    description: "Online ordering and reservations that fill tables and grow order value.",
+    color: "#FB923C",
+    slug: "restaurants",
+  },
+  {
+    icon: Store,
+    title: "Retail",
+    description: "Unified inventory and storefronts that keep every sales channel in sync.",
+    color: "#F5A623",
+    slug: "retail",
+  },
+  {
+    icon: HeartHandshake,
+    title: "NGOs & Nonprofits",
+    description: "Donor, program, and reporting systems built for lean, mission-driven teams.",
+    color: "#34D399",
+    slug: "ngos",
   },
   {
     icon: Home,
     title: "Real Estate",
-    description: "Listings, CRM, and lead funnels that turn browsers into buyers.",
+    description: "Listings, CRM, and lead funnels that convert browsers into buyers.",
     color: "#A78BFA",
-  },
-  {
-    icon: Truck,
-    title: "Logistics & Supply",
-    description: "Tracking, dispatch, and inventory dashboards in real time.",
-    color: "#60A5FA",
-  },
-  {
-    icon: Landmark,
-    title: "Finance & Fintech",
-    description: "Billing, reporting, and compliant platforms built on trust.",
-    color: "#34D399",
+    slug: "real-estate",
   },
   {
     icon: Plane,
-    title: "Travel & Tourism",
-    description: "Booking engines and experiences that convert wanderlust to sales.",
+    title: "Travel Agencies",
+    description: "Booking engines and itinerary systems that convert research into trips.",
     color: "#F472B6",
+    slug: "travel-agencies",
   },
 ];
