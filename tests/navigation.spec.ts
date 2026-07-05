@@ -29,7 +29,7 @@ test('the logo returns to the home page', async ({ page }) => {
   await page.goto('/about', { waitUntil: 'domcontentloaded' });
   await page.locator('header').getByRole('link', { name: 'Navya EdTech home' }).click();
   await expect(page).toHaveURL(/\/$/);
-  await expect(page).toHaveTitle(/Navya EdTech \| High-Performance Websites/);
+  await expect(page).toHaveTitle(/Navya EdTech \| Digital Transformation That Drives Growth/);
 });
 
 test('the "Let\'s Talk" button opens the contact page', async ({ page }) => {

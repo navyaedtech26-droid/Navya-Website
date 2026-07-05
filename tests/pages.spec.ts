@@ -6,7 +6,7 @@ import { test, expect } from '@playwright/test';
  * so `toHaveTitle` auto-waits for React to mount and <Helmet> to apply.
  */
 const routes: { path: string; title: RegExp }[] = [
-  { path: '/', title: /Navya EdTech \| High-Performance Websites/ },
+  { path: '/', title: /Navya EdTech \| Digital Transformation That Drives Growth/ },
   { path: '/about', title: /About \| Navya EdTech/ },
   { path: '/services', title: /Services \| Navya EdTech/ },
   { path: '/blog', title: /Blog \| Navya EdTech/ },
