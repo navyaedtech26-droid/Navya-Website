@@ -10,7 +10,7 @@ const SITE_EMAIL = "navyaedtech26@gmail.com";
  */
 export const organizationSchema = {
   "@context": "https://schema.org",
-  "@type": "ProfessionalService",
+  "@type": "Organization",
   "@id": `${SITE_URL}/#organization`,
   name: SITE_NAME,
   url: SITE_URL,
@@ -177,7 +177,7 @@ export function reviewsSchema(
     10;
   return {
     "@context": "https://schema.org",
-    "@type": "ProfessionalService",
+    "@type": "Organization",
     "@id": `${SITE_URL}/#organization`,
     aggregateRating: {
       "@type": "AggregateRating",

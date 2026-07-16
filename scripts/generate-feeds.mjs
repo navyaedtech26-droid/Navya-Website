@@ -1,10 +1,10 @@
 /**
- * Build-time generator for sitemap.xml and rss.xml.
+ * Build-time generator for sitemap.xml, rss.xml, and llms.txt.
  *
  * Runs as a `prebuild` step. It pulls published blog posts from Supabase (when
- * configured) and writes both feeds into `public/` so they ship with the build.
- * Without Supabase credentials it still emits the static routes, so the build
- * never breaks in environments that don't have the keys.
+ * configured) and writes all three files into `public/` so they ship with the
+ * build. Without Supabase credentials it still emits the static routes, so the
+ * build never breaks in environments that don't have the keys.
  *
  *   node scripts/generate-feeds.mjs
  */
@@ -19,6 +19,7 @@ const PUBLIC_DIR = resolve(ROOT, "public");
 
 const SITE_URL = "https://navyaedtech.com";
 const SITE_NAME = "Navya EdTech";
+const SITE_EMAIL = "navyaedtech26@gmail.com";
 const SITE_DESCRIPTION =
   "Insights on web development, performance, e-commerce, and business systems from the Navya EdTech team.";
 
@@ -60,6 +61,48 @@ const STATIC_ROUTES = [
   { path: "/blog", changefreq: "weekly", priority: "0.8" },
   { path: "/privacy-policy", changefreq: "yearly", priority: "0.3" },
   { path: "/terms", changefreq: "yearly", priority: "0.3" },
+];
+
+// One-line descriptions for llms.txt. Kept separate from src/data/servicePages
+// and src/data/industryPages (which are .ts and import lucide-react icon
+// components) so this plain-JS build script doesn't need a TypeScript loader
+// just to read a title + tagline. Update alongside those files when a page's
+// title or core pitch changes.
+const SERVICE_LINKS = [
+  { path: "/services/websites", title: "Website Development", note: "Built to convert." },
+  { path: "/services/custom-software-development", title: "Custom Software Development", note: "Built around your workflow." },
+  { path: "/services/mobile-app-development", title: "Mobile App Development", note: "A permanent place on their screen." },
+  { path: "/services/ai-solutions", title: "AI Solutions", note: "Automation with a measurable return." },
+  { path: "/services/cloud-services", title: "Cloud Services", note: "Infrastructure that scales without drama." },
+  { path: "/services/ui-ux-design", title: "UI/UX Design", note: "Interfaces built to convert." },
+  { path: "/services/devops", title: "DevOps", note: "Deployments without the dread." },
+  { path: "/services/it-consulting", title: "IT Consulting", note: "A technology plan tied to business outcomes." },
+  { path: "/services/dedicated-developers", title: "Dedicated Developers", note: "Senior engineers, without the hiring cycle." },
+];
+
+const SOLUTION_LINKS = [
+  { path: "/solutions/digital-transformation", title: "Digital Transformation", note: "Modernize without the disruption." },
+  { path: "/solutions/erp-systems", title: "ERP Systems", note: "One platform for every department." },
+  { path: "/solutions/crm-systems", title: "CRM Systems", note: "One source of truth for every lead." },
+  { path: "/solutions/billing-invoicing", title: "Billing & Invoicing", note: "Payments that accelerate cash flow." },
+  { path: "/solutions/learning-management-systems", title: "Learning Management Systems", note: "Training that scales and tracks itself." },
+  { path: "/solutions/inventory-management", title: "Inventory Management", note: "Real-time stock visibility." },
+  { path: "/solutions/business-intelligence-analytics", title: "Business Intelligence & Analytics", note: "Decisions backed by evidence." },
+  { path: "/solutions/cloud-devops", title: "Cloud & DevOps", note: "Infrastructure and delivery, unified." },
+  { path: "/solutions/social-media-growth", title: "Social Media & Growth", note: "Turn attention into pipeline." },
+];
+
+const INDUSTRY_LINKS = [
+  { path: "/industries/schools", title: "Schools", note: "Run smoother, enroll faster." },
+  { path: "/industries/colleges", title: "Colleges & Universities", note: "Scale without losing control." },
+  { path: "/industries/hospitals", title: "Hospitals & Clinics", note: "Less admin, better care." },
+  { path: "/industries/manufacturing", title: "Manufacturing", note: "Cut waste, see everything." },
+  { path: "/industries/hotels", title: "Hotels & Resorts", note: "Book direct, keep more margin." },
+  { path: "/industries/restaurants", title: "Restaurants & Cafes", note: "Fill tables, keep the margin." },
+  { path: "/industries/retail", title: "Retail", note: "Sell everywhere, track everything." },
+  { path: "/industries/ngos", title: "NGOs & Nonprofits", note: "More impact, less overhead." },
+  { path: "/industries/real-estate", title: "Real Estate", note: "Turn listings into closings." },
+  { path: "/industries/travel-agencies", title: "Travel Agencies", note: "Convert wanderlust into bookings." },
 ];
 
 /** Read .env (if present) without adding a dotenv dependency. */
@@ -170,16 +213,80 @@ function buildRss(posts) {
   );
 }
 
+/**
+ * llms.txt (https://llmstxt.org) — a curated, human-readable map of the site
+ * for LLMs and AI answer engines that can't (or won't) crawl and render the
+ * full JS app the way Googlebot does. Markdown link list, not XML, so it's
+ * built separately from the sitemap even though the input data overlaps.
+ */
+function buildLlmsTxt(posts) {
+  const section = (heading, links) =>
+    `## ${heading}\n\n` +
+    links
+      .map(
+        (l) =>
+          `- [${l.title}](${SITE_URL}${l.path})` + (l.note ? `: ${l.note}` : "")
+      )
+      .join("\n") +
+    "\n";
+
+  // Excerpts are written for blog cards, not a plain-text index — trim to the
+  // first sentence so llms.txt stays a scannable one-liner per entry.
+  const firstSentence = (text) => {
+    if (!text) return "";
+    const match = text.match(/^.*?[.!?](?=\s|$)/);
+    return (match ? match[0] : text).trim();
+  };
+
+  const blogSection =
+    posts.length > 0
+      ? section(
+          "Blog",
+          posts.slice(0, 20).map((p) => ({
+            path: `/blog/${p.slug}`,
+            title: p.title,
+            note: firstSentence(p.excerpt),
+          }))
+        )
+      : "";
+
+  return (
+    `# ${SITE_NAME}\n\n` +
+    `> ${SITE_NAME} is an IT services agency in Nepal engineering revenue-driving websites, ` +
+    `custom software, and business systems (ERP, CRM, BI) for founders, schools, hospitals, ` +
+    `and enterprises.\n\n` +
+    `Remote-first, serving clients across Nepal. Contact: ${SITE_EMAIL}.\n\n` +
+    section("Services", SERVICE_LINKS) +
+    "\n" +
+    section("Solutions", SOLUTION_LINKS) +
+    "\n" +
+    section("Industries", INDUSTRY_LINKS) +
+    "\n" +
+    section("Company", [
+      { path: "/about", title: "About", note: "Who we are and how we work." },
+      { path: "/contact", title: "Contact", note: "Get in touch or book a call." },
+      { path: "/", title: "Home", note: "Overview of services and solutions." },
+    ]) +
+    "\n" +
+    (blogSection ? blogSection + "\n" : "") +
+    section("Optional", [
+      { path: "/privacy-policy", title: "Privacy Policy", note: "" },
+      { path: "/terms", title: "Terms", note: "" },
+    ])
+  );
+}
+
 async function main() {
   const env = loadEnv();
   const posts = await fetchPublishedPosts(env);
 
   writeFileSync(resolve(PUBLIC_DIR, "sitemap.xml"), buildSitemap(posts), "utf8");
   writeFileSync(resolve(PUBLIC_DIR, "rss.xml"), buildRss(posts), "utf8");
+  writeFileSync(resolve(PUBLIC_DIR, "llms.txt"), buildLlmsTxt(posts), "utf8");
 
   console.log(
-    `[feeds] Wrote sitemap.xml (${STATIC_ROUTES.length + posts.length} urls) ` +
-      `and rss.xml (${posts.length} posts).`
+    `[feeds] Wrote sitemap.xml (${STATIC_ROUTES.length + posts.length} urls), ` +
+      `rss.xml (${posts.length} posts), and llms.txt.`
   );
 }
 

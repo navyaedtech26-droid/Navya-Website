@@ -12,7 +12,7 @@ export default function About() {
     <PageTransition>
       <Seo
         title="About | Navya EdTech"
-        description="Navya EdTech is a digital transformation partner helping founders and enterprises turn technology investment into revenue, efficiency, and lasting competitive advantage."
+        description="Navya EdTech is a digital transformation partner helping founders and enterprises turn technology investment into revenue, efficiency, and lasting advantage."
         keywords={[
           "about Navya EdTech",
           "digital transformation partner Nepal",

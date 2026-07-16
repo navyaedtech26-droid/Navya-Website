@@ -15,7 +15,7 @@ export const restaurantsIndustryPage: IndustryPage = {
 
   seoTitle: "Digital Transformation for Restaurants & Cafes | Navya EdTech",
   seoDescription:
-    "Online ordering systems, table reservation platforms, and POS integrations built for restaurants and cafes — reduce delivery-app commission, fill more tables, and speed up kitchen operations.",
+    "Online ordering, table reservations, and POS integrations for restaurants and cafes — cut delivery commission and speed up kitchen operations.",
   seoKeywords: [
     "restaurant online ordering system",
     "table reservation software",

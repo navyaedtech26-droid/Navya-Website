@@ -14,7 +14,7 @@ export const digitalTransformationServicePage: ServicePage = {
   heroImage: "/vectors1/digital transformation-clean.avif",
 
   seoDescription:
-    "Digital transformation framed as a business decision: the cost of fragmented legacy systems, the impact of a unified digital operation, the workflow, timeline, technology, and a real client outcome from Navya EdTech.",
+    "Digital transformation that modernizes fragmented legacy systems into one unified platform, phased in without disrupting daily operations.",
 
   seoKeywords: [
     "digital transformation services",

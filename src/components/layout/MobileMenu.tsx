@@ -1,18 +1,22 @@
-import { useEffect, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState, type RefObject } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { X, ArrowUpRight, ChevronDown } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { navLinks, contactInfo } from "@/data/navigation";
-import { cn } from "@/lib/utils";
+import { cn, obfuscateEmail } from "@/lib/utils";
 
 interface MobileMenuProps {
   open: boolean;
   onClose: () => void;
+  /** Receives focus back when the menu closes, so it isn't dropped from a
+   *  now `aria-hidden` panel (see the layout effect below). */
+  triggerRef?: RefObject<HTMLButtonElement | null>;
 }
 
-export default function MobileMenu({ open, onClose }: MobileMenuProps) {
+export default function MobileMenu({ open, onClose, triggerRef }: MobileMenuProps) {
   const location = useLocation();
   const [expandedMenus, setExpandedMenus] = useState<string[]>([]);
+  const asideRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
     document.body.style.overflow = open ? "hidden" : "";
@@ -20,6 +24,18 @@ export default function MobileMenu({ open, onClose }: MobileMenuProps) {
       document.body.style.overflow = "";
     };
   }, [open]);
+
+  // Browsers block `aria-hidden` on an element that still contains focus.
+  // If a link inside the drawer has focus when it closes (e.g. Escape was
+  // pressed instead of clicking a link), move focus to the button that
+  // opened it before the drawer becomes aria-hidden.
+  useLayoutEffect(() => {
+    if (open) return;
+    const active = document.activeElement;
+    if (active && asideRef.current?.contains(active)) {
+      triggerRef?.current?.focus();
+    }
+  }, [open, triggerRef]);
 
   useEffect(() => {
     if (!open) return;
@@ -47,6 +63,7 @@ export default function MobileMenu({ open, onClose }: MobileMenuProps) {
         )}
       />
       <aside
+        ref={asideRef}
         aria-hidden={!open}
         className={cn(
           "fixed right-0 top-0 z-[70] flex h-[100dvh] w-[82%] max-w-sm flex-col card-light border-l border-line px-7 py-7 lg:hidden overflow-y-auto",
@@ -145,7 +162,7 @@ export default function MobileMenu({ open, onClose }: MobileMenuProps) {
             tabIndex={open ? 0 : -1}
             className="block hover:text-primary font-medium"
           >
-            {contactInfo.email}
+            {obfuscateEmail(contactInfo.email)}
           </a>
           <p>LinkedIn <a href={contactInfo.linkedinUrl} className="hover:text-primary transition-colors underline decoration-line underline-offset-4">{contactInfo.linkedin}</a></p>
         </div>

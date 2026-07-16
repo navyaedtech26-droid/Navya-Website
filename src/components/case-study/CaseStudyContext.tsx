@@ -2,9 +2,11 @@ import { motion } from "framer-motion";
 import { CheckCircle2, AlertTriangle, AlertOctagon } from "lucide-react";
 import Container from "@/components/common/Container";
 import type { CaseStudy } from "@/services/caseStudies";
+import { getAccentClasses } from "@/lib/caseStudyAccent";
 
 export default function CaseStudyContext({ study }: { study: CaseStudy }) {
   if (!study.content?.overview && !study.content?.challenges) return null;
+  const accent = getAccentClasses(study.accent);
 
   return (
     <section className="py-20 lg:py-32 bg-white relative overflow-hidden">
@@ -35,7 +37,7 @@ export default function CaseStudyContext({ study }: { study: CaseStudy }) {
               <ul className="space-y-4">
                 {study.content?.overview?.goals?.map((goal, idx) => (
                   <li key={idx} className="flex items-start gap-3">
-                    <CheckCircle2 className={`w-6 h-6 text-${study.accent}-500 shrink-0`} />
+                    <CheckCircle2 className={`w-6 h-6 ${accent.text} shrink-0`} />
                     <span className="text-faint leading-relaxed">{goal}</span>
                   </li>
                 ))}

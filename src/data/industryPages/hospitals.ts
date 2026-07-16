@@ -15,7 +15,7 @@ export const hospitalsIndustryPage: IndustryPage = {
 
   seoTitle: "Digital Transformation for Hospitals & Clinics | Navya EdTech",
   seoDescription:
-    "Patient management systems, appointment booking platforms, and billing software built for hospitals and clinics — reduce admin load, cut wait times, and keep patient records secure and organized.",
+    "Patient management, appointment booking, and billing systems for hospitals and clinics — cut admin load, reduce wait times, secure records.",
   seoKeywords: [
     "hospital management system",
     "clinic appointment booking software",

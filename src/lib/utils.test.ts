@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { cn, safeUrl, formatDate, plainTextExcerpt } from "@/lib/utils";
+import { cn, safeUrl, formatDate, plainTextExcerpt, obfuscateEmail } from "@/lib/utils";
 
 describe("cn", () => {
   it("joins truthy class values", () => {
@@ -61,6 +61,18 @@ describe("safeUrl", () => {
     expect(safeUrl(img, { allowData: true })).toBe(img);
     // ...but still blocks javascript: even with allowData.
     expect(safeUrl("javascript:alert(1)", { allowData: true })).toBeNull();
+  });
+});
+
+describe("obfuscateEmail", () => {
+  it("replaces @ and . so the result doesn't match an email regex", () => {
+    const result = obfuscateEmail("sales@navyaedtech.com");
+    expect(result).toBe("sales [at] navyaedtech [dot] com");
+    expect(result).not.toMatch(/[\w.+-]+@[\w-]+\.[\w.-]+/);
+  });
+
+  it("returns the input unchanged when there's no @", () => {
+    expect(obfuscateEmail("not-an-email")).toBe("not-an-email");
   });
 });
 

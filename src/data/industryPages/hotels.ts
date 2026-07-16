@@ -15,7 +15,7 @@ export const hotelsIndustryPage: IndustryPage = {
 
   seoTitle: "Digital Transformation for Hotels & Resorts | Navya EdTech",
   seoDescription:
-    "Direct booking websites, reservation management systems, and guest experience platforms built for hotels and resorts — reduce OTA commission, fill more rooms, and keep guests coming back.",
+    "Direct booking engines, reservation systems, and guest platforms for hotels and resorts — reduce OTA commission and keep guests coming back.",
   seoKeywords: [
     "hotel booking website development",
     "hotel reservation management system",

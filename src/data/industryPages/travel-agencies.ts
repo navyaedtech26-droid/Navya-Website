@@ -15,7 +15,7 @@ export const travelAgenciesIndustryPage: IndustryPage = {
 
   seoTitle: "Digital Transformation for Travel Agencies | Navya EdTech",
   seoDescription:
-    "Booking engines, itinerary management systems, and travel websites built for travel agencies and tour operators — convert more inquiries into confirmed bookings and manage trips more efficiently.",
+    "Booking engines, itinerary systems, and travel websites for agencies and tour operators — convert more inquiries into confirmed bookings.",
   seoKeywords: [
     "travel agency website development",
     "tour booking system",

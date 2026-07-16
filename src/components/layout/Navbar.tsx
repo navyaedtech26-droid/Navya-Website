@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link, NavLink as RouterNavLink, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, ChevronDown } from "lucide-react";
@@ -12,6 +12,7 @@ export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [hoveredMenu, setHoveredMenu] = useState<string | null>(null);
   const location = useLocation();
+  const menuToggleRef = useRef<HTMLButtonElement>(null);
 
   // Close mega menu on route change
   useEffect(() => {
@@ -143,6 +144,7 @@ export default function Navbar() {
                 Book Free Consultation
               </Link>
               <button
+                ref={menuToggleRef}
                 onClick={() => setMenuOpen(true)}
                 aria-label="Open menu"
                 className="flex h-11 w-11 items-center justify-center rounded-xl border border-line bg-paper text-heading shadow-sm transition-colors hover:bg-haze active:scale-95 lg:hidden"
@@ -154,7 +156,7 @@ export default function Navbar() {
         </nav>
       </motion.header>
 
-      <MobileMenu open={menuOpen} onClose={() => setMenuOpen(false)} />
+      <MobileMenu open={menuOpen} onClose={() => setMenuOpen(false)} triggerRef={menuToggleRef} />
     </>
   );
 }

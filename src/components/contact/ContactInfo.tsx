@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { MapPin, Mail, Phone, Clock, Briefcase, Headset } from "lucide-react";
 import { fadeUp, staggerContainer, viewportOnce } from "@/lib/animations";
 import { contactInfo } from "@/data/navigation";
+import { obfuscateEmail } from "@/lib/utils";
 
 const INFO_CARDS = [
   {
@@ -13,7 +14,7 @@ const INFO_CARDS = [
   {
     icon: Mail,
     title: "General Email",
-    content: contactInfo.email,
+    content: `${obfuscateEmail(contactInfo.email)}`,
     link: `mailto:${contactInfo.email}`,
     delay: 0.1,
   },
@@ -33,14 +34,14 @@ const INFO_CARDS = [
   {
     icon: Briefcase,
     title: "Sales Inquiries",
-    content: "sales@navyaedtech.com\nPriority enterprise response",
+    content: `${obfuscateEmail("sales@navyaedtech.com")}\nPriority enterprise response`,
     link: "mailto:sales@navyaedtech.com",
     delay: 0.4,
   },
   {
     icon: Headset,
     title: "Client Support",
-    content: "support@navyaedtech.com\n24/7 SLA monitoring",
+    content: `${obfuscateEmail("support@navyaedtech.com")}\n24/7 SLA monitoring`,
     link: "mailto:support@navyaedtech.com",
     delay: 0.5,
   },
@@ -64,7 +65,7 @@ export default function ContactInfo() {
         </p>
       </motion.div>
 
-      <div className="grid gap-5 sm:grid-cols-2">
+      <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
         {INFO_CARDS.map((card, i) => (
           <motion.div
             key={i}

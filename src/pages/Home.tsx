@@ -14,7 +14,6 @@ import CTASection from "@/components/common/CTASection";
 import { generalFaqs } from "@/data/faqs";
 import { faqPageSchema, reviewsSchema } from "@/lib/structuredData";
 import { testimonials as staticTestimonials, type Testimonial } from "@/data/testimonials";
-import { getTestimonials } from "@/services/testimonials";
 
 export default function Home() {
   // Same published-testimonials fetch TestimonialsSection makes — kept here
@@ -24,8 +23,12 @@ export default function Home() {
 
   useEffect(() => {
     let active = true;
-    getTestimonials().then((rows) => {
-      if (active) setTestimonials(rows);
+    // Dynamic import — see TestimonialsSection for why: it keeps the full
+    // @supabase/supabase-js SDK out of Home's (eagerly-loaded) main chunk.
+    import("@/services/testimonials").then(({ getTestimonials }) => {
+      getTestimonials().then((rows) => {
+        if (active) setTestimonials(rows);
+      });
     });
     return () => {
       active = false;
@@ -38,7 +41,7 @@ export default function Home() {
     <PageTransition>
       <Seo
         title="Navya EdTech | Enterprise IT Services & Software Development"
-        description="We engineer scalable, secure, and modern digital solutions for enterprises. From custom software to cloud architecture, we turn complex challenges into competitive advantages."
+        description="We engineer scalable, secure digital solutions for enterprises — custom software, cloud architecture, and AI systems that turn complexity into an edge."
         keywords={[
           "Enterprise Software Development",
           "IT Services",

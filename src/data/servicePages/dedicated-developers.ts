@@ -12,7 +12,7 @@ export const dedicatedDevelopersServicePage: ServicePage = {
     "A single open engineering role can take months to fill and derail a roadmap while it stays empty. We plug in vetted, senior developers who integrate with your team directly — so the timeline keeps moving while you hire, or instead of hiring at all.",
 
   seoDescription:
-    "Dedicated developer augmentation framed as a business decision: the cost of a slow hiring cycle, the impact of an integrated engineering partner, the workflow, timeline, and a real client outcome from Navya EdTech.",
+    "Vetted senior developers who integrate with your team fast, keeping your roadmap moving without a slow hiring cycle or recruiting overhead.",
 
   seoKeywords: [
     "dedicated developers for hire",

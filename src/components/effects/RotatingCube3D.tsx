@@ -58,12 +58,7 @@ export default function RotatingCube3D({ size = 200 }: RotatingCube3DProps) {
         ))}
       </div>
 
-      <style>{`
-        @keyframes cube-tumble {
-          from { transform: rotateX(-24deg) rotateY(-32deg); }
-          to   { transform: rotateX(336deg) rotateY(328deg); }
-        }
-      `}</style>
+
     </div>
   );
 }

@@ -110,7 +110,7 @@ export default function Blog() {
               <FeaturedPostSkeleton />
               <SkeletonGroup
                 label="Loading articles…"
-                className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3"
+                className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3"
               >
                 {Array.from({ length: 6 }).map((_, i) => (
                   <BlogCardSkeleton key={i} />
@@ -136,7 +136,7 @@ export default function Blog() {
                     <NoResults onReset={() => { setQuery(""); setCategory(ALL); }} />
                   ) : (
                     <>
-                      <motion.div layout className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+                      <motion.div layout className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
                         <AnimatePresence mode="popLayout">
                           {firstRow.map((post, i) => (
                             <motion.div 
@@ -160,7 +160,7 @@ export default function Blog() {
                       )}
 
                       {remainingRows.length > 0 && (
-                        <motion.div layout className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+                        <motion.div layout className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
                           <AnimatePresence mode="popLayout">
                             {remainingRows.map((post, i) => (
                               <motion.div 

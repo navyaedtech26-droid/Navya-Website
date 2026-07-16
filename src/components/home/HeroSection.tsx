@@ -107,10 +107,13 @@ export default function HeroSection() {
             >
 
               {/* Layer 1: Laptop Mockup (Background) */}
-              {/* Reduced mobile scale from 0.8 to 0.65 to fit within 320px screens */}
+              {/* Mobile: pinned to the top-right corner (origin-top-right) and kept fully
+                  on-screen so it doesn't collide with the phone mockup below or bleed off
+                  the viewport edge. sm+ is untouched (scale-100 makes origin/position here
+                  a no-op past that breakpoint). */}
               <motion.div
                 style={{ x: x1, y: y1 }}
-                className="absolute top-[0%] sm:top-[5%] right-[-15%] sm:right-[5%] w-[420px] sm:w-[520px] h-[280px] sm:h-[340px] bg-slate-100 rounded-xl border-4 border-slate-200 shadow-2xl overflow-hidden flex flex-col transform origin-right scale-[0.65] sm:scale-100"
+                className="absolute top-[0%] sm:top-[5%] right-[2%] sm:right-[5%] w-[420px] sm:w-[520px] h-[280px] sm:h-[340px] bg-slate-100 rounded-xl border-4 border-slate-200 shadow-2xl overflow-hidden flex flex-col transform origin-top-right scale-[0.6] sm:scale-100"
               >
                 {/* Browser Chrome */}
                 <div className="h-8 bg-slate-200 flex items-center px-4 gap-2 shrink-0">
@@ -153,10 +156,12 @@ export default function HeroSection() {
               </motion.div>
 
               {/* Layer 2: Mobile App Mockup */}
-              {/* Reduced mobile scale from 0.85 to 0.7 to prevent layout clipping */}
+              {/* Mobile: pinned to the bottom-left corner (origin-bottom-left) with a
+                  smaller scale so it clears the laptop mockup's bottom edge instead of
+                  overlapping it. sm+ is untouched. */}
               <motion.div
                 style={{ x: x2, y: y2 }}
-                className="absolute bottom-[5%] sm:bottom-[10%] left-[-5%] sm:left-[10%] w-[180px] sm:w-[220px] h-[380px] sm:h-[460px] bg-white rounded-[32px] border-[6px] border-slate-800 shadow-[0_20px_50px_rgba(8,30,77,0.2)] overflow-hidden z-20 flex flex-col transform origin-left scale-[0.7] sm:scale-100"
+                className="absolute bottom-[5%] sm:bottom-[10%] left-[2%] sm:left-[10%] w-[180px] sm:w-[220px] h-[380px] sm:h-[460px] bg-white rounded-[32px] border-[6px] border-slate-800 shadow-[0_20px_50px_rgba(8,30,77,0.2)] overflow-hidden z-20 flex flex-col transform origin-bottom-left scale-[0.6] sm:scale-100"
               >
                 {/* Notch */}
                 <div className="absolute top-0 left-1/2 -translate-x-1/2 w-24 h-6 bg-slate-800 rounded-b-xl z-10"></div>

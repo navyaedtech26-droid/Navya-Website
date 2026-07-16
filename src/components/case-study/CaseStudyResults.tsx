@@ -2,9 +2,11 @@ import { motion } from "framer-motion";
 import { TrendingUp, Activity, CheckCircle } from "lucide-react";
 import Container from "@/components/common/Container";
 import type { CaseStudy } from "@/services/caseStudies";
+import { getAccentClasses } from "@/lib/caseStudyAccent";
 
 export default function CaseStudyResults({ study }: { study: CaseStudy }) {
   if (!study.content?.results) return null;
+  const accent = getAccentClasses(study.accent);
 
   return (
     <section className="py-20 lg:py-32 bg-white relative overflow-hidden">
@@ -70,10 +72,10 @@ export default function CaseStudyResults({ study }: { study: CaseStudy }) {
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: idx * 0.1 }}
-                className={`p-8 rounded-3xl border border-line flex flex-col items-center justify-center text-center shadow-sm relative overflow-hidden bg-${study.accent}-500/5`}
+                className={`p-8 rounded-3xl border border-line flex flex-col items-center justify-center text-center shadow-sm relative overflow-hidden ${accent.bg5}`}
               >
-                <div className={`absolute -right-10 -top-10 w-32 h-32 bg-${study.accent}-500/10 rounded-full blur-2xl`} />
-                <div className={`font-display text-5xl font-extrabold text-${study.accent}-500 mb-2 relative z-10`}>
+                <div className={`absolute -right-10 -top-10 w-32 h-32 ${accent.bg10} rounded-full blur-2xl`} />
+                <div className={`font-display text-5xl font-extrabold ${accent.text} mb-2 relative z-10`}>
                   {kpi.value}
                 </div>
                 <div className="text-sm font-bold text-heading uppercase tracking-wider relative z-10">

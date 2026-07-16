@@ -14,7 +14,7 @@ export const socialMediaGrowthServicePage: ServicePage = {
   heroImage: "/vectors1/socialmedia-clean.avif",
 
   seoDescription:
-    "Social media and growth services framed as a business decision: the cost of unstrategic posting, the impact of a strategy-led approach, the workflow, timeline, technology, and a real client outcome from Navya EdTech.",
+    "Strategy-led social media management — content, video, and paid campaigns tied to measurable growth, not just a posting calendar.",
 
   seoKeywords: [
     "social media management services",

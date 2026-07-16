@@ -63,7 +63,7 @@ export default function WhatHappensNext() {
               <div className="flex h-24 w-24 items-center justify-center rounded-2xl bg-slate-50 border border-line/80 shadow-sm transition-all duration-300 group-hover:scale-110 group-hover:border-brand/30 group-hover:bg-white group-hover:shadow-md mb-6 relative overflow-hidden">
                 <div className="absolute inset-0 bg-gradient-to-br from-brand/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
                 <s.icon size={32} className="text-faint group-hover:text-brand transition-colors" strokeWidth={1.5} />
-                <div className="absolute top-2 left-2 text-[10px] font-bold text-faint/50 group-hover:text-brand/30 transition-colors">
+                <div className="absolute top-2 left-2 text-[0.625rem] font-bold text-faint/50 group-hover:text-brand/30 transition-colors">
                   {s.step}
                 </div>
               </div>

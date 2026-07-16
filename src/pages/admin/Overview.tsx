@@ -119,7 +119,7 @@ export default function Overview() {
         <OverviewSkeleton />
       ) : (
         <>
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
             <SmallBox
               icon={Newspaper}
               label="Published blogs"
@@ -199,7 +199,7 @@ export default function Overview() {
 function OverviewSkeleton() {
   return (
     <SkeletonGroup label="Loading dashboard…" className="space-y-4">
-      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
         {Array.from({ length: 4 }).map((_, i) => (
           <div
             key={i}
@@ -215,7 +215,7 @@ function OverviewSkeleton() {
         ))}
       </div>
 
-      <div className="grid gap-4 lg:grid-cols-2">
+      <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
         <div className="rounded-[3px] border border-[#dee2e6] bg-white p-4 lg:col-span-2">
           <Skeleton className="h-4 w-40" />
           <Skeleton className="mt-4 h-64 w-full rounded-[3px]" />
@@ -289,7 +289,7 @@ function ChartsGrid({ charts }: { charts: OverviewCharts }) {
   const ratingTotal = charts.testimonialsByRating.reduce((a, b) => a + b, 0);
 
   return (
-    <div className="grid gap-4 lg:grid-cols-2">
+    <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
       {/* Contact submissions trend — full width */}
       <Card
         title="Contact submissions"

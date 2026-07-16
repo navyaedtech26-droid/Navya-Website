@@ -4,16 +4,35 @@ import { Star, Play, MapPin, Briefcase } from "lucide-react";
 import Container from "@/components/common/Container";
 import SectionHeading from "@/components/common/SectionHeading";
 import { testimonials as staticTestimonials, type Testimonial } from "@/data/testimonials";
-import { getTestimonials } from "@/services/testimonials";
+import { cn } from "@/lib/utils";
 
 export default function TestimonialsSection() {
   const [testimonials, setTestimonials] = useState<Testimonial[]>(staticTestimonials);
+  /* Touch devices have no `:hover`, so tap-to-pause is the only way to stop
+     the marquee and read a card on mobile. */
+  const [paused, setPaused] = useState(false);
 
   useEffect(() => {
     let active = true;
-    getTestimonials().then((rows) => {
-      // If we got rows from the DB, use them. Otherwise, keep our premium static mock data.
-      if (active && rows && rows.length > 0) setTestimonials(rows);
+    // Dynamic import: @/services/testimonials pulls in the full
+    // @supabase/supabase-js SDK (auth + realtime + storage, not just the
+    // read-only query it needs), which is heavy enough to meaningfully delay
+    // Time to Interactive if bundled into the main chunk. Home is rendered
+    // eagerly (no route-level code splitting), so this is the only lever to
+    // keep that weight out of the critical path — it still only runs once,
+    // right after mount, same as before.
+    import("@/services/testimonials").then(({ getTestimonials }) => {
+      getTestimonials()
+        .then((rows) => {
+          // If we got rows from the DB, use them. Otherwise, keep our premium static mock data.
+          if (active && rows && rows.length > 0) setTestimonials(rows);
+        })
+        .catch((err) => {
+          // Ignore errors and keep static data on failure
+          console.error("Failed to load testimonials:", err);
+        });
+    }).catch((err) => {
+      console.error("Failed to import testimonials service:", err);
     });
     return () => {
       active = false;
@@ -21,7 +40,7 @@ export default function TestimonialsSection() {
   }, []);
 
   const TestimonialCard = ({ t }: { t: Testimonial }) => (
-    <div className="w-[350px] md:w-[450px] flex-shrink-0 mx-4 relative overflow-hidden rounded-[32px] bg-white/60 backdrop-blur-xl border border-white/60 p-8 shadow-[0_8px_30px_rgb(0,0,0,0.04)] transition-all duration-300 hover:shadow-[0_20px_40px_-15px_rgba(0,0,0,0.1)] hover:bg-white/80 group flex flex-col justify-between">
+    <div className="w-[85vw] max-w-[350px] sm:w-[400px] md:w-[450px] flex-shrink-0 mx-4 relative overflow-hidden rounded-[32px] bg-white/60 backdrop-blur-xl border border-white/60 p-8 shadow-[0_8px_30px_rgb(0,0,0,0.04)] transition-all duration-300 hover:shadow-[0_20px_40px_-15px_rgba(0,0,0,0.1)] hover:bg-white/80 group flex flex-col justify-between">
       <div>
         <div className="flex items-start justify-between mb-6">
           <div className="flex gap-1">
@@ -96,15 +115,28 @@ export default function TestimonialsSection() {
 
       {/* Infinite Marquee Slider or Empty State */}
       {testimonials.length > 0 ? (
-        <div className="relative z-10 flex overflow-hidden group/marquee">
+        <div
+          role="button"
+          tabIndex={0}
+          aria-pressed={paused}
+          aria-label={paused ? "Resume testimonial scroll" : "Pause testimonial scroll"}
+          onClick={() => setPaused((v) => !v)}
+          onKeyDown={(e) => {
+            if (e.key === "Enter" || e.key === " ") {
+              e.preventDefault();
+              setPaused((v) => !v);
+            }
+          }}
+          className="relative z-10 flex overflow-hidden group/marquee cursor-pointer"
+        >
           {/* Track 1 */}
-          <div className="flex w-max min-w-full shrink-0 animate-marquee group-hover/marquee:pause">
+          <div className={cn("flex w-max min-w-full shrink-0 animate-marquee-full group-hover/marquee:pause", paused && "pause")}>
             {testimonials.map((t, idx) => (
               <TestimonialCard key={`track1-${t.name}-${idx}`} t={t} />
             ))}
           </div>
           {/* Track 2 (Duplicate for seamless loop) */}
-          <div className="flex w-max min-w-full shrink-0 animate-marquee group-hover/marquee:pause" aria-hidden="true">
+          <div className={cn("flex w-max min-w-full shrink-0 animate-marquee-full group-hover/marquee:pause", paused && "pause")} aria-hidden="true">
             {testimonials.map((t, idx) => (
               <TestimonialCard key={`track2-${t.name}-${idx}`} t={t} />
             ))}
@@ -129,19 +161,6 @@ export default function TestimonialsSection() {
         </Link>
       </div>
 
-      {/* Embedded CSS for the Marquee animation */}
-      <style>{`
-        @keyframes marquee {
-          0% { transform: translateX(0); }
-          100% { transform: translateX(-100%); }
-        }
-        .animate-marquee {
-          animation: marquee 40s linear infinite;
-        }
-        .pause {
-          animation-play-state: paused;
-        }
-      `}</style>
     </section>
   );
 }

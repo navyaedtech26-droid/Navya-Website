@@ -15,6 +15,8 @@ import {
   ChevronRight,
   ChevronDown,
   Sparkles,
+  Upload,
+  ImageOff,
 } from "lucide-react";
 import {
   listBlogPosts,
@@ -23,6 +25,7 @@ import {
   deleteBlogPost,
   type BlogPostInput,
 } from "@/services/admin";
+import { uploadBlogImage } from "@/services/storage";
 import type { BlogPostRow } from "@/types/database";
 import {
   PageHeader,
@@ -41,6 +44,7 @@ import {
 } from "@/components/admin/ui";
 import MarkdownEditor from "@/components/admin/MarkdownEditor";
 import { Skeleton, SkeletonGroup } from "@/components/common/Skeleton";
+import { Spinner } from "@/components/common/Spinner";
 import { useToast } from "@/components/common/Toast";
 import { cn, formatDate } from "@/lib/utils";
 
@@ -93,6 +97,7 @@ const EMPTY: BlogPostInput = {
   title: "",
   excerpt: "",
   content: "",
+  cover_image: null,
   author: "",
   category: "",
   tags: [],
@@ -328,10 +333,12 @@ function BlogForm({
   onClose: () => void;
   onSaved: (p: BlogPostRow, isNew: boolean) => void;
 }) {
+  const toast = useToast();
   const [form, setForm] = useState<BlogPostInput>(EMPTY);
   const [tagsText, setTagsText] = useState("");
   const [slugTouched, setSlugTouched] = useState(false);
   const [busy, setBusy] = useState(false);
+  const [uploadingCover, setUploadingCover] = useState(false);
   const [error, setError] = useState<string | null>(null);
   // The optional fields stay collapsed by default to keep the form to the three
   // things that matter (title, content, status).
@@ -346,6 +353,7 @@ function BlogForm({
         title: post.title,
         excerpt: post.excerpt ?? "",
         content: post.content ?? "",
+        cover_image: post.cover_image ?? null,
         author: post.author ?? "",
         category: post.category ?? "",
         tags: post.tags ?? [],
@@ -377,6 +385,23 @@ function BlogForm({
     if (!slugTouched) set("slug", slugify(value));
   };
 
+  const handleCoverUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    e.target.value = "";
+    if (!file) return;
+
+    setUploadingCover(true);
+    const res = await uploadBlogImage(file);
+    setUploadingCover(false);
+
+    if (res.error || !res.url) {
+      toast.error(res.error ?? "Upload failed.");
+      return;
+    }
+    set("cover_image", res.url);
+    toast.success("Cover image uploaded.");
+  };
+
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     setError(null);
@@ -401,6 +426,7 @@ function BlogForm({
       title: form.title.trim(),
       excerpt: form.excerpt?.trim() || deriveExcerpt(plain) || null,
       content: form.content.trim(),
+      cover_image: form.cover_image?.trim() || null,
       author: form.author?.trim() || DEFAULT_AUTHOR,
       category: form.category?.trim() || null,
       tags: tagsText
@@ -436,6 +462,63 @@ function BlogForm({
             className={inputCls}
             autoFocus
           />
+        </Field>
+
+        <Field
+          label="Cover image"
+          htmlFor="cover_image"
+          hint="Shown on blog cards, the article header, and link previews."
+        >
+          <div className="flex flex-col gap-2.5 sm:flex-row sm:items-start">
+            <div className="flex h-24 w-40 shrink-0 items-center justify-center overflow-hidden rounded-[3px] border border-[#dee2e6] bg-[#f4f6f9]">
+              {form.cover_image ? (
+                <img
+                  src={form.cover_image}
+                  alt=""
+                  className="h-full w-full object-cover"
+                />
+              ) : (
+                <ImageOff size={20} className="text-[#adb5bd]" />
+              )}
+            </div>
+
+            <div className="flex flex-1 flex-col gap-2">
+              <div className="flex gap-2">
+                <input
+                  id="cover_image"
+                  value={form.cover_image ?? ""}
+                  onChange={(e) => set("cover_image", e.target.value || null)}
+                  placeholder="https://... or upload a file"
+                  className={cn(inputCls, "flex-1")}
+                />
+                <label
+                  className={cn(
+                    "flex shrink-0 cursor-pointer items-center justify-center gap-2 whitespace-nowrap rounded-[3px] border border-[#ced4da] bg-white px-3 py-2 text-sm font-medium text-[#495057] transition-colors hover:bg-[#f4f6f9]",
+                    uploadingCover && "pointer-events-none opacity-50"
+                  )}
+                >
+                  {uploadingCover ? <Spinner size={15} /> : <Upload size={15} />}
+                  {uploadingCover ? "Uploading…" : "Upload"}
+                  <input
+                    type="file"
+                    accept="image/*"
+                    className="hidden"
+                    disabled={uploadingCover}
+                    onChange={handleCoverUpload}
+                  />
+                </label>
+              </div>
+              {form.cover_image && (
+                <button
+                  type="button"
+                  onClick={() => set("cover_image", null)}
+                  className="self-start text-xs font-medium text-[#6c757d] transition-colors hover:text-[#dc3545]"
+                >
+                  Remove image
+                </button>
+              )}
+            </div>
+          </div>
         </Field>
 
         {/* MarkdownEditor renders its own "Content" label, so it isn't wrapped
@@ -513,7 +596,7 @@ function BlogForm({
                 />
               </Field>
 
-              <div className="grid gap-4 sm:grid-cols-2">
+              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                 <Field label="Author" htmlFor="author" hint={`Defaults to “${DEFAULT_AUTHOR}”.`}>
                   <input
                     id="author"

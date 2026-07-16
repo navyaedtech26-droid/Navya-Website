@@ -14,7 +14,7 @@ export const businessIntelligenceAnalyticsServicePage: ServicePage = {
   heroImage: "/vectors1/bi-clean.avif",
 
   seoDescription:
-    "Business intelligence and analytics framed as a business decision: the cost of scattered, inaccessible data, the impact of a unified BI system, the workflow, timeline, technology, and a real client outcome from Navya EdTech.",
+    "Custom BI dashboards and analytics that turn scattered data into one real-time source of truth, so decisions run on evidence, not guesswork.",
 
   seoKeywords: [
     "business intelligence services",

@@ -13,7 +13,7 @@ export const websitesServicePage: ServicePage = {
   heroImage: "/vector/web-dev.avif",
 
   seoDescription:
-    "Website development framed as a business decision: the cost of a weak site, the impact of a conversion-engineered one, the workflow, timeline, technology, and a real client outcome from Navya EdTech.",
+    "Conversion-engineered website development that turns your site into a 24/7 lead-generation engine, built for speed, trust, and SEO.",
 
   seoKeywords: [
     "website development",

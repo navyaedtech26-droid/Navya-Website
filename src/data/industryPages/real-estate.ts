@@ -15,7 +15,7 @@ export const realEstateIndustryPage: IndustryPage = {
 
   seoTitle: "Digital Transformation for Real Estate | Navya EdTech",
   seoDescription:
-    "Property listing websites, real estate CRM systems, and lead management platforms built for agencies and developers — convert more browsers into buyers and keep every lead tracked to close.",
+    "Property listing websites, real estate CRM, and lead management platforms — convert more browsers into buyers and track every lead to close.",
   seoKeywords: [
     "real estate website development",
     "property listing platform",

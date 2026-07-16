@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { Mail, Instagram, Music2, Linkedin, ArrowUp, Send, CheckCircle2 } from "lucide-react";
 import Container from "@/components/common/Container";
 import { contactInfo } from "@/data/navigation";
+import { obfuscateEmail } from "@/lib/utils";
 
 const companyLinks = [
   { label: "About Us", href: "/about" },
@@ -42,7 +43,7 @@ const industriesLinks = [
 
 const resourcesLinks = [
   { label: "Blog & Insights", href: "/blog" },
-  { label: "Case Studies", href: "/#case-studies" },
+  { label: "Case Studies", href: "/portfolio#case-studies-grid" },
 ];
 
 export default function Footer() {
@@ -84,7 +85,7 @@ export default function Footer() {
       <div className="absolute top-0 left-1/4 h-[600px] w-[600px] -translate-y-1/2 translate-x-1/2 rounded-full bg-brand/5 blur-[120px] pointer-events-none" />
 
       <Container className="relative z-10">
-        <div className="grid gap-16 lg:grid-cols-12 mb-20">
+        <div className="grid grid-cols-1 gap-16 lg:grid-cols-12 mb-20">
 
           {/* Brand & Newsletter Column */}
           <div className="lg:col-span-3 flex flex-col gap-10">
@@ -252,7 +253,7 @@ export default function Footer() {
           <div className="flex flex-wrap items-center gap-8 text-sm">
             <a href={`mailto:${contactInfo.email}`} className="flex items-center gap-3 transition-colors hover:text-brand group">
               <SocialIcon icon={Mail} />
-              {contactInfo.email}
+              {obfuscateEmail(contactInfo.email)}
             </a>
           </div>
 

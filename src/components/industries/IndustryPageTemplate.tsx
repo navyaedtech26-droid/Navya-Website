@@ -320,7 +320,7 @@ export default function IndustryPageTemplate({ data }: IndustryPageTemplateProps
                   <Sparkles size={16} className="text-primary" />
                   <span className="text-xs font-bold uppercase tracking-wide text-faint">{data.title}</span>
                   {data.caseStudy.illustrative && (
-                    <span className="rounded-full bg-secondary/10 px-2.5 py-0.5 text-[11px] font-semibold text-secondary">
+                    <span className="rounded-full bg-secondary/10 px-2.5 py-0.5 text-[0.6875rem] font-semibold text-secondary">
                       Representative engagement
                     </span>
                   )}

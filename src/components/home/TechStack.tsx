@@ -85,7 +85,7 @@ export default function TechStack() {
                     style={tech.invert ? { filter: "brightness(0)" } : undefined}
                   />
                 </span>
-                <span className="text-[15px] font-semibold leading-tight text-heading">
+                <span className="text-[0.9375rem] font-semibold leading-tight text-heading">
                   {tech.name}
                 </span>
               </motion.div>

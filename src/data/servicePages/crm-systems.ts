@@ -14,7 +14,7 @@ export const crmSystemsServicePage: ServicePage = {
   heroImage: "/vectors1/crm-clean.avif",
 
   seoDescription:
-    "CRM system development framed as a business decision: the cost of untracked leads and customer data, the impact of a unified CRM, the workflow, timeline, technology, and a real client outcome from Navya EdTech.",
+    "Custom CRM systems that track every lead and customer relationship in one place, so no opportunity slips through the cracks again.",
 
   seoKeywords: [
     "CRM system development",

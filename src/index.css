@@ -15,6 +15,12 @@
   html {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    /* Framer Motion's useScroll({ target }) (see CompanyStory.tsx) defaults
+       its scroll container to document.documentElement and warns if that
+       container is `position: static` — the default for <html>. `relative`
+       with no offsets renders identically in normal flow; it only satisfies
+       that internal check. */
+    position: relative;
   }
 
   /* Global focus ring — brand blue, offset so it never collides with the
@@ -195,6 +201,10 @@
   .backface-hidden {
     backface-visibility: hidden;
   }
+  
+  .pause {
+    animation-play-state: paused;
+  }
 }
 
 /* Continuous right→left marquee. The track holds two identical copies of the
@@ -215,6 +225,25 @@
 .animate-marquee {
   animation: marquee 26s linear infinite;
   will-change: transform;
+}
+
+@keyframes marquee-full {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-100%);
+  }
+}
+
+.animate-marquee-full {
+  animation: marquee-full 40s linear infinite;
+  will-change: transform;
+}
+
+@keyframes cube-tumble {
+  from { transform: rotateX(-24deg) rotateY(-32deg); }
+  to   { transform: rotateX(336deg) rotateY(328deg); }
 }
 
 @media (prefers-reduced-motion: reduce) {

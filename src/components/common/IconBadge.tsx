@@ -1,8 +1,11 @@
-import type { LucideIcon } from "lucide-react";
+import type { ComponentType } from "react";
+import type { LucideProps } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 interface IconBadgeProps {
-  icon: LucideIcon;
+  /** Any component with a lucide-style prop signature — a `LucideIcon` import
+   *  or a small wrapper (e.g. DynamicIcon bound to a runtime icon name). */
+  icon: ComponentType<LucideProps>;
   className?: string;
   size?: "sm" | "md" | "lg";
   /** Accent colour (hex, e.g. "#F5A623"). Defaults to the brand amber. */

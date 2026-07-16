@@ -73,7 +73,7 @@ export default function AdminNavbar({ onToggleSidebar }: { onToggleSidebar: () =
           >
             <Bell size={17} />
             {newContacts.length > 0 && (
-              <span className="absolute right-1 top-1 flex h-4 min-w-4 items-center justify-center rounded-full bg-[#dc3545] px-1 text-[10px] font-bold leading-none text-white">
+              <span className="absolute right-1 top-1 flex h-4 min-w-4 items-center justify-center rounded-full bg-[#dc3545] px-1 text-[0.625rem] font-bold leading-none text-white">
                 {newContacts.length}
               </span>
             )}
@@ -97,7 +97,7 @@ export default function AdminNavbar({ onToggleSidebar }: { onToggleSidebar: () =
                       >
                         <p className="truncate font-medium text-[#212529]">{c.name}</p>
                         <p className="truncate text-xs text-[#6c757d]">{c.message}</p>
-                        <p className="mt-0.5 text-[11px] text-[#6c757d]/80">
+                        <p className="mt-0.5 text-[0.6875rem] text-[#6c757d]/80">
                           {formatDate(c.created_at)}
                         </p>
                       </Link>

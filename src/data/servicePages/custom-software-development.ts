@@ -14,7 +14,7 @@ export const customSoftwareDevelopmentServicePage: ServicePage = {
   heroImage: "/vector/custom-software-development.avif",
 
   seoDescription:
-    "Custom software development framed as a business decision: the cost of forcing your operations into generic tools, the impact of purpose-built systems, the workflow, timeline, technology, and a real client outcome from Navya EdTech.",
+    "Custom software built around your actual workflow, replacing generic tools and manual workarounds with one system your team owns outright.",
 
   seoKeywords: [
     "custom software development",

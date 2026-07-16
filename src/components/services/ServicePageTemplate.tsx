@@ -210,7 +210,7 @@ export default function ServicePageTemplate({ data }: ServicePageTemplateProps) 
               initial="hidden"
               whileInView="visible"
               viewport={viewportOnce}
-              className="grid gap-8 lg:grid-cols-5"
+              className="grid grid-cols-1 gap-8 lg:grid-cols-5"
             >
               {data.workflow.map((step) => (
                 <motion.div
@@ -360,7 +360,7 @@ export default function ServicePageTemplate({ data }: ServicePageTemplateProps) 
                     {data.caseStudy.industry}
                   </span>
                   {data.caseStudy.illustrative && (
-                    <span className="rounded-full bg-secondary/10 px-2.5 py-0.5 text-[11px] font-semibold text-secondary">
+                    <span className="rounded-full bg-secondary/10 px-2.5 py-0.5 text-[0.6875rem] font-semibold text-secondary">
                       Representative engagement
                     </span>
                   )}

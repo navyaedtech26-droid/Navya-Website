@@ -194,18 +194,15 @@ export default function ContactForm() {
 
     const formattedMessage = `Company: ${form.company || 'Not provided'}\nTimeline: ${form.timeline || 'Not specified'}\n\n${form.message}`;
 
-    const result = await submitContact(
-      {
-        name: form.name,
-        email: form.email,
-        phone: form.phone,
-        service: form.service,
-        budget: form.budget,
-        message: formattedMessage,
-        company_website: guard.honeypot,
-      },
-      captchaToken ?? undefined
-    );
+    const result = await submitContact({
+      name: form.name,
+      email: form.email,
+      phone: form.phone,
+      service: form.service,
+      budget: form.budget,
+      message: formattedMessage,
+      company_website: guard.honeypot,
+    });
 
     if (result.ok) {
       guard.markUsed();
@@ -269,7 +266,7 @@ export default function ContactForm() {
         onChange={guard.setHoneypot}
       />
 
-      <div className="grid gap-x-6 gap-y-7 sm:grid-cols-2">
+      <div className="grid grid-cols-1 gap-x-6 gap-y-7 sm:grid-cols-2">
         <InputField
           id="name"
           label="Full Name *"

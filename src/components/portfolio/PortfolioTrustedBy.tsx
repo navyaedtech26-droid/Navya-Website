@@ -32,22 +32,7 @@ export default function PortfolioTrustedBy() {
         </div>
       </Container>
 
-      {/* CSS for infinite scroll */}
-      <style dangerouslySetInnerHTML={{
-        __html: `
-        @keyframes marquee {
-          0% { transform: translateX(0); }
-          100% { transform: translateX(-50%); }
-        }
-        .animate-marquee {
-          display: flex;
-          width: max-content;
-          animation: marquee 30s linear infinite;
-        }
-        .animate-marquee:hover {
-          animation-play-state: paused;
-        }
-      `}} />
+
 
       {/* Infinite Scroll Container with Faded Edges */}
       <div className="relative w-full max-w-7xl mx-auto overflow-hidden">
@@ -59,7 +44,7 @@ export default function PortfolioTrustedBy() {
         <div className="absolute top-0 bottom-0 right-0 w-24 md:w-48 bg-gradient-to-l from-white to-transparent z-10 pointer-events-none" />
 
         {/* Scrolling Track */}
-        <div className="animate-marquee py-4">
+        <div className="animate-marquee hover:pause py-4">
           {duplicatedClients.map((client, idx) => {
             const Icon = client.icon;
             return (

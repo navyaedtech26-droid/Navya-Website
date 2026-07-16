@@ -44,7 +44,7 @@ export default function BlogCard({ post }: { post: BlogPostSummary }) {
         <div className="absolute inset-x-0 top-0 flex items-start justify-between gap-2 p-4">
           {post.category ? (
             <span
-              className="inline-flex items-center bg-paper px-3 py-1 text-[11px] font-bold uppercase tracking-widest shadow-sm border border-line"
+              className="inline-flex items-center bg-paper px-3 py-1 text-[0.6875rem] font-bold uppercase tracking-widest shadow-sm border border-line"
               style={{ color: accent.ink }}
             >
               {post.category}
@@ -53,7 +53,7 @@ export default function BlogCard({ post }: { post: BlogPostSummary }) {
             <span />
           )}
           {post.read_minutes != null && (
-            <span className="inline-flex shrink-0 items-center gap-1.5 bg-paper px-2.5 py-1 text-[11px] font-bold uppercase tracking-widest text-faint shadow-sm border border-line">
+            <span className="inline-flex shrink-0 items-center gap-1.5 bg-paper px-2.5 py-1 text-[0.6875rem] font-bold uppercase tracking-widest text-faint shadow-sm border border-line">
               <Clock size={12} />
               {post.read_minutes} min
             </span>
@@ -84,10 +84,10 @@ export default function BlogCard({ post }: { post: BlogPostSummary }) {
             </span>
             <div className="min-w-0">
               {post.author && (
-                <p className="truncate text-[11px] font-bold uppercase tracking-widest text-heading">{post.author}</p>
+                <p className="truncate text-[0.6875rem] font-bold uppercase tracking-widest text-heading">{post.author}</p>
               )}
               {post.published_at && (
-                <p className="mt-1 flex items-center gap-1 text-[10px] font-bold uppercase tracking-widest text-faint">
+                <p className="mt-1 flex items-center gap-1 text-[0.625rem] font-bold uppercase tracking-widest text-faint">
                   <Calendar size={12} />
                   {formatDate(post.published_at)}
                 </p>
@@ -96,7 +96,7 @@ export default function BlogCard({ post }: { post: BlogPostSummary }) {
           </div>
 
           <span 
-            className="flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-widest shrink-0 transition-colors group-hover:text-heading" 
+            className="flex items-center gap-1.5 text-[0.6875rem] font-bold uppercase tracking-widest shrink-0 transition-colors group-hover:text-heading" 
             style={{ color: accent.ink }}
           >
             Read More <ArrowRight size={14} className="transition-transform duration-300 group-hover:translate-x-1" />

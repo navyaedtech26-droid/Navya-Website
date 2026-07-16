@@ -3,7 +3,7 @@ import { Skeleton } from "@/components/common/Skeleton";
 /** Loading placeholder matching FeaturedPost's cover + content split. */
 export default function FeaturedPostSkeleton() {
   return (
-    <div className="grid overflow-hidden rounded-3xl card-light lg:grid-cols-2">
+    <div className="grid grid-cols-1 overflow-hidden rounded-3xl card-light lg:grid-cols-2">
       <Skeleton className="h-64 w-full rounded-none lg:h-full" />
       <div className="flex flex-col justify-center p-8 sm:p-10 lg:p-12">
         <Skeleton className="h-6 w-28 rounded-full" />

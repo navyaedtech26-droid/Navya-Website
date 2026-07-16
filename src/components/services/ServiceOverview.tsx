@@ -134,7 +134,7 @@ export default function ServiceOverview({ data }: ServiceOverviewProps) {
               <motion.div variants={fadeUp} className="relative pl-6">
                 <div className="absolute left-[-5px] top-1 w-3 h-3 rounded-full bg-green-500 ring-4 ring-white" />
                 <h3 className="font-display text-lg font-semibold text-heading mb-4">Key Benefits</h3>
-                <ul className="grid sm:grid-cols-2 gap-4">
+                <ul className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   {data.benefits.map((benefit, i) => (
                     <li key={i} className="flex items-start gap-3">
                       <CheckCircle2 className="w-5 h-5 text-green-500 shrink-0 mt-0.5" />

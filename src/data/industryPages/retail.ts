@@ -15,7 +15,7 @@ export const retailIndustryPage: IndustryPage = {
 
   seoTitle: "Digital Transformation for Retail | Navya EdTech",
   seoDescription:
-    "E-commerce websites, inventory management systems, and POS integrations built for retailers — sell online and in-store from one synced system, cut stockouts, and grow average order value.",
+    "E-commerce websites, inventory systems, and POS integrations for retailers — sell online and in-store from one synced system, cut stockouts.",
   seoKeywords: [
     "retail inventory management system",
     "e-commerce website development",

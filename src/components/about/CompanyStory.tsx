@@ -20,7 +20,7 @@ export default function CompanyStory() {
   return (
     <section ref={containerRef} className="relative py-24 md:py-32 bg-paper overflow-hidden">
       <Container>
-        <div className="grid lg:grid-cols-12 gap-16 lg:gap-20">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-20">
           
           {/* LEFT: Story Timeline (Sticky) */}
           <div className="lg:col-span-4 relative">
@@ -78,7 +78,7 @@ export default function CompanyStory() {
               initial="hidden"
               whileInView="visible"
               viewport={viewportOnce}
-              className="grid sm:grid-cols-2 gap-8"
+              className="grid grid-cols-1 sm:grid-cols-2 gap-8"
             >
               <div className="sm:col-span-2">
                 <h3 className="font-display text-3xl font-bold text-heading mb-4">Growth Milestones</h3>

@@ -1,15 +1,15 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-import { ArrowRight, CheckCircle2 } from "lucide-react";
-import * as LucideIcons from "lucide-react";
+import { ArrowRight, CheckCircle2, type LucideProps } from "lucide-react";
 import { fadeUp } from "@/lib/animations";
 import { cn } from "@/lib/utils";
 import IconBadge from "@/components/common/IconBadge";
+import DynamicIcon from "@/components/common/DynamicIcon";
 import type { CaseStudy } from "@/services/caseStudies";
 
 export default function CaseStudyCard({ study, index = 0 }: { study: CaseStudy, index?: number }) {
   const isEven = index % 2 === 0;
-  const Icon = (LucideIcons as unknown as Record<string, LucideIcons.LucideIcon>)[study.icon] || LucideIcons.BriefcaseBusiness;
+  const Icon = (props: LucideProps) => <DynamicIcon name={study.icon} {...props} />;
 
   const content = (
     <div className="flex flex-col h-full justify-center lg:p-8">

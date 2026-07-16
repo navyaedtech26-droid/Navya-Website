@@ -17,7 +17,7 @@ export default function Industries() {
     <PageTransition>
       <Seo
         title="Industries We Serve | Navya EdTech"
-        description="Dedicated digital transformation solutions for schools, colleges, hospitals, manufacturing, hotels, restaurants, retail, NGOs, real estate, and travel agencies — challenges, technology, ROI, and case studies for each sector."
+        description="Dedicated digital transformation solutions for schools, hospitals, manufacturing, hotels, retail, and more — sector-specific challenges, technology, and ROI."
         path="/industries"
         pageType="CollectionPage"
         keywords={[
@@ -49,7 +49,7 @@ export default function Industries() {
             initial="hidden"
             whileInView="visible"
             viewport={viewportOnce}
-            className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3"
+            className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3"
           >
             {industryPages.map((industry) => (
               <motion.div key={industry.slug} variants={fadeUp}>

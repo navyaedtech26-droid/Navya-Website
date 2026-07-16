@@ -15,7 +15,7 @@ export const manufacturingIndustryPage: IndustryPage = {
 
   seoTitle: "Digital Transformation for Manufacturing | Navya EdTech",
   seoDescription:
-    "Inventory management, ERP, and production dashboards built for manufacturers — cut material waste, track output in real time, and replace spreadsheet-based operations with a single source of truth.",
+    "Inventory management, ERP, and production dashboards for manufacturers — cut material waste and replace spreadsheets with real-time data.",
   seoKeywords: [
     "manufacturing ERP software",
     "inventory management system for manufacturers",

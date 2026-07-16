@@ -15,7 +15,7 @@ export const ngosIndustryPage: IndustryPage = {
 
   seoTitle: "Digital Transformation for NGOs & Nonprofits | Navya EdTech",
   seoDescription:
-    "Donor management systems, program tracking platforms, and nonprofit websites built for NGOs — increase donor trust, track impact accurately, and reduce administrative overhead.",
+    "Donor management, program tracking, and nonprofit websites for NGOs — build donor trust, track impact accurately, and cut admin overhead.",
   seoKeywords: [
     "donor management system",
     "nonprofit CRM software",

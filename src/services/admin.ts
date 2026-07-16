@@ -315,6 +315,7 @@ export interface BlogPostInput {
   title: string;
   excerpt: string | null;
   content: string | null;
+  cover_image: string | null;
   author: string | null;
   category: string | null;
   tags: string[];

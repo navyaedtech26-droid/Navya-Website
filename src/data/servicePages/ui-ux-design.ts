@@ -14,7 +14,7 @@ export const uiUxDesignServicePage: ServicePage = {
   heroImage: "/vector/uiux.avif",
 
   seoDescription:
-    "UI/UX design framed as a business decision: the cost of a confusing interface, the impact of research-driven design, the workflow, timeline, technology, and a real client outcome from Navya EdTech.",
+    "Research-driven UI/UX design — user research, wireframes, prototypes, and a scalable design system built to lift conversion and usability.",
 
   seoKeywords: [
     "UI UX design services",

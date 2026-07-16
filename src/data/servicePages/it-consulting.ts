@@ -12,7 +12,7 @@ export const itConsultingServicePage: ServicePage = {
     "Most IT spending decisions get made by whoever's loudest in the room, not by what actually moves the business. We bring an outside, technically fluent view that ties every technology decision back to a measurable business outcome.",
 
   seoDescription:
-    "IT consulting framed as a business decision: the cost of unaligned technology spend, the impact of strategic guidance, the workflow, timeline, technology, and a real client outcome from Navya EdTech.",
+    "IT consulting that ties every technology decision to a measurable business outcome — audits, roadmaps, and independent vendor evaluation.",
 
   seoKeywords: [
     "IT consulting services",

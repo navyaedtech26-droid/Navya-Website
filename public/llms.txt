@@ -1,0 +1,58 @@
+# Navya EdTech
+
+> Navya EdTech is an IT services agency in Nepal engineering revenue-driving websites, custom software, and business systems (ERP, CRM, BI) for founders, schools, hospitals, and enterprises.
+
+Remote-first, serving clients across Nepal. Contact: navyaedtech26@gmail.com.
+
+## Services
+
+- [Website Development](https://navyaedtech.com/services/websites): Built to convert.
+- [Custom Software Development](https://navyaedtech.com/services/custom-software-development): Built around your workflow.
+- [Mobile App Development](https://navyaedtech.com/services/mobile-app-development): A permanent place on their screen.
+- [AI Solutions](https://navyaedtech.com/services/ai-solutions): Automation with a measurable return.
+- [Cloud Services](https://navyaedtech.com/services/cloud-services): Infrastructure that scales without drama.
+- [UI/UX Design](https://navyaedtech.com/services/ui-ux-design): Interfaces built to convert.
+- [DevOps](https://navyaedtech.com/services/devops): Deployments without the dread.
+- [IT Consulting](https://navyaedtech.com/services/it-consulting): A technology plan tied to business outcomes.
+- [Dedicated Developers](https://navyaedtech.com/services/dedicated-developers): Senior engineers, without the hiring cycle.
+
+## Solutions
+
+- [Digital Transformation](https://navyaedtech.com/solutions/digital-transformation): Modernize without the disruption.
+- [ERP Systems](https://navyaedtech.com/solutions/erp-systems): One platform for every department.
+- [CRM Systems](https://navyaedtech.com/solutions/crm-systems): One source of truth for every lead.
+- [Billing & Invoicing](https://navyaedtech.com/solutions/billing-invoicing): Payments that accelerate cash flow.
+- [Learning Management Systems](https://navyaedtech.com/solutions/learning-management-systems): Training that scales and tracks itself.
+- [Inventory Management](https://navyaedtech.com/solutions/inventory-management): Real-time stock visibility.
+- [Business Intelligence & Analytics](https://navyaedtech.com/solutions/business-intelligence-analytics): Decisions backed by evidence.
+- [Cloud & DevOps](https://navyaedtech.com/solutions/cloud-devops): Infrastructure and delivery, unified.
+- [Social Media & Growth](https://navyaedtech.com/solutions/social-media-growth): Turn attention into pipeline.
+
+## Industries
+
+- [Schools](https://navyaedtech.com/industries/schools): Run smoother, enroll faster.
+- [Colleges & Universities](https://navyaedtech.com/industries/colleges): Scale without losing control.
+- [Hospitals & Clinics](https://navyaedtech.com/industries/hospitals): Less admin, better care.
+- [Manufacturing](https://navyaedtech.com/industries/manufacturing): Cut waste, see everything.
+- [Hotels & Resorts](https://navyaedtech.com/industries/hotels): Book direct, keep more margin.
+- [Restaurants & Cafes](https://navyaedtech.com/industries/restaurants): Fill tables, keep the margin.
+- [Retail](https://navyaedtech.com/industries/retail): Sell everywhere, track everything.
+- [NGOs & Nonprofits](https://navyaedtech.com/industries/ngos): More impact, less overhead.
+- [Real Estate](https://navyaedtech.com/industries/real-estate): Turn listings into closings.
+- [Travel Agencies](https://navyaedtech.com/industries/travel-agencies): Convert wanderlust into bookings.
+
+## Company
+
+- [About](https://navyaedtech.com/about): Who we are and how we work.
+- [Contact](https://navyaedtech.com/contact): Get in touch or book a call.
+- [Home](https://navyaedtech.com/): Overview of services and solutions.
+
+## Blog
+
+- [Website vs Facebook Page: Which Is Better?](https://navyaedtech.com/blog/website-vs-facebook-page-which-is-better): When you're starting or growing a business, one of the earliest decisions you'll face is where to establish your online presence.
+- [Why Your Business Needs a Fast Website in 2026](https://navyaedtech.com/blog/why-your-business-needs-a-fast-website): Speed is no longer a nice-to-have.
+
+## Optional
+
+- [Privacy Policy](https://navyaedtech.com/privacy-policy)
+- [Terms](https://navyaedtech.com/terms)

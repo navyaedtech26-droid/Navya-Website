@@ -14,7 +14,7 @@ export const devopsServicePage: ServicePage = {
   heroImage: "/vector/devopps.avif",
 
   seoDescription:
-    "DevOps services framed as a business decision: the cost of manual, risky releases, the impact of proper CI/CD and monitoring, the workflow, timeline, technology, and a real client outcome from Navya EdTech.",
+    "DevOps services — CI/CD, infrastructure as code, and monitoring — that turn risky manual releases into routine, low-drama deployments.",
 
   seoKeywords: [
     "DevOps services",

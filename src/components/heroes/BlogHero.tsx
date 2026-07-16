@@ -32,7 +32,7 @@ export default function BlogHero({
       <div aria-hidden className="absolute inset-0 light-grid opacity-60" />
       
       <Container className="relative">
-        <div className="grid gap-12 lg:grid-cols-2 lg:gap-8 xl:gap-16 items-center">
+        <div className="grid grid-cols-1 gap-12 lg:grid-cols-2 lg:gap-8 xl:gap-16 items-center">
           <motion.div
             variants={staggerContainer(0.1)}
             initial="hidden"
@@ -48,7 +48,7 @@ export default function BlogHero({
               </motion.p>
               <motion.h1
                 variants={fadeUp}
-                className="font-display text-4xl font-semibold tracking-tight text-heading sm:text-5xl lg:text-6xl"
+                className="font-display text-4xl font-semibold tracking-tight text-heading sm:text-5xl lg:text-6xl break-words"
               >
                 {HERO_TITLE}
               </motion.h1>
@@ -86,14 +86,14 @@ export default function BlogHero({
 
               {/* Categories Filter (Premium Chips) */}
               {categories.length > 1 && (
-                <div className="flex overflow-x-auto no-scrollbar pb-4 -mb-4">
-                  <div className="flex gap-3">
+                <div className="w-full overflow-x-auto no-scrollbar pb-4 -mb-4">
+                  <div className="flex gap-3 w-max">
                     {categories.map((cat) => (
                       <button
                         key={cat}
                         onClick={() => onCategoryChange(cat)}
                         className={cn(
-                          "relative px-4 py-2 text-[11px] font-bold uppercase tracking-widest whitespace-nowrap transition-all duration-300 rounded-full border",
+                          "relative px-4 py-2 text-[0.6875rem] font-bold uppercase tracking-widest whitespace-nowrap transition-all duration-300 rounded-full border",
                           cat === category
                             ? "bg-brand text-white border-brand shadow-md shadow-brand/20 scale-105"
                             : "bg-paper text-faint border-line hover:border-brand hover:text-brand"

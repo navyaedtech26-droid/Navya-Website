@@ -32,11 +32,11 @@ export default function NewsletterCTA({ className }: { className?: string }) {
       <div aria-hidden className="absolute -right-64 -top-64 h-[600px] w-[600px] rounded-full bg-brand opacity-20 blur-[100px]" />
 
       <div className="relative mx-auto max-w-7xl px-6 py-16 sm:px-8 sm:py-24 lg:px-12">
-        <div className="grid gap-12 lg:grid-cols-2 lg:items-center lg:gap-16">
+        <div className="grid grid-cols-1 gap-12 lg:grid-cols-2 lg:items-center lg:gap-16">
           
           {/* Left Column: Value Prop */}
           <div className="max-w-2xl">
-            <div className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-1.5 text-[11px] font-bold uppercase tracking-widest text-brand-light backdrop-blur">
+            <div className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-1.5 text-[0.6875rem] font-bold uppercase tracking-widest text-brand-light backdrop-blur">
               <Mail size={12} />
               The Developer Dispatch
             </div>
@@ -49,7 +49,7 @@ export default function NewsletterCTA({ className }: { className?: string }) {
             <div className="mt-8 flex items-center gap-6">
               <div className="flex -space-x-3">
                 {[1, 2, 3, 4].map((i) => (
-                  <div key={i} className="h-10 w-10 rounded-full border-2 border-primary bg-primary-light flex items-center justify-center text-[10px] font-bold text-white shadow-sm overflow-hidden relative">
+                  <div key={i} className="h-10 w-10 rounded-full border-2 border-primary bg-primary-light flex items-center justify-center text-[0.625rem] font-bold text-white shadow-sm overflow-hidden relative">
                      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-white/20 to-transparent" />
                   </div>
                 ))}

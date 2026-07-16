@@ -101,7 +101,7 @@ export default function ServicesProcess() {
                     {/* Circle badge */}
                     <div className="relative flex-shrink-0 flex items-center justify-center w-14 h-14 sm:w-16 sm:h-16 rounded-2xl border border-line bg-paper text-primary shadow-sm group hover:border-brand hover:text-brand transition-all duration-300 lg:mb-8">
                       {/* Step number badge */}
-                      <span className="absolute -top-2 -right-2 w-6 h-6 rounded-lg bg-primary text-white text-[10px] font-bold flex items-center justify-center border border-paper shadow-sm">
+                      <span className="absolute -top-2 -right-2 w-6 h-6 rounded-lg bg-primary text-white text-[0.625rem] font-bold flex items-center justify-center border border-paper shadow-sm">
                         {step.step}
                       </span>
                       <Icon size={24} />

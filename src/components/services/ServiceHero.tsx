@@ -155,10 +155,12 @@ export default function ServiceHero({ data }: ServiceHeroProps) {
             >
 
               {/* Layer 1: Dashboard Mockup */}
-              {/* Scaled down from 0.85 to 0.7 for narrow mobile screens */}
-              <motion.div 
+              {/* Mobile: pinned to the top-right corner (origin-top-right) and pulled onto
+                  screen so it doesn't bleed off the edge or collide with the illustration
+                  card below. sm+ is untouched (scale-100 makes origin/position a no-op). */}
+              <motion.div
                 style={{ x: x1, y: y1 }}
-                className="absolute top-[5%] sm:top-[10%] -right-[10%] sm:right-[0%] w-[380px] sm:w-[480px] h-[280px] sm:h-[320px] bg-white rounded-xl border border-line shadow-2xl overflow-hidden flex flex-col z-10 transform origin-right scale-[0.7] sm:scale-100"
+                className="absolute top-[5%] sm:top-[10%] right-[2%] sm:right-[0%] w-[320px] sm:w-[480px] h-[240px] sm:h-[320px] bg-white rounded-xl border border-line shadow-2xl overflow-hidden flex flex-col z-10 transform origin-top-right sm:origin-right scale-[0.62] sm:scale-100"
               >
                 {/* Browser Chrome */}
                 <div className="h-10 bg-slate-50 border-b border-line flex items-center px-4 gap-3 shrink-0">
@@ -212,9 +214,11 @@ export default function ServiceHero({ data }: ServiceHeroProps) {
               </motion.div>
 
               {/* Layer 2: Illustration / Abstract graphic */}
-              <motion.div 
+              {/* Mobile: pinned to the bottom-left corner (origin-bottom-left) with a
+                  smaller scale so it clears the dashboard mockup's bottom edge above. */}
+              <motion.div
                 style={{ x: x2, y: y2 }}
-                className="absolute bottom-[5%] sm:bottom-[10%] left-[0%] sm:left-[5%] w-[160px] sm:w-[200px] h-[200px] sm:h-[240px] bg-gradient-to-br from-primary to-secondary rounded-2xl shadow-xl overflow-hidden z-20 p-4 sm:p-5 flex flex-col justify-between text-white border border-white/20 transform origin-left scale-[0.75] sm:scale-100"
+                className="absolute bottom-[5%] sm:bottom-[10%] left-[2%] sm:left-[5%] w-[150px] sm:w-[200px] h-[180px] sm:h-[240px] bg-gradient-to-br from-primary to-secondary rounded-2xl shadow-xl overflow-hidden z-20 p-4 sm:p-5 flex flex-col justify-between text-white border border-white/20 transform origin-bottom-left sm:origin-left scale-[0.62] sm:scale-100"
               >
                 <div className="w-10 h-10 rounded-xl bg-white/20 flex items-center justify-center backdrop-blur-sm border border-white/30">
                   <Code2 className="text-white" size={20} />
@@ -239,14 +243,14 @@ export default function ServiceHero({ data }: ServiceHeroProps) {
                 style={{ x: x3, y: y3 }}
                 animate={{ y: [0, -10, 0] }}
                 transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
-                className="absolute top-[0%] sm:top-[5%] left-[5%] sm:left-[10%] enterprise-glass rounded-xl p-2 sm:p-3.5 flex items-center gap-2 sm:gap-3 shadow-lg z-30 border border-white/60 transform scale-[0.75] sm:scale-100"
+                className="absolute top-[0%] sm:top-[5%] left-[0%] sm:left-[10%] enterprise-glass rounded-xl p-2 sm:p-3.5 flex items-center gap-2 sm:gap-3 shadow-lg z-30 border border-white/60 transform scale-[0.8] sm:scale-100"
               >
                 <div className="w-10 h-10 rounded-full bg-blue-50 flex items-center justify-center">
                   <Cloud className="text-blue-600 w-5 h-5" />
                 </div>
                 <div>
                   <div className="font-semibold text-heading text-sm leading-tight">Cloud-Native</div>
-                  <div className="text-[11px] text-faint">Auto-scaling infrastructure</div>
+                  <div className="text-[0.6875rem] text-faint">Auto-scaling infrastructure</div>
                 </div>
               </motion.div>
 
@@ -254,14 +258,14 @@ export default function ServiceHero({ data }: ServiceHeroProps) {
                 style={{ x: x2, y: y1 }}
                 animate={{ y: [0, 8, 0] }}
                 transition={{ duration: 6, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-                className="absolute bottom-[15%] sm:bottom-[20%] right-[-10%] sm:right-[-5%] enterprise-glass rounded-xl p-2 sm:p-3.5 flex items-center gap-2 sm:gap-3 shadow-lg z-30 border border-white/60 transform scale-[0.75] sm:scale-100"
+                className="absolute bottom-[10%] sm:bottom-[20%] right-[0%] sm:right-[-5%] enterprise-glass rounded-xl p-2 sm:p-3.5 flex items-center gap-2 sm:gap-3 shadow-lg z-30 border border-white/60 transform scale-[0.8] sm:scale-100"
               >
                 <div className="w-10 h-10 rounded-full bg-indigo-50 flex items-center justify-center">
                   <Brain className="text-indigo-600 w-5 h-5" />
                 </div>
                 <div>
                   <div className="font-semibold text-heading text-sm leading-tight">AI-Powered</div>
-                  <div className="text-[11px] text-faint">Smart automation</div>
+                  <div className="text-[0.6875rem] text-faint">Smart automation</div>
                 </div>
               </motion.div>
 

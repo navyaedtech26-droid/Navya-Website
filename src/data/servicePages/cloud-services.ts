@@ -14,7 +14,7 @@ export const cloudServicesServicePage: ServicePage = {
   heroImage: "/vector/cloud-infrastructure.avif",
 
   seoDescription:
-    "Cloud services framed as a business decision: the cost of fragile infrastructure, the impact of a properly architected cloud environment, the workflow, timeline, technology, and a real client outcome from Navya EdTech.",
+    "Secure, scalable cloud services across AWS, Azure, and GCP — infrastructure that handles traffic spikes and bills for what you actually use.",
 
   seoKeywords: [
     "cloud services for business",

@@ -14,7 +14,7 @@ export const billingInvoicingServicePage: ServicePage = {
   heroImage: "/vectors1/billing-clean.avif",
 
   seoDescription:
-    "Billing and invoicing systems framed as a business decision: the cost of manual invoicing, the impact of automated billing, the workflow, timeline, technology, and a real client outcome from Navya EdTech.",
+    "Automated billing and invoicing software that generates, sends, and chases invoices for you — shortening your cash cycle and cutting admin hours.",
 
   seoKeywords: [
     "billing and invoicing software",

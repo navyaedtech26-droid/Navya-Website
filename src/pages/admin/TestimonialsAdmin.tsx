@@ -192,7 +192,7 @@ export default function TestimonialsAdmin() {
             : "No published testimonials yet."}
         </p>
       ) : (
-        <div className="grid gap-4 sm:grid-cols-2">
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
           {visible.map((t) => (
             <article
               key={t.id}
@@ -352,7 +352,7 @@ function TestimonialForm({
           />
         </Field>
 
-        <div className="grid gap-4 sm:grid-cols-2">
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
           <Field label="Name" htmlFor="name">
             <input
               id="name"
@@ -373,7 +373,7 @@ function TestimonialForm({
           </Field>
         </div>
 
-        <div className="grid gap-4 sm:grid-cols-2">
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
           <Field label="Company" htmlFor="company">
             <input
               id="company"
@@ -399,7 +399,7 @@ function TestimonialForm({
           </Field>
         </div>
 
-        <div className="grid gap-4 sm:grid-cols-2">
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
           <Field label="Rating" htmlFor="rating">
             <select
               id="rating"
@@ -446,7 +446,7 @@ function TestimonialForm({
 /** Skeleton card grid shown while testimonials load. */
 function GridSkeleton() {
   return (
-    <SkeletonGroup label="Loading testimonials…" className="grid gap-4 sm:grid-cols-2">
+    <SkeletonGroup label="Loading testimonials…" className="grid grid-cols-1 gap-4 sm:grid-cols-2">
       {Array.from({ length: 4 }).map((_, i) => (
         <div
           key={i}

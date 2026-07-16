@@ -14,7 +14,7 @@ export const mobileAppDevelopmentServicePage: ServicePage = {
   heroImage: "/vector/mobile-dev.avif",
 
   seoDescription:
-    "Mobile app development framed as a business decision: what a missing app costs in engagement, the impact of a properly built one, the workflow, timeline, technology, and a real client outcome from Navya EdTech.",
+    "Native and cross-platform mobile apps engineered for real device conditions — offline support, push notifications, and secure logins.",
 
   seoKeywords: [
     "mobile app development",

@@ -25,7 +25,7 @@ export default function ShareTestimonial() {
         <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-brand/5 rounded-full blur-3xl"></div>
         
         <Container className="relative z-10">
-          <div className="grid gap-16 lg:grid-cols-[1fr_1.4fr] xl:gap-24 items-center">
+          <div className="grid grid-cols-1 gap-16 lg:grid-cols-[1fr_1.4fr] xl:gap-24 items-center">
             <Reveal>
               <TestimonialInfo />
             </Reveal>

@@ -23,7 +23,9 @@
              styles; that's far lower risk than inline script.
            • connect-src wildcards Supabase (*.supabase.co) so it works across
              projects; tighten to your exact host if you prefer. Add new origins
-             here if you introduce more third-party services. -->
+             here if you introduce more third-party services.
+           • the contact form sends via EmailJS (api.emailjs.com) directly
+             from the browser — no backend of its own. -->
   <meta http-equiv="Content-Security-Policy" content="
         default-src 'self';
         base-uri 'self';
@@ -37,7 +39,7 @@
         worker-src 'self' blob:;
         manifest-src 'self';
         frame-src 'self' https://challenges.cloudflare.com;
-        connect-src 'self' https://*.supabase.co wss://*.supabase.co https://www.googletagmanager.com https://www.google-analytics.com https://*.google-analytics.com https://*.analytics.google.com https://*.ingest.sentry.io https://*.sentry.io https://challenges.cloudflare.com;
+        connect-src 'self' https://*.supabase.co wss://*.supabase.co https://api.emailjs.com https://www.googletagmanager.com https://www.google-analytics.com https://*.google-analytics.com https://*.analytics.google.com https://*.ingest.sentry.io https://*.sentry.io https://challenges.cloudflare.com;
       " />
   <meta name="referrer" content="strict-origin-when-cross-origin" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -64,12 +66,12 @@
     <link rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Space+Grotesk:wght@400;500;600;700&family=Syne:wght@600;700&display=swap" />
   </noscript>
-  <!-- Fallback <title> only. Title, description, canonical, OpenGraph,
-         Twitter and JSON-LD are all owned by the <Seo> component
-         (react-helmet-async) so each route emits its own, and the prerender
-         step (scripts/prerender.mjs) bakes the per-page set into static HTML.
-         Keeping duplicate og:/twitter: tags here would double them up on every
-         prerendered page, so they intentionally live only in <Seo>. -->
+  <!-- Fallback page title only. Description, canonical, OpenGraph, Twitter
+         and JSON-LD are all owned by the Seo component (react-helmet-async)
+         so each route emits its own, and the prerender step
+         (scripts/prerender.mjs) bakes the per-page set into static HTML.
+         Keeping duplicate og/twitter meta here would double them up on every
+         prerendered page, so they intentionally live only in that component. -->
   <title>Navya EdTech | High-Performance Websites & Digital Systems</title>
   <link rel="alternate" type="application/rss+xml" title="Navya EdTech — Blog" href="/rss.xml" />
 </head>

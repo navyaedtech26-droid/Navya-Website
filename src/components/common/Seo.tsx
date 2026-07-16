@@ -88,6 +88,11 @@ export default function Seo({
         <meta name="keywords" content={keywords.join(", ")} />
       )}
       <link rel="canonical" href={url} />
+      {/* Single-language (en) site — self-referencing hreflang tells search
+          engines this is the canonical version for English/default users
+          rather than one of several regional variants. */}
+      <link rel="alternate" hrefLang="en" href={url} />
+      <link rel="alternate" hrefLang="x-default" href={url} />
       <meta
         name="robots"
         content={index ? "index, follow" : "noindex, follow"}

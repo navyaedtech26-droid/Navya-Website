@@ -172,7 +172,7 @@ export default function BlogPostPage() {
             <h2 className="mb-8 font-display text-2xl font-semibold text-heading">
               Related articles
             </h2>
-            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
               {related.map((item, i) => (
                 <Reveal key={item.id} delay={i * 0.05}>
                   <BlogCard post={item} />

@@ -79,6 +79,18 @@ export function plainTextExcerpt(
   return text.slice(0, maxLen).replace(/\s+\S*$/, "") + "…";
 }
 
+/**
+ * Render an email address for on-page display so simple bots that regex-scan
+ * page text for `user@domain.tld` don't harvest it, while a human can still
+ * read (and mentally reassemble) the real address. `mailto:` hrefs are left
+ * untouched — this only changes what's shown as text.
+ */
+export function obfuscateEmail(email: string): string {
+  const [user, domain] = email.split("@");
+  if (!domain) return email;
+  return `${user} [at] ${domain.replace(/\./g, " [dot] ")}`;
+}
+
 /** Format an ISO timestamp as e.g. "Jun 18, 2026". Returns "" on bad input. */
 export function formatDate(iso: string | null | undefined): string {
   if (!iso) return "";

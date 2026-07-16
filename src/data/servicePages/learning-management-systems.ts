@@ -14,7 +14,7 @@ export const learningManagementSystemsServicePage: ServicePage = {
   heroImage: "/vectors1/lms-clean.avif",
 
   seoDescription:
-    "Learning management system development framed as a business decision: the cost of untracked training, the impact of a proper LMS, the workflow, timeline, technology, and a real client outcome from Navya EdTech.",
+    "Custom learning management systems that deliver, track, and certify training at scale, replacing untracked email and folder-based training.",
 
   seoKeywords: [
     "learning management system development",

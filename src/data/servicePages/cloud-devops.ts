@@ -14,7 +14,7 @@ export const cloudDevOpsServicePage: ServicePage = {
   heroImage: "/vectors1/cloudsoln-clean.avif",
 
   seoDescription:
-    "Cloud and DevOps solutions framed as a business decision: the cost of disjointed infrastructure and deployment tooling, the impact of a unified approach, the workflow, timeline, technology, and a real client outcome from Navya EdTech.",
+    "Cloud infrastructure and CI/CD delivered as one unified system, so releases stay fast, secure, and reliable instead of two disconnected setups.",
 
   seoKeywords: [
     "cloud and DevOps solutions",

@@ -14,7 +14,7 @@ export const inventoryManagementServicePage: ServicePage = {
   heroImage: "/vectors1/inventory-clean.avif",
 
   seoDescription:
-    "Inventory management system development framed as a business decision: the cost of poor stock visibility, the impact of real-time inventory systems, the workflow, timeline, technology, and a real client outcome from Navya EdTech.",
+    "Real-time inventory management systems that track stock across every location and channel, cutting stockouts and reducing excess capital.",
 
   seoKeywords: [
     "inventory management system",

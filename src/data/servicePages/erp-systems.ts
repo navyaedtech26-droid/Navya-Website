@@ -14,7 +14,7 @@ export const erpSystemsServicePage: ServicePage = {
   heroImage: "/vectors1/erpsolutions-clean.avif",
 
   seoDescription:
-    "ERP systems framed as a business decision: the cost of disconnected departmental software, the impact of a unified platform, the workflow, timeline, technology, and a real client outcome from Navya EdTech.",
+    "Custom ERP systems that unify finance, HR, inventory, and operations into one platform, replacing manual month-end reconciliation for good.",
 
   seoKeywords: [
     "ERP system development",

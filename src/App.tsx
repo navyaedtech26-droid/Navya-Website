@@ -58,6 +58,14 @@ const PrivacyPolicy = lazy(() => import("@/pages/PrivacyPolicy"));
 const Terms = lazy(() => import("@/pages/Terms"));
 const NotFound = lazy(() => import("@/pages/NotFound"));
 
+// AuthContext pulls in the full @supabase/supabase-js SDK (auth + realtime +
+// storage), which only the admin area needs — useAuth() has no public-site
+// consumers. Loading it here (rather than wrapping the whole app in
+// main.tsx) keeps that weight out of every public visitor's bundle.
+const AuthProvider = lazy(() =>
+  import("@/context/AuthContext").then((m) => ({ default: m.AuthProvider }))
+);
+
 // The admin area (and its heavy deps like Chart.js) stays lazily loaded so
 // public visitors never download it. It lives behind a login, so the one-time
 // chunk fetch there is acceptable.
@@ -82,24 +90,26 @@ function RouteFallback() {
 function AdminApp() {
   return (
     <Suspense fallback={<RouteFallback />}>
-      <Routes>
-        <Route path="/admin/login" element={<AdminLogin />} />
-        <Route path="/admin/forgot-password" element={<AdminForgotPassword />} />
-        <Route path="/admin/reset-password" element={<AdminResetPassword />} />
-        <Route path="/admin/confirm" element={<AdminConfirm />} />
-        <Route element={<RequireAdmin />}>
-          <Route path="/admin" element={<AdminLayout />}>
-            <Route index element={<Overview />} />
-            <Route path="blogs" element={<BlogsAdmin />} />
-            <Route path="case-studies" element={<CaseStudiesAdmin />} />
-            <Route path="testimonials" element={<TestimonialsAdmin />} />
-            <Route path="messages" element={<MessagesAdmin />} />
-            <Route path="settings" element={<AdminSettings />} />
-            <Route path="*" element={<NotFound />} />
+      <AuthProvider>
+        <Routes>
+          <Route path="/admin/login" element={<AdminLogin />} />
+          <Route path="/admin/forgot-password" element={<AdminForgotPassword />} />
+          <Route path="/admin/reset-password" element={<AdminResetPassword />} />
+          <Route path="/admin/confirm" element={<AdminConfirm />} />
+          <Route element={<RequireAdmin />}>
+            <Route path="/admin" element={<AdminLayout />}>
+              <Route index element={<Overview />} />
+              <Route path="blogs" element={<BlogsAdmin />} />
+              <Route path="case-studies" element={<CaseStudiesAdmin />} />
+              <Route path="testimonials" element={<TestimonialsAdmin />} />
+              <Route path="messages" element={<MessagesAdmin />} />
+              <Route path="settings" element={<AdminSettings />} />
+              <Route path="*" element={<NotFound />} />
+            </Route>
           </Route>
-        </Route>
-        <Route path="*" element={<NotFound />} />
-      </Routes>
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </AuthProvider>
     </Suspense>
   );
 }
@@ -119,12 +129,32 @@ export default function App() {
   // `preventScroll` keeps the scrollTo above authoritative.
   useEffect(() => {
     if (location.pathname.startsWith("/admin")) return;
+
+    if (location.hash) {
+      // Target page may be a lazy-loaded chunk (see `Suspense` below) still
+      // rendering its fallback, so the element isn't in the DOM on the first
+      // tick. Poll briefly instead of a single rAF check.
+      const id = location.hash.slice(1);
+      let attempts = 0;
+      const tryScroll = () => {
+        const el = document.getElementById(id);
+        if (el) {
+          el.scrollIntoView({ behavior: "instant" as ScrollBehavior, block: "start" });
+        } else if (attempts++ < 40) {
+          timer = window.setTimeout(tryScroll, 50);
+        }
+      };
+      let timer = window.setTimeout(tryScroll, 0);
+      prevPath.current = location.pathname;
+      return () => window.clearTimeout(timer);
+    }
+
     window.scrollTo({ top: 0, behavior: "instant" as ScrollBehavior });
     if (prevPath.current !== null && prevPath.current !== location.pathname) {
       mainRef.current?.focus({ preventScroll: true });
     }
     prevPath.current = location.pathname;
-  }, [location.pathname]);
+  }, [location.pathname, location.hash]);
 
   // Admin routes get their own shell — no marketing navbar, footer or effects.
   if (location.pathname.startsWith("/admin")) {

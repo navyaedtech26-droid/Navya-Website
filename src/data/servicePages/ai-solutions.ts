@@ -14,7 +14,7 @@ export const aiSolutionsServicePage: ServicePage = {
   heroImage: "/vector/ai-solutions.avif",
 
   seoDescription:
-    "AI solutions framed as a business decision: the cost of manual, repetitive work, the impact of practical automation, the workflow, timeline, technology, and a real client outcome from Navya EdTech.",
+    "AI solutions for business: chatbots, document automation, and predictive analytics that remove repetitive work and deliver measurable ROI.",
 
   seoKeywords: [
     "AI solutions for business",

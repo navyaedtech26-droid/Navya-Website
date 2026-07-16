@@ -27,6 +27,7 @@
     "db:types": "supabase gen types typescript --linked --schema public > src/types/database.ts"
   },
   "dependencies": {
+    "@emailjs/browser": "^4.4.1",
     "@sentry/react": "^8.47.0",
     "@supabase/supabase-js": "^2.108.2",
     "chart.js": "^4.5.1",

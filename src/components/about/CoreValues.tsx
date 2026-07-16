@@ -9,7 +9,7 @@ export default function CoreValues() {
   return (
     <section className="relative py-24 md:py-32 bg-white">
       <Container>
-        <div className="grid lg:grid-cols-12 gap-16">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-16">
           <div className="lg:col-span-5 lg:sticky lg:top-32 self-start">
             <SectionHeading 
               align="left" 

@@ -1,8 +1,9 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { ArrowRight, Clock, MonitorSmartphone } from "lucide-react";
-import * as LucideIcons from "lucide-react";
+import DynamicIcon from "@/components/common/DynamicIcon";
 import type { CaseStudy } from "@/services/caseStudies";
+import { getAccentClasses } from "@/lib/caseStudyAccent";
 
 interface CaseStudyCardProps {
   study: CaseStudy;
@@ -10,7 +11,7 @@ interface CaseStudyCardProps {
 }
 
 export default function CaseStudyCard({ study }: CaseStudyCardProps) {
-  const Icon = (LucideIcons as unknown as Record<string, LucideIcons.LucideIcon>)[study.icon] || LucideIcons.BriefcaseBusiness;
+  const accent = getAccentClasses(study.accent);
 
   return (
     <Link to={`/portfolio/${study.slug}`} className="block h-full group/card focus:outline-none">
@@ -36,7 +37,7 @@ export default function CaseStudyCard({ study }: CaseStudyCardProps) {
 
         {/* Category Badge */}
         <div className="absolute top-4 left-4 rounded-xl bg-white/90 backdrop-blur-md px-3 py-1.5 flex items-center gap-2 shadow-sm border border-white/20">
-          <Icon className={`w-4 h-4 text-${study.accent}-500`} />
+          <DynamicIcon name={study.icon} className={`w-4 h-4 ${accent.text}`} />
           <span className="text-xs font-bold text-heading">{study.category}</span>
         </div>
       </div>
@@ -71,7 +72,7 @@ export default function CaseStudyCard({ study }: CaseStudyCardProps) {
         {/* Technologies Used */}
         {study.tags && study.tags.length > 0 && (
           <div className="mb-8">
-            <div className="text-[10px] font-bold text-faint uppercase tracking-wider mb-3">Technologies Used</div>
+            <div className="text-[0.625rem] font-bold text-faint uppercase tracking-wider mb-3">Technologies Used</div>
             <div className="flex flex-wrap gap-2">
               {study.tags.map((tag, idx) => (
                 <span

@@ -1,13 +1,14 @@
 import { motion } from "framer-motion";
 import { ArrowLeft, Clock, MonitorSmartphone, Target } from "lucide-react";
 import { Link } from "react-router-dom";
-import * as LucideIcons from "lucide-react";
+import DynamicIcon from "@/components/common/DynamicIcon";
 import Container from "@/components/common/Container";
 import type { CaseStudy } from "@/services/caseStudies";
+import { getAccentClasses } from "@/lib/caseStudyAccent";
 
 export default function CaseStudyHero({ study }: { study: CaseStudy }) {
-  const Icon = (LucideIcons as unknown as Record<string, LucideIcons.LucideIcon>)[study.icon] || LucideIcons.BriefcaseBusiness;
-  
+  const accent = getAccentClasses(study.accent);
+
   return (
     <section className="relative pt-32 pb-20 lg:pt-40 lg:pb-32 overflow-hidden bg-paper">
       <Container className="relative z-10">
@@ -26,9 +27,9 @@ export default function CaseStudyHero({ study }: { study: CaseStudy }) {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
-              className={`inline-flex items-center gap-2 rounded-xl bg-${study.accent}-500/10 border border-${study.accent}-500/20 px-3 py-1.5 text-xs font-bold text-${study.accent}-500 mb-6 uppercase tracking-widest`}
+              className={`inline-flex items-center gap-2 rounded-xl ${accent.bg10} border ${accent.border20} px-3 py-1.5 text-xs font-bold ${accent.text} mb-6 uppercase tracking-widest`}
             >
-              <Icon className="w-4 h-4" />
+              <DynamicIcon name={study.icon} className="w-4 h-4" />
               {study.category}
             </motion.div>
             
@@ -92,17 +93,18 @@ export default function CaseStudyHero({ study }: { study: CaseStudy }) {
             transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
             className="relative perspective-1000"
           >
-            <div className={`absolute inset-0 bg-gradient-to-tr from-${study.accent}-500/20 to-transparent blur-[80px] rounded-full pointer-events-none`} />
+            <div className={`absolute inset-0 bg-gradient-to-tr ${accent.from20} to-transparent blur-[80px] rounded-full pointer-events-none`} />
             <div className="relative rounded-3xl overflow-hidden shadow-2xl border border-line bg-haze">
-              <img 
-                src={study.image} 
+              <img
+                src={study.image}
                 alt={`${study.client} Interface`}
-                className="w-full h-auto object-cover transform hover:scale-105 transition-transform duration-[2000ms] ease-out"
+                /* Fixed aspect-ratio reserves layout space before the (variable, admin-uploaded) image loads — prevents CLS. */
+                className="w-full h-full aspect-[4/3] object-cover transform hover:scale-105 transition-transform duration-[2000ms] ease-out"
               />
             </div>
             
             {/* Tech Stack Floating Pills */}
-            <div className="absolute -bottom-6 -left-6 flex flex-wrap gap-2 max-w-[80%] z-20">
+            <div className="absolute -bottom-2 sm:-bottom-6 -left-2 sm:-left-6 flex flex-wrap gap-2 max-w-[90%] sm:max-w-[80%] z-20">
               {study.tags.map((tag, idx) => (
                 <motion.div
                   key={tag}

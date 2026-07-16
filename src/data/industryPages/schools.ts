@@ -15,7 +15,7 @@ export const schoolsIndustryPage: IndustryPage = {
 
   seoTitle: "Digital Transformation for Schools | Navya EdTech",
   seoDescription:
-    "School management systems, admissions websites, and parent communication platforms built for K-12 schools — cut admin hours, fill seats faster, and give parents real-time visibility.",
+    "School management systems, admissions websites, and parent communication platforms for K-12 schools — cut admin hours, enroll faster.",
   seoKeywords: [
     "school management system",
     "school ERP software",

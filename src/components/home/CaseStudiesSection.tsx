@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import Container from "@/components/common/Container";
 import SectionHeading from "@/components/common/SectionHeading";
 import CaseStudyCard from "@/components/home/CaseStudyCard";
-import { getPublishedCaseStudies, type CaseStudy } from "@/services/caseStudies";
+import type { CaseStudy } from "@/services/caseStudies";
 import { staggerContainer, viewportOnce } from "@/lib/animations";
 
 export default function CaseStudiesSection() {
@@ -12,6 +12,10 @@ export default function CaseStudiesSection() {
 
   useEffect(() => {
     async function load() {
+      // Dynamic import: @/services/caseStudies pulls in the full
+      // @supabase/supabase-js SDK, which is too heavy to bundle into Home's
+      // eagerly-loaded main chunk just for a read-only fetch.
+      const { getPublishedCaseStudies } = await import("@/services/caseStudies");
       const data = await getPublishedCaseStudies(3);
       setCaseStudies(data);
       setLoading(false);

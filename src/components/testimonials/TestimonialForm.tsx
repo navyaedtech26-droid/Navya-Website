@@ -118,7 +118,7 @@ export default function TestimonialForm() {
           />
         </Field>
 
-        <div className="grid gap-5 sm:grid-cols-2">
+        <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
           <Field label="Your name" id="name" required>
             <Input
               id="name"

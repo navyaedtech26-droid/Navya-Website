@@ -15,7 +15,7 @@ export const collegesIndustryPage: IndustryPage = {
 
   seoTitle: "Digital Transformation for Colleges & Universities | Navya EdTech",
   seoDescription:
-    "Student information systems, LMS platforms, and admissions websites built for colleges and universities — manage enrollment, faculty, and results at scale without adding administrative overhead.",
+    "Student information systems, LMS platforms, and admissions websites for colleges and universities — scale enrollment without adding admin overhead.",
   seoKeywords: [
     "college management system",
     "university ERP software",

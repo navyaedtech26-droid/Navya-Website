@@ -153,12 +153,12 @@ export default function ServicesHeroRedesign() {
             >
               <div className="flex items-center gap-2 mb-2">
                 <Cloud size={14} className="text-brand" />
-                <span className="text-[10px] uppercase font-bold tracking-wider text-heading">Cloud Infra</span>
+                <span className="text-[0.625rem] uppercase font-bold tracking-wider text-heading">Cloud Infra</span>
               </div>
               <div className="h-1.5 w-full bg-haze rounded-full overflow-hidden mb-1.5">
                 <div className="h-full bg-emerald-500 w-[99%]" />
               </div>
-              <div className="flex justify-between items-center text-[9px] text-faint font-mono">
+              <div className="flex justify-between items-center text-[0.5625rem] text-faint font-mono">
                 <span>Availability</span>
                 <span className="text-emerald-600 font-semibold">99.999%</span>
               </div>
@@ -174,7 +174,7 @@ export default function ServicesHeroRedesign() {
               <div className="flex items-center justify-between mb-2 pb-2 border-b border-line/60">
                 <div className="flex items-center gap-1.5">
                   <Brain size={14} className="text-primary-light" />
-                  <span className="text-[10px] uppercase font-bold tracking-wider text-heading">AI Models</span>
+                  <span className="text-[0.625rem] uppercase font-bold tracking-wider text-heading">AI Models</span>
                 </div>
                 <span className="flex h-2 w-2 relative">
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
@@ -182,11 +182,11 @@ export default function ServicesHeroRedesign() {
                 </span>
               </div>
               <div className="space-y-1.5">
-                <div className="flex justify-between text-[9px] font-mono">
+                <div className="flex justify-between text-[0.5625rem] font-mono">
                   <span className="text-faint">Inference Speed</span>
                   <span className="text-brand font-semibold">12ms</span>
                 </div>
-                <div className="flex justify-between text-[9px] font-mono">
+                <div className="flex justify-between text-[0.5625rem] font-mono">
                   <span className="text-faint">Data Vectorization</span>
                   <span className="text-emerald-600 font-semibold">Complete</span>
                 </div>
@@ -203,8 +203,8 @@ export default function ServicesHeroRedesign() {
               <div className="flex items-center gap-2">
                 <Shield size={14} className="text-emerald-600" />
                 <div className="flex-1">
-                  <p className="text-[10px] font-bold text-heading leading-none">Zero-Trust</p>
-                  <p className="text-[9px] text-faint leading-none mt-1">Network Active</p>
+                  <p className="text-[0.625rem] font-bold text-heading leading-none">Zero-Trust</p>
+                  <p className="text-[0.5625rem] text-faint leading-none mt-1">Network Active</p>
                 </div>
               </div>
             </motion.div>
@@ -218,8 +218,8 @@ export default function ServicesHeroRedesign() {
               <div className="flex items-center gap-2">
                 <Database size={14} className="text-secondary" />
                 <div className="flex-1">
-                  <p className="text-[10px] font-bold text-heading leading-none">ERP Sync</p>
-                  <p className="text-[9px] text-faint leading-none mt-1">Real-time Ledgers</p>
+                  <p className="text-[0.625rem] font-bold text-heading leading-none">ERP Sync</p>
+                  <p className="text-[0.5625rem] text-faint leading-none mt-1">Real-time Ledgers</p>
                 </div>
               </div>
             </motion.div>

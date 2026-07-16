@@ -3,7 +3,6 @@ import { createRoot, hydrateRoot } from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
 import { HelmetProvider } from "react-helmet-async";
 import { ConsentProvider } from "@/context/ConsentContext";
-import { AuthProvider } from "@/context/AuthContext";
 import { ToastProvider } from "@/components/common/Toast";
 import { ErrorBoundary } from "@/components/common/ErrorBoundary";
 import { initErrorReporting } from "@/lib/logger";
@@ -29,17 +28,15 @@ const tree = (
   <StrictMode>
     <ErrorBoundary>
       <HelmetProvider>
-        <AuthProvider>
-          <ConsentProvider>
-            <ToastProvider>
-              <BrowserRouter
-                future={{ v7_startTransition: true, v7_relativeSplatPath: true }}
-              >
-                <App />
-              </BrowserRouter>
-            </ToastProvider>
-          </ConsentProvider>
-        </AuthProvider>
+        <ConsentProvider>
+          <ToastProvider>
+            <BrowserRouter
+              future={{ v7_startTransition: true, v7_relativeSplatPath: true }}
+            >
+              <App />
+            </BrowserRouter>
+          </ToastProvider>
+        </ConsentProvider>
       </HelmetProvider>
     </ErrorBoundary>
   </StrictMode>
