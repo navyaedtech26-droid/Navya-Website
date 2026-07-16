@@ -1,3 +1,4 @@
+/* eslint-disable react-refresh/only-export-components */
 /**
  * Themed Chart.js wrappers for the admin dashboard.
  *

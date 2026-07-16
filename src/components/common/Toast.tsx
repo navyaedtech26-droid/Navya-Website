@@ -1,3 +1,4 @@
+/* eslint-disable react-refresh/only-export-components */
 /**
  * App-wide toast notifications: a provider that owns the queue, a `useToast()`
  * hook for firing them, and a portalled viewport that renders + auto-dismisses

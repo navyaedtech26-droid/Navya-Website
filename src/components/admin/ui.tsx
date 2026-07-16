@@ -1,3 +1,4 @@
+/* eslint-disable react-refresh/only-export-components */
 /**
  * Small, dependency-free building blocks shared across admin screens, styled
  * to match AdminLTE 3 / Bootstrap 4 conventions (card, modal, badge, table).

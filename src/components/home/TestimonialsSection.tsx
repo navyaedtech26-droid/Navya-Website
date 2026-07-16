@@ -29,9 +29,11 @@ export default function TestimonialsSection() {
         })
         .catch((err) => {
           // Ignore errors and keep static data on failure
+          /* eslint-disable-next-line no-console */
           console.error("Failed to load testimonials:", err);
         });
     }).catch((err) => {
+      /* eslint-disable-next-line no-console */
       console.error("Failed to import testimonials service:", err);
     });
     return () => {
