@@ -88,7 +88,7 @@ export default function HeroSection() {
                 <ArrowRight size={18} className="transition-transform group-hover:translate-x-1" />
               </Link>
               <Link
-                to="/#case-studies"
+                to="/portfolio"
                 className="flex h-14 items-center justify-center rounded-xl border border-line bg-white px-8 font-semibold text-heading shadow-sm transition-all hover:border-brand hover:text-brand hover:shadow-card-hover"
               >
                 View Portfolio

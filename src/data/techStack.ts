@@ -18,7 +18,7 @@ export const techGroups: TechGroup[] = [
     label: "Frontend",
     items: [
       { name: "React", logo: icon("react/react-original.svg"), color: "#61DAFB" },
-      { name: "Next.js", logo: icon("nextjs/nextjs-original.svg"), color: "#000000", invert: true },
+      { name: "Next.js", logo: icon("nextjs/nextjs-original.svg"), color: "#000000" },
       { name: "Angular", logo: icon("angularjs/angularjs-original.svg"), color: "#DD0031" },
       { name: "Vue", logo: icon("vuejs/vuejs-original.svg"), color: "#4FC08D" },
     ],
@@ -27,7 +27,7 @@ export const techGroups: TechGroup[] = [
     label: "Backend",
     items: [
       { name: "Node.js", logo: icon("nodejs/nodejs-original.svg"), color: "#5FA04E" },
-      { name: "Laravel", logo: icon("laravel/laravel-plain.svg"), color: "#FF2D20" },
+      { name: "Laravel", logo: icon("laravel/laravel-original.svg"), color: "#FF2D20" },
       { name: "Python", logo: icon("python/python-original.svg"), color: "#3776AB" },
       { name: "Java", logo: icon("java/java-original.svg"), color: "#F89820" },
     ],
