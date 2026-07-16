@@ -39,47 +39,34 @@ export const coreValues: ValueItem[] = [
 export const whyChooseUs: FeatureItem[] = [
   {
     icon: Sparkles,
-    title: "Modern UI/UX",
-    description: "Interfaces that build trust and turn visitors into customers.",
+    title: "Conversion-Driven Design",
+    description: "Interfaces engineered to reduce friction and build immediate trust with your users.",
   },
   {
     icon: Gauge,
-    title: "Fast Performance",
-    description: "Speed that directly lifts conversion, ranking, and retention.",
+    title: "Optimized Performance",
+    description: "Lightning-fast load times that directly improve your search rankings and user retention.",
   },
   {
     icon: Code2,
-    title: "Clean Code",
-    description: "Maintainable engineering that lowers your long-term cost of ownership.",
+    title: "Maintainable Codebases",
+    description: "Strict engineering standards that make future handoffs and feature additions seamless.",
   },
   {
     icon: Network,
-    title: "Scalable Architecture",
-    description: "Systems that grow with demand without breaking or rebuilding.",
+    title: "Future-Proof Systems",
+    description: "Infrastructure designed to scale alongside your user base and revenue.",
   },
   {
     icon: Search,
-    title: "SEO-Friendly Development",
-    description: "Discoverability built in, so your best customers find you first.",
+    title: "Search-Ready by Default",
+    description: "Technical SEO best practices baked into the code from day one.",
   },
   {
     icon: UserCheck,
-    title: "Client-Focused Approach",
-    description: "A transparent, responsive partnership focused on your results.",
+    title: "Strategic Partnership",
+    description: "We align our technical decisions with your specific business objectives.",
   },
-];
-
-export const techStack: string[] = [
-  "React",
-  "Next.js",
-  "Node.js",
-  "PHP",
-  "MySQL",
-  "Tailwind CSS",
-  "Framer Motion",
-  "GitHub",
-  "Vercel",
-  "Cloudinary",
 ];
 
 export type { LucideIcon };

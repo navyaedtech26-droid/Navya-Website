@@ -127,7 +127,7 @@ export default function TestimonialsAdmin() {
             href="/share-your-story"
             target="_blank"
             rel="noreferrer"
-            className="inline-flex items-center gap-2 rounded-xl border border-white/10 px-4 py-2.5 text-sm font-semibold text-ink-muted transition-colors hover:text-ink"
+            className="inline-flex items-center gap-2 rounded-[3px] border border-[#ced4da] px-4 py-2 text-sm font-semibold text-[#495057] transition-colors hover:bg-[#f4f6f9]"
           >
             <ExternalLink size={16} />
             View submission form
@@ -144,10 +144,10 @@ export default function TestimonialsAdmin() {
               key={f.key}
               onClick={() => setFilter(f.key)}
               className={cn(
-                "inline-flex items-center gap-2 rounded-full px-3.5 py-1.5 text-sm font-medium ring-1 transition-colors",
+                "inline-flex items-center gap-2 rounded-full border px-3.5 py-1.5 text-sm font-medium transition-colors",
                 filter === f.key
-                  ? "bg-brand/15 text-brand-light ring-brand/40"
-                  : "text-ink-muted ring-white/10 hover:bg-white/5 hover:text-ink"
+                  ? "border-[#007bff] bg-[#e7f1ff] text-[#007bff]"
+                  : "border-[#ced4da] text-[#495057] hover:bg-[#f4f6f9]"
               )}
             >
               {f.label}
@@ -155,8 +155,8 @@ export default function TestimonialsAdmin() {
                 className={cn(
                   "rounded-full px-1.5 text-xs",
                   f.key === "pending" && f.count > 0
-                    ? "bg-amber-500/20 text-amber-300"
-                    : "bg-white/10 text-ink-muted"
+                    ? "bg-[#ffc107] text-[#212529]"
+                    : "bg-[#e9ecef] text-[#6c757d]"
                 )}
               >
                 {f.count}
@@ -178,7 +178,7 @@ export default function TestimonialsAdmin() {
               href="/share-your-story"
               target="_blank"
               rel="noreferrer"
-              className="inline-flex items-center gap-2 rounded-xl border border-white/10 px-4 py-2.5 text-sm font-semibold text-ink-muted transition-colors hover:text-ink"
+              className="inline-flex items-center gap-2 rounded-[3px] border border-[#ced4da] px-4 py-2 text-sm font-semibold text-[#495057] transition-colors hover:bg-[#f4f6f9]"
             >
               <ExternalLink size={16} />
               View submission form
@@ -186,7 +186,7 @@ export default function TestimonialsAdmin() {
           }
         />
       ) : visible.length === 0 ? (
-        <p className="rounded-2xl border border-dashed border-white/10 bg-bg-900/30 px-6 py-10 text-center text-sm text-ink-muted">
+        <p className="rounded-[3px] border border-dashed border-[#dee2e6] bg-white px-6 py-10 text-center text-sm text-[#6c757d]">
           {filter === "pending"
             ? "No testimonials awaiting review. New submissions from the site will appear here."
             : "No published testimonials yet."}
@@ -196,15 +196,15 @@ export default function TestimonialsAdmin() {
           {visible.map((t) => (
             <article
               key={t.id}
-              className="flex flex-col rounded-2xl border border-white/10 bg-bg-900/50 p-5"
+              className="flex flex-col rounded-[3px] border border-[#dee2e6] bg-white p-5 shadow-[0_0_1px_rgba(0,0,0,.125),0_1px_3px_rgba(0,0,0,.1)]"
             >
               <div className="flex items-center justify-between">
-                <div className="flex items-center gap-1 text-amber-300">
+                <div className="flex items-center gap-1 text-[#ffc107]">
                   {Array.from({ length: 5 }).map((_, i) => (
                     <Star
                       key={i}
                       size={14}
-                      className={cn(i < t.rating ? "fill-current" : "text-white/15")}
+                      className={cn(i < t.rating ? "fill-current" : "text-[#dee2e6]")}
                     />
                   ))}
                 </div>
@@ -213,21 +213,21 @@ export default function TestimonialsAdmin() {
                 </Badge>
               </div>
 
-              <p className="mt-3 line-clamp-4 text-sm text-ink-muted">"{t.quote}"</p>
+              <p className="mt-3 line-clamp-4 text-sm text-[#495057]">"{t.quote}"</p>
 
               <div className="mt-4 flex items-end justify-between gap-3">
                 <div className="min-w-0">
-                  <p className="truncate text-sm font-semibold text-ink">{t.name}</p>
-                  <p className="truncate text-xs text-ink-muted">
+                  <p className="truncate text-sm font-semibold text-[#212529]">{t.name}</p>
+                  <p className="truncate text-xs text-[#6c757d]">
                     {[t.role, t.company].filter(Boolean).join(" · ")}
                   </p>
-                  <p className="mt-1 text-xs text-ink-muted/70">order: {t.sort_order}</p>
+                  <p className="mt-1 text-xs text-[#6c757d]/80">order: {t.sort_order}</p>
                 </div>
                 <div className="flex shrink-0 items-center gap-1">
                   <button
                     onClick={() => togglePublish(t)}
                     disabled={togglingId === t.id}
-                    className="rounded-lg px-2.5 py-1.5 text-xs font-medium text-ink-muted transition-colors hover:bg-white/5 hover:text-ink disabled:opacity-50"
+                    className="rounded-[3px] border border-[#ced4da] px-2.5 py-1.5 text-xs font-medium text-[#495057] transition-colors hover:bg-[#f4f6f9] disabled:opacity-50"
                   >
                     {togglingId === t.id ? (
                       <Spinner size={14} />
@@ -265,7 +265,7 @@ export default function TestimonialsAdmin() {
         busy={deleteBusy}
       >
         Delete the testimonial from{" "}
-        <span className="font-medium text-ink">{deleting?.name}</span>? This cannot be
+        <span className="font-medium text-[#212529]">{deleting?.name}</span>? This cannot be
         undone.
       </ConfirmDialog>
     </div>
@@ -425,14 +425,14 @@ function TestimonialForm({
           </Field>
         </div>
 
-        <label className="flex cursor-pointer items-center gap-3 rounded-xl border border-white/10 bg-white/[0.02] px-4 py-3">
+        <label className="flex cursor-pointer items-center gap-3 rounded-[3px] border border-[#ced4da] bg-white px-4 py-3">
           <input
             type="checkbox"
             checked={form.is_published}
             onChange={(e) => set("is_published", e.target.checked)}
-            className="h-4 w-4 accent-brand"
+            className="h-4 w-4 accent-[#007bff]"
           />
-          <span className="text-sm text-ink">Published (visible on the site)</span>
+          <span className="text-sm text-[#212529]">Published (visible on the site)</span>
         </label>
 
         {error && <Alert kind="error">{error}</Alert>}
@@ -450,7 +450,7 @@ function GridSkeleton() {
       {Array.from({ length: 4 }).map((_, i) => (
         <div
           key={i}
-          className="flex flex-col rounded-2xl border border-white/10 bg-bg-900/50 p-5"
+          className="flex flex-col rounded-[3px] border border-[#dee2e6] bg-white p-5"
         >
           <div className="flex items-center justify-between">
             <Skeleton className="h-4 w-24" />
@@ -466,7 +466,7 @@ function GridSkeleton() {
               <Skeleton className="h-3.5 w-28" />
               <Skeleton className="h-3 w-20" />
             </div>
-            <Skeleton className="h-8 w-16 rounded-lg" />
+            <Skeleton className="h-8 w-16 rounded-[3px]" />
           </div>
         </div>
       ))}

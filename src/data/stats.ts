@@ -7,8 +7,4 @@ export const stats: StatItem[] = [
   { value: 10, suffix: "+", label: "Technologies Mastered" },
 ];
 
-export const heroStats: StatItem[] = [
-  { value: 50, suffix: "+", label: "Projects" },
-  { value: 40, suffix: "+", label: "Businesses" },
-  { value: 10, suffix: "+", label: "Technologies" },
-];
+

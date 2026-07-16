@@ -11,6 +11,8 @@ export const hospitalsIndustryPage: IndustryPage = {
   heroSubtitle:
     "Every hour spent on paper charts, phone-booked appointments, and manual billing is an hour not spent on patients. We build the booking, records, and billing systems that give that time back — securely.",
 
+  heroImage: "/industries section/healthcare.avif",
+
   seoTitle: "Digital Transformation for Hospitals & Clinics | Navya EdTech",
   seoDescription:
     "Patient management systems, appointment booking platforms, and billing software built for hospitals and clinics — reduce admin load, cut wait times, and keep patient records secure and organized.",
@@ -25,8 +27,8 @@ export const hospitalsIndustryPage: IndustryPage = {
   ],
 
   challenges: {
-    title: "Where Patient Care",
-    highlight: "Gets Slowed by Admin",
+    title: "Why Does Patient Care",
+    highlight: "Get Slowed by Admin?",
     intro:
       "The clinical work is hard enough on its own. Most hospitals and clinics lose additional hours every day to admin processes that were never designed for the patient volume they now handle.",
     items: [
@@ -92,8 +94,8 @@ export const hospitalsIndustryPage: IndustryPage = {
   },
 
   roi: {
-    title: "Where the Return",
-    highlight: "Actually Comes From",
+    title: "Where Does the Return",
+    highlight: "Actually Come From?",
     intro:
       "The return is measured in staff hours freed for patient-facing work and revenue recovered from processes that used to leak it.",
     points: [
@@ -107,7 +109,7 @@ export const hospitalsIndustryPage: IndustryPage = {
 
   features: {
     title: "What's Inside the",
-    highlight: "Platform",
+    highlight: "Platform?",
     intro: "Every feature maps to a specific admin bottleneck slowing down your front desk or back office today.",
     items: [
       {
@@ -185,4 +187,5 @@ export const hospitalsIndustryPage: IndustryPage = {
 
   relatedIndustries: ["ngos", "retail"],
   relatedServices: ["systems", "websites", "business-intelligence"],
+  relatedSolutions: ["erp-systems", "crm-systems", "billing-invoicing"],
 };

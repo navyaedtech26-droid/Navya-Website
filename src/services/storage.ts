@@ -9,6 +9,7 @@ import { logger } from "@/lib/logger";
 const log = logger.scope("storage");
 
 const BUCKET = "blog-images";
+const PORTFOLIO_BUCKET = "portfolio-images";
 const MAX_BYTES = 5 * 1024 * 1024; // 5 MB
 const ALLOWED = ["image/jpeg", "image/png", "image/webp", "image/gif", "image/avif"];
 
@@ -19,6 +20,15 @@ export interface UploadResult {
 
 /** Upload an image and resolve to its public URL. */
 export async function uploadBlogImage(file: File): Promise<UploadResult> {
+  return uploadImageToBucket(file, BUCKET);
+}
+
+/** Upload an image for a case study/portfolio and resolve to its public URL. */
+export async function uploadPortfolioImage(file: File): Promise<UploadResult> {
+  return uploadImageToBucket(file, PORTFOLIO_BUCKET);
+}
+
+async function uploadImageToBucket(file: File, bucketName: string): Promise<UploadResult> {
   if (!isSupabaseConfigured || !supabase) {
     return { error: "Supabase is not configured. Add your keys to .env." };
   }
@@ -32,17 +42,17 @@ export async function uploadBlogImage(file: File): Promise<UploadResult> {
   const ext = file.name.split(".").pop()?.toLowerCase() || "jpg";
   const path = `${new Date().getFullYear()}/${crypto.randomUUID()}.${ext}`;
 
-  const { error } = await supabase.storage.from(BUCKET).upload(path, file, {
+  const { error } = await supabase.storage.from(bucketName).upload(path, file, {
     cacheControl: "31536000",
     contentType: file.type,
     upsert: false,
   });
 
   if (error) {
-    log.error("upload failed", error);
+    log.error(`upload to ${bucketName} failed`, error);
     return { error: "Upload failed. Please try again." };
   }
 
-  const { data } = supabase.storage.from(BUCKET).getPublicUrl(path);
+  const { data } = supabase.storage.from(bucketName).getPublicUrl(path);
   return { url: data.publicUrl };
 }

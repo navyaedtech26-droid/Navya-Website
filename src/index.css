@@ -8,12 +8,40 @@
   }
 
   * {
-    border-color: #DBE1E8;
+    border-color: #DEE3EC;
+    /* neutral-200 — kept in sync with tailwind.config.js's `neutral` ramp */
   }
 
   html {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Global focus ring — brand blue, offset so it never collides with the
+     element's own border. `:focus-visible` only (not `:focus`) so mouse
+     clicks stay clean and keyboard nav gets a clear, consistent ring. */
+  :focus-visible {
+    outline: 2px solid #1E6BFF;
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+
+  /* Even a browser that fires :focus without :focus-visible support should
+     never show a stray outline on pointer interaction. */
+  :focus:not(:focus-visible) {
+    outline: none;
+  }
+
+  /* Balanced heading line-wraps; prevents ragged/orphaned single words on
+     large display type. Long-form paragraphs get the softer `pretty` mode. */
+  h1,
+  h2,
+  h3 {
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
   }
 
   /* Smooth scrolling is scoped to in-page anchor navigation only — i.e. when a
@@ -45,14 +73,17 @@
   ::-webkit-scrollbar {
     width: 10px;
   }
+
   ::-webkit-scrollbar-track {
     background: #F1F5F9;
   }
+
   ::-webkit-scrollbar-thumb {
     background: #CBD5E1;
     border-radius: 999px;
     border: 2px solid #F1F5F9;
   }
+
   ::-webkit-scrollbar-thumb:hover {
     background: #94A3B8;
   }
@@ -66,6 +97,21 @@
     -webkit-backdrop-filter: blur(12px);
   }
 
+  .enterprise-glass {
+    background: rgba(255, 255, 255, 0.85);
+    border: 1px solid rgba(226, 232, 240, 0.6);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.04);
+  }
+
+  /* Shadow-based focus ring for rounded/custom controls (buttons, cards,
+     chips) where the native `outline` above can't follow a border-radius.
+     Apply as `focus-visible:focus-ring` alongside `outline-none`. */
+  .focus-ring {
+    @apply outline-none ring-2 ring-brand ring-offset-2 ring-offset-paper transition-shadow duration-fast ease-out;
+  }
+
   /* ── Named type scale (light system) ────────────────────────────────────
      Consolidates the two responsive heading combos that recur verbatim
      across the site so they're declared once instead of copy-pasted. */
@@ -76,6 +122,7 @@
   .type-display {
     @apply font-display text-4xl font-semibold leading-[1.06] tracking-tight sm:text-5xl md:text-6xl;
   }
+
   .type-heading-l {
     @apply font-display text-3xl font-semibold leading-[1.1] tracking-tight sm:text-4xl md:text-5xl;
   }
@@ -123,14 +170,12 @@
 
 @layer utilities {
   .shimmer-text {
-    background: linear-gradient(
-      90deg,
-      rgba(148, 163, 184, 0.4) 0%,
-      rgba(148, 163, 184, 0.4) 40%,
-      #1E6BFF 50%,
-      rgba(148, 163, 184, 0.4) 60%,
-      rgba(148, 163, 184, 0.4) 100%
-    );
+    background: linear-gradient(90deg,
+        rgba(148, 163, 184, 0.4) 0%,
+        rgba(148, 163, 184, 0.4) 40%,
+        #1E6BFF 50%,
+        rgba(148, 163, 184, 0.4) 60%,
+        rgba(148, 163, 184, 0.4) 100%);
     background-size: 200% 100%;
     @apply bg-clip-text text-transparent animate-shimmer;
   }
@@ -138,12 +183,15 @@
   .perspective-1000 {
     perspective: 1000px;
   }
+
   .perspective-2000 {
     perspective: 2000px;
   }
+
   .preserve-3d {
     transform-style: preserve-3d;
   }
+
   .backface-hidden {
     backface-visibility: hidden;
   }
@@ -158,6 +206,7 @@
   from {
     transform: translateX(0);
   }
+
   to {
     transform: translateX(-50%);
   }
@@ -169,6 +218,7 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+
   *,
   *::before,
   *::after {

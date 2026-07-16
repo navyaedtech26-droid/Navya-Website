@@ -5,9 +5,7 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-export function randomBetween(min: number, max: number) {
-  return Math.random() * (max - min) + min;
-}
+
 
 /**
  * Return `url` only if it uses a scheme that is safe to put in an `href`/`src`,

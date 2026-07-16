@@ -90,10 +90,10 @@ export default function MarkdownEditor({
   return (
     <div className="flex flex-col gap-1.5">
       <div className="flex items-center justify-between">
-        <label htmlFor="content" className="text-sm font-medium text-ink">
+        <label htmlFor="content" className="text-sm font-medium text-[#212529]">
           Content
         </label>
-        <div className="flex rounded-lg border border-white/10 p-0.5 text-xs">
+        <div className="flex rounded-[3px] border border-[#ced4da] p-0.5 text-xs">
           <Tab active={!preview} onClick={() => setPreview(false)}>
             Write
           </Tab>
@@ -104,7 +104,7 @@ export default function MarkdownEditor({
       </div>
 
       {!preview && (
-        <div className="flex flex-wrap items-center gap-1 rounded-lg border border-white/10 bg-white/[0.02] p-1">
+        <div className="flex flex-wrap items-center gap-1 rounded-[3px] border border-[#ced4da] bg-[#f4f6f9] p-1">
           <ToolButton label="Bold" onClick={() => wrap("**")}>
             <Bold size={15} />
           </ToolButton>
@@ -134,7 +134,7 @@ export default function MarkdownEditor({
           </ToolButton>
           <label
             title="Upload image"
-            className="flex h-8 w-8 cursor-pointer items-center justify-center rounded-md text-ink-muted transition-colors hover:bg-white/5 hover:text-ink"
+            className="flex h-8 w-8 cursor-pointer items-center justify-center rounded text-[#6c757d] transition-colors hover:bg-white hover:text-[#212529]"
           >
             {uploading ? (
               <Spinner size={15} />
@@ -156,11 +156,11 @@ export default function MarkdownEditor({
       )}
 
       {preview ? (
-        <div className="min-h-[10rem] rounded-xl border border-white/10 bg-white/[0.02] px-4 py-3">
+        <div className="min-h-[10rem] rounded-[3px] border border-[#ced4da] bg-[#f4f6f9] px-4 py-3">
           {value.trim() ? (
             <Markdown content={value} />
           ) : (
-            <p className="text-sm text-ink-muted">Nothing to preview yet.</p>
+            <p className="text-sm text-[#6c757d]">Nothing to preview yet.</p>
           )}
         </div>
       ) : (
@@ -193,8 +193,8 @@ function Tab({
       type="button"
       onClick={onClick}
       className={cn(
-        "rounded-md px-2.5 py-1 font-medium transition-colors",
-        active ? "bg-brand/20 text-ink" : "text-ink-muted hover:text-ink"
+        "rounded-[2px] px-2.5 py-1 font-medium transition-colors",
+        active ? "bg-[#007bff] text-white" : "text-[#495057] hover:text-[#212529]"
       )}
     >
       {children}
@@ -217,7 +217,7 @@ function ToolButton({
       title={label}
       aria-label={label}
       onClick={onClick}
-      className="flex h-8 w-8 items-center justify-center rounded-md text-ink-muted transition-colors hover:bg-white/5 hover:text-ink"
+      className="flex h-8 w-8 items-center justify-center rounded text-[#6c757d] transition-colors hover:bg-white hover:text-[#212529]"
     >
       {children}
     </button>

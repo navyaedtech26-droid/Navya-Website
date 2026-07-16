@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-import { ArrowRight, Check, AlertTriangle, Sparkles } from "lucide-react";
+import { Check, AlertTriangle, Sparkles } from "lucide-react";
 import Seo from "@/components/common/Seo";
 import PageTransition from "@/components/effects/PageTransition";
 import Container from "@/components/common/Container";
@@ -9,11 +9,24 @@ import IconBadge from "@/components/common/IconBadge";
 import TiltCard from "@/components/effects/TiltCard";
 import FaqSection from "@/components/common/FaqSection";
 import CTASection from "@/components/common/CTASection";
+import RelatedLinksSection from "@/components/common/RelatedLinksSection";
 import { fadeUp, staggerContainer, viewportOnce } from "@/lib/animations";
 import { breadcrumbSchema, faqPageSchema, serviceListSchema } from "@/lib/structuredData";
 import { industryPages } from "@/data/industryPages";
+import { solutionPages } from "@/data/servicePages";
 import { serviceCategories } from "@/data/services";
 import type { IndustryPage } from "@/types";
+
+/** serviceCategories (used for the "Services Behind This Solution" cards) are
+ * capability groupings, not routes — this maps each id to the single real
+ * service or solution page that best represents it. */
+const SERVICE_CATEGORY_HREF: Record<string, string> = {
+  websites: "/services/websites",
+  apps: "/services/mobile-app-development",
+  systems: "/services/custom-software-development",
+  "business-intelligence": "/solutions/business-intelligence-analytics",
+  social: "/solutions/social-media-growth",
+};
 
 interface IndustryPageTemplateProps {
   data: IndustryPage;
@@ -27,6 +40,9 @@ export default function IndustryPageTemplate({ data }: IndustryPageTemplateProps
   const relatedServiceCategories = data.relatedServices
     .map((id) => serviceCategories.find((s) => s.id === id))
     .filter((s): s is (typeof serviceCategories)[number] => Boolean(s));
+  const relatedSolutions = (data.relatedSolutions ?? [])
+    .map((slug) => solutionPages.find((s) => s.slug === slug))
+    .filter((s): s is (typeof solutionPages)[number] => Boolean(s));
 
   return (
     <PageTransition>
@@ -48,56 +64,93 @@ export default function IndustryPageTemplate({ data }: IndustryPageTemplateProps
       />
 
       {/* Hero */}
-      <section className="relative isolate flex min-h-[70vh] items-center overflow-hidden bg-paper pb-16 pt-28 sm:pt-36">
+      <section className="relative isolate flex min-h-[50vh] flex-col justify-center overflow-hidden bg-[#0a0a0a] pb-16 pt-32 sm:pt-40">
         <div
           aria-hidden
-          className="absolute inset-0 -z-10 light-grid opacity-70 [mask-image:radial-gradient(ellipse_at_center,black_20%,transparent_78%)]"
+          className="absolute inset-0 -z-10 bg-[linear-gradient(to_right,#ffffff0a_1px,transparent_1px),linear-gradient(to_bottom,#ffffff0a_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)]"
         />
-        <div aria-hidden className="absolute inset-0 -z-10 bg-hero-wash" />
         <Container className="relative">
           <motion.div
             variants={staggerContainer(0.12)}
             initial="hidden"
             animate="visible"
-            className="mx-auto max-w-3xl text-center"
+            className="max-w-4xl"
           >
-            <motion.div variants={fadeUp} className="flex justify-center">
-              <IconBadge icon={data.icon} size="lg" color={data.color} tone="light" />
-            </motion.div>
             <motion.nav
               variants={fadeUp}
               aria-label="Breadcrumb"
-              className="mt-5 text-sm font-medium text-faint"
+              className="mb-8 flex items-center gap-2 text-sm font-medium text-white/50"
             >
-              <ol className="inline-flex items-center justify-center gap-2">
-                <li>
-                  <Link to="/industries" className="hover:text-primary">Industries</Link>
-                </li>
-                <li aria-hidden="true">/</li>
-                <li aria-current="page">{data.title}</li>
-              </ol>
+              <Link to="/" className="flex items-center gap-1.5 hover:text-white transition-colors">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+                Home
+              </Link>
+              <span aria-hidden="true" className="text-white/30">›</span>
+              <Link to="/industries" className="hover:text-white transition-colors">Industries</Link>
+              <span aria-hidden="true" className="text-white/30">›</span>
+              <span aria-current="page" className="text-white/90">{data.title}</span>
             </motion.nav>
-            <motion.h1 variants={fadeUp} className="mt-3 type-display text-heading">
-              {data.title}: <span className="text-primary">{data.highlight}</span>
+
+            <motion.h1 variants={fadeUp} className="text-5xl font-bold tracking-tight text-white sm:text-6xl md:text-7xl">
+              {data.title}
             </motion.h1>
+            
             <motion.p
               variants={fadeUp}
-              className="mx-auto mt-6 max-w-2xl text-base leading-relaxed text-faint sm:text-lg"
+              className="mt-6 max-w-2xl text-lg leading-relaxed text-white/70"
             >
-              {data.heroSubtitle}
+              {data.seoDescription || data.heroSubtitle}
             </motion.p>
-            <motion.div variants={fadeUp} className="mt-9 flex justify-center">
-              <Link
-                to="/contact"
-                className="group inline-flex items-center justify-center gap-1.5 rounded-xl bg-primary px-6 py-3 text-sm font-semibold text-white shadow-primary-sm transition-colors duration-200 hover:bg-primary-dark"
-              >
-                Book a Strategy Call
-                <ArrowRight size={16} className="transition-transform duration-200 group-hover:translate-x-0.5" />
-              </Link>
-            </motion.div>
           </motion.div>
         </Container>
       </section>
+
+      {/* Overview / Image Section */}
+      <section className="relative bg-white py-20 md:py-28">
+        <Container>
+          <motion.div
+            variants={staggerContainer(0.12)}
+            initial="hidden"
+            whileInView="visible"
+            viewport={viewportOnce}
+            className="mb-16 max-w-4xl"
+          >
+            <motion.div variants={fadeUp} className="mb-6">
+              <span className="text-xs font-bold uppercase tracking-widest text-faint">
+                {data.title} Software Solutions
+              </span>
+            </motion.div>
+            <motion.div variants={fadeUp} className="flex gap-6">
+              <div className="w-1.5 shrink-0 bg-heading" />
+              <div>
+                <h2 className="mb-6 text-3xl font-bold tracking-tight text-heading sm:text-4xl">
+                  What Does {data.title} Software Development Actually Involve?
+                </h2>
+                <p className="text-lg leading-relaxed text-faint">
+                  {data.heroSubtitle}
+                </p>
+              </div>
+            </motion.div>
+          </motion.div>
+
+          {data.heroImage && (
+            <motion.div
+              variants={fadeUp}
+              initial="hidden"
+              whileInView="visible"
+              viewport={viewportOnce}
+              className="overflow-hidden rounded-2xl shadow-xl ring-1 ring-line/50"
+            >
+              <img 
+                src={data.heroImage} 
+                alt={`${data.title} Interface`}
+                className="w-full object-cover aspect-[21/9] sm:aspect-video md:aspect-[2.35/1]"
+              />
+            </motion.div>
+          )}
+        </Container>
+      </section>
+
 
       {/* Challenges */}
       <section className="relative py-16 md:py-20">
@@ -113,17 +166,27 @@ export default function IndustryPageTemplate({ data }: IndustryPageTemplateProps
             initial="hidden"
             whileInView="visible"
             viewport={viewportOnce}
-            className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3"
+            className="mt-12 flex flex-col border-t border-line"
           >
             {data.challenges.items.map((item) => (
               <motion.div
                 key={item.title}
                 variants={fadeUp}
-                className="flex h-full flex-col gap-3 rounded-2xl card-light p-6"
+                className="group flex flex-col md:flex-row gap-4 md:gap-12 py-8 md:py-10 border-b border-line transition-colors duration-300"
               >
-                <AlertTriangle size={18} className="text-secondary" strokeWidth={2} />
-                <h3 className="font-display text-base font-semibold text-heading">{item.title}</h3>
-                <p className="text-sm leading-relaxed text-faint">{item.description}</p>
+                <div className="flex w-full md:w-5/12 items-start gap-5">
+                  <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-secondary/10 text-secondary transition-colors group-hover:bg-secondary group-hover:text-white">
+                    <AlertTriangle size={24} strokeWidth={2} />
+                  </div>
+                  <h3 className="mt-2.5 font-display text-xl font-semibold text-heading">
+                    {item.title}
+                  </h3>
+                </div>
+                <div className="w-full md:w-7/12 md:pt-2.5">
+                  <p className="text-base leading-relaxed text-faint sm:text-lg">
+                    {item.description}
+                  </p>
+                </div>
               </motion.div>
             ))}
           </motion.div>
@@ -170,26 +233,41 @@ export default function IndustryPageTemplate({ data }: IndustryPageTemplateProps
             highlight={data.roi.highlight}
             subtitle={data.roi.intro}
           />
-          <motion.ul
-            variants={staggerContainer(0.06)}
+          <motion.div
+            variants={staggerContainer(0.08)}
             initial="hidden"
             whileInView="visible"
             viewport={viewportOnce}
-            className="mx-auto mt-10 flex max-w-3xl flex-col gap-3"
+            className="mt-12 grid gap-6 sm:grid-cols-2"
           >
-            {data.roi.points.map((point) => (
-              <motion.li
-                key={point}
-                variants={fadeUp}
-                className="flex items-start gap-3 rounded-xl border border-line bg-white px-5 py-4 text-sm leading-relaxed text-heading/90 sm:text-base"
-              >
-                <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-md bg-primary/10 text-primary">
-                  <Check size={12} strokeWidth={3} />
-                </span>
-                {point}
-              </motion.li>
-            ))}
-          </motion.ul>
+            {data.roi.points.map((point, index) => {
+              const match = point.match(/^(.*?)\s+[—\-]\s+(.*)$/);
+              const title = match ? match[1] : point;
+              const description = match ? match[2] : "";
+
+              return (
+                <motion.div
+                  key={index}
+                  variants={fadeUp}
+                  className="group flex flex-col gap-4 rounded-3xl bg-mist/50 p-8 ring-1 ring-line/50 transition-all duration-300 hover:bg-white hover:shadow-xl hover:ring-primary/20"
+                >
+                  <div className="flex items-center gap-4">
+                    <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-primary/10 text-primary transition-transform duration-300 group-hover:scale-110">
+                      <Check size={24} strokeWidth={2.5} />
+                    </div>
+                    <h3 className="font-display text-xl font-bold text-heading leading-tight transition-colors group-hover:text-primary">
+                      {title}
+                    </h3>
+                  </div>
+                  {description && (
+                    <p className="mt-2 text-base leading-relaxed text-faint sm:text-lg">
+                      {description}
+                    </p>
+                  )}
+                </motion.div>
+              );
+            })}
+          </motion.div>
         </Container>
       </section>
 
@@ -225,8 +303,8 @@ export default function IndustryPageTemplate({ data }: IndustryPageTemplateProps
         <Container>
           <SectionHeading
             align="left"
-            title="Proof From"
-            highlight={data.title}
+            title="What Results Have We Delivered for"
+            highlight={`${data.title}?`}
             subtitle={`Real ${data.title.toLowerCase()} outcomes, not manufactured claims.`}
           />
           <motion.div
@@ -268,82 +346,47 @@ export default function IndustryPageTemplate({ data }: IndustryPageTemplateProps
         </Container>
       </section>
 
-      {/* Internal linking: related services + related industries */}
-      {(relatedServiceCategories.length > 0 || related.length > 0) && (
-        <section className="relative bg-mist py-16 md:py-20">
-          <Container>
-            {relatedServiceCategories.length > 0 && (
-              <div>
-                <SectionHeading
-                  align="left"
-                  title="The Services Behind"
-                  highlight="This Solution"
-                  subtitle="Explore the underlying capability in more depth."
-                />
-                <motion.div
-                  variants={staggerContainer(0.08)}
-                  initial="hidden"
-                  whileInView="visible"
-                  viewport={viewportOnce}
-                  className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3"
-                >
-                  {relatedServiceCategories.map((service) => (
-                    <motion.div key={service.id} variants={fadeUp}>
-                      <Link
-                        to={service.id === "websites" ? "/services/websites" : "/services"}
-                        className="group flex h-full flex-col gap-3 rounded-2xl border border-line bg-white p-6 transition-colors duration-200 hover:border-primary/40"
-                      >
-                        <IconBadge icon={service.icon} size="sm" tone="light" />
-                        <h3 className="font-display text-base font-semibold text-heading">{service.title}</h3>
-                        <p className="text-sm leading-relaxed text-faint">{service.subtitle}</p>
-                        <span className="mt-auto flex items-center gap-1.5 text-sm font-semibold text-primary">
-                          See services
-                          <ArrowRight size={14} className="transition-transform duration-200 group-hover:translate-x-0.5" />
-                        </span>
-                      </Link>
-                    </motion.div>
-                  ))}
-                </motion.div>
-              </div>
-            )}
-
-            {related.length > 0 && (
-              <div className={relatedServiceCategories.length > 0 ? "mt-16" : undefined}>
-                <SectionHeading
-                  align="left"
-                  title="Related"
-                  highlight="Industries"
-                  subtitle="See how the same approach applies to adjacent sectors."
-                />
-                <motion.div
-                  variants={staggerContainer(0.08)}
-                  initial="hidden"
-                  whileInView="visible"
-                  viewport={viewportOnce}
-                  className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3"
-                >
-                  {related.map((industry) => (
-                    <motion.div key={industry.slug} variants={fadeUp}>
-                      <Link
-                        to={`/industries/${industry.slug}`}
-                        className="group flex h-full flex-col gap-3 rounded-2xl border border-line bg-white p-6 transition-colors duration-200 hover:border-primary/40"
-                      >
-                        <IconBadge icon={industry.icon} size="sm" color={industry.color} tone="light" />
-                        <h3 className="font-display text-base font-semibold text-heading">{industry.title}</h3>
-                        <p className="text-sm leading-relaxed text-faint">{industry.heroSubtitle}</p>
-                        <span className="mt-auto flex items-center gap-1.5 text-sm font-semibold text-primary">
-                          Explore
-                          <ArrowRight size={14} className="transition-transform duration-200 group-hover:translate-x-0.5" />
-                        </span>
-                      </Link>
-                    </motion.div>
-                  ))}
-                </motion.div>
-              </div>
-            )}
-          </Container>
-        </section>
-      )}
+      {/* Internal linking: related services, solutions & industries */}
+      <RelatedLinksSection
+        groups={[
+          {
+            title: "The Services Behind",
+            highlight: "This Solution",
+            subtitle: "Explore the underlying capability in more depth.",
+            linkLabel: "See service",
+            items: relatedServiceCategories.map((service) => ({
+              href: SERVICE_CATEGORY_HREF[service.id] ?? "/services",
+              icon: service.icon,
+              title: service.title,
+              description: service.subtitle,
+            })),
+          },
+          {
+            title: "Ready-Built",
+            highlight: "Solutions",
+            subtitle: "Purpose-built systems we've engineered for this exact sector.",
+            linkLabel: "See solution",
+            items: relatedSolutions.map((solution) => ({
+              href: `/solutions/${solution.slug}`,
+              icon: solution.icon,
+              title: solution.title,
+              description: solution.heroSubtitle,
+            })),
+          },
+          {
+            title: "Related",
+            highlight: "Industries",
+            subtitle: "See how the same approach applies to adjacent sectors.",
+            items: related.map((industry) => ({
+              href: `/industries/${industry.slug}`,
+              icon: industry.icon,
+              color: industry.color,
+              title: industry.title,
+              description: industry.heroSubtitle,
+            })),
+          },
+        ]}
+      />
 
       <FaqSection
         title="Questions About"
@@ -352,7 +395,7 @@ export default function IndustryPageTemplate({ data }: IndustryPageTemplateProps
         items={data.faqs}
       />
 
-      <CTASection title={data.cta.title} subtitle={data.cta.subtitle} buttonLabel={data.cta.buttonLabel} />
+      <CTASection title={data.cta.title} subtitle={data.cta.subtitle} primaryButtonLabel={data.cta.buttonLabel} />
     </PageTransition>
   );
 }

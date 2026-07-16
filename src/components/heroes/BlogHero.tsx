@@ -1,97 +1,133 @@
+import { Search, X } from "lucide-react";
 import { motion } from "framer-motion";
-import { Code2, Gauge, ShoppingCart, Layers } from "lucide-react";
-import HeroShell from "./HeroShell";
+import Container from "@/components/common/Container";
 import { fadeUp, staggerContainer } from "@/lib/animations";
-import { useReducedMotion } from "@/hooks/useMediaQuery";
+import { cn } from "@/lib/utils";
 
-const TOPICS = [
-  { icon: Code2, label: "Web development" },
-  { icon: Gauge, label: "Performance & SEO" },
-  { icon: ShoppingCart, label: "E-commerce" },
-  { icon: Layers, label: "Business systems" },
-];
+const HERO_TITLE = "Insights & Engineering";
+const HERO_SUBTITLE = "Our perspectives on software architecture, technology trends, and building resilient systems.";
 
-function MastheadBackdrop({ still }: { still: boolean }) {
-  return (
-    <>
-      <div className="absolute inset-0 bg-grid-pattern bg-[length:72px_72px] opacity-30" />
-      {/* Oversized watermark word — editorial masthead feel. */}
-      <div className="absolute inset-0 flex items-center justify-center overflow-hidden">
-        <span
-          aria-hidden
-          className="select-none font-display text-[28vw] font-bold leading-none tracking-tighter text-white/[0.03] sm:text-[22vw]"
-        >
-          DISPATCH
-        </span>
-      </div>
-      <motion.div
-        className="absolute left-1/2 top-1/3 h-[34rem] w-[34rem] -translate-x-1/2 rounded-full bg-brand/15 blur-[130px]"
-        animate={still ? undefined : { opacity: [0.4, 0.7, 0.4], scale: [1, 1.1, 1] }}
-        transition={{ duration: 14, repeat: Infinity, ease: "easeInOut" }}
-      />
-    </>
-  );
+interface BlogHeroProps {
+  query: string;
+  onQueryChange: (value: string) => void;
+  categories: string[];
+  category: string;
+  onCategoryChange: (value: string) => void;
 }
 
-export default function BlogHero() {
-  const reduced = useReducedMotion();
-  // Doubled list so the marquee loops seamlessly.
-  const ticker = [...TOPICS, ...TOPICS];
-
+/**
+ * Editorial masthead — bright, clean, with stark typography.
+ * Acts as the sophisticated header for an enterprise publication.
+ */
+export default function BlogHero({
+  query,
+  onQueryChange,
+  categories,
+  category,
+  onCategoryChange,
+}: BlogHeroProps) {
   return (
-    <HeroShell
-      bgImage="/blogs/blog.avif"
-      bgImageWidth={1584}
-      bgImageHeight={672}
-      backdrop={<MastheadBackdrop still={reduced} />}
-      contentClassName="mx-auto max-w-3xl text-center"
-    >
-      <motion.div variants={staggerContainer(0.12)} initial="hidden" animate="visible">
-        <motion.h1
-          variants={fadeUp}
-          className="font-display text-5xl font-semibold leading-[1.02] tracking-tight text-heading sm:text-6xl md:text-7xl"
-        >
-          The Navya EdTech <span className="text-primary">Blog</span>
-        </motion.h1>
+    <section className="relative overflow-hidden bg-paper pt-28 sm:pt-36 border-b border-line pb-12 lg:pb-0">
+      {/* Very faint blueprint grid in the background to add a subtle technical texture */}
+      <div aria-hidden className="absolute inset-0 light-grid opacity-60" />
+      
+      <Container className="relative">
+        <div className="grid gap-12 lg:grid-cols-2 lg:gap-8 xl:gap-16 items-center">
+          <motion.div
+            variants={staggerContainer(0.1)}
+            initial="hidden"
+            animate="visible"
+            className="flex flex-col justify-between py-4 lg:py-16 xl:py-24"
+          >
+            <div>
+              <motion.p 
+                variants={fadeUp} 
+                className="text-sm font-semibold uppercase tracking-widest text-brand mb-4"
+              >
+                Navya Publications
+              </motion.p>
+              <motion.h1
+                variants={fadeUp}
+                className="font-display text-4xl font-semibold tracking-tight text-heading sm:text-5xl lg:text-6xl"
+              >
+                {HERO_TITLE}
+              </motion.h1>
+              <motion.p variants={fadeUp} className="mt-6 text-lg text-faint max-w-xl leading-relaxed">
+                {HERO_SUBTITLE}
+              </motion.p>
+            </div>
 
-        {/* Brand rule under the masthead. */}
-        <motion.div
-          variants={fadeUp}
-          className="mx-auto mt-6 h-px w-40 bg-gradient-to-r from-transparent via-primary to-transparent"
-        />
+            <motion.div variants={fadeUp} className="mt-12 flex flex-col gap-10">
+              {/* Search */}
+              <div className="relative w-full max-w-md shrink-0">
+                <Search
+                  size={16}
+                  className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-faint"
+                />
+                <input
+                  type="search"
+                  value={query}
+                  onChange={(e) => onQueryChange(e.target.value)}
+                  placeholder="Search articles…"
+                  aria-label="Search articles"
+                  className="w-full rounded-none border border-line bg-white/50 backdrop-blur py-3.5 pl-11 pr-10 text-sm text-heading placeholder:text-faint outline-none transition-colors duration-200 focus:border-brand focus:bg-white focus:ring-1 focus:ring-brand"
+                />
+                {query && (
+                  <button
+                    type="button"
+                    onClick={() => onQueryChange("")}
+                    aria-label="Clear search"
+                    className="absolute right-3 top-1/2 -translate-y-1/2 p-1 text-faint transition-colors hover:text-heading"
+                  >
+                    <X size={15} />
+                  </button>
+                )}
+              </div>
 
-        <motion.p
-          variants={fadeUp}
-          className="mx-auto mt-6 max-w-2xl text-base leading-relaxed text-faint sm:text-lg"
-        >
-          Practical articles on building fast, modern websites and business systems, written by the team that ships
-          them.
-        </motion.p>
-      </motion.div>
+              {/* Categories Filter (Premium Chips) */}
+              {categories.length > 1 && (
+                <div className="flex overflow-x-auto no-scrollbar pb-4 -mb-4">
+                  <div className="flex gap-3">
+                    {categories.map((cat) => (
+                      <button
+                        key={cat}
+                        onClick={() => onCategoryChange(cat)}
+                        className={cn(
+                          "relative px-4 py-2 text-[11px] font-bold uppercase tracking-widest whitespace-nowrap transition-all duration-300 rounded-full border",
+                          cat === category
+                            ? "bg-brand text-white border-brand shadow-md shadow-brand/20 scale-105"
+                            : "bg-paper text-faint border-line hover:border-brand hover:text-brand"
+                        )}
+                      >
+                        {cat}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </motion.div>
+          </motion.div>
 
-      {/* Topic ticker */}
-      <motion.div
-        variants={fadeUp}
-        initial="hidden"
-        animate="visible"
-        className="relative mt-10 overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_12%,black_88%,transparent)]"
-      >
-        <motion.ul
-          className="flex w-max items-center gap-3"
-          animate={reduced ? undefined : { x: ["0%", "-50%"] }}
-          transition={{ duration: 22, repeat: Infinity, ease: "linear" }}
-        >
-          {ticker.map(({ icon: Icon, label }, i) => (
-            <li
-              key={`${label}-${i}`}
-              className="inline-flex shrink-0 items-center gap-2 rounded-full border border-line bg-white px-4 py-2 text-sm font-medium text-faint shadow-sm"
+          {/* Visual Showcase inside Hero */}
+          <div className="relative h-[300px] sm:h-[400px] lg:h-[500px] w-full mt-10 lg:mt-0">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95, y: 10 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
+              className="absolute inset-0 flex items-center justify-center"
             >
-              <Icon size={15} className="text-primary" strokeWidth={2} />
-              {label}
-            </li>
-          ))}
-        </motion.ul>
-      </motion.div>
-    </HeroShell>
+              {/* Soft ambient glow */}
+              <div className="absolute h-[70%] w-[70%] rounded-full bg-brand/10 blur-[90px]" />
+              <img
+                src="/vectors1/insights.avif"
+                alt="Navya Publications Insights"
+                loading="eager"
+                className="relative z-10 h-full w-full object-contain drop-shadow-2xl"
+              />
+            </motion.div>
+          </div>
+        </div>
+      </Container>
+    </section>
   );
 }

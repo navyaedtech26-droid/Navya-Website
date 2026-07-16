@@ -11,6 +11,8 @@ export const hotelsIndustryPage: IndustryPage = {
   heroSubtitle:
     "Every booking that comes through a third-party OTA instead of your own site hands away commission you didn't have to pay. We build the direct-booking engine and guest systems that keep more of every stay's value with you.",
 
+  heroImage: "/industries section/hotela and resorts.avif",
+
   seoTitle: "Digital Transformation for Hotels & Resorts | Navya EdTech",
   seoDescription:
     "Direct booking websites, reservation management systems, and guest experience platforms built for hotels and resorts — reduce OTA commission, fill more rooms, and keep guests coming back.",
@@ -25,8 +27,8 @@ export const hotelsIndustryPage: IndustryPage = {
   ],
 
   challenges: {
-    title: "Where Hotels Give Away",
-    highlight: "Margin They Don't Have To",
+    title: "Why Do Hotels Give Away",
+    highlight: "Margin They Don't Have To?",
     intro:
       "Most of a hotel's revenue leakage isn't visible on a P&L line — it's baked into commission rates and manual processes nobody's had time to fix.",
     items: [
@@ -92,8 +94,8 @@ export const hotelsIndustryPage: IndustryPage = {
   },
 
   roi: {
-    title: "Where the Return",
-    highlight: "Actually Comes From",
+    title: "Where Does the Return",
+    highlight: "Actually Come From?",
     intro:
       "For a hotel, the return is measured in commission avoided, occupancy improved, and repeat bookings recovered — all numbers your revenue team already tracks.",
     points: [
@@ -107,7 +109,7 @@ export const hotelsIndustryPage: IndustryPage = {
 
   features: {
     title: "What's Inside the",
-    highlight: "Platform",
+    highlight: "Platform?",
     intro: "Every feature is built around a specific point in the guest journey — from search to rebooking.",
     items: [
       {
@@ -185,4 +187,5 @@ export const hotelsIndustryPage: IndustryPage = {
 
   relatedIndustries: ["restaurants", "travel-agencies"],
   relatedServices: ["websites", "systems", "apps"],
+  relatedSolutions: ["crm-systems", "social-media-growth"],
 };

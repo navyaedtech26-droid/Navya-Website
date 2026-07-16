@@ -11,6 +11,8 @@ export const manufacturingIndustryPage: IndustryPage = {
   heroSubtitle:
     "Production floors run on tighter margins than almost any other business — and most still track inventory, orders, and output on spreadsheets that are already out of date by the time anyone reads them.",
 
+  heroImage: "/industries section/manufacturing.avif",
+
   seoTitle: "Digital Transformation for Manufacturing | Navya EdTech",
   seoDescription:
     "Inventory management, ERP, and production dashboards built for manufacturers — cut material waste, track output in real time, and replace spreadsheet-based operations with a single source of truth.",
@@ -25,8 +27,8 @@ export const manufacturingIndustryPage: IndustryPage = {
   ],
 
   challenges: {
-    title: "Where Margin Leaks",
-    highlight: "Out of the Production Floor",
+    title: "Where Does Margin Leak",
+    highlight: "Out of the Production Floor?",
     intro:
       "Manufacturing runs on thin margins, which means small inefficiencies compound fast. Most of the leaks below aren't visible until they're measured.",
     items: [
@@ -92,8 +94,8 @@ export const manufacturingIndustryPage: IndustryPage = {
   },
 
   roi: {
-    title: "Where the Return",
-    highlight: "Actually Comes From",
+    title: "Where Does the Return",
+    highlight: "Actually Come From?",
     intro:
       "In manufacturing, the return is measured directly in reduced waste, fewer stockouts, and faster decisions — numbers your floor managers already track.",
     points: [
@@ -107,7 +109,7 @@ export const manufacturingIndustryPage: IndustryPage = {
 
   features: {
     title: "What's Inside the",
-    highlight: "Platform",
+    highlight: "Platform?",
     intro: "Built around the actual flow of materials, orders, and output on a production floor.",
     items: [
       {
@@ -185,4 +187,5 @@ export const manufacturingIndustryPage: IndustryPage = {
 
   relatedIndustries: ["retail", "real-estate"],
   relatedServices: ["systems", "business-intelligence", "apps"],
+  relatedSolutions: ["erp-systems", "inventory-management", "business-intelligence-analytics"],
 };

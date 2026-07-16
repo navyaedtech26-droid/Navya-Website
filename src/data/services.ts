@@ -29,9 +29,88 @@ import {
   TrendingUp,
   Database,
   Brain,
+  Code2,
   type LucideIcon,
 } from "lucide-react";
 import type { ServiceCategory, ServiceItem } from "@/types";
+
+// Home "Services" grid — 8 flat cards (icon, title, description) matching the
+// simple capability-grid layout, with the flagship service highlighted.
+export interface ServiceGridEntry {
+  icon: LucideIcon;
+  title: string;
+  description: string;
+  features: string[];
+  href: string;
+  highlight?: boolean;
+}
+
+export const serviceGridItems: ServiceGridEntry[] = [
+  {
+    icon: Code2,
+    title: "Custom Software Development",
+    description: "Scalable, enterprise-grade software tailored to your specific business requirements and workflows.",
+    features: ["Enterprise Architecture", "Legacy Modernization", "API Integration", "Automated Workflows"],
+    href: "/services/custom-software-development",
+    highlight: true,
+  },
+  {
+    icon: Globe,
+    title: "Web Development",
+    description: "High-performance web applications built for speed, security, and seamless user experiences.",
+    features: ["Progressive Web Apps", "Enterprise Portals", "E-commerce Platforms", "CMS Development"],
+    href: "/services/websites",
+  },
+  {
+    icon: Smartphone,
+    title: "Mobile App Development",
+    description: "Native and cross-platform mobile experiences that drive engagement and business value.",
+    features: ["iOS & Android Native", "React Native & Flutter", "Mobile App UI/UX", "App Store Optimization"],
+    href: "/services/mobile-app-development",
+  },
+  {
+    icon: Brain,
+    title: "AI Solutions",
+    description: "Intelligent systems and predictive models to automate tasks and unlock new capabilities.",
+    features: ["Machine Learning Models", "Generative AI Integration", "Predictive Analytics", "NLP & Chatbots"],
+    href: "/services/ai-solutions",
+  },
+  {
+    icon: Server,
+    title: "Cloud Services",
+    description: "Secure and scalable cloud infrastructure to modernize your operations and reduce costs.",
+    features: ["Cloud Migration", "AWS/Azure/GCP Management", "Serverless Architecture", "Cloud Security"],
+    href: "/services/cloud-services",
+  },
+  {
+    icon: Palette,
+    title: "UI/UX Design",
+    description: "Data-driven interface design focused on usability, conversions, and premium aesthetics.",
+    features: ["User Research & Testing", "Wireframing & Prototyping", "Design Systems", "Conversion Optimization"],
+    href: "/services/ui-ux-design",
+  },
+  {
+    icon: Wrench,
+    title: "DevOps",
+    description: "Streamlined CI/CD pipelines and automated deployments for faster, reliable software delivery.",
+    features: ["CI/CD Automation", "Infrastructure as Code", "Containerization & K8s", "Monitoring & Logging"],
+    href: "/services/devops",
+  },
+  {
+    icon: Users,
+    title: "IT Consulting",
+    description: "Strategic technology guidance to align your IT investments with your business goals.",
+    features: ["Digital Transformation", "IT Strategy & Planning", "Technology Audits", "Risk Management"],
+    href: "/services/it-consulting",
+  },
+  {
+    icon: Database,
+    title: "Dedicated Developers",
+    description: "Augment your workforce with our expert engineers and accelerate your project timelines.",
+    features: ["Vetted Senior Engineers", "Flexible Engagement Models", "Seamless Integration", "Agile Methodologies"],
+    href: "/services/dedicated-developers",
+  },
+];
 
 // Home overview — two large category cards.
 export const serviceCategories: ServiceCategory[] = [

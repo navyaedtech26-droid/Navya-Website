@@ -2,7 +2,7 @@
  * Request a password-reset email. Supabase sends a magic link back to
  * /admin/reset-password where the new password is set.
  */
-import { useState, type FormEvent } from "react";
+import { useCallback, useState, type FormEvent } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { KeyRound, MailCheck } from "lucide-react";
@@ -10,6 +10,7 @@ import { Spinner } from "@/components/common/Spinner";
 import Seo from "@/components/common/Seo";
 import Container from "@/components/common/Container";
 import { useAuth } from "@/context/AuthContext";
+import { useResendCooldown } from "@/hooks/useResendCooldown";
 import { isSupabaseConfigured } from "@/lib/supabase";
 import { cn } from "@/lib/utils";
 
@@ -19,9 +20,9 @@ export default function AdminForgotPassword() {
   const [loading, setLoading] = useState(false);
   const [sent, setSent] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const cooldown = useResendCooldown(60);
 
-  const handleSubmit = async (e: FormEvent) => {
-    e.preventDefault();
+  const sendReset = useCallback(async () => {
     setError(null);
     if (!email.trim()) {
       setError("Enter your account email.");
@@ -35,6 +36,12 @@ export default function AdminForgotPassword() {
       return;
     }
     setSent(true);
+    cooldown.start();
+  }, [email, requestPasswordReset, cooldown]);
+
+  const handleSubmit = (e: FormEvent) => {
+    e.preventDefault();
+    void sendReset();
   };
 
   return (
@@ -70,6 +77,14 @@ export default function AdminForgotPassword() {
                   <span className="text-heading">{email}</span>, we've sent a link to
                   reset your password.
                 </p>
+                <button
+                  type="button"
+                  onClick={() => void sendReset()}
+                  disabled={!cooldown.canResend || loading}
+                  className="mt-5 text-xs font-medium text-faint transition-colors hover:text-primary disabled:cursor-not-allowed disabled:opacity-60"
+                >
+                  {cooldown.canResend ? "Resend link" : `Resend in ${cooldown.remaining}s`}
+                </button>
               </div>
             ) : (
               <>

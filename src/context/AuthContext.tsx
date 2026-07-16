@@ -15,6 +15,7 @@ import {
 } from "react";
 import type { Session, User } from "@supabase/supabase-js";
 import { supabase, isSupabaseConfigured } from "@/lib/supabase";
+import { authRedirectUrl } from "@/lib/authRedirect";
 import { logger } from "@/lib/logger";
 import type { ProfileRow } from "@/types/database";
 
@@ -38,12 +39,19 @@ interface AuthContextType {
   isAdmin: boolean;
   signUp: (email: string, password: string, fullName?: string) => Promise<AuthResult>;
   signIn: (email: string, password: string) => Promise<AuthResult>;
+  /** Email a magic link + one-time code that return to /admin/confirm. Never
+   *  creates a new account — only an already-provisioned admin can use it. */
+  signInWithOtp: (email: string) => Promise<AuthResult>;
+  /** Verify the 6-digit code from the magic-link email without leaving the page. */
+  verifyOtp: (email: string, token: string) => Promise<AuthResult>;
   signOut: () => Promise<void>;
   refreshProfile: () => Promise<void>;
   /** Email a password-reset link that returns to /admin/reset-password. */
   requestPasswordReset: (email: string) => Promise<AuthResult>;
   /** Set a new password for the currently-recovering session. */
   updatePassword: (password: string) => Promise<AuthResult>;
+  /** Request an email-change confirmation link that returns to /admin/confirm. */
+  updateEmail: (email: string) => Promise<AuthResult>;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -108,7 +116,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       const { error } = await supabase.auth.signUp({
         email,
         password,
-        options: { data: { full_name: fullName } },
+        options: {
+          data: { full_name: fullName },
+          emailRedirectTo: authRedirectUrl("/admin/confirm"),
+        },
       });
       return { error: error?.message };
     },
@@ -118,6 +129,26 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const signIn = useCallback<AuthContextType["signIn"]>(async (email, password) => {
     if (!supabase) return { error: "Authentication is not configured." };
     const { error } = await supabase.auth.signInWithPassword({ email, password });
+    return { error: error?.message };
+  }, []);
+
+  const signInWithOtp = useCallback<AuthContextType["signInWithOtp"]>(async (email) => {
+    if (!supabase) return { error: "Authentication is not configured." };
+    const { error } = await supabase.auth.signInWithOtp({
+      email,
+      options: {
+        emailRedirectTo: authRedirectUrl("/admin/confirm"),
+        // Admin sign-in is invite-only — a magic link must never provision a
+        // new account, only authenticate an existing one.
+        shouldCreateUser: false,
+      },
+    });
+    return { error: error?.message };
+  }, []);
+
+  const verifyOtp = useCallback<AuthContextType["verifyOtp"]>(async (email, token) => {
+    if (!supabase) return { error: "Authentication is not configured." };
+    const { error } = await supabase.auth.verifyOtp({ email, token, type: "email" });
     return { error: error?.message };
   }, []);
 
@@ -137,7 +168,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     async (email) => {
       if (!supabase) return { error: "Authentication is not configured." };
       const { error } = await supabase.auth.resetPasswordForEmail(email, {
-        redirectTo: `${window.location.origin}/admin/reset-password`,
+        redirectTo: authRedirectUrl("/admin/reset-password"),
       });
       return { error: error?.message };
     },
@@ -153,6 +184,15 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     []
   );
 
+  const updateEmail = useCallback<AuthContextType["updateEmail"]>(async (email) => {
+    if (!supabase) return { error: "Authentication is not configured." };
+    const { error } = await supabase.auth.updateUser(
+      { email },
+      { emailRedirectTo: authRedirectUrl("/admin/confirm") }
+    );
+    return { error: error?.message };
+  }, []);
+
   return (
     <AuthContext.Provider
       value={{
@@ -164,10 +204,13 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         isAdmin: profile?.role === "admin",
         signUp,
         signIn,
+        signInWithOtp,
+        verifyOtp,
         signOut,
         refreshProfile,
         requestPasswordReset,
         updatePassword,
+        updateEmail,
       }}
     >
       {children}

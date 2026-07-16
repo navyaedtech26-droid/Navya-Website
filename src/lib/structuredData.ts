@@ -2,7 +2,7 @@ import type { Faq } from "@/data/faqs";
 
 export const SITE_URL = "https://navyaedtech.com";
 export const SITE_NAME = "Navya EdTech";
-export const SITE_EMAIL = "navyaedtech26@gmail.com";
+const SITE_EMAIL = "navyaedtech26@gmail.com";
 
 /**
  * Organization / LocalBusiness identity. Rendered on every page so search

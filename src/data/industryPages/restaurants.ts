@@ -11,6 +11,8 @@ export const restaurantsIndustryPage: IndustryPage = {
   heroSubtitle:
     "Between delivery-app commissions, walk-in-only reservations, and a kitchen running on verbal orders, most restaurants are leaving both revenue and margin on the table. We build the ordering and booking systems that keep both with you.",
 
+  heroImage: "/industries section/cafe and restaurants.avif",
+
   seoTitle: "Digital Transformation for Restaurants & Cafes | Navya EdTech",
   seoDescription:
     "Online ordering systems, table reservation platforms, and POS integrations built for restaurants and cafes — reduce delivery-app commission, fill more tables, and speed up kitchen operations.",
@@ -25,8 +27,8 @@ export const restaurantsIndustryPage: IndustryPage = {
   ],
 
   challenges: {
-    title: "Where Restaurants Lose Revenue",
-    highlight: "Without Noticing",
+    title: "Where Do Restaurants Lose Revenue",
+    highlight: "Without Noticing?",
     intro:
       "Restaurant margins are already thin. Every process below quietly narrows them further, one order and one table at a time.",
     items: [
@@ -92,8 +94,8 @@ export const restaurantsIndustryPage: IndustryPage = {
   },
 
   roi: {
-    title: "Where the Return",
-    highlight: "Actually Comes From",
+    title: "Where Does the Return",
+    highlight: "Actually Come From?",
     intro:
       "The return shows up directly in commission avoided, table turnover improved, and repeat visits recovered — numbers a restaurant owner already watches closely.",
     points: [
@@ -107,7 +109,7 @@ export const restaurantsIndustryPage: IndustryPage = {
 
   features: {
     title: "What's Inside the",
-    highlight: "Platform",
+    highlight: "Platform?",
     intro: "Every feature maps to a moment in service — ordering, booking, kitchen, or follow-up.",
     items: [
       {
@@ -185,4 +187,5 @@ export const restaurantsIndustryPage: IndustryPage = {
 
   relatedIndustries: ["hotels", "retail"],
   relatedServices: ["apps", "websites", "systems"],
+  relatedSolutions: ["inventory-management", "social-media-growth"],
 };

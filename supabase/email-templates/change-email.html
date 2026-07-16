@@ -1,0 +1,70 @@
+<!--
+  Supabase Auth template: "Change Email Address"
+  Paste into: Dashboard → Authentication → Email Templates → Change Email Address
+  Variables used: {{ .ConfirmationURL }} {{ .Email }} {{ .NewEmail }}
+-->
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Confirm your new email</title>
+  </head>
+  <body style="margin:0; padding:0; background-color:#f4f6f9; font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;">
+    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background-color:#f4f6f9; padding:32px 16px;">
+      <tr>
+        <td align="center">
+          <table role="presentation" width="480" cellpadding="0" cellspacing="0" style="max-width:480px; width:100%; background-color:#ffffff; border-radius:12px; overflow:hidden; border:1px solid #e2e8f0;">
+            <tr>
+              <td style="height:4px; background-color:#081E4D; line-height:4px; font-size:0;">&nbsp;</td>
+            </tr>
+            <tr>
+              <td style="padding:32px 40px 0 40px;" align="left">
+                <img src="https://navyaedtech.com/logo.jpg" width="132" alt="Navya EdTech" style="display:block; border:0; outline:none;" />
+              </td>
+            </tr>
+            <tr>
+              <td style="padding:28px 40px 8px 40px;">
+                <h1 style="margin:0; font-size:20px; line-height:28px; color:#081E4D; font-weight:700;">Confirm your new email</h1>
+              </td>
+            </tr>
+            <tr>
+              <td style="padding:0 40px 24px 40px;">
+                <p style="margin:0; font-size:15px; line-height:24px; color:#475569;">
+                  You asked to change the email on your Navya EdTech admin account from <strong>{{ .Email }}</strong> to <strong>{{ .NewEmail }}</strong>. Confirm below to finish.
+                </p>
+              </td>
+            </tr>
+            <tr>
+              <td style="padding:0 40px 8px 40px;">
+                <table role="presentation" cellpadding="0" cellspacing="0">
+                  <tr>
+                    <td style="border-radius:10px; background-color:#081E4D;">
+                      <a href="{{ .ConfirmationURL }}" target="_blank" style="display:inline-block; padding:13px 28px; font-size:15px; font-weight:600; color:#ffffff; text-decoration:none; border-radius:10px;">
+                        Confirm new email
+                      </a>
+                    </td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+            <tr>
+              <td style="padding:28px 40px 32px 40px;">
+                <p style="margin:0; font-size:13px; line-height:20px; color:#94a3b8;">
+                  This link expires soon and can only be used once. If you didn't request this change, ignore this email and your account's email address will stay the same.
+                </p>
+              </td>
+            </tr>
+            <tr>
+              <td style="padding:20px 40px; background-color:#f8fafc; border-top:1px solid #e2e8f0;">
+                <p style="margin:0; font-size:12px; line-height:18px; color:#94a3b8;">
+                  Navya EdTech · Admin Dashboard · This is an automated message, please don't reply.
+                </p>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>

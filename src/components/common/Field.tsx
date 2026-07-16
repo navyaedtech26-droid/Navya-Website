@@ -18,7 +18,7 @@ import { cn } from "@/lib/utils";
  * The admin CRUD screens use a slightly tighter variant — see
  * `inputCls` in `@/components/admin/ui`.
  */
-export function inputClass(error?: boolean): string {
+function inputClass(error?: boolean): string {
   return cn(
     "w-full rounded-xl border bg-white px-4 py-3 text-sm text-heading placeholder:text-faint/70 outline-none transition-all duration-200",
     "focus:border-primary/60 focus:shadow-[0_0_0_3px_rgba(8,30,77,0.15)]",
@@ -45,7 +45,7 @@ export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
 Textarea.displayName = "Textarea";
 
 type SelectProps = SelectHTMLAttributes<HTMLSelectElement> & { error?: boolean };
-export const Select = forwardRef<HTMLSelectElement, SelectProps>(
+const Select = forwardRef<HTMLSelectElement, SelectProps>(
   ({ error, className, ...props }, ref) => (
     <select
       ref={ref}

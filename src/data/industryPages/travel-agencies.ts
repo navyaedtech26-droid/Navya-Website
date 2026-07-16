@@ -11,6 +11,8 @@ export const travelAgenciesIndustryPage: IndustryPage = {
   heroSubtitle:
     "Travelers now research and compare trips almost entirely online before ever contacting an agency. We build the booking platforms and itinerary systems that turn that research phase into a confirmed, paid booking.",
 
+  heroImage: "/industries section/travel.avif",
+
   seoTitle: "Digital Transformation for Travel Agencies | Navya EdTech",
   seoDescription:
     "Booking engines, itinerary management systems, and travel websites built for travel agencies and tour operators — convert more inquiries into confirmed bookings and manage trips more efficiently.",
@@ -25,8 +27,8 @@ export const travelAgenciesIndustryPage: IndustryPage = {
   ],
 
   challenges: {
-    title: "Where Bookings Slip Away",
-    highlight: "During the Research Phase",
+    title: "Why Do Bookings Slip Away",
+    highlight: "During the Research Phase?",
     intro:
       "Most travelers compare several agencies and packages before booking — and most of that comparison happens without an agency even knowing a prospect exists.",
     items: [
@@ -92,8 +94,8 @@ export const travelAgenciesIndustryPage: IndustryPage = {
   },
 
   roi: {
-    title: "Where the Return",
-    highlight: "Actually Comes From",
+    title: "Where Does the Return",
+    highlight: "Actually Come From?",
     intro:
       "For a travel agency, the return shows up in more inquiries converted, faster quote turnaround, and fewer bookings lost to slow follow-up.",
     points: [
@@ -107,7 +109,7 @@ export const travelAgenciesIndustryPage: IndustryPage = {
 
   features: {
     title: "What's Inside the",
-    highlight: "Platform",
+    highlight: "Platform?",
     intro: "Every feature is built around a specific stage — research, quoting, booking, or repeat travel.",
     items: [
       {
@@ -185,4 +187,5 @@ export const travelAgenciesIndustryPage: IndustryPage = {
 
   relatedIndustries: ["hotels", "restaurants"],
   relatedServices: ["websites", "apps", "systems"],
+  relatedSolutions: ["crm-systems", "social-media-growth"],
 };

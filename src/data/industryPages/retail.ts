@@ -11,6 +11,8 @@ export const retailIndustryPage: IndustryPage = {
   heroSubtitle:
     "Between in-store sales, an online store, and inventory that has to match both, most retailers are one out-of-sync spreadsheet away from a stockout or an overselling incident. We build the system that keeps every channel in sync.",
 
+  heroImage: "/industries section/retail.avif",
+
   seoTitle: "Digital Transformation for Retail | Navya EdTech",
   seoDescription:
     "E-commerce websites, inventory management systems, and POS integrations built for retailers — sell online and in-store from one synced system, cut stockouts, and grow average order value.",
@@ -25,8 +27,8 @@ export const retailIndustryPage: IndustryPage = {
   ],
 
   challenges: {
-    title: "Where Retail Operations",
-    highlight: "Fall Out of Sync",
+    title: "Why Do Retail Operations",
+    highlight: "Fall Out of Sync?",
     intro:
       "The moment a retailer sells through more than one channel, the risk of the numbers disagreeing with each other goes up sharply — and most never fully catch up.",
     items: [
@@ -92,8 +94,8 @@ export const retailIndustryPage: IndustryPage = {
   },
 
   roi: {
-    title: "Where the Return",
-    highlight: "Actually Comes From",
+    title: "Where Does the Return",
+    highlight: "Actually Come From?",
     intro:
       "For a retailer, the return shows up in reduced stockouts, less dead stock, and a higher-converting online storefront — all measurable against your current numbers.",
     points: [
@@ -107,7 +109,7 @@ export const retailIndustryPage: IndustryPage = {
 
   features: {
     title: "What's Inside the",
-    highlight: "Platform",
+    highlight: "Platform?",
     intro: "Built to keep every sales channel — physical and digital — reading from one shared system.",
     items: [
       {
@@ -185,4 +187,5 @@ export const retailIndustryPage: IndustryPage = {
 
   relatedIndustries: ["restaurants", "manufacturing"],
   relatedServices: ["systems", "websites", "business-intelligence"],
+  relatedSolutions: ["inventory-management", "erp-systems", "business-intelligence-analytics"],
 };

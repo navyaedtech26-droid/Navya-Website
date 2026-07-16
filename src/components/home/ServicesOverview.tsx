@@ -1,77 +1,97 @@
 import { motion } from "framer-motion";
-import { Check, ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import Container from "@/components/common/Container";
 import SectionHeading from "@/components/common/SectionHeading";
-import TiltCard from "@/components/effects/TiltCard";
-import IconBadge from "@/components/common/IconBadge";
-import { serviceCategories } from "@/data/services";
+import { serviceGridItems } from "@/data/services";
 import { fadeUp, staggerContainer, viewportOnce } from "@/lib/animations";
+
+const getVectorImage = (title: string) => {
+  const map: Record<string, string> = {
+    "Custom Software Development": "/vector/custom-software-development.avif",
+    "Web Development": "/vector/web-dev.avif",
+    "Mobile App Development": "/vector/mobile-dev.avif",
+    "AI Solutions": "/vector/ai-solutions.avif",
+    "Cloud Services": "/vector/cloud-infrastructure.avif",
+    "UI/UX Design": "/vector/uiux.avif",
+    "DevOps": "/vector/devopps.avif",
+    "IT Consulting": "/vector/it-consulting.avif",
+    "Dedicated Developers": "/vector/custom-software-development.avif",
+  };
+  return map[title] || "/vector/it-consulting.avif";
+};
 
 export default function ServicesOverview() {
   return (
-    <section className="relative bg-paper py-16 md:py-20">
+    <section className="relative bg-mist py-[120px]">
       <Container>
         <SectionHeading
           tone="light"
-          eyebrow="Business Outcomes"
-          title="Digital Capabilities That"
-          highlight="Pay for Themselves"
-          subtitle="From revenue-generating websites to operations that run themselves — every engagement is measured by the growth, savings, and efficiency it delivers."
+          eyebrow="Enterprise Solutions"
+          title="End-to-End IT Services for"
+          highlight="Modern Enterprises"
+          subtitle="From custom software architecture to cloud infrastructure and digital transformation—we provide the technical foundation for scalable growth."
         />
 
         <motion.div
-          variants={staggerContainer(0.15)}
+          variants={staggerContainer(0.08)}
           initial="hidden"
           whileInView="visible"
           viewport={viewportOnce}
-          className="mt-14 grid gap-6 md:auto-rows-fr md:grid-cols-2 lg:grid-cols-3"
+          className="mt-20 flex flex-col"
         >
-          {serviceCategories.map((cat) => (
-            <motion.div key={cat.id} variants={fadeUp} className="h-full">
-              <TiltCard className="h-full">
-                <div className="flex h-full flex-col card-light rounded-2xl p-8 transition-shadow duration-300 hover:shadow-card-hover">
-                  <div className="flex items-center gap-4">
-                    <IconBadge icon={cat.icon} size="lg" tone="light" color="#081E4D" />
-                    <div>
-                      <h3 className="font-display text-xl font-semibold text-heading">
-                        {cat.title}
-                      </h3>
-                      <p className="text-sm text-heading/70">{cat.subtitle}</p>
-                    </div>
+          {serviceGridItems.map((service, index) => (
+            <motion.div 
+              key={service.title} 
+              variants={fadeUp}
+              className="group relative border-t border-line last:border-b"
+            >
+              <Link
+                to={service.href}
+                data-cursor="hover"
+                className="flex flex-col gap-8 py-10 transition-colors duration-500 hover:bg-white/40 md:flex-row md:items-center md:gap-16 px-4 md:px-8 -mx-4 md:-mx-8 rounded-2xl md:rounded-none"
+              >
+                {/* Number */}
+                <div className="font-display text-2xl font-bold text-brand pt-1 md:pt-0 w-12 shrink-0 md:group-hover:text-cyan-accent transition-colors duration-500">
+                  {String(index + 1).padStart(2, '0')}
+                </div>
+
+                {/* Content */}
+                <div className="flex-1 space-y-4">
+                  <div>
+                    <h3 className="font-display text-2xl font-bold text-heading transition-colors duration-300 group-hover:text-brand">
+                      {service.title}
+                    </h3>
+                    <p className="mt-3 text-base leading-relaxed text-faint max-w-2xl">
+                      {service.description}
+                    </p>
                   </div>
 
-                  <p className="mt-5 text-sm leading-relaxed text-heading/80">
-                    {cat.description}
-                  </p>
-
-                  <ul className="mt-6 grid grid-cols-1 gap-2.5 sm:grid-cols-2">
-                    {cat.items.map((item) => (
-                      <li
-                        key={item}
-                        className="flex items-center gap-2 text-sm text-heading/90"
-                      >
-                        <span className="flex h-5 w-5 items-center justify-center rounded-md bg-primary/10 text-primary">
-                          <Check size={12} strokeWidth={3} />
+                  {service.features && (
+                    <div className="flex flex-wrap gap-2 pt-2">
+                      {service.features.map((feature, i) => (
+                        <span 
+                          key={i} 
+                          className="inline-flex items-center rounded-full bg-brand/5 px-3.5 py-1.5 text-xs font-semibold text-brand transition-colors duration-300 group-hover:bg-brand/10"
+                        >
+                          {feature}
                         </span>
-                        {item}
-                      </li>
-                    ))}
-                  </ul>
-
-                  <Link
-                    to="/services"
-                    data-cursor="hover"
-                    className="group mt-auto inline-flex items-center gap-1.5 pt-8 text-sm font-semibold text-primary transition-colors hover:text-primary-dark"
-                  >
-                    Explore {cat.title}
-                    <ArrowRight
-                      size={15}
-                      className="transition-transform duration-300 group-hover:translate-x-1"
-                    />
-                  </Link>
+                      ))}
+                    </div>
+                  )}
                 </div>
-              </TiltCard>
+
+                {/* Vector Image */}
+                <div className="w-full md:w-[320px] lg:w-[400px] shrink-0">
+                  <div className="relative aspect-[16/9] w-full overflow-hidden rounded-2xl bg-gradient-to-br from-white to-sky/20 p-6 flex items-center justify-center transition-all duration-500 group-hover:shadow-card-hover group-hover:from-white group-hover:to-sky/40">
+                    <img 
+                      src={getVectorImage(service.title)} 
+                      alt={service.title}
+                      className="h-full w-full object-contain transition-transform duration-700 ease-out group-hover:scale-105"
+                      loading="lazy"
+                    />
+                  </div>
+                </div>
+              </Link>
             </motion.div>
           ))}
         </motion.div>

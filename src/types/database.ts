@@ -1,3 +1,4 @@
+
 /**
  * Typed shape of the Supabase database. Mirrors `supabase/schema.sql`.
  *
@@ -66,6 +67,30 @@ export type BlogPostRow = {
   updated_at: string;
 };
 
+export type CaseStudyRow = {
+  id: string;
+  slug: string;
+  client: string;
+  category: string;
+  industry: string;
+  summary: string;
+  platform: string;
+  duration: string;
+  image: string;
+  accent: string;
+  icon: string;
+  challenge: string;
+  solution_short: string;
+  tags: string[];
+  content: any; // Storing the complex nested JSON
+  status: "draft" | "published";
+  published_at: string | null;
+  /** Soft delete: live row when null (see supabase/migrations/). */
+  deleted_at: string | null;
+  created_at: string;
+  updated_at: string;
+};
+
 /** JSON returned by the `admin_overview_charts` RPC (see supabase/migrations/). */
 export type OverviewChartsPayload = {
   contactsByDay: { date: string; count: number }[];
@@ -105,7 +130,14 @@ export interface Database {
         Update: Partial<BlogPostRow>;
         Relationships: [];
       };
+      case_studies: {
+        Row: CaseStudyRow;
+        Insert: Partial<CaseStudyRow> & { slug: string; client: string };
+        Update: Partial<CaseStudyRow>;
+        Relationships: [];
+      };
     };
+    
     Views: Record<string, never>;
     Functions: {
       /** Server-side aggregation for the admin Overview charts. */

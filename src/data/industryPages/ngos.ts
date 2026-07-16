@@ -11,6 +11,8 @@ export const ngosIndustryPage: IndustryPage = {
   heroSubtitle:
     "Donor trust is earned through transparency, and transparency is hard to deliver from a spreadsheet. We build the donor, program, and reporting systems that let a lean team prove impact without a full-time admin hire.",
 
+  heroImage: "/industries section/ngo.avif",
+
   seoTitle: "Digital Transformation for NGOs & Nonprofits | Navya EdTech",
   seoDescription:
     "Donor management systems, program tracking platforms, and nonprofit websites built for NGOs — increase donor trust, track impact accurately, and reduce administrative overhead.",
@@ -25,8 +27,8 @@ export const ngosIndustryPage: IndustryPage = {
   ],
 
   challenges: {
-    title: "Where Small Teams Lose Time",
-    highlight: "They Could Spend on Impact",
+    title: "Where Do Small Teams Lose Time",
+    highlight: "They Could Spend on Impact?",
     intro:
       "Most NGOs run lean by necessity. Every hour spent reconciling donor records or assembling a report by hand is an hour not spent on the program itself.",
     items: [
@@ -92,8 +94,8 @@ export const ngosIndustryPage: IndustryPage = {
   },
 
   roi: {
-    title: "Where the Return",
-    highlight: "Actually Comes From",
+    title: "Where Does the Return",
+    highlight: "Actually Come From?",
     intro:
       "For an NGO, the return isn't measured in revenue alone — it's measured in donor retention, grant readiness, and staff hours returned to mission work.",
     points: [
@@ -107,7 +109,7 @@ export const ngosIndustryPage: IndustryPage = {
 
   features: {
     title: "What's Inside the",
-    highlight: "Platform",
+    highlight: "Platform?",
     intro: "Every feature is scoped to what a lean nonprofit team actually needs to run donor relations and programs well.",
     items: [
       {
@@ -185,4 +187,5 @@ export const ngosIndustryPage: IndustryPage = {
 
   relatedIndustries: ["schools", "hospitals"],
   relatedServices: ["websites", "social", "systems"],
+  relatedSolutions: ["crm-systems", "business-intelligence-analytics"],
 };

@@ -1,9 +1,33 @@
 /** @type {import('tailwindcss').Config} */
+
+// Deep-neutral ramp — cool, navy-tinted grays (hue matched to brand navy
+// #081E4D) instead of generic Tailwind slate. Anchors the "premium" feel:
+// neutrals carry a faint brand tint at every step rather than reading as
+// off-the-shelf gray. `line`, `faint`, and `heading` below pull from this
+// ramp so borders/muted text/headings stay cohesive with one source of truth.
+const neutral = {
+  50: "#F6F8FB",
+  100: "#ECF0F6",
+  200: "#DEE3EC",
+  300: "#C6CEDC",
+  400: "#99A4B8",
+  500: "#6E7A90",
+  600: "#4A5568",
+  700: "#333C52",
+  800: "#1E2438",
+  900: "#10152A",
+  950: "#080B16",
+};
+
 export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
     extend: {
+      maxWidth: {
+        enterprise: "1320px",
+      },
       colors: {
+        neutral,
         // Navya EdTech — Navy + Blue base (matches the logo) with a gold accent
         // layer kept for highlight words (text-gradient) and IconBadge icons.
         bg: {
@@ -57,9 +81,9 @@ export default {
         mist: "#F8FAFC", // very light gray section background
         haze: "#F1F5F9", // alt light section / subtle fills
         sky: "#EFF6FF", // very light blue (testimonials band)
-        line: "#DBE1E8", // borders & dividers
-        faint: "#4B5563", // secondary / muted text
-        heading: "#111827", // headings & primary body text
+        line: neutral[200], // borders & dividers
+        faint: neutral[600], // secondary / muted text
+        heading: neutral[900], // headings & primary body text
       },
       fontFamily: {
         display: ['"Space Grotesk"', '"Syne"', "system-ui", "sans-serif"],
@@ -77,6 +101,18 @@ export default {
         fast: "150ms",
         base: "200ms",
         slow: "300ms",
+        // Modals/drawers only — never use on buttons, dropdowns, or tooltips.
+        slower: "400ms",
+      },
+      transitionTimingFunction: {
+        // Overrides Tailwind's built-in `ease-out` / `ease-in-out` classes
+        // with stronger, punchier curves. Every existing `ease-out` /
+        // `ease-in-out` usage site-wide upgrades automatically — the default
+        // CSS easings are too weak to feel "snappy" (see easing.dev).
+        out: "cubic-bezier(0.23, 1, 0.32, 1)", // entrances: dropdowns, popovers, modals
+        "in-out": "cubic-bezier(0.77, 0, 0.175, 1)", // on-screen movement / repositioning
+        // New: sheets and drawers sliding in from an edge (iOS-style).
+        drawer: "cubic-bezier(0.32, 0.72, 0, 1)",
       },
       boxShadow: {
         glow: "0 0 60px rgba(30, 107, 255,0.35)", // Blue glow

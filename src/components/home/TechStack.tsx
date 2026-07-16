@@ -1,71 +1,98 @@
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import Container from "@/components/common/Container";
 import SectionHeading from "@/components/common/SectionHeading";
 import { techGroups } from "@/data/techStack";
-
-// One flat list — the categories organise the data, but the strip reads as a
-// single, continuous row of tools rather than labelled rows.
-const techs = techGroups.flatMap((group) => group.items);
-
-// Duplicate the list so the track can loop seamlessly: as the first copy scrolls
-// out to the left, the second copy is already filling in behind it. Animating the
-// track by exactly -50% lands the second copy where the first began, so the reset
-// is invisible.
-const marqueeTechs = [...techs, ...techs];
+import { cn } from "@/lib/utils";
+import { fadeUp, viewportOnce } from "@/lib/animations";
 
 export default function TechStack() {
+  const [activeCategory, setActiveCategory] = useState<string>("All");
+
+  const categories = ["All", ...techGroups.map((group) => group.label)];
+  
+  // Flat list of technologies, optionally filtered
+  const filteredTechs = activeCategory === "All"
+    ? techGroups.flatMap((group) => group.items)
+    : techGroups.find((group) => group.label === activeCategory)?.items || [];
+
   return (
-    <section className="relative overflow-hidden bg-mist py-16 md:py-20">
-      <Container>
+    <section className="relative overflow-hidden bg-[#F4F7F5] py-[120px]">
+      {/* Decorative Background Elements */}
+      <div className="absolute top-0 left-1/4 h-96 w-96 -translate-y-1/2 translate-x-1/2 rounded-full bg-[#404E3B]/5 blur-[100px] pointer-events-none" />
+      <div className="absolute bottom-0 right-1/4 h-[500px] w-[500px] translate-y-1/4 translate-x-1/4 rounded-full bg-brand/5 blur-[120px] pointer-events-none" />
+
+      <Container className="relative z-10">
         <SectionHeading
           tone="light"
+          eyebrow="The Arsenal"
           title="Technologies We"
           highlight="Build With"
           subtitle="A modern, battle-tested stack across languages, frameworks, databases, and cloud — chosen to fit each project, not the other way around."
         />
-      </Container>
 
-      {/* Full-bleed marquee track — sits outside the Container so the cards run
-          edge to edge as they scroll. `group` lets us pause the loop on hover. */}
-      <div className="group relative mt-14 overflow-hidden">
-        {/* Soft fade masks so cards ease in/out at the edges instead of clipping. */}
-        <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-16 bg-gradient-to-r from-mist to-transparent md:w-28" />
-        <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-16 bg-gradient-to-l from-mist to-transparent md:w-28" />
-
-        <div className="animate-marquee flex w-max gap-5 px-2.5 group-hover:[animation-play-state:paused]">
-          {marqueeTechs.map((tech, index) => (
-            <div
-              key={`${tech.name}-${index}`}
-              // Duplicated cards are decorative repeats — hide them from the a11y tree.
-              aria-hidden={index >= techs.length}
-              className="tech-card group/card flex w-44 shrink-0 cursor-default flex-col items-center justify-center gap-3.5 rounded-2xl border border-line bg-white px-4 py-7 text-center shadow-card transition-all duration-300 hover:-translate-y-1 hover:border-primary/40 hover:shadow-card-hover"
+        {/* Filter Bar */}
+        <motion.div
+          variants={fadeUp}
+          initial="hidden"
+          whileInView="visible"
+          viewport={viewportOnce}
+          className="mt-12 flex flex-wrap justify-center gap-3"
+        >
+          {categories.map((category) => (
+            <button
+              key={category}
+              onClick={() => setActiveCategory(category)}
+              className={cn(
+                "rounded-full px-6 py-2.5 text-sm font-semibold transition-all duration-300",
+                activeCategory === category
+                  ? "bg-brand text-white shadow-primary-sm"
+                  : "bg-white text-faint hover:bg-brand/10 hover:text-brand ring-1 ring-line/50"
+              )}
             >
-              {/* original brand logo with a soft colored halo on hover */}
-              <span className="relative flex h-11 w-11 shrink-0 items-center justify-center">
-                <span
-                  className="absolute inset-0 rounded-full opacity-0 blur-[12px] transition-opacity duration-300 group-hover/card:opacity-70"
-                  style={{ backgroundColor: tech.color }}
-                />
-                <img
-                  src={tech.logo}
-                  alt={`${tech.name} logo`}
-                  loading="lazy"
-                  width={42}
-                  height={42}
-                  className="relative h-[42px] w-[42px] object-contain transition-transform duration-300 group-hover/card:scale-110"
-                  /* On the white surface, logos flagged `invert` (originally dark
-                     glyphs that were forced white for the navy theme) render as
-                     their original dark artwork — no filter — so they stay
-                     visible. */
-                  style={tech.invert ? { filter: "brightness(0)" } : undefined}
-                />
-              </span>
-              <span className="text-[15px] font-medium leading-tight text-heading">
-                {tech.name}
-              </span>
-            </div>
+              {category}
+            </button>
           ))}
-        </div>
-      </div>
+        </motion.div>
+
+        {/* Animated Grid */}
+        <motion.div 
+          layout
+          className="mt-16 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-6"
+        >
+          <AnimatePresence mode="popLayout">
+            {filteredTechs.map((tech) => (
+              <motion.div
+                key={tech.name}
+                layout
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.8 }}
+                transition={{ duration: 0.4, ease: "easeOut" }}
+                className="group/card relative flex aspect-square cursor-default flex-col items-center justify-center gap-4 rounded-[20px] bg-white border border-line/60 p-4 shadow-card transition-all duration-300 hover:-translate-y-1 hover:border-brand/40 hover:shadow-card-hover"
+              >
+                {/* original brand logo with a soft colored halo on hover */}
+                <span className="relative flex h-14 w-14 shrink-0 items-center justify-center">
+                  <span
+                    className="absolute inset-0 rounded-full opacity-0 blur-[14px] transition-opacity duration-300 group-hover/card:opacity-70"
+                    style={{ backgroundColor: tech.color }}
+                  />
+                  <img
+                    src={tech.logo}
+                    alt={`${tech.name} logo`}
+                    loading="lazy"
+                    className="relative h-[48px] w-[48px] object-contain transition-transform duration-300 group-hover/card:scale-110"
+                    style={tech.invert ? { filter: "brightness(0)" } : undefined}
+                  />
+                </span>
+                <span className="text-[15px] font-semibold leading-tight text-heading">
+                  {tech.name}
+                </span>
+              </motion.div>
+            ))}
+          </AnimatePresence>
+        </motion.div>
+      </Container>
     </section>
   );
 }

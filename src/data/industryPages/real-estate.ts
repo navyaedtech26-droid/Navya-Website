@@ -11,6 +11,8 @@ export const realEstateIndustryPage: IndustryPage = {
   heroSubtitle:
     "A buyer's first impression of a listing happens online, long before an agent ever picks up the phone. We build the listing platforms and CRM systems that convert that first look into a scheduled viewing and a closed deal.",
 
+  heroImage: "/industries section/real estate.avif",
+
   seoTitle: "Digital Transformation for Real Estate | Navya EdTech",
   seoDescription:
     "Property listing websites, real estate CRM systems, and lead management platforms built for agencies and developers — convert more browsers into buyers and keep every lead tracked to close.",
@@ -25,8 +27,8 @@ export const realEstateIndustryPage: IndustryPage = {
   ],
 
   challenges: {
-    title: "Where Leads Go Cold",
-    highlight: "Before an Agent Even Calls",
+    title: "Why Do Leads Go Cold",
+    highlight: "Before an Agent Even Calls?",
     intro:
       "Real estate is a relationship business, but most of that relationship starts online — and most agencies aren't set up to capture it well.",
     items: [
@@ -92,8 +94,8 @@ export const realEstateIndustryPage: IndustryPage = {
   },
 
   roi: {
-    title: "Where the Return",
-    highlight: "Actually Comes From",
+    title: "Where Does the Return",
+    highlight: "Actually Come From?",
     intro:
       "For a real estate business, the return shows up as more qualified leads converted and less time lost to manual coordination.",
     points: [
@@ -107,7 +109,7 @@ export const realEstateIndustryPage: IndustryPage = {
 
   features: {
     title: "What's Inside the",
-    highlight: "Platform",
+    highlight: "Platform?",
     intro: "Every feature is built around a specific stage of the buyer journey, from search to signed contract.",
     items: [
       {
@@ -185,4 +187,5 @@ export const realEstateIndustryPage: IndustryPage = {
 
   relatedIndustries: ["hotels", "manufacturing"],
   relatedServices: ["websites", "systems", "business-intelligence"],
+  relatedSolutions: ["crm-systems"],
 };

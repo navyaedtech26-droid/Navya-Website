@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { useSearchParams } from "react-router-dom";
-import { PenLine, Search, X, ChevronLeft, ChevronRight } from "lucide-react";
+import { PenLine, Search, ChevronLeft, ChevronRight } from "lucide-react";
+import { AnimatePresence, motion } from "framer-motion";
 import Seo from "@/components/common/Seo";
 import PageTransition from "@/components/effects/PageTransition";
 import BlogHero from "@/components/heroes/BlogHero";
@@ -9,8 +10,8 @@ import Reveal from "@/components/effects/Reveal";
 import CTASection from "@/components/common/CTASection";
 import BlogCard from "@/components/blog/BlogCard";
 import BlogCardSkeleton from "@/components/blog/BlogCardSkeleton";
-import FeaturedPost from "@/components/blog/FeaturedPost";
 import FeaturedPostSkeleton from "@/components/blog/FeaturedPostSkeleton";
+import NewsletterCTA from "@/components/blog/NewsletterCTA";
 import { SkeletonGroup } from "@/components/common/Skeleton";
 import { useAsync } from "@/hooks/useAsync";
 import { getPublishedPosts, type BlogPostSummary } from "@/services/blogs";
@@ -19,6 +20,19 @@ import { cn } from "@/lib/utils";
 
 const PAGE_SIZE = 9;
 const ALL = "All";
+
+const PREDEFINED_CATEGORIES = [
+  ALL,
+  "AI",
+  "Web Development",
+  "Mobile",
+  "Cloud",
+  "DevOps",
+  "UI/UX",
+  "Business",
+  "Case Studies"
+];
+
 /** Stable empty reference so memoised filters don't re-run before posts load. */
 const EMPTY_POSTS: BlogPostSummary[] = [];
 
@@ -30,13 +44,6 @@ export default function Blog() {
   const [query, setQuery] = useState(searchParams.get("tag") ?? searchParams.get("q") ?? "");
   const [category, setCategory] = useState<string>(searchParams.get("category") ?? ALL);
   const [page, setPage] = useState(1);
-
-  // Distinct categories present across published posts.
-  const categories = useMemo(() => {
-    const set = new Set<string>();
-    posts.forEach((p) => p.category && set.add(p.category));
-    return [ALL, ...[...set].sort((a, b) => a.localeCompare(b))];
-  }, [posts]);
 
   // Apply search + category filters.
   const filtered = useMemo(() => {
@@ -57,38 +64,44 @@ export default function Blog() {
     setPage(1);
   }, [query, category]);
 
-  // The newest post leads as a headline spread — only on the unfiltered
-  // first page, so search/category results don't lose a post to it.
-  const showFeatured = !query.trim() && category === ALL && page === 1 && filtered.length > 0;
-  const featuredPost = showFeatured ? filtered[0] : null;
-  const gridPosts = featuredPost ? filtered.slice(1) : filtered;
-
+  const gridPosts = filtered;
+  
   const totalPages = Math.max(1, Math.ceil(gridPosts.length / PAGE_SIZE));
   const current = Math.min(page, totalPages);
   const visible = gridPosts.slice((current - 1) * PAGE_SIZE, current * PAGE_SIZE);
+  
+  const showNewsletter = page === 1 && visible.length > 0;
+  const firstRow = visible.slice(0, 3);
+  const remainingRows = visible.slice(3);
 
   const hasPosts = posts.length > 0;
 
   return (
     <PageTransition>
       <Seo
-        title="Blog | Navya EdTech"
-        description="Insights on web development, performance, e-commerce, and business systems from the Navya EdTech team."
+        title="Insights | Navya EdTech"
+        description="Perspectives on web development, performance, e-commerce, and building systems that scale."
         keywords={[
           "web development blog",
           "e-commerce insights",
-          "business systems blog",
+          "software architecture",
           "website performance tips",
         ]}
         path="/blog"
         pageType="CollectionPage"
         jsonLd={breadcrumbSchema([
           { name: "Home", path: "/" },
-          { name: "Blog", path: "/blog" },
+          { name: "Insights", path: "/blog" },
         ])}
       />
 
-      <BlogHero />
+      <BlogHero 
+        query={query} 
+        onQueryChange={setQuery}
+        categories={PREDEFINED_CATEGORIES}
+        category={category}
+        onCategoryChange={setCategory}
+      />
 
       <section className="relative py-12 sm:py-16">
         <Container>
@@ -107,88 +120,63 @@ export default function Blog() {
           ) : !hasPosts ? (
             <EmptyState />
           ) : (
-            <div className="space-y-12">
-              {/* Headline spread for the newest post — first page, no filters. */}
-              {featuredPost && (
-                <Reveal>
-                  <FeaturedPost post={featuredPost} />
-                </Reveal>
-              )}
-
-              {(!showFeatured || gridPosts.length > 0) && (
+            <div className="space-y-16">
+              {gridPosts.length >= 0 && (
                 <div>
-                  {/* Section heading + search */}
-                  <div className="mb-8 flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
-                    <div>
-                      <h2 className="font-display text-2xl font-semibold text-heading">
-                        {showFeatured ? "More articles" : "All articles"}
-                      </h2>
-                      <p className="mt-1.5 text-sm text-faint">
-                        {filtered.length} article{filtered.length === 1 ? "" : "s"}
-                        {category !== ALL && (
-                          <>
-                            {" "}
-                            in <span className="font-medium text-heading">{category}</span>
-                          </>
-                        )}
-                      </p>
-                    </div>
-
-                    <div className="relative w-full sm:w-80">
-                      <Search
-                        size={16}
-                        className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-faint"
-                      />
-                      <input
-                        type="search"
-                        value={query}
-                        onChange={(e) => setQuery(e.target.value)}
-                        placeholder="Search articles…"
-                        aria-label="Search articles"
-                        className="w-full rounded-xl border border-line bg-white py-3 pl-11 pr-10 text-sm text-heading placeholder:text-faint/70 outline-none transition-all duration-200 focus:border-primary/60 focus:shadow-[0_0_0_3px_rgba(8,30,77,0.15)]"
-                      />
-                      {query && (
-                        <button
-                          onClick={() => setQuery("")}
-                          aria-label="Clear search"
-                          className="absolute right-3 top-1/2 -translate-y-1/2 rounded-md p-1 text-faint transition-colors hover:text-heading"
-                        >
-                          <X size={15} />
-                        </button>
-                      )}
-                    </div>
+                  <div className="mb-8 flex items-baseline justify-between gap-4 border-b border-line pb-4">
+                    <h2 className="font-display text-2xl font-semibold text-heading">
+                      Latest Articles
+                    </h2>
+                    <p className="text-sm font-medium uppercase tracking-widest text-faint">
+                      {filtered.length} article{filtered.length === 1 ? "" : "s"}
+                    </p>
                   </div>
-
-                  {categories.length > 1 && (
-                    <div className="mb-8 flex flex-wrap gap-2">
-                      {categories.map((cat) => (
-                        <button
-                          key={cat}
-                          onClick={() => setCategory(cat)}
-                          className={cn(
-                            "rounded-full px-4 py-1.5 text-sm font-medium ring-1 transition-colors",
-                            cat === category
-                              ? "bg-primary/10 text-primary ring-primary/30"
-                              : "bg-mist text-faint ring-line hover:text-heading"
-                          )}
-                        >
-                          {cat}
-                        </button>
-                      ))}
-                    </div>
-                  )}
 
                   {visible.length === 0 ? (
                     <NoResults onReset={() => { setQuery(""); setCategory(ALL); }} />
                   ) : (
                     <>
-                      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-                        {visible.map((post, i) => (
-                          <Reveal key={post.id} delay={i * 0.05}>
-                            <BlogCard post={post} />
-                          </Reveal>
-                        ))}
-                      </div>
+                      <motion.div layout className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+                        <AnimatePresence mode="popLayout">
+                          {firstRow.map((post, i) => (
+                            <motion.div 
+                              key={post.id}
+                              layout
+                              initial={{ opacity: 0, scale: 0.95 }}
+                              animate={{ opacity: 1, scale: 1 }}
+                              exit={{ opacity: 0, scale: 0.9 }}
+                              transition={{ duration: 0.3, ease: "easeOut", delay: i * 0.05 }}
+                            >
+                              <BlogCard post={post} />
+                            </motion.div>
+                          ))}
+                        </AnimatePresence>
+                      </motion.div>
+                      
+                      {showNewsletter && (
+                        <Reveal className="my-16">
+                          <NewsletterCTA />
+                        </Reveal>
+                      )}
+
+                      {remainingRows.length > 0 && (
+                        <motion.div layout className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+                          <AnimatePresence mode="popLayout">
+                            {remainingRows.map((post, i) => (
+                              <motion.div 
+                                key={post.id}
+                                layout
+                                initial={{ opacity: 0, scale: 0.95 }}
+                                animate={{ opacity: 1, scale: 1 }}
+                                exit={{ opacity: 0, scale: 0.9 }}
+                                transition={{ duration: 0.3, ease: "easeOut", delay: i * 0.05 }}
+                              >
+                                <BlogCard post={post} />
+                              </motion.div>
+                            ))}
+                          </AnimatePresence>
+                        </motion.div>
+                      )}
 
                       {totalPages > 1 && (
                         <Pagination
@@ -209,7 +197,7 @@ export default function Blog() {
       <CTASection
         title="Have a Project in Mind?"
         subtitle="Tell us what you're building and we'll make it real."
-        buttonLabel="Start the Conversation"
+        primaryButtonLabel="Start the Conversation"
       />
     </PageTransition>
   );
@@ -227,7 +215,7 @@ function Pagination({
   return (
     <nav
       aria-label="Blog pagination"
-      className="mt-12 flex items-center justify-center gap-2"
+      className="mt-16 flex items-center justify-center gap-2 border-t border-line pt-8"
     >
       <PageButton
         disabled={page === 1}
@@ -243,10 +231,10 @@ function Pagination({
           onClick={() => onChange(n)}
           aria-current={n === page ? "page" : undefined}
           className={cn(
-            "h-9 min-w-9 rounded-lg px-3 text-sm font-medium ring-1 transition-colors",
+            "h-10 min-w-10 rounded-none border px-3 text-sm font-semibold transition-colors",
             n === page
-              ? "bg-primary/10 text-primary ring-primary/30"
-              : "bg-mist text-faint ring-line hover:text-heading"
+              ? "bg-brand text-white border-brand"
+              : "bg-paper text-heading border-line hover:border-heading"
           )}
         >
           {n}
@@ -280,7 +268,7 @@ function PageButton({
       onClick={onClick}
       disabled={disabled}
       aria-label={label}
-      className="flex h-9 w-9 items-center justify-center rounded-lg bg-mist text-faint ring-1 ring-line transition-colors hover:text-heading disabled:cursor-not-allowed disabled:opacity-40"
+      className="flex h-10 w-10 items-center justify-center bg-paper text-heading border border-line transition-colors hover:border-heading disabled:cursor-not-allowed disabled:opacity-40"
     >
       {children}
     </button>
@@ -289,17 +277,17 @@ function PageButton({
 
 function NoResults({ onReset }: { onReset: () => void }) {
   return (
-    <div className="mx-auto flex max-w-md flex-col items-center rounded-3xl card-light p-12 text-center">
-      <div className="flex h-14 w-14 items-center justify-center rounded-full bg-primary/10 ring-1 ring-primary/30">
-        <Search className="text-primary" />
+    <div className="mx-auto flex max-w-md flex-col items-center bg-mist border border-line p-12 text-center">
+      <div className="flex h-14 w-14 items-center justify-center bg-white border border-line">
+        <Search className="text-brand" />
       </div>
-      <h3 className="mt-5 font-display text-xl font-semibold text-heading">No matches</h3>
-      <p className="mt-2 text-sm text-faint">
-        No articles fit your search. Try different keywords or clear the filters.
+      <h3 className="mt-6 font-display text-2xl font-semibold text-heading">No matches found</h3>
+      <p className="mt-3 text-base text-faint">
+        We couldn't find any articles matching your criteria.
       </p>
       <button
         onClick={onReset}
-        className="mt-5 rounded-xl border border-line bg-white px-5 py-2.5 text-sm font-medium text-heading shadow-sm transition-colors hover:bg-mist"
+        className="mt-8 border border-line bg-white px-6 py-3 text-sm font-semibold uppercase tracking-widest text-heading transition-colors hover:border-heading"
       >
         Clear filters
       </button>
@@ -309,16 +297,15 @@ function NoResults({ onReset }: { onReset: () => void }) {
 
 function EmptyState() {
   return (
-    <div className="mx-auto flex max-w-md flex-col items-center rounded-3xl card-light p-12 text-center">
-      <div className="flex h-14 w-14 items-center justify-center rounded-full bg-primary/10 ring-1 ring-primary/30">
-        <PenLine className="text-primary" />
+    <div className="mx-auto flex max-w-md flex-col items-center bg-mist border border-line p-12 text-center">
+      <div className="flex h-14 w-14 items-center justify-center bg-white border border-line">
+        <PenLine className="text-brand" />
       </div>
-      <h3 className="mt-5 font-display text-xl font-semibold text-heading">
+      <h3 className="mt-6 font-display text-2xl font-semibold text-heading">
         No articles yet
       </h3>
-      <p className="mt-2 text-sm text-faint">
-        We're working on our first posts. Check back soon for insights on web
-        development and business systems.
+      <p className="mt-3 text-base text-faint">
+        We're working on our first publications. Check back soon for insights on web development and architecture.
       </p>
     </div>
   );

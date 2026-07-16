@@ -3,12 +3,10 @@ import Seo from "@/components/common/Seo";
 import PageTransition from "@/components/effects/PageTransition";
 import HeroSection from "@/components/home/HeroSection";
 import TechStack from "@/components/home/TechStack";
-import StatsSection from "@/components/home/StatsSection";
 import ServicesOverview from "@/components/home/ServicesOverview";
 import FeaturesSection from "@/components/home/FeaturesSection";
 import IndustriesSection from "@/components/home/IndustriesSection";
 import CaseStudiesSection from "@/components/home/CaseStudiesSection";
-import ProcessSection from "@/components/home/ProcessSection";
 import TrustAssuranceSection from "@/components/home/TrustAssuranceSection";
 import TestimonialsSection from "@/components/home/TestimonialsSection";
 import FaqSection from "@/components/common/FaqSection";
@@ -39,18 +37,14 @@ export default function Home() {
   return (
     <PageTransition>
       <Seo
-        // Every other page follows "{Page} | Navya EdTech" (brand-last). The
-        // homepage is the one deliberate exception: it's the page branded
-        // searches ("navya edtech") land on, so leading with the brand name
-        // here is the correct call, not an inconsistency to "fix" later.
-        title="Navya EdTech | Digital Transformation That Drives Growth"
-        description="Navya EdTech turns digital investment into measurable growth — revenue-driving websites, cost-cutting business systems, and BI for founders, schools, hospitals, and enterprises."
+        title="Navya EdTech | Enterprise IT Services & Software Development"
+        description="We engineer scalable, secure, and modern digital solutions for enterprises. From custom software to cloud architecture, we turn complex challenges into competitive advantages."
         keywords={[
-          "digital transformation Nepal",
-          "revenue-driving website development",
-          "business intelligence dashboards",
-          "CRM and ERP systems",
-          "digital transformation partner",
+          "Enterprise Software Development",
+          "IT Services",
+          "Cloud Solutions",
+          "Digital Transformation",
+          "Custom App Development",
         ]}
         path="/"
         jsonLd={[faqPageSchema(generalFaqs), ...(reviews ? [reviews] : [])]}
@@ -58,12 +52,10 @@ export default function Home() {
 
       <HeroSection />
       <TechStack />
-      <StatsSection />
       <ServicesOverview />
       <FeaturesSection />
       <IndustriesSection />
       <CaseStudiesSection />
-      <ProcessSection />
       <TrustAssuranceSection />
       <TestimonialsSection />
       <FaqSection
@@ -74,10 +66,9 @@ export default function Home() {
         items={generalFaqs}
       />
       <CTASection
-        tone="light"
-        title="Ready to Turn Digital Into Growth?"
-        subtitle="Let's build the business case for your next revenue channel, efficiency gain, or platform investment."
-        buttonLabel="Book a Strategy Call"
+        title="Ready to Upgrade Your Technical Foundation?"
+        subtitle="Let's discuss your operational bottlenecks and build a strategic roadmap for your next software investment."
+        primaryButtonLabel="Book a Strategy Call"
       />
     </PageTransition>
   );

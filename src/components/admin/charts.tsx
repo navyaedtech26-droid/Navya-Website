@@ -32,47 +32,45 @@ ChartJS.register(
   Legend
 );
 
-// Shared theme tokens (mirror tailwind.config.js).
-const INK_MUTED = "#94A3B8";
-const GRID = "rgba(255,255,255,0.06)";
-const BRAND = "#1E6BFF";
-const BRAND_LIGHT = "#3B82F6";
-const CYAN = "#0EA5E9";
+// Bootstrap 4 / AdminLTE theme tokens.
+const INK_MUTED = "#6C757D";
+const GRID = "rgba(0,0,0,0.06)";
+const BRAND = "#007BFF";
 
-// Palette for categorical charts (doughnut/bar slices). Hues are spread out so
-// adjacent categories are easy to distinguish.
-export const CHART_COLORS = [
-  BRAND, // blue
-  CYAN, // cyan
-  "#8B5CF6", // violet
-  "#F59E0B", // amber
-  "#10B981", // emerald
-  "#EC4899", // pink
-  "#F97316", // orange
-  "#14B8A6", // teal
+// Palette for categorical charts (doughnut/bar slices) — the classic
+// Bootstrap 4 semantic colors, in the order AdminLTE's own demo uses them.
+const CHART_COLORS = [
+  "#007BFF", // primary
+  "#17A2B8", // info
+  "#6610F2", // indigo
+  "#FFC107", // warning
+  "#28A745", // success
+  "#E83E8C", // pink
+  "#FD7E14", // orange
+  "#20C997", // teal
 ];
 
-/** Status palette: green (new) → amber (read) → slate (archived). */
-export const STATUS_COLORS = ["#10B981", "#F59E0B", "#64748B"];
+/** Status palette: green (new) → amber (read) → gray (archived). */
+export const STATUS_COLORS = ["#28A745", "#FFC107", "#6C757D"];
 
 /** Blog palette: blue (published) vs amber (draft). */
-export const BLOG_COLORS = [BRAND, "#F59E0B"];
+export const BLOG_COLORS = [BRAND, "#FFC107"];
 
 /** Rating scale from 5★ (green, best) down to 1★ (red, worst). */
-export const RATING_COLORS = ["#10B981", "#84CC16", "#F59E0B", "#F97316", "#EF4444"];
+export const RATING_COLORS = ["#28A745", "#8CC152", "#FFC107", "#FD7E14", "#DC3545"];
 
 ChartJS.defaults.color = INK_MUTED;
 ChartJS.defaults.font.family =
-  '"Inter", "DM Sans", system-ui, sans-serif';
+  '"Source Sans Pro", Helvetica, Arial, sans-serif';
 
 const tooltipStyle = {
-  backgroundColor: "#0F172A",
-  borderColor: "rgba(255,255,255,0.1)",
+  backgroundColor: "#FFFFFF",
+  borderColor: "#DEE2E6",
   borderWidth: 1,
-  titleColor: "#F8FAFC",
+  titleColor: "#212529",
   bodyColor: INK_MUTED,
   padding: 10,
-  cornerRadius: 8,
+  cornerRadius: 3,
 } as const;
 
 /** Line chart with a soft brand-blue gradient fill — for time series. */
@@ -116,20 +114,20 @@ export function TrendChart({
           {
             label,
             data,
-            borderColor: BRAND_LIGHT,
+            borderColor: BRAND,
             backgroundColor: (ctx) => {
               const { ctx: c, chartArea } = ctx.chart;
-              if (!chartArea) return "rgba(30, 107, 255,0.15)";
+              if (!chartArea) return "rgba(0,123,255,0.15)";
               const g = c.createLinearGradient(0, chartArea.top, 0, chartArea.bottom);
-              g.addColorStop(0, "rgba(30, 107, 255,0.35)");
-              g.addColorStop(1, "rgba(30, 107, 255,0)");
+              g.addColorStop(0, "rgba(0,123,255,0.25)");
+              g.addColorStop(1, "rgba(0,123,255,0)");
               return g;
             },
             fill: true,
             tension: 0.35,
             pointRadius: 0,
             pointHoverRadius: 5,
-            pointHoverBackgroundColor: BRAND_LIGHT,
+            pointHoverBackgroundColor: BRAND,
             borderWidth: 2,
           },
         ],
@@ -170,7 +168,7 @@ export function BreakdownChart({
           {
             data,
             backgroundColor: colors,
-            borderColor: "#0F172A",
+            borderColor: "#FFFFFF",
             borderWidth: 2,
             hoverOffset: 6,
           },

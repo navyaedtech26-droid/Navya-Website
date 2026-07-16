@@ -1,46 +1,47 @@
 import { motion } from "framer-motion";
-import { MessageSquare, Search, FileText, Rocket } from "lucide-react";
+import { Network, SearchCode, FileStack, Rocket } from "lucide-react";
 import Container from "@/components/common/Container";
 import SectionHeading from "@/components/common/SectionHeading";
-import IconBadge from "@/components/common/IconBadge";
 import { fadeUp, staggerContainer, viewportOnce } from "@/lib/animations";
 
 const steps = [
   {
-    icon: MessageSquare,
+    icon: Network,
     step: "01",
-    title: "We Reply Fast",
-    text: "We reply instantly to set up a relaxed discovery call.",
+    title: "Discovery & Strategy",
+    text: "We begin with a deep dive into your business objectives, target market, and operational challenges to align on the strategic vision.",
   },
   {
-    icon: Search,
+    icon: SearchCode,
     step: "02",
-    title: "We Understand You",
-    text: "We dig into your goals, market, and challenges before proposing anything.",
+    title: "Technical Audit",
+    text: "Our architects review your existing infrastructure and processes to identify bottlenecks and map out the optimal technical approach.",
   },
   {
-    icon: FileText,
+    icon: FileStack,
     step: "03",
-    title: "You Get a Clear Plan",
-    text: "A transparent scope, timeline, and quote, with no jargon and no surprises.",
+    title: "Implementation Plan",
+    text: "We deliver a comprehensive roadmap including architecture design, resource allocation, and a transparent project timeline.",
   },
   {
     icon: Rocket,
     step: "04",
-    title: "We Build & Launch",
-    text: "We design, build, and ship, then support your growth long after.",
+    title: "Execution & Scale",
+    text: "Our dedicated teams execute the plan with precision, ensuring scalable delivery and continuous support post-launch.",
   },
 ];
 
 export default function WhatHappensNext() {
   return (
-    <section className="relative bg-mist py-16 md:py-20">
+    <section className="relative bg-white py-20 md:py-28 overflow-hidden">
+      <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-line to-transparent"></div>
+      
       <Container>
         <SectionHeading
-          eyebrow="What Happens Next"
-          title="From Hello to"
-          highlight="Launch"
-          subtitle="Reaching out is easy and pressure-free. Here's exactly what to expect after you hit send."
+          eyebrow="Engagement Process"
+          title="From Inquiry to"
+          highlight="Execution"
+          subtitle="Our enterprise consultation process is designed to minimize risk and accelerate time-to-value from day one."
         />
 
         <motion.div
@@ -48,20 +49,27 @@ export default function WhatHappensNext() {
           initial="hidden"
           whileInView="visible"
           viewport={viewportOnce}
-          className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-4"
+          className="mt-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-4 relative"
         >
+          {/* Connecting line for desktop */}
+          <div className="hidden lg:block absolute top-[44px] left-[10%] right-[10%] h-px bg-line"></div>
+
           {steps.map((s) => (
             <motion.div
               key={s.step}
               variants={fadeUp}
-              className="group relative overflow-hidden rounded-2xl card-light p-7 transition-all duration-300 hover:-translate-y-1 hover:shadow-card-hover"
+              className="relative z-10 flex flex-col items-center text-center group"
             >
-              <span className="pointer-events-none absolute right-4 top-2 select-none font-display text-5xl font-bold leading-none text-heading/[0.05] transition-colors duration-300 group-hover:text-primary/20">
-                {s.step}
-              </span>
-              <IconBadge icon={s.icon} size="lg" />
-              <h3 className="mt-5 font-display text-base font-semibold text-heading">{s.title}</h3>
-              <p className="mt-2 text-sm leading-relaxed text-faint">{s.text}</p>
+              <div className="flex h-24 w-24 items-center justify-center rounded-2xl bg-slate-50 border border-line/80 shadow-sm transition-all duration-300 group-hover:scale-110 group-hover:border-brand/30 group-hover:bg-white group-hover:shadow-md mb-6 relative overflow-hidden">
+                <div className="absolute inset-0 bg-gradient-to-br from-brand/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                <s.icon size={32} className="text-faint group-hover:text-brand transition-colors" strokeWidth={1.5} />
+                <div className="absolute top-2 left-2 text-[10px] font-bold text-faint/50 group-hover:text-brand/30 transition-colors">
+                  {s.step}
+                </div>
+              </div>
+              
+              <h3 className="font-display text-lg font-bold text-heading">{s.title}</h3>
+              <p className="mt-3 text-sm leading-relaxed text-faint max-w-[260px]">{s.text}</p>
             </motion.div>
           ))}
         </motion.div>

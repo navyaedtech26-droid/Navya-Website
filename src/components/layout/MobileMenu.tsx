@@ -1,7 +1,9 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { X, ArrowUpRight } from "lucide-react";
+import { X, ArrowUpRight, ChevronDown } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 import { navLinks, contactInfo } from "@/data/navigation";
+import { cn } from "@/lib/utils";
 
 interface MobileMenuProps {
   open: boolean;
@@ -10,6 +12,7 @@ interface MobileMenuProps {
 
 export default function MobileMenu({ open, onClose }: MobileMenuProps) {
   const location = useLocation();
+  const [expandedMenus, setExpandedMenus] = useState<string[]>([]);
 
   useEffect(() => {
     document.body.style.overflow = open ? "hidden" : "";
@@ -18,17 +21,43 @@ export default function MobileMenu({ open, onClose }: MobileMenuProps) {
     };
   }, [open]);
 
-  if (!open) return null;
+  useEffect(() => {
+    if (!open) return;
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onClose();
+    };
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, [open, onClose]);
+
+  const toggleMenu = (label: string) => {
+    setExpandedMenus(prev =>
+      prev.includes(label) ? prev.filter(item => item !== label) : [...prev, label]
+    );
+  };
 
   return (
     <>
       <div
-        className="fixed inset-0 z-[60] bg-heading/40 backdrop-blur-sm lg:hidden"
+        aria-hidden={!open}
         onClick={onClose}
+        className={cn(
+          "fixed inset-0 z-[60] bg-heading/40 backdrop-blur-sm transition-opacity ease-out lg:hidden",
+          open ? "pointer-events-auto opacity-100 duration-base" : "pointer-events-none opacity-0 duration-fast"
+        )}
       />
-      <aside className="fixed right-0 top-0 z-[70] flex h-[100dvh] w-[82%] max-w-sm flex-col card-light border-l border-line px-7 py-7 lg:hidden">
+      <aside
+        aria-hidden={!open}
+        className={cn(
+          "fixed right-0 top-0 z-[70] flex h-[100dvh] w-[82%] max-w-sm flex-col card-light border-l border-line px-7 py-7 lg:hidden overflow-y-auto",
+          "transition-[transform,opacity] ease-drawer",
+          open
+            ? "translate-x-0 opacity-100 duration-base"
+            : "pointer-events-none translate-x-full opacity-0 duration-fast"
+        )}
+      >
         <div className="flex items-center justify-between">
-          <Link to="/" onClick={onClose} aria-label="Navya EdTech home">
+          <Link to="/" onClick={onClose} aria-label="Navya EdTech home" tabIndex={open ? 0 : -1}>
             <img
               src="/logo-navy.webp"
               alt="NavyaEdTech"
@@ -41,23 +70,67 @@ export default function MobileMenu({ open, onClose }: MobileMenuProps) {
           <button
             onClick={onClose}
             aria-label="Close menu"
-            className="flex h-11 w-11 items-center justify-center rounded-xl border border-line bg-paper text-faint hover:bg-haze hover:text-heading"
+            tabIndex={open ? 0 : -1}
+            className="flex h-11 w-11 items-center justify-center rounded-xl border border-line bg-paper text-faint transition-[background-color,transform] duration-fast ease-out hover:bg-haze hover:text-heading active:scale-[0.97]"
           >
             <X size={20} />
           </button>
         </div>
 
-        <nav className="mt-12 flex flex-col gap-2">
+        <nav className="mt-10 flex flex-col gap-2">
           {navLinks.map((link) => {
+            const isMegaMenu = !!link.children;
+            const isExpanded = expandedMenus.includes(link.label);
+
+            if (isMegaMenu) {
+              return (
+                <div key={link.label} className="flex flex-col">
+                  <button
+                    onClick={() => toggleMenu(link.label)}
+                    tabIndex={open ? 0 : -1}
+                    className="flex items-center justify-between rounded-2xl px-4 py-4 font-display text-2xl font-medium transition-[color,transform] duration-fast ease-out active:scale-[0.98] text-heading hover:text-primary"
+                  >
+                    {link.label}
+                    <ChevronDown size={20} className={cn("text-faint transition-transform duration-300", isExpanded && "rotate-180")} />
+                  </button>
+                  <AnimatePresence>
+                    {isExpanded && (
+                      <motion.div
+                        initial={{ height: 0, opacity: 0 }}
+                        animate={{ height: "auto", opacity: 1 }}
+                        exit={{ height: 0, opacity: 0 }}
+                        transition={{ duration: 0.3, ease: "easeInOut" }}
+                        className="overflow-hidden px-4 flex flex-col gap-3"
+                      >
+                        {link.children?.map(child => (
+                          <Link
+                            key={child.label}
+                            to={child.href}
+                            onClick={onClose}
+                            tabIndex={open ? 0 : -1}
+                            className="font-medium text-faint hover:text-primary py-2 border-l-2 border-line pl-4"
+                          >
+                            {child.label}
+                          </Link>
+                        ))}
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
+              );
+            }
+
             const active = location.pathname === link.href;
             return (
               <Link
-                key={link.href}
-                to={link.href}
+                key={link.label}
+                to={link.href!}
                 onClick={onClose}
-                className={`flex items-center justify-between rounded-2xl px-4 py-4 font-display text-2xl font-medium ${
+                tabIndex={open ? 0 : -1}
+                className={cn(
+                  "flex items-center justify-between rounded-2xl px-4 py-4 font-display text-2xl font-medium transition-[color,transform] duration-fast ease-out active:scale-[0.98]",
                   active ? "text-primary" : "text-heading hover:text-primary"
-                }`}
+                )}
               >
                 {link.label}
                 <ArrowUpRight size={20} className="text-faint" />
@@ -66,13 +139,15 @@ export default function MobileMenu({ open, onClose }: MobileMenuProps) {
           })}
         </nav>
 
-        <div className="mt-auto space-y-3 border-t border-line pt-6 text-sm text-faint">
-          <a href={`mailto:${contactInfo.email}`} className="block hover:text-primary">
+        <div className="mt-12 space-y-3 border-t border-line pt-6 text-sm text-faint">
+          <a
+            href={`mailto:${contactInfo.email}`}
+            tabIndex={open ? 0 : -1}
+            className="block hover:text-primary font-medium"
+          >
             {contactInfo.email}
           </a>
-          <p>Instagram {contactInfo.instagram}</p>
-          <p>TikTok {contactInfo.tiktok}</p>
-          <p>LinkedIn {contactInfo.linkedin}</p>
+          <p>LinkedIn <a href={contactInfo.linkedinUrl} className="hover:text-primary transition-colors underline decoration-line underline-offset-4">{contactInfo.linkedin}</a></p>
         </div>
       </aside>
     </>

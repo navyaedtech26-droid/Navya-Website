@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
-import { Link } from "react-router-dom";
-import { ArrowRight, Check, AlertTriangle, Sparkles } from "lucide-react";
+
+import { Check, AlertTriangle, Sparkles } from "lucide-react";
 import Seo from "@/components/common/Seo";
 import PageTransition from "@/components/effects/PageTransition";
 import Container from "@/components/common/Container";
@@ -9,12 +9,17 @@ import IconBadge from "@/components/common/IconBadge";
 import TiltCard from "@/components/effects/TiltCard";
 import FaqSection from "@/components/common/FaqSection";
 import CTASection from "@/components/common/CTASection";
+import RelatedLinksSection from "@/components/common/RelatedLinksSection";
+import ServiceHero from "@/components/services/ServiceHero";
+import ServiceOverview from "@/components/services/ServiceOverview";
 import { fadeUp, staggerContainer, viewportOnce, easeEntrance } from "@/lib/animations";
 import {
   breadcrumbSchema,
   faqPageSchema,
   serviceListSchema,
 } from "@/lib/structuredData";
+import { servicePages, solutionPages } from "@/data/servicePages";
+import { industryPages } from "@/data/industryPages";
 import type { ServicePage } from "@/types";
 
 interface ServicePageTemplateProps {
@@ -22,7 +27,20 @@ interface ServicePageTemplateProps {
 }
 
 export default function ServicePageTemplate({ data }: ServicePageTemplateProps) {
-  const path = `/services/${data.slug}`;
+  const isSolution = data.category === "solution";
+  const basePath = isSolution ? "/solutions" : "/services";
+  const sectionLabel = isSolution ? "Solutions" : "Services";
+  const path = `${basePath}/${data.slug}`;
+
+  const relatedServices = (data.relatedServices ?? [])
+    .map((slug) => servicePages.find((s) => s.slug === slug))
+    .filter((s): s is ServicePage => Boolean(s));
+  const relatedSolutions = (data.relatedSolutions ?? [])
+    .map((slug) => solutionPages.find((s) => s.slug === slug))
+    .filter((s): s is ServicePage => Boolean(s));
+  const relatedIndustries = (data.relatedIndustries ?? [])
+    .map((slug) => industryPages.find((p) => p.slug === slug))
+    .filter((p): p is (typeof industryPages)[number] => Boolean(p));
 
   return (
     <PageTransition>
@@ -35,7 +53,7 @@ export default function ServicePageTemplate({ data }: ServicePageTemplateProps) 
         jsonLd={[
           breadcrumbSchema([
             { name: "Home", path: "/" },
-            { name: "Services", path: "/services" },
+            { name: sectionLabel, path: basePath },
             { name: data.title, path },
           ]),
           serviceListSchema([{ title: data.title, description: data.seoDescription }]),
@@ -43,57 +61,9 @@ export default function ServicePageTemplate({ data }: ServicePageTemplateProps) 
         ]}
       />
 
-      {/* Hero */}
-      <section className="relative isolate flex min-h-[70vh] items-center overflow-hidden bg-paper pb-16 pt-28 sm:pt-36">
-        <div
-          aria-hidden
-          className="absolute inset-0 -z-10 light-grid opacity-70 [mask-image:radial-gradient(ellipse_at_center,black_20%,transparent_78%)]"
-        />
-        <div aria-hidden className="absolute inset-0 -z-10 bg-hero-wash" />
-        <Container className="relative">
-          <motion.div
-            variants={staggerContainer(0.12)}
-            initial="hidden"
-            animate="visible"
-            className="mx-auto max-w-3xl text-center"
-          >
-            <motion.div variants={fadeUp} className="flex justify-center">
-              <IconBadge icon={data.icon} size="lg" tone="light" />
-            </motion.div>
-            <motion.nav
-              variants={fadeUp}
-              aria-label="Breadcrumb"
-              className="mt-5 text-sm font-medium text-faint"
-            >
-              <ol className="inline-flex items-center justify-center gap-2">
-                <li>
-                  <Link to="/services" className="hover:text-primary">Services</Link>
-                </li>
-                <li aria-hidden="true">/</li>
-                <li aria-current="page">{data.title}</li>
-              </ol>
-            </motion.nav>
-            <motion.h1 variants={fadeUp} className="mt-3 type-display text-heading">
-              {data.title}: <span className="text-primary">{data.highlight}</span>
-            </motion.h1>
-            <motion.p
-              variants={fadeUp}
-              className="mx-auto mt-6 max-w-2xl text-base leading-relaxed text-faint sm:text-lg"
-            >
-              {data.heroSubtitle}
-            </motion.p>
-            <motion.div variants={fadeUp} className="mt-9 flex justify-center">
-              <Link
-                to="/contact"
-                className="group inline-flex items-center justify-center gap-1.5 rounded-xl bg-primary px-6 py-3 text-sm font-semibold text-white shadow-primary-sm transition-colors duration-200 hover:bg-primary-dark"
-              >
-                Book a Strategy Call
-                <ArrowRight size={16} className="transition-transform duration-200 group-hover:translate-x-0.5" />
-              </Link>
-            </motion.div>
-          </motion.div>
-        </Container>
-      </section>
+      <ServiceHero data={data} />
+      
+      {data.overview && <ServiceOverview data={data.overview} />}
 
       {/* Business Problem */}
       <section className="relative py-16 md:py-20">
@@ -109,17 +79,27 @@ export default function ServicePageTemplate({ data }: ServicePageTemplateProps) 
             initial="hidden"
             whileInView="visible"
             viewport={viewportOnce}
-            className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3"
+            className="mt-12 flex flex-col border-t border-line"
           >
             {data.businessProblem.painPoints.map((point) => (
               <motion.div
                 key={point.title}
                 variants={fadeUp}
-                className="flex h-full flex-col gap-3 rounded-2xl card-light p-6"
+                className="group flex flex-col md:flex-row gap-4 md:gap-12 py-8 md:py-10 border-b border-line transition-colors duration-300"
               >
-                <AlertTriangle size={18} className="text-secondary" strokeWidth={2} />
-                <h3 className="font-display text-base font-semibold text-heading">{point.title}</h3>
-                <p className="text-sm leading-relaxed text-faint">{point.description}</p>
+                <div className="flex w-full md:w-5/12 items-start gap-5">
+                  <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-secondary/10 text-secondary transition-colors group-hover:bg-secondary group-hover:text-white">
+                    <AlertTriangle size={24} strokeWidth={2} />
+                  </div>
+                  <h3 className="mt-2.5 font-display text-xl font-semibold text-heading">
+                    {point.title}
+                  </h3>
+                </div>
+                <div className="w-full md:w-7/12 md:pt-2.5">
+                  <p className="text-base leading-relaxed text-faint sm:text-lg">
+                    {point.description}
+                  </p>
+                </div>
               </motion.div>
             ))}
           </motion.div>
@@ -166,26 +146,41 @@ export default function ServicePageTemplate({ data }: ServicePageTemplateProps) 
             highlight={data.roi.highlight}
             subtitle={data.roi.intro}
           />
-          <motion.ul
-            variants={staggerContainer(0.06)}
+          <motion.div
+            variants={staggerContainer(0.08)}
             initial="hidden"
             whileInView="visible"
             viewport={viewportOnce}
-            className="mx-auto mt-10 flex max-w-3xl flex-col gap-3"
+            className="mt-12 grid gap-6 sm:grid-cols-2"
           >
-            {data.roi.points.map((point) => (
-              <motion.li
-                key={point}
-                variants={fadeUp}
-                className="flex items-start gap-3 rounded-xl border border-line bg-white px-5 py-4 text-sm leading-relaxed text-heading/90 sm:text-base"
-              >
-                <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-md bg-primary/10 text-primary">
-                  <Check size={12} strokeWidth={3} />
-                </span>
-                {point}
-              </motion.li>
-            ))}
-          </motion.ul>
+            {data.roi.points.map((point, index) => {
+              const match = point.match(/^(.*?)\s+[—\-]\s+(.*)$/);
+              const title = match ? match[1] : point;
+              const description = match ? match[2] : "";
+
+              return (
+                <motion.div
+                  key={index}
+                  variants={fadeUp}
+                  className="group flex flex-col gap-4 rounded-3xl bg-mist/50 p-8 ring-1 ring-line/50 transition-all duration-300 hover:bg-white hover:shadow-xl hover:ring-primary/20"
+                >
+                  <div className="flex items-center gap-4">
+                    <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-primary/10 text-primary transition-transform duration-300 group-hover:scale-110">
+                      <Check size={24} strokeWidth={2.5} />
+                    </div>
+                    <h3 className="font-display text-xl font-bold text-heading leading-tight transition-colors group-hover:text-primary">
+                      {title}
+                    </h3>
+                  </div>
+                  {description && (
+                    <p className="mt-2 text-base leading-relaxed text-faint sm:text-lg">
+                      {description}
+                    </p>
+                  )}
+                </motion.div>
+              );
+            })}
+          </motion.div>
         </Container>
       </section>
 
@@ -194,8 +189,8 @@ export default function ServicePageTemplate({ data }: ServicePageTemplateProps) 
         <Container>
           <SectionHeading
             align="left"
-            title="How the Engagement"
-            highlight="Runs"
+            title="How Does the Engagement"
+            highlight="Actually Run?"
             subtitle="The same disciplined process behind every project, applied to this one."
           />
           <div className="relative mt-16">
@@ -277,8 +272,8 @@ export default function ServicePageTemplate({ data }: ServicePageTemplateProps) 
         <Container>
           <SectionHeading
             align="left"
-            title="A Realistic"
-            highlight="Timeline"
+            title="What's a Realistic"
+            highlight="Timeline?"
             subtitle="Scoped ranges, not vague promises — the exact plan is confirmed after discovery."
           />
           <motion.div
@@ -309,8 +304,8 @@ export default function ServicePageTemplate({ data }: ServicePageTemplateProps) 
         <Container>
           <SectionHeading
             align="left"
-            title="The Technology"
-            highlight="Behind It"
+            title="What Technology Is"
+            highlight="Behind It?"
             subtitle="We pick the right tool for the outcome — not the newest one for its own sake."
           />
           <motion.div
@@ -346,8 +341,8 @@ export default function ServicePageTemplate({ data }: ServicePageTemplateProps) 
         <Container>
           <SectionHeading
             align="left"
-            title="Proof From"
-            highlight={data.title}
+            title="What Results Have We Delivered in"
+            highlight={`${data.title}?`}
             subtitle={`Real outcomes from ${data.title.toLowerCase()} engagements, not manufactured claims.`}
           />
           <motion.div
@@ -393,6 +388,47 @@ export default function ServicePageTemplate({ data }: ServicePageTemplateProps) 
         </Container>
       </section>
 
+      {/* Internal linking: sibling services/solutions + the industries this fits */}
+      <RelatedLinksSection
+        groups={[
+          {
+            title: isSolution ? "Paired" : "Related",
+            highlight: "Services",
+            subtitle: "Capabilities that pair naturally with this one.",
+            items: relatedServices.map((service) => ({
+              href: `/services/${service.slug}`,
+              icon: service.icon,
+              title: service.title,
+              description: service.heroSubtitle,
+            })),
+          },
+          {
+            title: isSolution ? "Other" : "Related",
+            highlight: "Solutions",
+            subtitle: "Purpose-built systems that solve adjacent problems.",
+            items: relatedSolutions.map((solution) => ({
+              href: `/solutions/${solution.slug}`,
+              icon: solution.icon,
+              title: solution.title,
+              description: solution.heroSubtitle,
+            })),
+          },
+          {
+            title: "Who This Is",
+            highlight: "Built For",
+            subtitle: "See how this looks in practice for a specific industry.",
+            linkLabel: "See industry",
+            items: relatedIndustries.map((industry) => ({
+              href: `/industries/${industry.slug}`,
+              icon: industry.icon,
+              color: industry.color,
+              title: industry.title,
+              description: industry.heroSubtitle,
+            })),
+          },
+        ]}
+      />
+
       <FaqSection
         title="Questions About"
         highlight={data.title}
@@ -403,7 +439,7 @@ export default function ServicePageTemplate({ data }: ServicePageTemplateProps) 
       <CTASection
         title={data.cta.title}
         subtitle={data.cta.subtitle}
-        buttonLabel={data.cta.buttonLabel}
+        primaryButtonLabel={data.cta.buttonLabel}
       />
     </PageTransition>
   );

@@ -20,9 +20,28 @@ import Contact from "@/pages/Contact";
 // Secondary / less-trafficked pages are code-split: the blog reader (markdown
 // pipeline), the standalone testimonial form, the legal pages and the 404 each
 // load on demand so they don't weigh down the initial download of the home page.
+const Portfolio = lazy(() => import("@/pages/Portfolio"));
+const CaseStudyDetail = lazy(() => import("@/pages/CaseStudyDetail"));
 const Blog = lazy(() => import("@/pages/Blog"));
 const BlogPost = lazy(() => import("@/pages/BlogPost"));
 const ServiceWebsites = lazy(() => import("@/pages/services/Websites"));
+const ServiceCustomSoftware = lazy(() => import("@/pages/services/CustomSoftwareDevelopment"));
+const ServiceMobileApps = lazy(() => import("@/pages/services/MobileAppDevelopment"));
+const ServiceAiSolutions = lazy(() => import("@/pages/services/AiSolutions"));
+const ServiceCloud = lazy(() => import("@/pages/services/CloudServices"));
+const ServiceUiUxDesign = lazy(() => import("@/pages/services/UiUxDesign"));
+const ServiceDevOps = lazy(() => import("@/pages/services/DevOps"));
+const ServiceItConsulting = lazy(() => import("@/pages/services/ItConsulting"));
+const ServiceDedicatedDevelopers = lazy(() => import("@/pages/services/DedicatedDevelopers"));
+const SolutionDigitalTransformation = lazy(() => import("@/pages/solutions/DigitalTransformation"));
+const SolutionErpSystems = lazy(() => import("@/pages/solutions/ErpSystems"));
+const SolutionCrmSystems = lazy(() => import("@/pages/solutions/CrmSystems"));
+const SolutionBillingInvoicing = lazy(() => import("@/pages/solutions/BillingInvoicing"));
+const SolutionLms = lazy(() => import("@/pages/solutions/LearningManagementSystems"));
+const SolutionInventoryManagement = lazy(() => import("@/pages/solutions/InventoryManagement"));
+const SolutionBusinessIntelligence = lazy(() => import("@/pages/solutions/BusinessIntelligenceAnalytics"));
+const SolutionCloudDevOps = lazy(() => import("@/pages/solutions/CloudDevOps"));
+const SolutionSocialMediaGrowth = lazy(() => import("@/pages/solutions/SocialMediaGrowth"));
 const Industries = lazy(() => import("@/pages/Industries"));
 const IndustrySchools = lazy(() => import("@/pages/industries/Schools"));
 const IndustryColleges = lazy(() => import("@/pages/industries/Colleges"));
@@ -46,9 +65,12 @@ const RequireAdmin = lazy(() => import("@/components/admin/RequireAdmin"));
 const AdminLogin = lazy(() => import("@/pages/admin/AdminLogin"));
 const AdminForgotPassword = lazy(() => import("@/pages/admin/AdminForgotPassword"));
 const AdminResetPassword = lazy(() => import("@/pages/admin/AdminResetPassword"));
+const AdminConfirm = lazy(() => import("@/pages/admin/AdminConfirm"));
 const AdminLayout = lazy(() => import("@/pages/admin/AdminLayout"));
 const Overview = lazy(() => import("@/pages/admin/Overview"));
+const AdminSettings = lazy(() => import("@/pages/admin/AdminSettings"));
 const BlogsAdmin = lazy(() => import("@/pages/admin/BlogsAdmin"));
+const CaseStudiesAdmin = lazy(() => import("@/pages/admin/CaseStudiesAdmin"));
 const TestimonialsAdmin = lazy(() => import("@/pages/admin/TestimonialsAdmin"));
 const MessagesAdmin = lazy(() => import("@/pages/admin/MessagesAdmin"));
 
@@ -64,14 +86,19 @@ function AdminApp() {
         <Route path="/admin/login" element={<AdminLogin />} />
         <Route path="/admin/forgot-password" element={<AdminForgotPassword />} />
         <Route path="/admin/reset-password" element={<AdminResetPassword />} />
+        <Route path="/admin/confirm" element={<AdminConfirm />} />
         <Route element={<RequireAdmin />}>
           <Route path="/admin" element={<AdminLayout />}>
             <Route index element={<Overview />} />
             <Route path="blogs" element={<BlogsAdmin />} />
+            <Route path="case-studies" element={<CaseStudiesAdmin />} />
             <Route path="testimonials" element={<TestimonialsAdmin />} />
             <Route path="messages" element={<MessagesAdmin />} />
+            <Route path="settings" element={<AdminSettings />} />
+            <Route path="*" element={<NotFound />} />
           </Route>
         </Route>
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </Suspense>
   );
@@ -135,6 +162,23 @@ export default function App() {
               <Route path="/" element={<Home />} />
               <Route path="/services" element={<Services />} />
               <Route path="/services/websites" element={<ServiceWebsites />} />
+              <Route path="/services/custom-software-development" element={<ServiceCustomSoftware />} />
+              <Route path="/services/mobile-app-development" element={<ServiceMobileApps />} />
+              <Route path="/services/ai-solutions" element={<ServiceAiSolutions />} />
+              <Route path="/services/cloud-services" element={<ServiceCloud />} />
+              <Route path="/services/ui-ux-design" element={<ServiceUiUxDesign />} />
+              <Route path="/services/devops" element={<ServiceDevOps />} />
+              <Route path="/services/it-consulting" element={<ServiceItConsulting />} />
+              <Route path="/services/dedicated-developers" element={<ServiceDedicatedDevelopers />} />
+              <Route path="/solutions/digital-transformation" element={<SolutionDigitalTransformation />} />
+              <Route path="/solutions/erp-systems" element={<SolutionErpSystems />} />
+              <Route path="/solutions/crm-systems" element={<SolutionCrmSystems />} />
+              <Route path="/solutions/billing-invoicing" element={<SolutionBillingInvoicing />} />
+              <Route path="/solutions/learning-management-systems" element={<SolutionLms />} />
+              <Route path="/solutions/inventory-management" element={<SolutionInventoryManagement />} />
+              <Route path="/solutions/business-intelligence-analytics" element={<SolutionBusinessIntelligence />} />
+              <Route path="/solutions/cloud-devops" element={<SolutionCloudDevOps />} />
+              <Route path="/solutions/social-media-growth" element={<SolutionSocialMediaGrowth />} />
               <Route path="/industries" element={<Industries />} />
               <Route path="/industries/schools" element={<IndustrySchools />} />
               <Route path="/industries/colleges" element={<IndustryColleges />} />
@@ -148,6 +192,8 @@ export default function App() {
               <Route path="/industries/travel-agencies" element={<IndustryTravelAgencies />} />
               <Route path="/about" element={<About />} />
               <Route path="/contact" element={<Contact />} />
+              <Route path="/portfolio" element={<Portfolio />} />
+              <Route path="/portfolio/:slug" element={<CaseStudyDetail />} />
               <Route path="/blog" element={<Blog />} />
               <Route path="/blog/:slug" element={<BlogPost />} />
               <Route path="/share-your-story" element={<ShareTestimonial />} />

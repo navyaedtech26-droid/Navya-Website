@@ -18,7 +18,7 @@ export default function RequireAdmin() {
   // profile fetch (profileError) must NOT keep us here — otherwise the screen
   // spins forever; fall through to the redirect below instead.
   if (loading || (user && !profile && !profileError)) {
-    return <LoadingScreen label="Checking access…" className="min-h-[100svh] bg-bg" />;
+    return <LoadingScreen label="Checking access…" className="min-h-[100svh] bg-[#f4f6f9]" />;
   }
 
   if (!user || !isAdmin) {

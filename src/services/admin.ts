@@ -16,6 +16,7 @@ import type {
   TestimonialRow,
   ContactSubmissionRow,
   OverviewChartsPayload,
+  CaseStudyRow,
 } from "@/types/database";
 
 export interface Result<T> {
@@ -475,3 +476,89 @@ export const TESTIMONIAL_ICON_KEYS = [
   "ShoppingBag",
   "Quote",
 ] as const;
+
+// =============================================================================
+// Case Studies
+// =============================================================================
+
+export async function listCaseStudies(): Promise<Result<CaseStudyRow[]>> {
+  if (!isSupabaseConfigured || !supabase) return fail(NOT_CONFIGURED);
+
+  const { data, error } = await supabase
+    .from("case_studies")
+    .select("*")
+    .is("deleted_at", null)
+    .order("updated_at", { ascending: false });
+
+  if (error) return fail(error.message);
+  return { data: data ?? [] };
+}
+
+export type CaseStudyInput = Omit<CaseStudyRow, "id" | "created_at" | "updated_at" | "deleted_at">;
+
+export async function createCaseStudy(
+  input: Omit<CaseStudyInput, "published_at">
+): Promise<Result<CaseStudyRow>> {
+  if (!isSupabaseConfigured || !supabase) return fail(NOT_CONFIGURED);
+
+  const { data, error } = await supabase
+    .from("case_studies")
+    .insert({
+      ...input,
+      published_at: input.status === "published" ? new Date().toISOString() : null,
+    })
+    .select("*")
+    .single();
+
+  if (error) return fail(friendlyCaseStudyError(error.message));
+  return { data };
+}
+
+export async function updateCaseStudy(
+  id: string,
+  input: Partial<CaseStudyInput>,
+  previousStatus: CaseStudyRow["status"]
+): Promise<Result<CaseStudyRow>> {
+  if (!isSupabaseConfigured || !supabase) return fail(NOT_CONFIGURED);
+
+  const published_at =
+    input.status === "published"
+      ? previousStatus === "published"
+        ? undefined
+        : new Date().toISOString()
+      : input.status === "draft"
+        ? null
+        : undefined;
+
+  const patch =
+    published_at === undefined ? input : { ...input, published_at };
+
+  const { data, error } = await supabase
+    .from("case_studies")
+    .update(patch)
+    .eq("id", id)
+    .select("*")
+    .single();
+
+  if (error) return fail(friendlyCaseStudyError(error.message));
+  return { data };
+}
+
+export async function deleteCaseStudy(id: string): Promise<Result<true>> {
+  if (!isSupabaseConfigured || !supabase) return fail(NOT_CONFIGURED);
+
+  const { error } = await supabase
+    .from("case_studies")
+    .update({ deleted_at: new Date().toISOString() })
+    .eq("id", id)
+    .is("deleted_at", null);
+  if (error) return fail(error.message);
+  return { data: true };
+}
+
+function friendlyCaseStudyError(message: string): string {
+  if (/duplicate key|unique/i.test(message)) {
+    return "A case study with that slug already exists. Choose a different slug.";
+  }
+  return message;
+}

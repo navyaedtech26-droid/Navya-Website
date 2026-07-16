@@ -1,17 +1,18 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
-    <link rel="manifest" href="/site.webmanifest" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#0A1628" />
-    <meta name="apple-mobile-web-app-title" content="Navya EdTech" />
-    <meta name="application-name" content="Navya EdTech" />
 
-    <!-- Security headers that browsers honour from a <meta> tag. GitHub Pages
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#0A1628" />
+  <meta name="apple-mobile-web-app-title" content="Navya EdTech" />
+  <meta name="application-name" content="Navya EdTech" />
+
+  <!-- Security headers that browsers honour from a <meta> tag. GitHub Pages
          can't send real response headers; for the rest (HSTS, X-Frame-Options,
          X-Content-Type-Options) front the site with a CDN like Cloudflare and
          move this CSP there too. Notes:
@@ -23,9 +24,7 @@
            • connect-src wildcards Supabase (*.supabase.co) so it works across
              projects; tighten to your exact host if you prefer. Add new origins
              here if you introduce more third-party services. -->
-    <meta
-      http-equiv="Content-Security-Policy"
-      content="
+  <meta http-equiv="Content-Security-Policy" content="
         default-src 'self';
         base-uri 'self';
         object-src 'none';
@@ -39,61 +38,45 @@
         manifest-src 'self';
         frame-src 'self' https://challenges.cloudflare.com;
         connect-src 'self' https://*.supabase.co wss://*.supabase.co https://www.googletagmanager.com https://www.google-analytics.com https://*.google-analytics.com https://*.analytics.google.com https://*.ingest.sentry.io https://*.sentry.io https://challenges.cloudflare.com;
-      "
-    />
-    <meta name="referrer" content="strict-origin-when-cross-origin" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <!-- DNS prefetch for consent-gated third parties (analytics) so the lookup
+      " />
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <!-- DNS prefetch for consent-gated third parties (analytics) so the lookup
          is warm if/when the user accepts cookies and the script loads. -->
-    <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
-    <link rel="dns-prefetch" href="https://www.google-analytics.com" />
+  <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
+  <link rel="dns-prefetch" href="https://www.google-analytics.com" />
 
-    <!-- Primary (body) font: Inter. Preloaded so body text paints as early as
+  <!-- Primary (body) font: Inter. Preloaded so body text paints as early as
          possible. Only the weights actually used in the app are requested
          (300 / 800 were unused). -->
-    <link
-      rel="preload"
-      as="style"
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
-    />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
-    />
+  <link rel="preload" as="style"
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" />
 
-    <!-- Display, mono and fallback fonts: loaded without blocking first paint.
+  <!-- Display, mono and fallback fonts: loaded without blocking first paint.
          media="print" keeps them out of the critical path; main.tsx flips them
          to media="all" once the app boots (an inline onload handler would need
          a CSP script-src exception, so the swap lives in JS instead). -->
-    <link
-      rel="stylesheet"
-      media="print"
-      data-defer-font
-      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Space+Grotesk:wght@400;500;600;700&family=Syne:wght@600;700&display=swap"
-    />
-    <noscript>
-      <link
-        rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Space+Grotesk:wght@400;500;600;700&family=Syne:wght@600;700&display=swap"
-      />
-    </noscript>
-    <!-- Fallback <title> only. Title, description, canonical, OpenGraph,
+  <link rel="stylesheet" media="print" data-defer-font
+    href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Space+Grotesk:wght@400;500;600;700&family=Syne:wght@600;700&display=swap" />
+  <noscript>
+    <link rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Space+Grotesk:wght@400;500;600;700&family=Syne:wght@600;700&display=swap" />
+  </noscript>
+  <!-- Fallback <title> only. Title, description, canonical, OpenGraph,
          Twitter and JSON-LD are all owned by the <Seo> component
          (react-helmet-async) so each route emits its own, and the prerender
          step (scripts/prerender.mjs) bakes the per-page set into static HTML.
          Keeping duplicate og:/twitter: tags here would double them up on every
          prerendered page, so they intentionally live only in <Seo>. -->
-    <title>Navya EdTech | High-Performance Websites & Digital Systems</title>
-    <link
-      rel="alternate"
-      type="application/rss+xml"
-      title="Navya EdTech — Blog"
-      href="/rss.xml"
-    />
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
+  <title>Navya EdTech | High-Performance Websites & Digital Systems</title>
+  <link rel="alternate" type="application/rss+xml" title="Navya EdTech — Blog" href="/rss.xml" />
+</head>
+
+<body>
+  <div id="root"></div>
+  <script type="module" src="/src/main.tsx"></script>
+</body>
+
 </html>

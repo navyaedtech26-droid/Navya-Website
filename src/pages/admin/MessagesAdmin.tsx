@@ -136,14 +136,14 @@ export default function MessagesAdmin() {
             key={f.key}
             onClick={() => setFilter(f.key)}
             className={cn(
-              "rounded-xl px-3.5 py-2 text-sm font-medium transition-colors",
+              "rounded-[3px] border px-3.5 py-2 text-sm font-medium transition-colors",
               filter === f.key
-                ? "bg-brand/15 text-ink ring-1 ring-brand/40"
-                : "text-ink-muted hover:bg-white/5 hover:text-ink"
+                ? "border-[#007bff] bg-[#e7f1ff] text-[#007bff]"
+                : "border-[#ced4da] text-[#495057] hover:bg-[#f4f6f9]"
             )}
           >
             {f.label}
-            <span className="ml-2 text-xs text-ink-muted/70">{counts[f.key]}</span>
+            <span className="ml-2 text-xs text-[#6c757d]">{counts[f.key]}</span>
           </button>
         ))}
       </div>
@@ -162,8 +162,8 @@ export default function MessagesAdmin() {
             <li
               key={m.id}
               className={cn(
-                "rounded-2xl border bg-bg-900/50 p-4 transition-colors hover:border-brand/30",
-                m.status === "new" ? "border-brand/30" : "border-white/10"
+                "rounded-[3px] border bg-white p-4 shadow-[0_0_1px_rgba(0,0,0,.125),0_1px_3px_rgba(0,0,0,.1)] transition-colors",
+                m.status === "new" ? "border-[#007bff]/40" : "border-[#dee2e6]"
               )}
             >
               <div className="flex items-start justify-between gap-4">
@@ -172,18 +172,18 @@ export default function MessagesAdmin() {
                   className="min-w-0 flex-1 text-left"
                 >
                   <div className="flex items-center gap-2">
-                    <p className="truncate text-sm font-semibold text-ink">{m.name}</p>
+                    <p className="truncate text-sm font-semibold text-[#212529]">{m.name}</p>
                     <StatusBadge status={m.status} />
                   </div>
-                  <p className="truncate text-xs text-ink-muted">
+                  <p className="truncate text-xs text-[#6c757d]">
                     {m.email}
                     {m.service ? ` · ${m.service}` : ""}
                   </p>
-                  <p className="mt-1.5 line-clamp-2 text-sm text-ink-muted">{m.message}</p>
+                  <p className="mt-1.5 line-clamp-2 text-sm text-[#495057]">{m.message}</p>
                 </button>
 
                 <div className="flex shrink-0 flex-col items-end gap-2">
-                  <span className="text-xs text-ink-muted">{formatDate(m.created_at)}</span>
+                  <span className="text-xs text-[#6c757d]">{formatDate(m.created_at)}</span>
                   <div className="flex items-center gap-1">
                     {m.status !== "archived" ? (
                       <IconButton
@@ -226,10 +226,10 @@ export default function MessagesAdmin() {
           <div className="space-y-4">
             <div className="flex flex-wrap items-center justify-between gap-3">
               <div>
-                <p className="text-base font-semibold text-ink">{open.name}</p>
+                <p className="text-base font-semibold text-[#212529]">{open.name}</p>
                 <a
                   href={`mailto:${open.email}`}
-                  className="text-sm text-brand-light hover:text-cyan-accent"
+                  className="text-sm text-[#007bff] hover:text-[#0056b3]"
                 >
                   {open.email}
                 </a>
@@ -237,7 +237,7 @@ export default function MessagesAdmin() {
               <StatusBadge status={open.status} />
             </div>
 
-            <dl className="grid grid-cols-2 gap-3 rounded-xl border border-white/10 bg-white/[0.02] p-4 text-sm">
+            <dl className="grid grid-cols-2 gap-3 rounded-[3px] border border-[#dee2e6] bg-[#f4f6f9] p-4 text-sm">
               <Detail label="Phone" icon={<Phone size={13} />}>
                 {open.phone || "—"}
               </Detail>
@@ -247,19 +247,19 @@ export default function MessagesAdmin() {
             </dl>
 
             <div>
-              <p className="mb-1.5 text-xs font-medium uppercase tracking-wide text-ink-muted">
+              <p className="mb-1.5 text-xs font-medium uppercase tracking-wide text-[#6c757d]">
                 Message
               </p>
-              <p className="whitespace-pre-wrap rounded-xl border border-white/10 bg-white/[0.02] p-4 text-sm text-ink/90">
+              <p className="whitespace-pre-wrap rounded-[3px] border border-[#dee2e6] bg-[#f4f6f9] p-4 text-sm text-[#212529]">
                 {open.message}
               </p>
             </div>
 
-            <div className="flex flex-wrap justify-end gap-3 pt-1">
+            <div className="flex flex-wrap justify-end gap-2 border-t border-[#dee2e6] pt-4">
               {open.status !== "archived" && (
                 <button
                   onClick={() => changeStatus(open, "archived")}
-                  className="inline-flex items-center gap-2 rounded-xl px-4 py-2.5 text-sm font-medium text-ink-muted transition-colors hover:bg-white/5 hover:text-ink"
+                  className="inline-flex items-center gap-2 rounded-[3px] border border-[#ced4da] px-4 py-2 text-sm font-medium text-[#495057] transition-colors hover:bg-[#f4f6f9]"
                 >
                   <Archive size={15} />
                   Archive
@@ -267,7 +267,7 @@ export default function MessagesAdmin() {
               )}
               <a
                 href={`mailto:${open.email}`}
-                className="inline-flex items-center gap-2 rounded-xl bg-brand-gradient px-5 py-2.5 text-sm font-semibold text-white shadow-glow-sm transition-shadow hover:shadow-glow"
+                className="inline-flex items-center gap-2 rounded-[3px] bg-[#007bff] px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-[#0069d9]"
               >
                 <Mail size={15} />
                 Reply by email
@@ -286,7 +286,7 @@ export default function MessagesAdmin() {
         busy={busyId === deleting?.id}
       >
         Delete the message from{" "}
-        <span className="font-medium text-ink">{deleting?.name}</span>? This cannot be
+        <span className="font-medium text-[#212529]">{deleting?.name}</span>? This cannot be
         undone.
       </ConfirmDialog>
     </div>
@@ -310,11 +310,11 @@ function Detail({
 }) {
   return (
     <div>
-      <dt className="flex items-center gap-1 text-xs text-ink-muted">
+      <dt className="flex items-center gap-1 text-xs text-[#6c757d]">
         {icon}
         {label}
       </dt>
-      <dd className="mt-0.5 text-ink">{children}</dd>
+      <dd className="mt-0.5 text-[#212529]">{children}</dd>
     </div>
   );
 }
@@ -326,7 +326,7 @@ function ListSkeleton() {
       {Array.from({ length: 5 }).map((_, i) => (
         <div
           key={i}
-          className="rounded-2xl border border-white/10 bg-bg-900/50 p-4"
+          className="rounded-[3px] border border-[#dee2e6] bg-white p-4"
         >
           <div className="flex items-start justify-between gap-4">
             <div className="min-w-0 flex-1 space-y-2">
@@ -337,8 +337,8 @@ function ListSkeleton() {
             <div className="flex flex-col items-end gap-2">
               <Skeleton className="h-3 w-16" />
               <div className="flex gap-1">
-                <Skeleton className="h-8 w-8 rounded-lg" />
-                <Skeleton className="h-8 w-8 rounded-lg" />
+                <Skeleton className="h-8 w-8 rounded-[3px]" />
+                <Skeleton className="h-8 w-8 rounded-[3px]" />
               </div>
             </div>
           </div>

@@ -1,42 +1,42 @@
 import {
-  Zap,
-  Smartphone,
-  Search,
+  Server,
+  GitMerge,
+  Terminal,
   ShieldCheck,
-  Settings2,
-  Layers,
+  MessageSquare,
+  LifeBuoy,
 } from "lucide-react";
 import type { FeatureItem } from "@/types";
 
 export const features: FeatureItem[] = [
   {
-    icon: Zap,
-    title: "Fast & Responsive",
-    description: "Sub-second load times that lift conversions and keep customers from bouncing.",
+    icon: Server,
+    title: "Resilient Architecture",
+    description: "Foundations built to absorb traffic spikes and complex integrations without accumulating technical debt.",
   },
   {
-    icon: Smartphone,
-    title: "Mobile Friendly",
-    description: "A flawless experience for the majority of customers who arrive on mobile.",
+    icon: GitMerge,
+    title: "Iterative Delivery",
+    description: "We ship usable features fast and adapt to market feedback, rather than disappearing into a black box.",
   },
   {
-    icon: Search,
-    title: "SEO Optimized",
-    description: "Engineered to rank, so you win high-intent traffic without paying for every click.",
+    icon: Terminal,
+    title: "Senior Engineering Teams",
+    description: "Your project is built by veterans who understand business logic, not just code.",
   },
   {
     icon: ShieldCheck,
-    title: "Secure & Reliable",
-    description: "Hardened and monitored to protect your revenue, data, and reputation.",
+    title: "Zero-Compromise QA",
+    description: "Rigorous automated testing and manual audits ensure flawless performance before your users ever see it.",
   },
   {
-    icon: Settings2,
-    title: "Easy to Manage",
-    description: "Your team runs the platform without a developer, cutting cost and delay.",
+    icon: MessageSquare,
+    title: "Total Transparency",
+    description: "Direct access to the engineers building your product. Clear timelines, proactive updates, and no surprises.",
   },
   {
-    icon: Layers,
-    title: "Clean & Scalable",
-    description: "Architecture that absorbs growth, so scaling never means starting over.",
+    icon: LifeBuoy,
+    title: "Lifecycle Support",
+    description: "We monitor, maintain, and scale your systems long after launch, protecting your investment over time.",
   },
 ];

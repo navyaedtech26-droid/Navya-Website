@@ -11,6 +11,8 @@ export const schoolsIndustryPage: IndustryPage = {
   heroSubtitle:
     "Between admissions, attendance, fees, and parent communication, most school offices run on spreadsheets, paper registers, and phone calls. We replace the manual layer with software built around your academic calendar.",
 
+  heroImage: "/industries section/education.avif",
+
   seoTitle: "Digital Transformation for Schools | Navya EdTech",
   seoDescription:
     "School management systems, admissions websites, and parent communication platforms built for K-12 schools — cut admin hours, fill seats faster, and give parents real-time visibility.",
@@ -26,8 +28,8 @@ export const schoolsIndustryPage: IndustryPage = {
   ],
 
   challenges: {
-    title: "Where School Admin",
-    highlight: "Quietly Breaks Down",
+    title: "Where Does School Admin",
+    highlight: "Quietly Break Down?",
     intro:
       "Most schools don't lack effort — they lack systems. The same problems repeat every term because the tools weren't built for a school's rhythm.",
     items: [
@@ -94,7 +96,7 @@ export const schoolsIndustryPage: IndustryPage = {
 
   roi: {
     title: "What This Is Actually",
-    highlight: "Worth to a School",
+    highlight: "Worth to a School?",
     intro:
       "The return isn't hypothetical — it shows up in staff hours, enrollment numbers, and fee collection cycles you can already measure.",
     points: [
@@ -108,7 +110,7 @@ export const schoolsIndustryPage: IndustryPage = {
 
   features: {
     title: "What's Inside the",
-    highlight: "Platform",
+    highlight: "Platform?",
     intro: "Every feature is scoped to a job your admin, academic, or finance team already does by hand.",
     items: [
       {
@@ -186,4 +188,5 @@ export const schoolsIndustryPage: IndustryPage = {
 
   relatedIndustries: ["colleges", "ngos"],
   relatedServices: ["systems", "websites", "business-intelligence"],
+  relatedSolutions: ["learning-management-systems", "billing-invoicing"],
 };

@@ -11,6 +11,8 @@ export const collegesIndustryPage: IndustryPage = {
   heroSubtitle:
     "More programs, more faculty, more students, and more compliance paperwork than a single spreadsheet can track. We build the systems that let a growing institution scale enrollment without scaling admin headcount at the same rate.",
 
+  heroImage: "/industries section/colleges-and-universities.avif",
+
   seoTitle: "Digital Transformation for Colleges & Universities | Navya EdTech",
   seoDescription:
     "Student information systems, LMS platforms, and admissions websites built for colleges and universities — manage enrollment, faculty, and results at scale without adding administrative overhead.",
@@ -25,8 +27,8 @@ export const collegesIndustryPage: IndustryPage = {
   ],
 
   challenges: {
-    title: "Where Growth Outpaces",
-    highlight: "the Systems Behind It",
+    title: "Why Does Growth Outpace",
+    highlight: "the Systems Behind It?",
     intro:
       "A college that's grown past a single department finds that the tools which worked for 200 students break down at 2,000 — not because the staff got worse, but because the process never scaled.",
     items: [
@@ -92,8 +94,8 @@ export const collegesIndustryPage: IndustryPage = {
   },
 
   roi: {
-    title: "Where the Return Shows Up",
-    highlight: "at Institutional Scale",
+    title: "Where Does the Return Show Up",
+    highlight: "at Institutional Scale?",
     intro:
       "At a multi-program institution, small process fixes multiply — the same reduction in manual work happens every semester, across every department.",
     points: [
@@ -107,7 +109,7 @@ export const collegesIndustryPage: IndustryPage = {
 
   features: {
     title: "What's Inside the",
-    highlight: "Platform",
+    highlight: "Platform?",
     intro: "Built to reflect how a multi-program institution actually operates, department by department.",
     items: [
       {
@@ -185,4 +187,5 @@ export const collegesIndustryPage: IndustryPage = {
 
   relatedIndustries: ["schools", "ngos"],
   relatedServices: ["systems", "websites", "business-intelligence"],
+  relatedSolutions: ["learning-management-systems", "crm-systems"],
 };

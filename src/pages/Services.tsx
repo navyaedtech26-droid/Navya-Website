@@ -1,10 +1,15 @@
 import Seo from "@/components/common/Seo";
 import PageTransition from "@/components/effects/PageTransition";
-import ServicesHero from "@/components/heroes/ServicesHero";
-import ServiceGrid from "@/components/services/ServiceGrid";
-import EngagementPlans from "@/components/services/EngagementPlans";
+import ServicesHeroRedesign from "@/components/services/ServicesHeroRedesign";
+import ServicesTrust from "@/components/services/ServicesTrust";
+import ServicesGridRedesign from "@/components/services/ServicesGridRedesign";
+import ServicesProcess from "@/components/services/ServicesProcess";
+import ServicesWhyChoose from "@/components/services/ServicesWhyChoose";
+import ServicesTechStack from "@/components/services/ServicesTechStack";
+import ServicesIndustries from "@/components/services/ServicesIndustries";
+import ServicesCTA from "@/components/services/ServicesCTA";
 import FaqSection from "@/components/common/FaqSection";
-import CTASection from "@/components/common/CTASection";
+
 import {
   websiteServices,
   appServices,
@@ -23,9 +28,19 @@ export default function Services() {
   return (
     <PageTransition>
       <Seo
-        title="Services | Navya EdTech"
-        description="Outcome-driven capabilities from Navya EdTech: revenue-driving websites and e-commerce, cost-cutting ERP, CRM, billing and LMS systems, business intelligence, and social media that converts."
+        title="Premium Custom Software & Enterprise Solutions | Navya EdTech"
+        description="Transform your organization with Navya EdTech's custom software development, mobile app engineering, automated AI solutions, scalable cloud infrastructure, and enterprise ERP integrations."
         path="/services"
+        keywords={[
+          "custom software development",
+          "enterprise solutions",
+          "ERP systems",
+          "AI workflows",
+          "cloud infrastructure",
+          "mobile app development",
+          "UI UX design",
+          "digital transformation",
+        ]}
         jsonLd={[
           breadcrumbSchema([
             { name: "Home", path: "/" },
@@ -42,62 +57,38 @@ export default function Services() {
         ]}
       />
 
-      <ServicesHero />
+      {/* Redesigned Hero Section */}
+      <ServicesHeroRedesign />
 
-      <ServiceGrid
-        eyebrow="Website Development"
-        title="Websites That"
-        highlight="Convert"
-        items={websiteServices}
-        moreHref="/services/websites"
-        moreLabel="See the business case for a website rebuild"
-      />
+      {/* Trust Section */}
+      <ServicesTrust />
 
-      <ServiceGrid
-        eyebrow="App Development"
-        title="Apps That"
-        highlight="Engage"
-        items={appServices}
-        background="bg-mist"
-      />
+      {/* Alternating Capabilities Grid */}
+      <ServicesGridRedesign />
 
-      <ServiceGrid
-        eyebrow="System Development"
-        title="Systems That"
-        highlight="Scale"
-        items={systemServices}
-      />
+      {/* Horizontal to Vertical Timeline */}
+      <ServicesProcess />
 
-      <ServiceGrid
-        eyebrow="Business Intelligence"
-        title="Data That"
-        highlight="Drives Decisions"
-        items={biServices}
-        background="bg-mist"
-      />
+      {/* Advantages Grid */}
+      <ServicesWhyChoose />
 
-      <ServiceGrid
-        eyebrow="Social Media Services"
-        title="Attention That Becomes"
-        highlight="Revenue"
-        items={socialMediaServices}
-      />
+      {/* Categorized Tech Stack */}
+      <ServicesTechStack />
 
-      <EngagementPlans />
+      {/* Target Industries Grid */}
+      <ServicesIndustries />
 
+      {/* FAQ Accordion list */}
       <FaqSection
         eyebrow="Services FAQ"
-        title="Answers Before You"
-        highlight="Invest"
+        title="Answers Before You Invest"
         subtitle="The practical details behind how we deliver, deploy, and protect your investment."
         items={servicesFaqs}
+        tone="light"
       />
 
-      <CTASection
-        title="Ready to Build the Business Case?"
-        subtitle="Tell us the outcome you need. We'll show you the fastest, lowest-risk path to it."
-        buttonLabel="Book a Strategy Call"
-      />
+      {/* Conversions CTA */}
+      <ServicesCTA />
     </PageTransition>
   );
 }

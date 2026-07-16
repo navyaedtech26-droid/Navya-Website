@@ -3,47 +3,28 @@
  * which establishes a short-lived recovery session (Supabase handles the token
  * in the URL automatically). On success we send the admin to sign in again.
  */
-import { useEffect, useState, type FormEvent } from "react";
+import { useState, type FormEvent } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
-import { ShieldCheck, CheckCircle2 } from "lucide-react";
-import { Spinner } from "@/components/common/Spinner";
+import { ShieldCheck, ShieldAlert, CheckCircle2 } from "lucide-react";
+import { LoadingScreen, Spinner } from "@/components/common/Spinner";
 import Seo from "@/components/common/Seo";
 import Container from "@/components/common/Container";
 import { useAuth } from "@/context/AuthContext";
-import { isSupabaseConfigured, supabase } from "@/lib/supabase";
+import { useAuthCallback } from "@/hooks/useAuthCallback";
+import { isSupabaseConfigured } from "@/lib/supabase";
 import { cn } from "@/lib/utils";
 
 export default function AdminResetPassword() {
   const navigate = useNavigate();
   const { updatePassword } = useAuth();
+  const { status, errorMessage } = useAuthCallback();
 
-  const [ready, setReady] = useState(false);
   const [password, setPassword] = useState("");
   const [confirm, setConfirm] = useState("");
   const [loading, setLoading] = useState(false);
   const [done, setDone] = useState(false);
   const [error, setError] = useState<string | null>(null);
-
-  // Wait for Supabase to pick up the recovery token from the URL.
-  useEffect(() => {
-    if (!supabase) {
-      setReady(true);
-      return;
-    }
-    const { data: sub } = supabase.auth.onAuthStateChange((event) => {
-      if (event === "PASSWORD_RECOVERY" || event === "SIGNED_IN") setReady(true);
-    });
-    supabase.auth.getSession().then(({ data }) => {
-      if (data.session) setReady(true);
-    });
-    // Don't block the form forever if no event fires.
-    const t = setTimeout(() => setReady(true), 1500);
-    return () => {
-      sub.subscription.unsubscribe();
-      clearTimeout(t);
-    };
-  }, []);
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
@@ -99,6 +80,24 @@ export default function AdminResetPassword() {
                   Redirecting you to sign in…
                 </p>
               </div>
+            ) : status === "pending" ? (
+              <LoadingScreen label="Confirming your link…" className="min-h-0 py-6" />
+            ) : status === "error" ? (
+              <div className="text-center">
+                <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-xl bg-red-50 ring-1 ring-red-200">
+                  <ShieldAlert size={22} className="text-red-600" />
+                </div>
+                <h1 className="mt-5 font-display text-xl font-semibold text-heading">
+                  Link expired or already used
+                </h1>
+                <p className="mt-2 text-sm text-faint">{errorMessage}</p>
+                <Link
+                  to="/admin/forgot-password"
+                  className="mt-6 inline-flex items-center justify-center rounded-2xl bg-primary px-6 py-3 text-sm font-semibold text-white shadow-primary-sm transition-colors duration-300 hover:bg-primary-dark"
+                >
+                  Request a new link
+                </Link>
+              </div>
             ) : (
               <>
                 <div className="flex items-center gap-3">
@@ -152,7 +151,7 @@ export default function AdminResetPassword() {
 
                   <button
                     type="submit"
-                    disabled={loading || !ready || !isSupabaseConfigured}
+                    disabled={loading || !isSupabaseConfigured}
                     className="mt-1 flex w-full items-center justify-center gap-2 rounded-2xl bg-primary px-6 py-3.5 text-sm font-semibold text-white shadow-primary-sm transition-colors duration-300 hover:bg-primary-dark disabled:opacity-70"
                   >
                     {loading ? (

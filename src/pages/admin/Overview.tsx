@@ -21,7 +21,7 @@ import {
   type OverviewCharts,
 } from "@/services/admin";
 import type { ContactSubmissionRow } from "@/types/database";
-import { PageHeader, Alert, Badge } from "@/components/admin/ui";
+import { PageHeader, Alert, Badge, Card } from "@/components/admin/ui";
 import { Skeleton, SkeletonGroup } from "@/components/common/Skeleton";
 import {
   TrendChart,
@@ -100,7 +100,7 @@ export default function Overview() {
   }, [load]);
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-4">
       <PageHeader
         title="Overview"
         subtitle="A snapshot of your site's content and recent activity."
@@ -120,76 +120,75 @@ export default function Overview() {
       ) : (
         <>
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            <StatCard
+            <SmallBox
               icon={Newspaper}
               label="Published blogs"
               value={stats?.blogsPublished ?? 0}
               hint={`${stats?.blogsTotal ?? 0} total`}
               to="/admin/blogs"
+              tone="primary"
             />
-            <StatCard
+            <SmallBox
               icon={FileEdit}
               label="Draft blogs"
               value={stats?.blogsDraft ?? 0}
               hint="awaiting publish"
               to="/admin/blogs"
+              tone="warning"
             />
-            <StatCard
+            <SmallBox
               icon={MessageSquareQuote}
               label="Testimonials"
               value={stats?.testimonialsPublished ?? 0}
               hint={`${stats?.testimonialsTotal ?? 0} total`}
               to="/admin/testimonials"
+              tone="success"
             />
-            <StatCard
+            <SmallBox
               icon={Mail}
               label="New messages"
               value={stats?.contactsNew ?? 0}
               hint={`${stats?.contactsTotal ?? 0} total`}
               to="/admin/messages"
+              tone="danger"
             />
           </div>
 
           {charts && <ChartsGrid charts={charts} />}
 
-          <section className="rounded-2xl border border-white/10 bg-bg-900/60 p-6">
-            <div className="flex items-center justify-between">
-              <h2 className="font-display text-lg font-semibold text-ink">
-                Recent messages
-              </h2>
-              <Link
-                to="/admin/messages"
-                className="inline-flex items-center gap-1 text-sm text-brand-light transition-colors hover:text-cyan-accent"
-              >
-                View all
-                <ArrowRight size={14} />
-              </Link>
-            </div>
-
+          <Card title="Recent messages" tools={
+            <Link
+              to="/admin/messages"
+              className="inline-flex items-center gap-1 text-sm text-[#007bff] transition-colors hover:text-[#0056b3]"
+            >
+              View all
+              <ArrowRight size={14} />
+            </Link>
+          }>
             {contacts.length === 0 ? (
-              <p className="mt-4 text-sm text-ink-muted">No contact messages yet.</p>
+              <p className="text-sm text-[#6c757d]">No contact messages yet.</p>
             ) : (
-              <ul className="mt-4 divide-y divide-white/5">
+              <ul className="divide-y divide-[#dee2e6]">
                 {contacts.map((c) => (
-                  <li key={c.id} className="flex items-start justify-between gap-4 py-3">
+                  <li key={c.id} className="flex items-start justify-between gap-4 py-3 first:pt-0 last:pb-0">
                     <div className="min-w-0">
                       <div className="flex items-center gap-2">
-                        <p className="truncate text-sm font-medium text-ink">{c.name}</p>
+                        <p className="truncate text-sm font-medium text-[#212529]">{c.name}</p>
                         {c.status === "new" && <Badge tone="green">new</Badge>}
                       </div>
-                      <p className="truncate text-xs text-ink-muted">{c.email}</p>
-                      <p className="mt-1 line-clamp-2 text-sm text-ink-muted">
+                      <p className="truncate text-xs text-[#6c757d]">{c.email}</p>
+                      <p className="mt-1 line-clamp-2 text-sm text-[#495057]">
                         {c.message}
                       </p>
                     </div>
-                    <span className="shrink-0 text-xs text-ink-muted">
+                    <span className="shrink-0 text-xs text-[#6c757d]">
                       {formatDate(c.created_at)}
                     </span>
                   </li>
                 ))}
               </ul>
             )}
-          </section>
+          </Card>
         </>
       )}
     </div>
@@ -199,15 +198,15 @@ export default function Overview() {
 /** Dashboard skeleton: stat cards + chart cards while the first load runs. */
 function OverviewSkeleton() {
   return (
-    <SkeletonGroup label="Loading dashboard…" className="space-y-8">
+    <SkeletonGroup label="Loading dashboard…" className="space-y-4">
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         {Array.from({ length: 4 }).map((_, i) => (
           <div
             key={i}
-            className="rounded-2xl border border-white/10 bg-bg-900/60 p-5"
+            className="rounded-[3px] border border-[#dee2e6] bg-white p-5"
           >
             <div className="flex items-center justify-between">
-              <Skeleton className="h-10 w-10 rounded-xl" />
+              <Skeleton className="h-10 w-10 rounded-[3px]" />
               <Skeleton className="h-4 w-4" />
             </div>
             <Skeleton className="mt-4 h-8 w-16" />
@@ -217,17 +216,17 @@ function OverviewSkeleton() {
       </div>
 
       <div className="grid gap-4 lg:grid-cols-2">
-        <div className="rounded-2xl border border-white/10 bg-bg-900/60 p-6 lg:col-span-2">
+        <div className="rounded-[3px] border border-[#dee2e6] bg-white p-4 lg:col-span-2">
           <Skeleton className="h-4 w-40" />
-          <Skeleton className="mt-4 h-64 w-full rounded-xl" />
+          <Skeleton className="mt-4 h-64 w-full rounded-[3px]" />
         </div>
         {Array.from({ length: 2 }).map((_, i) => (
           <div
             key={i}
-            className="rounded-2xl border border-white/10 bg-bg-900/60 p-6"
+            className="rounded-[3px] border border-[#dee2e6] bg-white p-4"
           >
             <Skeleton className="h-4 w-32" />
-            <Skeleton className="mt-4 h-64 w-full rounded-xl" />
+            <Skeleton className="mt-4 h-64 w-full rounded-[3px]" />
           </div>
         ))}
       </div>
@@ -253,11 +252,11 @@ function RefreshControl({
 
   return (
     <div className="flex items-center gap-3">
-      <span className="hidden items-center gap-1.5 text-xs text-ink-muted sm:inline-flex">
+      <span className="hidden items-center gap-1.5 text-xs text-[#6c757d] sm:inline-flex">
         <span
           className={cn(
             "h-1.5 w-1.5 rounded-full",
-            refreshing ? "bg-amber-400" : "bg-emerald-400"
+            refreshing ? "bg-[#ffc107]" : "bg-[#28a745]"
           )}
         />
         {refreshing ? "Updating…" : `Updated ${timeAgo(updatedAt)}`}
@@ -266,7 +265,7 @@ function RefreshControl({
         onClick={onRefresh}
         disabled={refreshing}
         title="Refresh now"
-        className="inline-flex h-9 w-9 items-center justify-center rounded-xl glass text-ink-muted transition-colors hover:text-ink disabled:opacity-60"
+        className="inline-flex h-9 w-9 items-center justify-center rounded-[3px] border border-[#ced4da] text-[#495057] transition-colors hover:bg-[#f4f6f9] disabled:opacity-60"
       >
         <RefreshCw size={15} className={cn(refreshing && "animate-spin")} />
       </button>
@@ -292,7 +291,7 @@ function ChartsGrid({ charts }: { charts: OverviewCharts }) {
   return (
     <div className="grid gap-4 lg:grid-cols-2">
       {/* Contact submissions trend — full width */}
-      <ChartCard
+      <Card
         title="Contact submissions"
         subtitle={`Last 30 days · ${totalContacts} total`}
         className="lg:col-span-2"
@@ -304,10 +303,10 @@ function ChartsGrid({ charts }: { charts: OverviewCharts }) {
             label="Submissions"
           />
         </div>
-      </ChartCard>
+      </Card>
 
       {/* Messages by status */}
-      <ChartCard title="Messages by status">
+      <Card title="Messages by status">
         {hasData([
           charts.contactsByStatus.new,
           charts.contactsByStatus.read,
@@ -327,10 +326,10 @@ function ChartsGrid({ charts }: { charts: OverviewCharts }) {
         ) : (
           <EmptyChart label="No messages yet" />
         )}
-      </ChartCard>
+      </Card>
 
       {/* Blog posts by status */}
-      <ChartCard title="Blog posts">
+      <Card title="Blog posts">
         {hasData([charts.blogsByStatus.published, charts.blogsByStatus.draft]) ? (
           <div className="h-64">
             <BreakdownChart
@@ -342,10 +341,10 @@ function ChartsGrid({ charts }: { charts: OverviewCharts }) {
         ) : (
           <EmptyChart label="No posts yet" />
         )}
-      </ChartCard>
+      </Card>
 
       {/* Top requested services */}
-      <ChartCard title="Top requested services">
+      <Card title="Top requested services">
         {charts.contactsByService.length > 0 ? (
           <div className="h-64">
             <RankBarChart
@@ -356,10 +355,10 @@ function ChartsGrid({ charts }: { charts: OverviewCharts }) {
         ) : (
           <EmptyChart label="No service data yet" />
         )}
-      </ChartCard>
+      </Card>
 
       {/* Testimonial ratings */}
-      <ChartCard title="Testimonial ratings" subtitle={`${ratingTotal} total`}>
+      <Card title="Testimonial ratings" subtitle={`${ratingTotal} total`}>
         {ratingTotal > 0 ? (
           <div className="h-64">
             <RankBarChart
@@ -371,7 +370,7 @@ function ChartsGrid({ charts }: { charts: OverviewCharts }) {
         ) : (
           <EmptyChart label="No testimonials yet" />
         )}
-      </ChartCard>
+      </Card>
     </div>
   );
 }
@@ -380,71 +379,57 @@ function hasData(values: number[]): boolean {
   return values.some((v) => v > 0);
 }
 
-function ChartCard({
-  title,
-  subtitle,
-  className,
-  children,
-}: {
-  title: string;
-  subtitle?: string;
-  className?: string;
-  children: React.ReactNode;
-}) {
-  return (
-    <section
-      className={
-        "rounded-2xl border border-white/10 bg-bg-900/60 p-6 " + (className ?? "")
-      }
-    >
-      <div className="mb-4">
-        <h2 className="font-display text-base font-semibold text-ink">{title}</h2>
-        {subtitle && <p className="text-xs text-ink-muted">{subtitle}</p>}
-      </div>
-      {children}
-    </section>
-  );
-}
-
 function EmptyChart({ label }: { label: string }) {
   return (
-    <div className="flex h-64 items-center justify-center text-sm text-ink-muted">
+    <div className="flex h-64 items-center justify-center text-sm text-[#6c757d]">
       {label}
     </div>
   );
 }
 
-function StatCard({
+const TONE_STYLES = {
+  primary: "bg-[#007bff]",
+  warning: "bg-[#ffc107] text-[#212529]",
+  success: "bg-[#28a745]",
+  danger: "bg-[#dc3545]",
+} as const;
+
+/** AdminLTE "small-box" stat widget: colored surface, big number, icon, footer link. */
+function SmallBox({
   icon: Icon,
   label,
   value,
   hint,
   to,
+  tone,
 }: {
   icon: LucideIcon;
   label: string;
   value: number;
   hint?: string;
-  to?: string;
+  to: string;
+  tone: keyof typeof TONE_STYLES;
 }) {
-  const body = (
-    <div className="group h-full rounded-2xl border border-white/10 bg-bg-900/60 p-5 transition-colors hover:border-brand/40">
-      <div className="flex items-center justify-between">
-        <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-brand/15 ring-1 ring-brand/30">
-          <Icon size={18} className="text-brand-light" />
-        </div>
-        {to && (
-          <ArrowRight
-            size={16}
-            className="text-ink-muted transition-transform group-hover:translate-x-0.5"
-          />
-        )}
+  return (
+    <div
+      className={cn(
+        "relative flex flex-col overflow-hidden rounded-[3px] text-white shadow-[0_0_1px_rgba(0,0,0,.125),0_1px_3px_rgba(0,0,0,.2)]",
+        TONE_STYLES[tone]
+      )}
+    >
+      <div className="relative z-10 p-4">
+        <p className="text-3xl font-semibold">{value}</p>
+        <p className="text-sm">{label}</p>
+        {hint && <p className="mt-0.5 text-xs opacity-80">{hint}</p>}
       </div>
-      <p className="mt-4 font-display text-3xl font-semibold text-ink">{value}</p>
-      <p className="text-sm text-ink-muted">{label}</p>
-      {hint && <p className="mt-0.5 text-xs text-ink-muted/70">{hint}</p>}
+      <Icon size={70} className="absolute -bottom-3 -right-2 opacity-20" />
+      <Link
+        to={to}
+        className="relative z-10 flex items-center justify-between border-t border-white/20 px-4 py-2 text-xs font-medium transition-colors hover:bg-black/10"
+      >
+        More info
+        <ArrowRight size={13} />
+      </Link>
     </div>
   );
-
-  return to ? <Link to={to}>{body}</Link> : body;
 }

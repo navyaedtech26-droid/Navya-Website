@@ -26,10 +26,19 @@ port = 54323
 
 [auth]
 enabled = true
-# Set to your deployed origin so password-reset / magic links resolve correctly.
+# This [auth] block only governs `supabase start` (local CLI emulation). The
+# hosted project's real auth settings — including the Resend SMTP connection
+# and the production Site URL / Redirect URLs — are configured separately in
+# the Supabase dashboard under Authentication → Settings, not here.
 site_url = "http://localhost:5173"
-additional_redirect_urls = ["http://localhost:5173"]
+additional_redirect_urls = [
+  "http://localhost:5173/admin/confirm",
+  "http://localhost:5173/admin/reset-password",
+  "http://localhost:5173/admin/login",
+]
 jwt_expiry = 3600
+# Admin accounts are provisioned by an existing admin (AdminSettings "Add an
+# admin"), not via public self-serve signup — see AdminLogin.tsx.
 enable_signup = true
 
 [storage]

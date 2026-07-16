@@ -10,6 +10,8 @@ export const websitesServicePage: ServicePage = {
   heroSubtitle:
     "Your website is running a shift you can't see — deciding, before you ever get a call, whether a prospect trusts you enough to buy. We build it to win that shift.",
 
+  heroImage: "/vector/web-dev.avif",
+
   seoDescription:
     "Website development framed as a business decision: the cost of a weak site, the impact of a conversion-engineered one, the workflow, timeline, technology, and a real client outcome from Navya EdTech.",
 
@@ -23,9 +25,21 @@ export const websitesServicePage: ServicePage = {
     "SEO-ready website development",
   ],
 
+  overview: {
+    whatIsIt: "A complete reimagining of your digital presence, engineered for performance, security, and measurable conversion.",
+    whoNeedsIt: "Growing enterprises and established businesses whose current website is creating friction for sales, marketing, or customer trust.",
+    businessValue: "Transforms a passive digital brochure into an active lead-generation engine that works 24/7.",
+    benefits: [
+      "Higher conversion rates through data-driven UX",
+      "Sub-second load times that retain visitors",
+      "Enterprise-grade security and compliance",
+      "Seamless integration with your existing CRM"
+    ]
+  },
+
   businessProblem: {
-    title: "The Website Is Quietly",
-    highlight: "Losing You Deals",
+    title: "Why Is the Website",
+    highlight: "Quietly Losing You Deals?",
     intro:
       "Most business owners think of their website as a cost center they settled once, years ago. In practice, it's working — or failing — every single hour, without anyone in the room to notice.",
     painPoints: [
@@ -64,7 +78,7 @@ export const websitesServicePage: ServicePage = {
 
   businessImpact: {
     title: "What a Site Built for Business",
-    highlight: "Actually Changes",
+    highlight: "Actually Changes?",
     intro:
       "A website engineered around your sales process — not just your brand — shifts what happens after someone finds you. Here's where the impact shows up.",
     points: [
@@ -96,8 +110,8 @@ export const websitesServicePage: ServicePage = {
   },
 
   roi: {
-    title: "Where the Return",
-    highlight: "Actually Comes From",
+    title: "Where Does the Return",
+    highlight: "Actually Come From?",
     intro:
       "We won't hand you an invented percentage — every business's baseline is different. What we can tell you precisely is which levers a rebuild pulls, so you can judge the return against your own numbers.",
     points: [
@@ -232,4 +246,8 @@ export const websitesServicePage: ServicePage = {
       "Tell us what's not converting. We'll show you exactly where the gap is and what fixing it is worth.",
     buttonLabel: "Book a Strategy Call",
   },
+
+  relatedServices: ["ui-ux-design", "custom-software-development"],
+  relatedSolutions: ["digital-transformation", "social-media-growth"],
+  relatedIndustries: ["retail", "hotels", "real-estate", "restaurants"],
 };

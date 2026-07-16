@@ -36,6 +36,7 @@ import {
   EmptyState,
   FormActions,
   AdminTable,
+  Card,
   type Column,
 } from "@/components/admin/ui";
 import MarkdownEditor from "@/components/admin/MarkdownEditor";
@@ -184,8 +185,8 @@ export default function BlogsAdmin() {
       header: "Title",
       cell: (post) => (
         <>
-          <p className="font-medium text-ink">{post.title}</p>
-          <p className="text-xs text-ink-muted">/{post.slug}</p>
+          <p className="font-medium text-[#212529]">{post.title}</p>
+          <p className="text-xs text-[#6c757d]">/{post.slug}</p>
           <div className="mt-1 sm:hidden">
             <StatusBadge status={post.status} />
           </div>
@@ -201,7 +202,7 @@ export default function BlogsAdmin() {
     {
       key: "updated",
       header: "Updated",
-      className: "hidden text-ink-muted md:table-cell",
+      className: "hidden text-[#6c757d] md:table-cell",
       cell: (post) => formatDate(post.updated_at),
     },
     {
@@ -222,14 +223,14 @@ export default function BlogsAdmin() {
   ];
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-4">
       <PageHeader
         title="Blogs"
         subtitle="Create and manage articles shown on the public blog."
         action={
           <button
             onClick={() => setCreating(true)}
-            className="inline-flex items-center gap-2 rounded-xl bg-brand-gradient px-4 py-2.5 text-sm font-semibold text-white shadow-glow-sm transition-shadow hover:shadow-glow"
+            className="inline-flex items-center gap-2 rounded-[3px] bg-[#007bff] px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-[#0069d9]"
           >
             <Plus size={16} />
             New post
@@ -249,7 +250,7 @@ export default function BlogsAdmin() {
           action={
             <button
               onClick={() => setCreating(true)}
-              className="inline-flex items-center gap-2 rounded-xl bg-brand-gradient px-4 py-2.5 text-sm font-semibold text-white shadow-glow-sm transition-shadow hover:shadow-glow"
+              className="inline-flex items-center gap-2 rounded-[3px] bg-[#007bff] px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-[#0069d9]"
             >
               <Plus size={16} />
               New post
@@ -257,7 +258,7 @@ export default function BlogsAdmin() {
           }
         />
       ) : (
-        <div className="space-y-5">
+        <Card title="All posts" bodyClassName="space-y-4">
           <Toolbar
             query={query}
             onQuery={setQuery}
@@ -287,7 +288,7 @@ export default function BlogsAdmin() {
               )}
             </>
           )}
-        </div>
+        </Card>
       )}
 
       {/* Create / edit form */}
@@ -309,7 +310,7 @@ export default function BlogsAdmin() {
         title="Delete post"
         busy={deleteBusy}
       >
-        Delete <span className="font-medium text-ink">{deleting?.title}</span>? This
+        Delete <span className="font-medium text-[#212529]">{deleting?.title}</span>? This
         cannot be undone.
       </ConfirmDialog>
     </div>
@@ -462,17 +463,17 @@ function BlogForm({
         </Field>
 
         {/* ── Optional details (collapsed) ──────────────────────────────── */}
-        <div className="rounded-xl border border-white/10">
+        <div className="rounded-[3px] border border-[#dee2e6]">
           <button
             type="button"
             onClick={() => setShowMore((v) => !v)}
             aria-expanded={showMore}
-            className="flex w-full items-center justify-between gap-2 px-3.5 py-2.5 text-sm font-medium text-ink-muted transition-colors hover:text-ink"
+            className="flex w-full items-center justify-between gap-2 px-3.5 py-2.5 text-sm font-medium text-[#495057] transition-colors hover:text-[#212529]"
           >
             <span className="flex items-center gap-2">
-              <Sparkles size={15} className="text-brand-light" />
+              <Sparkles size={15} className="text-[#007bff]" />
               Optional details
-              <span className="text-xs font-normal text-ink-muted/70">
+              <span className="text-xs font-normal text-[#6c757d]">
                 slug · summary · author · category · tags
               </span>
             </span>
@@ -483,7 +484,7 @@ function BlogForm({
           </button>
 
           {showMore && (
-            <div className="flex flex-col gap-4 border-t border-white/10 p-3.5">
+            <div className="flex flex-col gap-4 border-t border-[#dee2e6] p-3.5">
               <Field label="Slug" htmlFor="slug" hint="The URL: /blog/your-slug">
                 <input
                   id="slug"
@@ -603,7 +604,7 @@ function Toolbar({
         <div className="relative w-full sm:max-w-xs">
           <Search
             size={16}
-            className="pointer-events-none absolute left-3.5 top-1/2 -translate-y-1/2 text-ink-muted"
+            className="pointer-events-none absolute left-3.5 top-1/2 -translate-y-1/2 text-[#6c757d]"
           />
           <input
             type="search"
@@ -617,23 +618,23 @@ function Toolbar({
             <button
               onClick={() => onQuery("")}
               aria-label="Clear search"
-              className="absolute right-2.5 top-1/2 -translate-y-1/2 rounded-md p-1 text-ink-muted transition-colors hover:text-ink"
+              className="absolute right-2.5 top-1/2 -translate-y-1/2 rounded p-1 text-[#6c757d] transition-colors hover:text-[#212529]"
             >
               <X size={15} />
             </button>
           )}
         </div>
 
-        <div className="flex rounded-xl border border-white/10 p-0.5 text-sm">
+        <div className="flex rounded-[3px] border border-[#ced4da] p-0.5 text-sm">
           {STATUS_FILTERS.map((s) => (
             <button
               key={s}
               onClick={() => onStatus(s)}
               className={cn(
-                "rounded-lg px-3 py-1.5 font-medium capitalize transition-colors",
+                "rounded-[2px] px-3 py-1.5 font-medium capitalize transition-colors",
                 s === status
-                  ? "bg-brand/20 text-ink"
-                  : "text-ink-muted hover:text-ink"
+                  ? "bg-[#007bff] text-white"
+                  : "text-[#495057] hover:bg-[#f4f6f9]"
               )}
             >
               {s}
@@ -642,7 +643,7 @@ function Toolbar({
         </div>
       </div>
 
-      <p className="text-xs text-ink-muted">
+      <p className="text-xs text-[#6c757d]">
         {shown === total ? `${total} posts` : `${shown} of ${total} posts`}
       </p>
     </div>
@@ -677,10 +678,10 @@ function Pagination({
           onClick={() => onChange(n)}
           aria-current={n === page ? "page" : undefined}
           className={cn(
-            "h-9 min-w-9 rounded-lg px-3 text-sm font-medium ring-1 transition-colors",
+            "h-9 min-w-9 rounded-[3px] border px-3 text-sm font-medium transition-colors",
             n === page
-              ? "bg-brand/20 text-ink ring-brand/40"
-              : "bg-white/5 text-ink-muted ring-white/10 hover:text-ink"
+              ? "border-[#007bff] bg-[#007bff] text-white"
+              : "border-[#ced4da] text-[#495057] hover:bg-[#f4f6f9]"
           )}
         >
           {n}
@@ -714,7 +715,7 @@ function PageButton({
       onClick={onClick}
       disabled={disabled}
       aria-label={label}
-      className="flex h-9 w-9 items-center justify-center rounded-lg bg-white/5 text-ink-muted ring-1 ring-white/10 transition-colors hover:text-ink disabled:cursor-not-allowed disabled:opacity-40"
+      className="flex h-9 w-9 items-center justify-center rounded-[3px] border border-[#ced4da] text-[#495057] transition-colors hover:bg-[#f4f6f9] disabled:cursor-not-allowed disabled:opacity-40"
     >
       {children}
     </button>
@@ -723,17 +724,17 @@ function PageButton({
 
 function NoResults({ onReset }: { onReset: () => void }) {
   return (
-    <div className="flex flex-col items-center rounded-2xl border border-white/10 bg-bg-900/40 p-12 text-center">
-      <div className="flex h-12 w-12 items-center justify-center rounded-full bg-brand/15 ring-1 ring-brand/30">
-        <Search className="text-brand-light" size={20} />
+    <div className="flex flex-col items-center rounded-[3px] border border-dashed border-[#dee2e6] bg-white p-12 text-center">
+      <div className="flex h-12 w-12 items-center justify-center rounded-full bg-[#e7f1ff]">
+        <Search className="text-[#007bff]" size={20} />
       </div>
-      <h3 className="mt-4 font-display text-base font-semibold text-ink">No matches</h3>
-      <p className="mt-1 max-w-sm text-sm text-ink-muted">
+      <h3 className="mt-4 text-base font-semibold text-[#212529]">No matches</h3>
+      <p className="mt-1 max-w-sm text-sm text-[#6c757d]">
         No posts fit your search. Try different keywords or clear the filters.
       </p>
       <button
         onClick={onReset}
-        className="mt-4 rounded-xl border border-white/10 px-4 py-2 text-sm font-medium text-ink-muted transition-colors hover:text-ink"
+        className="mt-4 rounded-[3px] border border-[#ced4da] px-4 py-2 text-sm font-medium text-[#495057] transition-colors hover:bg-[#f4f6f9]"
       >
         Clear filters
       </button>
@@ -760,16 +761,16 @@ function StatusOption({
       aria-checked={selected}
       onClick={onSelect}
       className={cn(
-        "flex flex-col items-start gap-0.5 rounded-xl border px-4 py-3 text-left transition-all duration-200",
+        "flex flex-col items-start gap-0.5 rounded-[3px] border px-4 py-3 text-left transition-colors",
         selected
-          ? "border-brand/60 bg-brand/10 shadow-[0_0_0_3px_rgba(30, 107, 255,0.15)]"
-          : "border-white/10 bg-white/[0.02] hover:border-white/20 hover:bg-white/[0.04]"
+          ? "border-[#007bff] bg-[#e7f1ff]"
+          : "border-[#ced4da] bg-white hover:bg-[#f4f6f9]"
       )}
     >
-      <span className={cn("text-sm font-semibold", selected ? "text-ink" : "text-ink-muted")}>
+      <span className={cn("text-sm font-semibold", selected ? "text-[#212529]" : "text-[#495057]")}>
         {title}
       </span>
-      <span className="text-xs text-ink-muted">{description}</span>
+      <span className="text-xs text-[#6c757d]">{description}</span>
     </button>
   );
 }
@@ -788,18 +789,18 @@ function ListSkeleton() {
     <SkeletonGroup label="Loading posts…" className="space-y-5">
       <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <div className="flex flex-1 gap-3">
-          <Skeleton className="h-10 w-full rounded-xl sm:max-w-xs" />
-          <Skeleton className="h-10 w-40 rounded-xl" />
+          <Skeleton className="h-10 w-full rounded-[3px] sm:max-w-xs" />
+          <Skeleton className="h-10 w-40 rounded-[3px]" />
         </div>
         <Skeleton className="h-4 w-16" />
       </div>
 
-      <div className="overflow-hidden rounded-2xl border border-white/10">
-        <div className="divide-y divide-white/5">
+      <div className="overflow-hidden rounded-[3px] border border-[#dee2e6]">
+        <div className="divide-y divide-[#dee2e6]">
           {Array.from({ length: 6 }).map((_, i) => (
             <div
               key={i}
-              className="flex items-center justify-between gap-4 bg-bg-900/40 px-4 py-4"
+              className="flex items-center justify-between gap-4 bg-white px-4 py-4"
             >
               <div className="min-w-0 flex-1 space-y-2">
                 <Skeleton className="h-4 w-1/2" />
@@ -808,8 +809,8 @@ function ListSkeleton() {
               <Skeleton className="hidden h-5 w-20 rounded-full sm:block" />
               <Skeleton className="hidden h-4 w-24 md:block" />
               <div className="flex gap-1">
-                <Skeleton className="h-9 w-9 rounded-lg" />
-                <Skeleton className="h-9 w-9 rounded-lg" />
+                <Skeleton className="h-9 w-9 rounded-[3px]" />
+                <Skeleton className="h-9 w-9 rounded-[3px]" />
               </div>
             </div>
           ))}

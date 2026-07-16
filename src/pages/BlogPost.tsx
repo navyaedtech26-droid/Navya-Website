@@ -186,7 +186,7 @@ export default function BlogPostPage() {
       <CTASection
         title="Like What You're Reading?"
         subtitle="Let's build something just as thoughtful for your business."
-        buttonLabel="Get in Touch"
+        primaryButtonLabel="Get in Touch"
       />
     </PageTransition>
   );
