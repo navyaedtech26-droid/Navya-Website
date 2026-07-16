@@ -82,6 +82,7 @@ export type CaseStudyRow = {
   challenge: string;
   solution_short: string;
   tags: string[];
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   content: any; // Storing the complex nested JSON
   status: "draft" | "published";
   published_at: string | null;

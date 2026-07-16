@@ -147,7 +147,7 @@ export default function CaseStudyGrid() {
                       damping: 30
                     }}
                   >
-                    <CaseStudyCard study={study as any} index={idx} />
+                    <CaseStudyCard study={study} index={idx} />
                   </motion.div>
                 ))
               ) : (

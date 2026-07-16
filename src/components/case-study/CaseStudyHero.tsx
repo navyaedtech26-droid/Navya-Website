@@ -6,7 +6,7 @@ import Container from "@/components/common/Container";
 import type { CaseStudy } from "@/services/caseStudies";
 
 export default function CaseStudyHero({ study }: { study: CaseStudy }) {
-  const Icon = (LucideIcons as any)[study.icon] || LucideIcons.BriefcaseBusiness;
+  const Icon = (LucideIcons as unknown as Record<string, LucideIcons.LucideIcon>)[study.icon] || LucideIcons.BriefcaseBusiness;
   
   return (
     <section className="relative pt-32 pb-20 lg:pt-40 lg:pb-32 overflow-hidden bg-paper">

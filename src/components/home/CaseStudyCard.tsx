@@ -9,7 +9,7 @@ import type { CaseStudy } from "@/services/caseStudies";
 
 export default function CaseStudyCard({ study, index = 0 }: { study: CaseStudy, index?: number }) {
   const isEven = index % 2 === 0;
-  const Icon = (LucideIcons as any)[study.icon] || LucideIcons.BriefcaseBusiness;
+  const Icon = (LucideIcons as unknown as Record<string, LucideIcons.LucideIcon>)[study.icon] || LucideIcons.BriefcaseBusiness;
 
   const content = (
     <div className="flex flex-col h-full justify-center lg:p-8">
@@ -96,27 +96,11 @@ export default function CaseStudyCard({ study, index = 0 }: { study: CaseStudy, 
     </div>
   );
 
-  const isInternal = `/portfolio/${study.slug}`?.startsWith("/");
-
   return (
     <motion.div variants={fadeUp} className="w-full">
-      {isInternal ? (
-        <Link to={`/portfolio/${study.slug}`!} aria-label={`${study.client} case study`} className="block w-full">
-          {inner}
-        </Link>
-      ) : `/portfolio/${study.slug}` ? (
-        <a
-          href={`/portfolio/${study.slug}`}
-          target="_blank"
-          rel="noreferrer"
-          aria-label={`${study.client} case study`}
-          className="block w-full"
-        >
-          {inner}
-        </a>
-      ) : (
-        <div className="block w-full">{inner}</div>
-      )}
+      <Link to={`/portfolio/${study.slug}`} aria-label={`${study.client} case study`} className="block w-full">
+        {inner}
+      </Link>
     </motion.div>
   );
 }

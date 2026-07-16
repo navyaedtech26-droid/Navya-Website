@@ -15,7 +15,7 @@ export default function RelatedProjects({ currentStudy }: { currentStudy: CaseSt
       setLoading(false);
     }
     load();
-  }, [currentStudy.id]);
+  }, [currentStudy]);
 
   if (loading || related.length === 0) return null;
 
@@ -51,7 +51,7 @@ export default function RelatedProjects({ currentStudy }: { currentStudy: CaseSt
               viewport={{ once: true, margin: "-100px" }}
               transition={{ duration: 0.5, delay: idx * 0.1 }}
             >
-              <CaseStudyCard study={study as any} index={idx} />
+              <CaseStudyCard study={study} index={idx} />
             </motion.div>
           ))}
         </div>

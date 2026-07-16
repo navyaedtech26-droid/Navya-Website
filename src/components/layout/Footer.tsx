@@ -68,9 +68,9 @@ export default function Footer() {
       
       setStatus("success");
       setEmail("");
-    } catch (err: any) {
+    } catch (err) {
       setStatus("error");
-      setErrorMessage(err.message || "Something went wrong. Please try again.");
+      setErrorMessage(err instanceof Error ? err.message : "Something went wrong. Please try again.");
     }
   };
 

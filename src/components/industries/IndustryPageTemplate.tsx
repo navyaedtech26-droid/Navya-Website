@@ -241,7 +241,7 @@ export default function IndustryPageTemplate({ data }: IndustryPageTemplateProps
             className="mt-12 grid gap-6 sm:grid-cols-2"
           >
             {data.roi.points.map((point, index) => {
-              const match = point.match(/^(.*?)\s+[—\-]\s+(.*)$/);
+              const match = point.match(/^(.*?)\s+[—-]\s+(.*)$/);
               const title = match ? match[1] : point;
               const description = match ? match[2] : "";
 

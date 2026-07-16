@@ -676,7 +676,7 @@ function CaseStudyForm({
                       const parsed = JSON.parse(data.content);
                       setData((prev) => ({ ...prev, content: parsed }));
                     }
-                  } catch (err) {
+                  } catch {
                     toast.error("Invalid JSON format");
                   }
                 }}

@@ -141,7 +141,7 @@ export default function ContactForm() {
   const guard = useSpamGuard("contact", SUBMIT_COOLDOWN_MS);
   const toast = useToast();
 
-  const update = (key: keyof FormState, value: any) => {
+  const update = (key: keyof FormState, value: string) => {
     setForm((f) => ({ ...f, [key]: value }));
     if (errors[key]) setErrors((e) => ({ ...e, [key]: undefined }));
   };
@@ -274,7 +274,7 @@ export default function ContactForm() {
           id="name"
           label="Full Name *"
           value={form.name}
-          onChange={(e: any) => update("name", e.target.value)}
+          onChange={(e) => update("name", e.target.value)}
           error={errors.name}
         />
         <InputField
@@ -282,7 +282,7 @@ export default function ContactForm() {
           type="text"
           label="Company Name"
           value={form.company}
-          onChange={(e: any) => update("company", e.target.value)}
+          onChange={(e) => update("company", e.target.value)}
         />
 
         <InputField
@@ -290,7 +290,7 @@ export default function ContactForm() {
           type="email"
           label="Work Email *"
           value={form.email}
-          onChange={(e: any) => update("email", e.target.value)}
+          onChange={(e) => update("email", e.target.value)}
           error={errors.email}
         />
         <InputField
@@ -298,7 +298,7 @@ export default function ContactForm() {
           type="tel"
           label="Phone Number"
           value={form.phone}
-          onChange={(e: any) => update("phone", e.target.value)}
+          onChange={(e) => update("phone", e.target.value)}
           error={errors.phone}
         />
 
@@ -309,7 +309,7 @@ export default function ContactForm() {
           label="Service Required *"
           options={services}
           value={form.service}
-          onChange={(e: any) => update("service", e.target.value)}
+          onChange={(e) => update("service", e.target.value)}
           error={errors.service}
           className="sm:col-span-2"
         />
@@ -318,14 +318,14 @@ export default function ContactForm() {
           label="Budget Range"
           options={budgets}
           value={form.budget}
-          onChange={(e: any) => update("budget", e.target.value)}
+          onChange={(e) => update("budget", e.target.value)}
         />
         <SelectField
           id="timeline"
           label="Timeline"
           options={timelines}
           value={form.timeline}
-          onChange={(e: any) => update("timeline", e.target.value)}
+          onChange={(e) => update("timeline", e.target.value)}
         />
 
         <div className="relative z-0 w-full group sm:col-span-2">

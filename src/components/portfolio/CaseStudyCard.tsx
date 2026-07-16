@@ -10,7 +10,7 @@ interface CaseStudyCardProps {
 }
 
 export default function CaseStudyCard({ study }: CaseStudyCardProps) {
-  const Icon = (LucideIcons as any)[study.icon] || LucideIcons.BriefcaseBusiness;
+  const Icon = (LucideIcons as unknown as Record<string, LucideIcons.LucideIcon>)[study.icon] || LucideIcons.BriefcaseBusiness;
 
   return (
     <Link to={`/portfolio/${study.slug}`} className="block h-full group/card focus:outline-none">
