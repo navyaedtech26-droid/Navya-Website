@@ -9,7 +9,7 @@ export const cloudDevOpsServicePage: ServicePage = {
   highlight: "Infrastructure and Delivery, Unified",
 
   heroSubtitle:
-    "Cloud infrastructure and deployment pipelines are usually solved by two different vendors who don't talk to each other. We deliver both as one coherent system — secure infrastructure and the automated delivery pipeline that ships to it.",
+    "Cloud infrastructure and deployment pipelines are usually solved by two different vendors who don't talk to each other. We deliver both as one coherent system, secure infrastructure and the automated delivery pipeline that ships to it.",
 
   heroImage: "/vectors1/cloudsoln-clean.avif",
 
@@ -28,7 +28,7 @@ export const cloudDevOpsServicePage: ServicePage = {
 
   overview: {
     whatIsIt:
-      "A unified cloud infrastructure and delivery pipeline — hosting, scaling, security, and automated deployment — designed and run as one coherent system.",
+      "A unified cloud infrastructure and delivery pipeline (hosting, scaling, security, and automated deployment) designed and run as one coherent system.",
     whoNeedsIt:
       "Growing engineering teams whose infrastructure and deployment process were bolted together over time by different people, with no single coherent design.",
     businessValue:
@@ -45,7 +45,7 @@ export const cloudDevOpsServicePage: ServicePage = {
     title: "Why Do Disjointed Infrastructure and Delivery",
     highlight: "Create Friction Nobody Owns?",
     intro:
-      "Most engineering teams end up with infrastructure and deployment tooling that were set up separately over time — and neither piece was designed with the other in mind.",
+      "Most engineering teams end up with infrastructure and deployment tooling that were set up separately over time, and neither piece was designed with the other in mind.",
     painPoints: [
       {
         title: "Infrastructure changes break the deployment pipeline",
@@ -79,7 +79,7 @@ export const cloudDevOpsServicePage: ServicePage = {
     title: "What Does a Unified Cloud & DevOps",
     highlight: "Approach Actually Change?",
     intro:
-      "Designing infrastructure and delivery together — not as two separate projects — changes how reliably and quickly your team can ship.",
+      "Designing infrastructure and delivery together (not as two separate projects) changes how reliably and quickly your team can ship.",
     points: [
       {
         icon: Gauge,
@@ -114,11 +114,11 @@ export const cloudDevOpsServicePage: ServicePage = {
     intro:
       "A unified approach pays back in fewer cross-system incidents, lower total infrastructure cost, and engineering time no longer spent untangling two disconnected setups.",
     points: [
-      "Fewer deployment-breaking incidents — a coherent design prevents the seam failures that occur when infrastructure and pipeline are managed separately.",
-      "Lower total infrastructure spend — cost and reliability trade-offs planned together avoid the waste of isolated, uncoordinated decisions.",
-      "Faster incident resolution — one team accountable for the whole system resolves cross-cutting issues faster than two separate vendors handing off blame.",
-      "Reduced security exposure — unified access control and secrets management close the gaps that fall between infrastructure and pipeline ownership.",
-      "More engineering time spent building product — less time is lost reconciling two systems that were never designed to work together.",
+      "Fewer deployment-breaking incidents. A coherent design prevents the seam failures that occur when infrastructure and pipeline are managed separately.",
+      "Lower total infrastructure spend. Cost and reliability trade-offs planned together avoid the waste of isolated, uncoordinated decisions.",
+      "Faster incident resolution. One team accountable for the whole system resolves cross-cutting issues faster than two separate vendors handing off blame.",
+      "Reduced security exposure. Unified access control and secrets management close the gaps that fall between infrastructure and pipeline ownership.",
+      "More engineering time spent building product. Less time is lost reconciling two systems that were never designed to work together.",
     ],
   },
 
@@ -213,24 +213,24 @@ export const cloudDevOpsServicePage: ServicePage = {
 
   faqs: [
     {
-      question: "We already have separate infrastructure and DevOps vendors — can you take over both?",
+      question: "We already have separate infrastructure and DevOps vendors. Can you take over both?",
       answer:
-        "Yes — this is a common starting point. We assess the existing setup from both sides and typically consolidate ownership so the seam that was causing friction disappears.",
+        "Yes. This is a common starting point. We assess the existing setup from both sides and typically consolidate ownership so the seam that was causing friction disappears.",
     },
     {
       question: "Do you manage the infrastructure ongoing, or hand it off after setup?",
       answer:
-        "Both are available — some clients prefer full documentation and internal handoff, others prefer we continue managing the unified system directly.",
+        "Both are available. Some clients prefer full documentation and internal handoff, others prefer we continue managing the unified system directly.",
     },
     {
       question: "Which cloud provider do you recommend?",
       answer:
-        "It depends on your existing stack and team familiarity — we assess this honestly during the audit rather than defaulting to one provider.",
+        "It depends on your existing stack and team familiarity. We assess this honestly during the audit rather than defaulting to one provider.",
     },
     {
       question: "Will this reduce our cloud costs?",
       answer:
-        "In most cases, yes — planning infrastructure sizing and deployment frequency together typically removes waste that isolated decisions introduce, though the specific savings depend on your current setup.",
+        "In most cases, yes. Planning infrastructure sizing and deployment frequency together typically removes waste that isolated decisions introduce, though the specific savings depend on your current setup.",
     },
     {
       question: "How disruptive is the transition to a unified system?",

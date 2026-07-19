@@ -13,9 +13,9 @@ export const hotelsIndustryPage: IndustryPage = {
 
   heroImage: "/industries section/hotela and resorts.avif",
 
-  seoTitle: "Digital Transformation for Hotels & Resorts | Navya EdTech",
+  seoTitle: "Digital Transformation for Hotels & Resorts in Nepal | Navya EdTech",
   seoDescription:
-    "Direct booking engines, reservation systems, and guest platforms for hotels and resorts — reduce OTA commission and keep guests coming back.",
+    "Direct booking engines, reservation systems, and guest platforms for hotels and resorts, reduce OTA commission and keep guests coming back.",
   seoKeywords: [
     "hotel booking website development",
     "hotel reservation management system",
@@ -24,18 +24,19 @@ export const hotelsIndustryPage: IndustryPage = {
     "guest experience platform",
     "hotel revenue management software",
     "digital transformation for hotels",
+    "hotel booking website development Nepal",
   ],
 
   challenges: {
     title: "Why Do Hotels Give Away",
     highlight: "Margin They Don't Have To?",
     intro:
-      "Most of a hotel's revenue leakage isn't visible on a P&L line — it's baked into commission rates and manual processes nobody's had time to fix.",
+      "Most of a hotel's revenue leakage isn't visible on a P&L line. It's baked into commission rates and manual processes nobody's had time to fix.",
     items: [
       {
         title: "Most bookings go through commission-heavy OTAs",
         description:
-          "Without a strong direct-booking site, a guest who found you on a listing site books through it — handing 15-25% of that revenue away by default.",
+          "Without a strong direct-booking site, a guest who found you on a listing site books through it, handing 15-25% of that revenue away by default.",
       },
       {
         title: "Room inventory is updated manually across channels",
@@ -97,20 +98,20 @@ export const hotelsIndustryPage: IndustryPage = {
     title: "Where Does the Return",
     highlight: "Actually Come From?",
     intro:
-      "For a hotel, the return is measured in commission avoided, occupancy improved, and repeat bookings recovered — all numbers your revenue team already tracks.",
+      "For a hotel, the return is measured in commission avoided, occupancy improved, and repeat bookings recovered, all numbers your revenue team already tracks.",
     points: [
-      "Lower OTA commission spend — every booking shifted to your direct site keeps 15-25% of that revenue that would otherwise go to a listing platform.",
-      "Higher occupancy accuracy — real-time inventory sync across channels eliminates double-bookings and the guest-relations cost of fixing them.",
-      "Shorter check-in queues — digital check-in reduces front-desk bottlenecks during peak arrival periods, improving the first guest impression.",
-      "More repeat bookings — automated post-stay outreach recovers guests who would otherwise rebook through whichever channel they found first.",
-      "Better-informed pricing — demand data supports dynamic rate decisions instead of a static seasonal calendar.",
+      "Lower OTA commission spend. Every booking shifted to your direct site keeps 15-25% of that revenue that would otherwise go to a listing platform.",
+      "Higher occupancy accuracy. Real-time inventory sync across channels eliminates double-bookings and the guest-relations cost of fixing them.",
+      "Shorter check-in queues. Digital check-in reduces front-desk bottlenecks during peak arrival periods, improving the first guest impression.",
+      "More repeat bookings. Automated post-stay outreach recovers guests who would otherwise rebook through whichever channel they found first.",
+      "Better-informed pricing. Demand data supports dynamic rate decisions instead of a static seasonal calendar.",
     ],
   },
 
   features: {
     title: "What's Inside the",
     highlight: "Platform?",
-    intro: "Every feature is built around a specific point in the guest journey — from search to rebooking.",
+    intro: "Every feature is built around a specific point in the guest journey, from search to rebooking.",
     items: [
       {
         icon: CalendarCheck,
@@ -170,7 +171,7 @@ export const hotelsIndustryPage: IndustryPage = {
     {
       question: "Does the system handle seasonal or dynamic pricing?",
       answer:
-        "Yes — rates can be configured to adjust automatically around demand, seasonality, or local events, based on rules you define.",
+        "Yes. Rates can be configured to adjust automatically around demand, seasonality, or local events, based on rules you define.",
     },
     {
       question: "How does this integrate with our existing property management tools?",

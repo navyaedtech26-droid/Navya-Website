@@ -14,7 +14,7 @@ export const socialMediaGrowthServicePage: ServicePage = {
   heroImage: "/vectors1/socialmedia-clean.avif",
 
   seoDescription:
-    "Strategy-led social media management — content, video, and paid campaigns tied to measurable growth, not just a posting calendar.",
+    "Strategy-led social media management, content, video, and paid campaigns tied to measurable growth, not just a posting calendar.",
 
   seoKeywords: [
     "social media management services",
@@ -28,7 +28,7 @@ export const socialMediaGrowthServicePage: ServicePage = {
 
   overview: {
     whatIsIt:
-      "Strategy-led social media management — content creation, video production, and paid campaigns — tied to measurable growth, not just a posting calendar.",
+      "Strategy-led social media management (content creation, video production, and paid campaigns) tied to measurable growth, not just a posting calendar.",
     whoNeedsIt:
       "Businesses posting on social media without a clear strategy, seeing engagement but no measurable connection to leads or revenue.",
     businessValue:
@@ -45,7 +45,7 @@ export const socialMediaGrowthServicePage: ServicePage = {
     title: "Why Is Posting Without a Strategy",
     highlight: "Just Activity, Not Growth?",
     intro:
-      "Most businesses on social media are active, not strategic — posting consistently without a plan that ties any of it back to leads, revenue, or brand authority.",
+      "Most businesses on social media are active, not strategic, posting consistently without a plan that ties any of it back to leads, revenue, or brand authority.",
     painPoints: [
       {
         title: "Content gets posted without a clear purpose",
@@ -117,13 +117,13 @@ export const socialMediaGrowthServicePage: ServicePage = {
     title: "Where Does the Return",
     highlight: "Actually Come From?",
     intro:
-      "Social media's return becomes measurable once it's tied to a strategy — visible in leads generated, ad efficiency, and internal time reclaimed from managing it ad hoc.",
+      "Social media's return becomes measurable once it's tied to a strategy, visible in leads generated, ad efficiency, and internal time reclaimed from managing it ad hoc.",
     points: [
-      "Leads generated directly from social — strategy-led content and campaigns create a trackable path from attention to inquiry.",
-      "More efficient ad spend — targeted campaigns with conversion tracking waste less budget on audiences unlikely to convert.",
-      "Reclaimed internal staff time — dedicated management frees your team from maintaining a channel alongside their primary role.",
-      "Compounding brand authority — consistent, strategic content builds trust over time, lowering the cost of converting future leads.",
-      "Clear visibility into what's working — reporting that ties activity to results lets you double down on what's actually generating pipeline.",
+      "Leads generated directly from social. Strategy-led content and campaigns create a trackable path from attention to inquiry.",
+      "More efficient ad spend. Targeted campaigns with conversion tracking waste less budget on audiences unlikely to convert.",
+      "Reclaimed internal staff time. Dedicated management frees your team from maintaining a channel alongside their primary role.",
+      "Compounding brand authority. Consistent, strategic content builds trust over time, lowering the cost of converting future leads.",
+      "Clear visibility into what's working. Reporting that ties activity to results lets you double down on what's actually generating pipeline.",
     ],
   },
 
@@ -132,7 +132,7 @@ export const socialMediaGrowthServicePage: ServicePage = {
       step: "01",
       title: "Brand & Audience Strategy",
       description:
-        "We define who you're actually trying to reach and what action you want social media to drive — before planning a single post.",
+        "We define who you're actually trying to reach and what action you want social media to drive, before planning a single post.",
     },
     {
       step: "02",
@@ -144,7 +144,7 @@ export const socialMediaGrowthServicePage: ServicePage = {
       step: "03",
       title: "Content Creation & Production",
       description:
-        "We produce the content — video, graphics, copy — to a consistent professional standard, on-brand every time.",
+        "We produce the content (video, graphics, copy) to a consistent professional standard, on-brand every time.",
     },
     {
       step: "04",
@@ -225,17 +225,17 @@ export const socialMediaGrowthServicePage: ServicePage = {
     {
       question: "Can you prove social media is actually generating leads for us?",
       answer:
-        "Yes — conversion tracking and reporting are built into the engagement from the start, so you see a clear connection between activity and actual leads, not just engagement metrics.",
+        "Yes. Conversion tracking and reporting are built into the engagement from the start, so you see a clear connection between activity and actual leads, not just engagement metrics.",
     },
     {
       question: "Do you handle video production, or just written content?",
       answer:
-        "Both — video, graphics, and written content are all part of the service, produced to a consistent professional standard.",
+        "Both. Video, graphics, and written content are all part of the service, produced to a consistent professional standard.",
     },
     {
       question: "Do you manage paid ad spend as well as organic content?",
       answer:
-        "Yes — paid campaign management with defined targeting and conversion tracking is part of the engagement where it fits your growth goals.",
+        "Yes. Paid campaign management with defined targeting and conversion tracking is part of the engagement where it fits your growth goals.",
     },
     {
       question: "How quickly will we see results?",

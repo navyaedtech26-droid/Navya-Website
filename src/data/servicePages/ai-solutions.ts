@@ -9,7 +9,7 @@ export const aiSolutionsServicePage: ServicePage = {
   highlight: "Automation With a Measurable Return",
 
   heroSubtitle:
-    "Most AI conversations stay theoretical. Ours start with a specific, expensive manual task in your business and end with a working system that removes it — chatbots, document automation, and predictive models built for a return you can measure.",
+    "Most AI conversations stay theoretical. Ours start with a specific, expensive manual task in your business and end with a working system that removes it, chatbots, document automation, and predictive models built for a return you can measure.",
 
   heroImage: "/vector/ai-solutions.avif",
 
@@ -28,7 +28,7 @@ export const aiSolutionsServicePage: ServicePage = {
 
   overview: {
     whatIsIt:
-      "Applied AI — chatbots, document parsers, and predictive models — built to remove a specific, costly manual task, not a generic AI feature bolted onto your product.",
+      "Applied AI (chatbots, document parsers, and predictive models) built to remove a specific, costly manual task, not a generic AI feature bolted onto your product.",
     whoNeedsIt:
       "Operations, support, and logistics teams currently absorbing repetitive manual work that a well-scoped model can take over.",
     businessValue:
@@ -45,12 +45,12 @@ export const aiSolutionsServicePage: ServicePage = {
     title: "Why Is Manual, Repetitive Work",
     highlight: "Quietly Capping Your Growth?",
     intro:
-      "Most businesses don't lack ambition for AI — they lack a scoped, practical starting point. Meanwhile, the same repetitive tasks keep consuming hours that should scale with revenue, not headcount.",
+      "Most businesses don't lack ambition for AI. They lack a scoped, practical starting point. Meanwhile, the same repetitive tasks keep consuming hours that should scale with revenue, not headcount.",
     painPoints: [
       {
         title: "Staff spend hours on data entry that follows a clear pattern",
         description:
-          "Invoices, forms, and documents are re-typed by hand into a system, even though the pattern of the data rarely changes — a textbook case for automation nobody's built yet.",
+          "Invoices, forms, and documents are re-typed by hand into a system, even though the pattern of the data rarely changes, a textbook case for automation nobody's built yet.",
       },
       {
         title: "Customer support answers the same questions on repeat",
@@ -60,7 +60,7 @@ export const aiSolutionsServicePage: ServicePage = {
       {
         title: "Decisions rely on gut feel instead of available data",
         description:
-          "The data to predict demand, churn, or delays already exists in your systems — it's just never been modeled into a forecast anyone actually uses.",
+          "The data to predict demand, churn, or delays already exists in your systems. It's just never been modeled into a forecast anyone actually uses.",
       },
       {
         title: "\"AI\" conversations stall at the demo stage",
@@ -79,7 +79,7 @@ export const aiSolutionsServicePage: ServicePage = {
     title: "What Practical AI",
     highlight: "Actually Changes?",
     intro:
-      "Applied correctly, AI removes the specific manual step causing the bottleneck — and the impact shows up immediately in hours, not in a strategy document.",
+      "Applied correctly, AI removes the specific manual step causing the bottleneck, and the impact shows up immediately in hours, not in a strategy document.",
     points: [
       {
         icon: Clock3,
@@ -112,13 +112,13 @@ export const aiSolutionsServicePage: ServicePage = {
     title: "Where Does the Return",
     highlight: "Actually Come From?",
     intro:
-      "AI's return is concrete when it's scoped against a real task — measured in hours saved, tickets deflected, or errors avoided, not in abstract innovation points.",
+      "AI's return is concrete when it's scoped against a real task, measured in hours saved, tickets deflected, or errors avoided, not in abstract innovation points.",
     points: [
-      "Reduced manual entry cost — document automation removes a large share of the re-typing hours currently paid for by the hour.",
-      "Lower support cost per ticket — a chatbot resolving repeat questions instantly reduces the average cost of handling each inquiry.",
-      "Fewer costly surprises — predictive alerts on demand or churn let your team intervene before the cost of reacting late sets in.",
-      "Headcount that scales with judgment, not volume — automation absorbs the repetitive load so hiring tracks growth in complexity, not growth in volume.",
-      "A visible, ongoing return — because the system is scoped to a measured task, the before/after is something you can actually track.",
+      "Reduced manual entry cost. Document automation removes a large share of the re-typing hours currently paid for by the hour.",
+      "Lower support cost per ticket. A chatbot resolving repeat questions instantly reduces the average cost of handling each inquiry.",
+      "Fewer costly surprises. Predictive alerts on demand or churn let your team intervene before the cost of reacting late sets in.",
+      "Headcount that scales with judgment, not volume. Automation absorbs the repetitive load so hiring tracks growth in complexity, not growth in volume.",
+      "A visible, ongoing return, because the system is scoped to a measured task, the before/after is something you can actually track.",
     ],
   },
 
@@ -127,7 +127,7 @@ export const aiSolutionsServicePage: ServicePage = {
       step: "01",
       title: "Task Identification & Scoping",
       description:
-        "We identify the specific, measurable task worth automating first — not a broad AI strategy, a concrete process with a clear cost today.",
+        "We identify the specific, measurable task worth automating first, not a broad AI strategy, a concrete process with a clear cost today.",
     },
     {
       step: "02",
@@ -139,7 +139,7 @@ export const aiSolutionsServicePage: ServicePage = {
       step: "03",
       title: "Model Selection & Prototyping",
       description:
-        "We choose the right approach — an LLM integration, a custom model, or a rules-based system — and prove it on real samples of your data first.",
+        "We choose the right approach (an LLM integration, a custom model, or a rules-based system) and prove it on real samples of your data first.",
     },
     {
       step: "04",
@@ -163,7 +163,7 @@ export const aiSolutionsServicePage: ServicePage = {
     deliverables: [
       "A scoped brief defining exactly which task is being automated and how success is measured",
       "A working prototype tested against real samples of your own data before full build-out",
-      "Integration into your existing tools — CRM, helpdesk, ERP — rather than a standalone dashboard",
+      "Integration into your existing tools (CRM, helpdesk, ERP) rather than a standalone dashboard",
       "Guardrails and human hand-off rules for cases the model shouldn't handle alone",
       "Accuracy and performance monitoring in place from day one",
       "Documentation covering how the model works and how to retrain or adjust it",
@@ -216,7 +216,7 @@ export const aiSolutionsServicePage: ServicePage = {
     {
       question: "How do we know if a task is a good fit for AI automation?",
       answer:
-        "It's repetitive, follows a pattern, and currently costs staff hours. If it requires deep judgment on every single case, it's usually a poor first candidate — we'll tell you honestly during scoping.",
+        "It's repetitive, follows a pattern, and currently costs staff hours. If it requires deep judgment on every single case, it's usually a poor first candidate. We'll tell you honestly during scoping.",
     },
     {
       question: "Do you build custom models or use existing AI APIs?",
@@ -236,7 +236,7 @@ export const aiSolutionsServicePage: ServicePage = {
     {
       question: "How is our data handled and kept private?",
       answer:
-        "We scope data privacy controls into the architecture from the start — including which data touches third-party APIs and which stays inside your own infrastructure.",
+        "We scope data privacy controls into the architecture from the start, including which data touches third-party APIs and which stays inside your own infrastructure.",
     },
   ],
 

@@ -24,7 +24,7 @@ export const organizationSchema = {
   image: `${SITE_URL}/og-image.jpg`,
   slogan: "Digital transformation that drives growth.",
   description:
-    "Navya EdTech turns digital investment into measurable growth — revenue-driving websites, cost-cutting business systems, and business intelligence for founders, schools, hospitals, and enterprises.",
+    "Navya EdTech turns digital investment into measurable growth, revenue-driving websites, cost-cutting business systems, and business intelligence for founders, schools, hospitals, and enterprises.",
   // Country-level address only — Navya operates remotely across Nepal. Add a
   // street address + geo here if/when a public office location exists, which is
   // what unlocks Google local-pack / map rich results.

@@ -13,9 +13,9 @@ export const realEstateIndustryPage: IndustryPage = {
 
   heroImage: "/industries section/real estate.avif",
 
-  seoTitle: "Digital Transformation for Real Estate | Navya EdTech",
+  seoTitle: "Digital Transformation for Real Estate in Nepal | Navya EdTech",
   seoDescription:
-    "Property listing websites, real estate CRM, and lead management platforms — convert more browsers into buyers and track every lead to close.",
+    "Property listing websites, real estate CRM, and lead management platforms, convert more browsers into buyers and track every lead to close.",
   seoKeywords: [
     "real estate website development",
     "property listing platform",
@@ -24,13 +24,14 @@ export const realEstateIndustryPage: IndustryPage = {
     "property management system",
     "real estate agency software",
     "digital transformation for real estate",
+    "real estate website development Nepal",
   ],
 
   challenges: {
     title: "Why Do Leads Go Cold",
     highlight: "Before an Agent Even Calls?",
     intro:
-      "Real estate is a relationship business, but most of that relationship starts online — and most agencies aren't set up to capture it well.",
+      "Real estate is a relationship business, but most of that relationship starts online. And most agencies aren't set up to capture it well.",
     items: [
       {
         title: "Listings are scattered across portals with no central hub",
@@ -99,11 +100,11 @@ export const realEstateIndustryPage: IndustryPage = {
     intro:
       "For a real estate business, the return shows up as more qualified leads converted and less time lost to manual coordination.",
     points: [
-      "Higher lead-to-viewing conversion — systematic follow-up means fewer inquiries fall through the cracks before an agent responds.",
-      "Faster listing updates — one system pushes price and status changes everywhere at once, keeping every channel consistent.",
-      "Better-informed pricing decisions — visibility into buyer interest by listing supports pricing strategy with real demand data.",
-      "Shorter transaction timelines — digital document handling removes days of back-and-forth from contract to close.",
-      "Stronger buyer trust — a professional, credible online presence signals the same quality buyers expect from the properties themselves.",
+      "Higher lead-to-viewing conversion. Systematic follow-up means fewer inquiries fall through the cracks before an agent responds.",
+      "Faster listing updates. One system pushes price and status changes everywhere at once, keeping every channel consistent.",
+      "Better-informed pricing decisions. Visibility into buyer interest by listing supports pricing strategy with real demand data.",
+      "Shorter transaction timelines. Digital document handling removes days of back-and-forth from contract to close.",
+      "Stronger buyer trust. A professional, credible online presence signals the same quality buyers expect from the properties themselves.",
     ],
   },
 
@@ -160,7 +161,7 @@ export const realEstateIndustryPage: IndustryPage = {
     {
       question: "Can the website sync with the property portals we already list on?",
       answer:
-        "Yes — we can configure the listing website to sync with major third-party portals so you're not manually re-entering the same property twice.",
+        "Yes. We can configure the listing website to sync with major third-party portals so you're not manually re-entering the same property twice.",
     },
     {
       question: "Does the CRM handle both buyer and seller leads?",
@@ -170,7 +171,7 @@ export const realEstateIndustryPage: IndustryPage = {
     {
       question: "Can this support multiple agents or branches?",
       answer:
-        "Yes — it's built to scale across agents and branches, with each agent seeing their own leads and management getting an agency-wide view.",
+        "Yes. It's built to scale across agents and branches, with each agent seeing their own leads and management getting an agency-wide view.",
     },
     {
       question: "Do you handle virtual tours or 3D property walkthroughs?",

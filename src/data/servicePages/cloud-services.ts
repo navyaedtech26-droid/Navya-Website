@@ -9,12 +9,12 @@ export const cloudServicesServicePage: ServicePage = {
   highlight: "Infrastructure That Scales Without Drama",
 
   heroSubtitle:
-    "A server that goes down at the wrong moment doesn't just cost you uptime — it costs you the trust you spent months building. We design cloud infrastructure that stays invisible, because the best infrastructure is the kind nobody ever has to think about.",
+    "A server that goes down at the wrong moment doesn't just cost you uptime. It costs you the trust you spent months building. We design cloud infrastructure that stays invisible, because the best infrastructure is the kind nobody ever has to think about.",
 
   heroImage: "/vector/cloud-infrastructure.avif",
 
   seoDescription:
-    "Secure, scalable cloud services across AWS, Azure, and GCP — infrastructure that handles traffic spikes and bills for what you actually use.",
+    "Secure, scalable cloud services across AWS, Azure, and GCP, infrastructure that handles traffic spikes and bills for what you actually use.",
 
   seoKeywords: [
     "cloud services for business",
@@ -28,7 +28,7 @@ export const cloudServicesServicePage: ServicePage = {
 
   overview: {
     whatIsIt:
-      "Secure, scalable cloud infrastructure — migration, architecture, and ongoing management across AWS, Azure, and Google Cloud — built for your actual traffic and compliance needs.",
+      "Secure, scalable cloud infrastructure (migration, architecture, and ongoing management across AWS, Azure, and Google Cloud) built for your actual traffic and compliance needs.",
     whoNeedsIt:
       "Businesses outgrowing shared hosting, facing unpredictable traffic, or needing the security posture their customers and regulators now expect.",
     businessValue:
@@ -45,7 +45,7 @@ export const cloudServicesServicePage: ServicePage = {
     title: "Why Is Fragile Infrastructure a Risk",
     highlight: "You Don't See Until It Fails?",
     intro:
-      "Most businesses only discover their infrastructure's weak points during an outage, a traffic spike, or a security audit — all moments when the cost of finding out is highest.",
+      "Most businesses only discover their infrastructure's weak points during an outage, a traffic spike, or a security audit, all moments when the cost of finding out is highest.",
     painPoints: [
       {
         title: "A single traffic spike takes the whole system down",
@@ -55,7 +55,7 @@ export const cloudServicesServicePage: ServicePage = {
       {
         title: "You're paying for capacity you don't use",
         description:
-          "Fixed server provisioning means paying around the clock for peak capacity that sits idle most of the time — a cost that compounds every month.",
+          "Fixed server provisioning means paying around the clock for peak capacity that sits idle most of the time, a cost that compounds every month.",
       },
       {
         title: "Deployments are manual and risky",
@@ -84,7 +84,7 @@ export const cloudServicesServicePage: ServicePage = {
     title: "What Properly Architected Cloud",
     highlight: "Actually Changes?",
     intro:
-      "The right cloud architecture doesn't just prevent outages — it changes how your cost, deployment speed, and security posture behave under real conditions.",
+      "The right cloud architecture doesn't just prevent outages. It changes how your cost, deployment speed, and security posture behave under real conditions.",
     points: [
       {
         icon: Gauge,
@@ -96,7 +96,7 @@ export const cloudServicesServicePage: ServicePage = {
         icon: Wallet,
         title: "Cost tracks actual usage",
         description:
-          "Serverless and right-sized architectures mean you stop paying for idle peak capacity — cost scales with real demand, not worst-case provisioning.",
+          "Serverless and right-sized architectures mean you stop paying for idle peak capacity. Cost scales with real demand, not worst-case provisioning.",
       },
       {
         icon: RefreshCw,
@@ -119,11 +119,11 @@ export const cloudServicesServicePage: ServicePage = {
     intro:
       "The return on proper cloud architecture shows up in avoided downtime cost and a hosting bill that finally matches real usage.",
     points: [
-      "Avoided downtime cost — multi-region, auto-scaling infrastructure prevents the revenue and reputation loss a single outage causes.",
-      "Lower hosting spend — serverless and right-sized provisioning eliminates paying around the clock for peak-only capacity.",
-      "Faster time-to-market — automated deployment pipelines mean new features reach customers in hours, not the days a manual release process takes.",
-      "Reduced security risk exposure — built-in encryption and access controls lower the likelihood and cost of a breach or compliance failure.",
-      "Less engineering time on infrastructure firefighting — a stable, monitored environment frees your team to build product instead of babysitting servers.",
+      "Avoided downtime cost. Multi-region, auto-scaling infrastructure prevents the revenue and reputation loss a single outage causes.",
+      "Lower hosting spend. Serverless and right-sized provisioning eliminates paying around the clock for peak-only capacity.",
+      "Faster time-to-market. Automated deployment pipelines mean new features reach customers in hours, not the days a manual release process takes.",
+      "Reduced security risk exposure. Built-in encryption and access controls lower the likelihood and cost of a breach or compliance failure.",
+      "Less engineering time on infrastructure firefighting. A stable, monitored environment frees your team to build product instead of babysitting servers.",
     ],
   },
 
@@ -138,7 +138,7 @@ export const cloudServicesServicePage: ServicePage = {
       step: "02",
       title: "Architecture Design",
       description:
-        "We design the target environment — cloud provider, scaling model, and security controls — matched to your actual load and compliance needs.",
+        "We design the target environment (cloud provider, scaling model, and security controls) matched to your actual load and compliance needs.",
     },
     {
       step: "03",
@@ -170,7 +170,7 @@ export const cloudServicesServicePage: ServicePage = {
       "A staged migration plan with rollback points at every step",
       "CI/CD pipelines configured for your actual deployment workflow",
       "Monitoring, alerting, and logging wired in from day one",
-      "Security controls — encryption, access management, backups — documented and tested",
+      "Security controls (encryption, access management, backups) documented and tested",
       "A handover package with full infrastructure documentation and a support plan",
     ],
   },
@@ -219,7 +219,7 @@ export const cloudServicesServicePage: ServicePage = {
 
   faqs: [
     {
-      question: "Which cloud provider should we use — AWS, Azure, or GCP?",
+      question: "Which cloud provider should we use (AWS, Azure, or GCP)?",
       answer:
         "It depends on your existing stack, compliance requirements, and team familiarity. We assess this honestly during the audit rather than defaulting to one provider.",
     },
@@ -231,17 +231,17 @@ export const cloudServicesServicePage: ServicePage = {
     {
       question: "Will moving to the cloud actually reduce our hosting cost?",
       answer:
-        "For workloads with variable traffic, usually yes — serverless and auto-scaling architectures mean you stop paying for idle peak capacity. For steady, predictable load, the savings are more modest, and we'll tell you that honestly.",
+        "For workloads with variable traffic, usually yes. Serverless and auto-scaling architectures mean you stop paying for idle peak capacity. For steady, predictable load, the savings are more modest, and we'll tell you that honestly.",
     },
     {
       question: "Do you handle security compliance requirements like SOC 2 or GDPR?",
       answer:
-        "We build the infrastructure controls — encryption, access management, audit logging — that compliance frameworks require, and can work alongside your compliance team on formal certification.",
+        "We build the infrastructure controls (encryption, access management, audit logging) that compliance frameworks require, and can work alongside your compliance team on formal certification.",
     },
     {
       question: "Do you manage the infrastructure after migration, or just build it?",
       answer:
-        "Both are available. Many clients hand over documentation and manage in-house; others prefer an ongoing management arrangement — we scope either based on your team's capacity.",
+        "Both are available. Many clients hand over documentation and manage in-house; others prefer an ongoing management arrangement. We scope either based on your team's capacity.",
     },
   ],
 

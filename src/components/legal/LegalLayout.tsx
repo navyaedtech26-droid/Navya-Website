@@ -1,18 +1,18 @@
 import { motion } from "framer-motion";
 import Container from "@/components/common/Container";
-import PageHero from "@/components/common/PageHero";
+import LegalHero from "@/components/legal/LegalHero";
+import CTASection from "@/components/common/CTASection";
 import { fadeUp, staggerContainer, viewportOnce } from "@/lib/animations";
 import type { LegalDoc } from "@/data/legal";
 
 /**
  * Shared presentation for long-form legal documents (Privacy Policy, Terms).
- * Renders a standard page hero plus a readable, glass-styled content column.
+ * Renders the site's bespoke marketing-page hero plus a readable content column.
  */
 export default function LegalLayout({ doc }: { doc: LegalDoc }) {
   return (
     <>
-      <PageHero
-        eyebrow="Legal"
+      <LegalHero
         title={doc.title}
         highlight={doc.highlight}
         subtitle={doc.intro}
@@ -68,6 +68,13 @@ export default function LegalLayout({ doc }: { doc: LegalDoc }) {
           </motion.div>
         </Container>
       </section>
+
+      <CTASection
+        title="Have Questions About Our Policies?"
+        subtitle="Reach out to our team. We're happy to walk you through the details."
+        primaryButtonLabel="Contact Us"
+        primaryButtonHref="/contact"
+      />
     </>
   );
 }

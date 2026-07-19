@@ -45,7 +45,7 @@ export const businessIntelligenceAnalyticsServicePage: ServicePage = {
     title: "Why Is Scattered Data",
     highlight: "Quietly Slowing Every Decision?",
     intro:
-      "Most businesses have plenty of data — it's just locked in disconnected systems, exported manually, and stitched together under deadline pressure before anyone can act on it.",
+      "Most businesses have plenty of data. It's just locked in disconnected systems, exported manually, and stitched together under deadline pressure before anyone can act on it.",
     painPoints: [
       {
         title: "Reporting means manually pulling exports from five systems",
@@ -84,7 +84,7 @@ export const businessIntelligenceAnalyticsServicePage: ServicePage = {
     title: "What Real-Time BI",
     highlight: "Actually Changes?",
     intro:
-      "A proper business intelligence layer doesn't just make reporting faster — it changes how early a business can see and respond to what's actually happening.",
+      "A proper business intelligence layer doesn't just make reporting faster. It changes how early a business can see and respond to what's actually happening.",
     points: [
       {
         icon: Eye,
@@ -119,11 +119,11 @@ export const businessIntelligenceAnalyticsServicePage: ServicePage = {
     intro:
       "BI's return shows up in decisions made faster, disputes over data eliminated, and problems caught before they compound in cost.",
     points: [
-      "Faster decision cycles — real-time dashboards remove the days-long delay a manual reporting process currently imposes.",
-      "Eliminated cross-team data disputes — a single source of truth stops the recurring debate over whose version of a metric is correct.",
-      "Earlier problem detection — trend and predictive analysis surface risk while it's still cheap to address, not after it's already cost revenue.",
-      "Reduced manual reporting hours — automated dashboards remove the recurring work of manually assembling reports from multiple exports.",
-      "Better resource allocation — clear, trusted KPI visibility lets leadership direct effort to what the data actually shows is working.",
+      "Faster decision cycles. Real-time dashboards remove the days-long delay a manual reporting process currently imposes.",
+      "Eliminated cross-team data disputes. A single source of truth stops the recurring debate over whose version of a metric is correct.",
+      "Earlier problem detection. Trend and predictive analysis surface risk while it's still cheap to address, not after it's already cost revenue.",
+      "Reduced manual reporting hours. Automated dashboards remove the recurring work of manually assembling reports from multiple exports.",
+      "Better resource allocation. Clear, trusted KPI visibility lets leadership direct effort to what the data actually shows is working.",
     ],
   },
 
@@ -218,7 +218,7 @@ export const businessIntelligenceAnalyticsServicePage: ServicePage = {
 
   faqs: [
     {
-      question: "We already have some dashboards — do we need to start over?",
+      question: "We already have some dashboards. Do we need to start over?",
       answer:
         "Not necessarily. We audit what's already working and typically rebuild the underlying data layer where it's unreliable, while reusing dashboard designs your team already trusts.",
     },
@@ -230,17 +230,17 @@ export const businessIntelligenceAnalyticsServicePage: ServicePage = {
     {
       question: "Can this include predictive analytics, not just historical reporting?",
       answer:
-        "Yes, where your data supports it — we scope predictive or trend modeling as part of the engagement when it adds genuine decision-making value, not as a default feature.",
+        "Yes, where your data supports it. We scope predictive or trend modeling as part of the engagement when it adds genuine decision-making value, not as a default feature.",
     },
     {
       question: "Will different departments see different views?",
       answer:
-        "Yes — role-based dashboard access means each team sees the metrics relevant to them, while leadership sees the consolidated cross-department view.",
+        "Yes. Role-based dashboard access means each team sees the metrics relevant to them, while leadership sees the consolidated cross-department view.",
     },
     {
       question: "How long before we see a return on a BI investment?",
       answer:
-        "Most clients see the first return — faster reporting cycles — as soon as the initial dashboards go live, with deeper insight compounding over subsequent months of use.",
+        "Most clients see the first return (faster reporting cycles) as soon as the initial dashboards go live, with deeper insight compounding over subsequent months of use.",
     },
   ],
 

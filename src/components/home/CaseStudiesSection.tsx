@@ -35,7 +35,7 @@ export default function CaseStudiesSection() {
           eyebrow="Proven Outcomes"
           title="Results We've"
           highlight="Delivered"
-          subtitle="Real partnerships where digital investment became a business advantage — unified operations, new revenue channels, and brands that command attention."
+          subtitle="Real partnerships where digital investment became a business advantage, unified operations, new revenue channels, and brands that command attention."
         />
 
         {loading ? (

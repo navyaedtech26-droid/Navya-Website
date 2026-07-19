@@ -239,11 +239,11 @@ export default function MessagesAdmin() {
 
             <dl className="grid grid-cols-2 gap-3 rounded-[3px] border border-[#dee2e6] bg-[#f4f6f9] p-4 text-sm">
               <Detail label="Phone" icon={<Phone size={13} />}>
-                {open.phone || "—"}
+                {open.phone || "N/A"}
               </Detail>
               <Detail label="Received">{formatDate(open.created_at)}</Detail>
-              <Detail label="Service">{open.service || "—"}</Detail>
-              <Detail label="Budget">{open.budget || "—"}</Detail>
+              <Detail label="Service">{open.service || "N/A"}</Detail>
+              <Detail label="Budget">{open.budget || "N/A"}</Detail>
             </dl>
 
             <div>

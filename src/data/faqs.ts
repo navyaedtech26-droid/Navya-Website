@@ -68,7 +68,7 @@ export const contactFaqs: Faq[] = [
   {
     question: "How much does a project cost?",
     answer:
-      "Every engagement is scoped to the outcome you need, so pricing reflects the value at stake. After understanding your goals we share a transparent, itemized quote — and the business case behind it — before anything begins.",
+      "Every engagement is scoped to the outcome you need, so pricing reflects the value at stake. After understanding your goals we share a transparent, itemized quote (and the business case behind it) before anything begins.",
   },
   {
     question: "Do I need to have everything figured out first?",

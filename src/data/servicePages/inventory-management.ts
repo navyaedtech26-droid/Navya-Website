@@ -9,7 +9,7 @@ export const inventoryManagementServicePage: ServicePage = {
   highlight: "Real-Time Stock Visibility",
 
   heroSubtitle:
-    "A stockout costs a sale today. Overstock costs cash every day until it sells. Both come from the same root cause — not knowing your real inventory position. We build systems that replace the guesswork with real-time visibility.",
+    "A stockout costs a sale today. Overstock costs cash every day until it sells. Both come from the same root cause, not knowing your real inventory position. We build systems that replace the guesswork with real-time visibility.",
 
   heroImage: "/vectors1/inventory-clean.avif",
 
@@ -32,7 +32,7 @@ export const inventoryManagementServicePage: ServicePage = {
     whoNeedsIt:
       "Retailers, distributors, and manufacturers currently tracking stock through manual counts, spreadsheets, or disconnected point-of-sale systems.",
     businessValue:
-      "Replaces reactive stock decisions — emergency reorders, surprise stockouts — with a live, accurate picture your team can act on before it becomes a problem.",
+      "Replaces reactive stock decisions (emergency reorders, surprise stockouts) with a live, accurate picture your team can act on before it becomes a problem.",
     benefits: [
       "Real-time stock visibility across every location and channel",
       "Automated reorder alerts before a stockout actually happens",
@@ -45,7 +45,7 @@ export const inventoryManagementServicePage: ServicePage = {
     title: "Why Is Poor Stock Visibility",
     highlight: "Costing You in Both Directions?",
     intro:
-      "Most businesses lose money on inventory from two opposite directions at once — stockouts that lose sales, and overstock that ties up cash — both caused by the same missing visibility.",
+      "Most businesses lose money on inventory from two opposite directions at once (stockouts that lose sales, and overstock that ties up cash), both caused by the same missing visibility.",
     painPoints: [
       {
         title: "Stockouts happen without warning",
@@ -75,7 +75,7 @@ export const inventoryManagementServicePage: ServicePage = {
       {
         title: "Reordering depends on someone remembering to check",
         description:
-          "Without automated reorder points, purchasing decisions rely on someone noticing low stock manually — a process that fails exactly when things get busy.",
+          "Without automated reorder points, purchasing decisions rely on someone noticing low stock manually, a process that fails exactly when things get busy.",
       },
     ],
   },
@@ -84,7 +84,7 @@ export const inventoryManagementServicePage: ServicePage = {
     title: "What Real-Time Inventory Visibility",
     highlight: "Actually Changes?",
     intro:
-      "The right system doesn't just track stock — it changes purchasing from a reactive scramble into a planned, data-driven decision.",
+      "The right system doesn't just track stock. It changes purchasing from a reactive scramble into a planned, data-driven decision.",
     points: [
       {
         icon: Search,
@@ -119,11 +119,11 @@ export const inventoryManagementServicePage: ServicePage = {
     intro:
       "Inventory system ROI shows up directly in reduced carrying costs and recovered sales that stockouts used to lose.",
     points: [
-      "Reduced carrying costs — accurate demand visibility lowers the safety-margin over-ordering that ties up working capital in unsold stock.",
-      "Recovered lost sales — automated reorder alerts prevent the stockouts that currently lose sales without anyone noticing until it's too late.",
-      "Fewer reconciliation hours — real-time tracking removes the need for frequent manual stock counts and the errors they introduce.",
-      "Faster identification of dead stock — sales-velocity reporting flags slow-moving inventory early enough to act on it profitably.",
-      "Prevented overselling — a synced view across every channel stops selling stock that's already been sold elsewhere.",
+      "Reduced carrying costs. Accurate demand visibility lowers the safety-margin over-ordering that ties up working capital in unsold stock.",
+      "Recovered lost sales. Automated reorder alerts prevent the stockouts that currently lose sales without anyone noticing until it's too late.",
+      "Fewer reconciliation hours. Real-time tracking removes the need for frequent manual stock counts and the errors they introduce.",
+      "Faster identification of dead stock. Sales-velocity reporting flags slow-moving inventory early enough to act on it profitably.",
+      "Prevented overselling. A synced view across every channel stops selling stock that's already been sold elsewhere.",
     ],
   },
 
@@ -220,7 +220,7 @@ export const inventoryManagementServicePage: ServicePage = {
     {
       question: "Can this integrate with our existing POS system?",
       answer:
-        "In most cases, yes — we integrate with your current POS and e-commerce platforms so stock data syncs automatically rather than requiring a full replacement.",
+        "In most cases, yes. We integrate with your current POS and e-commerce platforms so stock data syncs automatically rather than requiring a full replacement.",
     },
     {
       question: "Do you support multiple warehouse or store locations?",

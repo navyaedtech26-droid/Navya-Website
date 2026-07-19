@@ -9,12 +9,12 @@ export const devopsServicePage: ServicePage = {
   highlight: "Deployments Without the Dread",
 
   heroSubtitle:
-    "If every release feels like a small emergency, the problem isn't your team — it's the absence of a pipeline built to catch mistakes before they reach production. We build the CI/CD, infrastructure, and monitoring that make shipping routine again.",
+    "If every release feels like a small emergency, the problem isn't your team. It's the absence of a pipeline built to catch mistakes before they reach production. We build the CI/CD, infrastructure, and monitoring that make shipping routine again.",
 
   heroImage: "/vector/devopps.avif",
 
   seoDescription:
-    "DevOps services — CI/CD, infrastructure as code, and monitoring — that turn risky manual releases into routine, low-drama deployments.",
+    "DevOps services (CI/CD, infrastructure as code, and monitoring) that turn risky manual releases into routine, low-drama deployments.",
 
   seoKeywords: [
     "DevOps services",
@@ -28,7 +28,7 @@ export const devopsServicePage: ServicePage = {
 
   overview: {
     whatIsIt:
-      "CI/CD pipelines, infrastructure as code, and monitoring built around your existing stack — engineered to make deployments fast, repeatable, and safe.",
+      "CI/CD pipelines, infrastructure as code, and monitoring built around your existing stack, engineered to make deployments fast, repeatable, and safe.",
     whoNeedsIt:
       "Engineering teams whose releases are manual, whose incidents take too long to detect, or whose infrastructure is defined only in someone's memory.",
     businessValue:
@@ -45,7 +45,7 @@ export const devopsServicePage: ServicePage = {
     title: "Why Are Manual Releases a Risk",
     highlight: "Your Team Absorbs Every Time?",
     intro:
-      "Most engineering teams don't lack skill — they lack a pipeline that catches mistakes before they ship, and the manual gap keeps costing time and trust every release.",
+      "Most engineering teams don't lack skill. They lack a pipeline that catches mistakes before they ship, and the manual gap keeps costing time and trust every release.",
     painPoints: [
       {
         title: "Every deployment is a manual, high-stakes process",
@@ -70,7 +70,7 @@ export const devopsServicePage: ServicePage = {
       {
         title: "Rollbacks are slower than the outage itself",
         description:
-          "Without a proper deployment pipeline, reverting a bad release takes longer than the mistake that caused it — extending downtime unnecessarily.",
+          "Without a proper deployment pipeline, reverting a bad release takes longer than the mistake that caused it, extending downtime unnecessarily.",
       },
       {
         title: "Releases are rare because they're risky",
@@ -84,7 +84,7 @@ export const devopsServicePage: ServicePage = {
     title: "What a Proper DevOps Pipeline",
     highlight: "Actually Changes?",
     intro:
-      "A well-built pipeline doesn't just make engineers happier — it changes how fast the business can respond and how much confidence customers can place in uptime.",
+      "A well-built pipeline doesn't just make engineers happier. It changes how fast the business can respond and how much confidence customers can place in uptime.",
     points: [
       {
         icon: Rocket,
@@ -96,7 +96,7 @@ export const devopsServicePage: ServicePage = {
         icon: Boxes,
         title: "Environments are reproducible in minutes",
         description:
-          "Infrastructure as code means a new environment — staging, testing, disaster recovery — spins up identically to production in minutes, not days.",
+          "Infrastructure as code means a new environment (staging, testing, disaster recovery) spins up identically to production in minutes, not days.",
       },
       {
         icon: Activity,
@@ -117,13 +117,13 @@ export const devopsServicePage: ServicePage = {
     title: "Where Does the Return",
     highlight: "Actually Come From?",
     intro:
-      "DevOps investment pays back in deployment frequency, incident duration, and engineering hours no longer spent firefighting — all measurable against your current baseline.",
+      "DevOps investment pays back in deployment frequency, incident duration, and engineering hours no longer spent firefighting, all measurable against your current baseline.",
     points: [
-      "Shorter incident duration — automated rollback and monitoring cut the time between something breaking and it being fixed.",
-      "More frequent, lower-risk releases — automated pipelines let your team ship smaller, safer changes more often instead of large, risky batches.",
-      "Reduced key-person dependency — infrastructure as code documents your environment in a repository, not in one engineer's memory.",
-      "Faster new environment setup — reproducible infrastructure turns a multi-day provisioning task into a scripted, minutes-long process.",
-      "Fewer engineering hours lost to firefighting — proactive monitoring frees your team to build product instead of chasing undetected issues.",
+      "Shorter incident duration. Automated rollback and monitoring cut the time between something breaking and it being fixed.",
+      "More frequent, lower-risk releases. Automated pipelines let your team ship smaller, safer changes more often instead of large, risky batches.",
+      "Reduced key-person dependency. Infrastructure as code documents your environment in a repository, not in one engineer's memory.",
+      "Faster new environment setup. Reproducible infrastructure turns a multi-day provisioning task into a scripted, minutes-long process.",
+      "Fewer engineering hours lost to firefighting. Proactive monitoring frees your team to build product instead of chasing undetected issues.",
     ],
   },
 
@@ -144,7 +144,7 @@ export const devopsServicePage: ServicePage = {
       step: "03",
       title: "Implementation in Stages",
       description:
-        "We build and roll out incrementally — starting with the highest-risk gap — so your team adapts without disruption to ongoing work.",
+        "We build and roll out incrementally (starting with the highest-risk gap) so your team adapts without disruption to ongoing work.",
     },
     {
       step: "04",
@@ -219,9 +219,9 @@ export const devopsServicePage: ServicePage = {
 
   faqs: [
     {
-      question: "We're a small team — is DevOps overkill for us?",
+      question: "We're a small team. Is DevOps overkill for us?",
       answer:
-        "Not necessarily. We scope the pipeline to your team's actual size and release frequency — a lightweight CI/CD setup for a small team looks very different from an enterprise pipeline, and we won't oversell you one you don't need.",
+        "Not necessarily. We scope the pipeline to your team's actual size and release frequency. A lightweight CI/CD setup for a small team looks very different from an enterprise pipeline, and we won't oversell you one you don't need.",
     },
     {
       question: "Will this disrupt our current development process?",
@@ -231,12 +231,12 @@ export const devopsServicePage: ServicePage = {
     {
       question: "Do we need Kubernetes?",
       answer:
-        "Only if your workload actually benefits from it. Many teams are well served by simpler container deployment — we'll recommend based on your actual scale, not by default.",
+        "Only if your workload actually benefits from it. Many teams are well served by simpler container deployment. We'll recommend based on your actual scale, not by default.",
     },
     {
       question: "Who owns the pipeline after you're done?",
       answer:
-        "Your team does. We document everything and train your engineers directly, so the pipeline isn't dependent on us being on retainer — though ongoing support is available if you want it.",
+        "Your team does. We document everything and train your engineers directly, so the pipeline isn't dependent on us being on retainer, though ongoing support is available if you want it.",
     },
     {
       question: "How quickly will we see fewer incidents?",

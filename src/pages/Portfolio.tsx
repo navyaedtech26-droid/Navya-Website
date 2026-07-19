@@ -14,7 +14,7 @@ export default function Portfolio() {
     <PageTransition>
       <Seo
         title="Enterprise Software Portfolio & Case Studies | Navya EdTech"
-        description="Explore our portfolio of enterprise software, ERP systems, and cloud architectures — real projects that drive revenue and operational excellence."
+        description="Explore our portfolio of enterprise software, ERP systems, and cloud architectures, real projects that drive revenue and operational excellence."
         path="/portfolio"
         keywords={[
           "software development portfolio",

@@ -13,9 +13,9 @@ export const retailIndustryPage: IndustryPage = {
 
   heroImage: "/industries section/retail.avif",
 
-  seoTitle: "Digital Transformation for Retail | Navya EdTech",
+  seoTitle: "Digital Transformation for Retail in Nepal | Navya EdTech",
   seoDescription:
-    "E-commerce websites, inventory systems, and POS integrations for retailers — sell online and in-store from one synced system, cut stockouts.",
+    "E-commerce websites, inventory systems, and POS integrations for retailers, sell online and in-store from one synced system, cut stockouts.",
   seoKeywords: [
     "retail inventory management system",
     "e-commerce website development",
@@ -24,13 +24,14 @@ export const retailIndustryPage: IndustryPage = {
     "omnichannel retail platform",
     "online store development",
     "digital transformation for retail",
+    "retail ERP software Nepal",
   ],
 
   challenges: {
     title: "Why Do Retail Operations",
     highlight: "Fall Out of Sync?",
     intro:
-      "The moment a retailer sells through more than one channel, the risk of the numbers disagreeing with each other goes up sharply — and most never fully catch up.",
+      "The moment a retailer sells through more than one channel, the risk of the numbers disagreeing with each other goes up sharply. And most never fully catch up.",
     items: [
       {
         title: "In-store and online inventory don't match",
@@ -82,7 +83,7 @@ export const retailIndustryPage: IndustryPage = {
         icon: CreditCard,
         title: "POS integration",
         description:
-          "In-store point-of-sale connects directly to the same inventory and sales system as the online store — no manual reconciliation required.",
+          "In-store point-of-sale connects directly to the same inventory and sales system as the online store, no manual reconciliation required.",
       },
       {
         icon: BarChart3,
@@ -97,20 +98,20 @@ export const retailIndustryPage: IndustryPage = {
     title: "Where Does the Return",
     highlight: "Actually Come From?",
     intro:
-      "For a retailer, the return shows up in reduced stockouts, less dead stock, and a higher-converting online storefront — all measurable against your current numbers.",
+      "For a retailer, the return shows up in reduced stockouts, less dead stock, and a higher-converting online storefront, all measurable against your current numbers.",
     points: [
-      "Fewer stockouts and overselling incidents — real-time inventory sync means every channel reflects the true available stock.",
-      "Less capital tied up in dead stock — sales-driven reordering replaces guesswork with actual demand data.",
-      "Higher online conversion — a fast, well-designed storefront converts more of the traffic you already drive to it.",
-      "Faster, more accurate reporting — live dashboards replace the manual end-of-month reconciliation across channels.",
-      "More repeat purchases — unified customer data supports targeted offers instead of one-size-fits-all promotions.",
+      "Fewer stockouts and overselling incidents. Real-time inventory sync means every channel reflects the true available stock.",
+      "Less capital tied up in dead stock. Sales-driven reordering replaces guesswork with actual demand data.",
+      "Higher online conversion. A fast, well-designed storefront converts more of the traffic you already drive to it.",
+      "Faster, more accurate reporting. Live dashboards replace the manual end-of-month reconciliation across channels.",
+      "More repeat purchases. Unified customer data supports targeted offers instead of one-size-fits-all promotions.",
     ],
   },
 
   features: {
     title: "What's Inside the",
     highlight: "Platform?",
-    intro: "Built to keep every sales channel — physical and digital — reading from one shared system.",
+    intro: "Built to keep every sales channel (physical and digital) reading from one shared system.",
     items: [
       {
         icon: ShoppingBag,
@@ -160,7 +161,7 @@ export const retailIndustryPage: IndustryPage = {
     {
       question: "Can this integrate with the POS system we already use in-store?",
       answer:
-        "In most cases, yes — we assess your existing POS during discovery and integrate it, or replace it if a unified system serves you better.",
+        "In most cases, yes. We assess your existing POS during discovery and integrate it, or replace it if a unified system serves you better.",
     },
     {
       question: "Do you handle payment gateway setup for the online store?",
@@ -170,12 +171,12 @@ export const retailIndustryPage: IndustryPage = {
     {
       question: "Can we sell on marketplaces in addition to our own store?",
       answer:
-        "Yes — we can extend inventory sync to marketplace channels so stock levels stay accurate everywhere you sell.",
+        "Yes. We can extend inventory sync to marketplace channels so stock levels stay accurate everywhere you sell.",
     },
     {
       question: "How long does an e-commerce and inventory system like this take to build?",
       answer:
-        "A focused storefront with inventory sync typically ships in 3-6 weeks depending on catalogue size and integrations — you get an exact timeline after discovery.",
+        "A focused storefront with inventory sync typically ships in 3-6 weeks depending on catalogue size and integrations. You get an exact timeline after discovery.",
     },
   ],
 

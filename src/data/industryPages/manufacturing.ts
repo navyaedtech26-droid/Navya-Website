@@ -9,13 +9,13 @@ export const manufacturingIndustryPage: IndustryPage = {
   highlight: "Cut Waste, See Everything",
 
   heroSubtitle:
-    "Production floors run on tighter margins than almost any other business — and most still track inventory, orders, and output on spreadsheets that are already out of date by the time anyone reads them.",
+    "Production floors run on tighter margins than almost any other business. And most still track inventory, orders, and output on spreadsheets that are already out of date by the time anyone reads them.",
 
   heroImage: "/industries section/manufacturing.avif",
 
-  seoTitle: "Digital Transformation for Manufacturing | Navya EdTech",
+  seoTitle: "Digital Transformation for Manufacturing in Nepal | Navya EdTech",
   seoDescription:
-    "Inventory management, ERP, and production dashboards for manufacturers — cut material waste and replace spreadsheets with real-time data.",
+    "Inventory management, ERP, and production dashboards for manufacturers, cut material waste and replace spreadsheets with real-time data.",
   seoKeywords: [
     "manufacturing ERP software",
     "inventory management system for manufacturers",
@@ -24,6 +24,7 @@ export const manufacturingIndustryPage: IndustryPage = {
     "manufacturing business intelligence dashboard",
     "digital transformation for manufacturing",
     "factory management software",
+    "manufacturing ERP software Nepal",
   ],
 
   challenges: {
@@ -97,13 +98,13 @@ export const manufacturingIndustryPage: IndustryPage = {
     title: "Where Does the Return",
     highlight: "Actually Come From?",
     intro:
-      "In manufacturing, the return is measured directly in reduced waste, fewer stockouts, and faster decisions — numbers your floor managers already track.",
+      "In manufacturing, the return is measured directly in reduced waste, fewer stockouts, and faster decisions, numbers your floor managers already track.",
     points: [
-      "Less capital tied up in excess stock — real-time inventory means ordering to actual need, not a safety-margin guess.",
-      "Fewer production stalls — automated reorder points catch material shortages before they halt the line.",
-      "Faster bottleneck detection — live production dashboards surface a slowdown the day it starts, not the week it's reported.",
-      "Reduced reconciliation time — one shared system replaces the hours spent aligning sales, inventory, and production spreadsheets.",
-      "Simpler audits and certifications — digital batch and compliance records turn an audit into a data export instead of a binder search.",
+      "Less capital tied up in excess stock. Real-time inventory means ordering to actual need, not a safety-margin guess.",
+      "Fewer production stalls. Automated reorder points catch material shortages before they halt the line.",
+      "Faster bottleneck detection. Live production dashboards surface a slowdown the day it starts, not the week it's reported.",
+      "Reduced reconciliation time. One shared system replaces the hours spent aligning sales, inventory, and production spreadsheets.",
+      "Simpler audits and certifications. Digital batch and compliance records turn an audit into a data export instead of a binder search.",
     ],
   },
 
@@ -160,7 +161,7 @@ export const manufacturingIndustryPage: IndustryPage = {
     {
       question: "Can the system handle multiple production lines or facilities?",
       answer:
-        "Yes — it's built to scale across lines, shifts, and locations, giving you one consolidated view instead of separate reports per site.",
+        "Yes. It's built to scale across lines, shifts, and locations, giving you one consolidated view instead of separate reports per site.",
     },
     {
       question: "Will this integrate with equipment or barcode scanners we already use?",

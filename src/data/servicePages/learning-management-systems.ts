@@ -28,7 +28,7 @@ export const learningManagementSystemsServicePage: ServicePage = {
 
   overview: {
     whatIsIt:
-      "A custom learning management system for delivering, tracking, and certifying training — for employees, students, or paying learners.",
+      "A custom learning management system for delivering, tracking, and certifying training, for employees, students, or paying learners.",
     whoNeedsIt:
       "Organizations delivering training through email, shared drives, or in-person sessions with no way to track completion or measure outcomes.",
     businessValue:
@@ -45,7 +45,7 @@ export const learningManagementSystemsServicePage: ServicePage = {
     title: "Why Is Untracked Training a Risk",
     highlight: "You Only Notice After It Fails?",
     intro:
-      "Most organizations don't lack training content — they lack a system that proves it was delivered, completed, and actually understood.",
+      "Most organizations don't lack training content. They lack a system that proves it was delivered, completed, and actually understood.",
     painPoints: [
       {
         title: "There's no record of who completed what training",
@@ -60,7 +60,7 @@ export const learningManagementSystemsServicePage: ServicePage = {
       {
         title: "There's no way to measure if training actually worked",
         description:
-          "Without built-in assessments, training completion is assumed rather than verified — leaving skill or knowledge gaps undetected until they cause a real problem.",
+          "Without built-in assessments, training completion is assumed rather than verified, leaving skill or knowledge gaps undetected until they cause a real problem.",
       },
       {
         title: "Content is scattered across drives, emails, and decks",
@@ -96,7 +96,7 @@ export const learningManagementSystemsServicePage: ServicePage = {
         icon: BarChart3,
         title: "Completion and comprehension become measurable",
         description:
-          "Built-in assessments and progress tracking show exactly who completed training and how well they understood it — not just that a session happened.",
+          "Built-in assessments and progress tracking show exactly who completed training and how well they understood it, not just that a session happened.",
       },
       {
         icon: Award,
@@ -119,11 +119,11 @@ export const learningManagementSystemsServicePage: ServicePage = {
     intro:
       "An LMS's return shows up in reclaimed training-delivery hours and a documented audit trail that protects against compliance risk.",
     points: [
-      "Reduced repeat-training staff hours — self-paced courses replace the need to deliver the same live session over and over.",
-      "Lower compliance risk — automated certification tracking prevents the cost of an expired credential going unnoticed.",
-      "Faster onboarding — new hires or students complete structured training in days, not whatever gap exists until the next live session.",
-      "Measurable training effectiveness — built-in assessments reveal exactly where knowledge gaps remain, rather than assuming training worked.",
-      "A potential new revenue stream — valuable internal training content can be packaged and sold to external learners through the same platform.",
+      "Reduced repeat-training staff hours. Self-paced courses replace the need to deliver the same live session over and over.",
+      "Lower compliance risk. Automated certification tracking prevents the cost of an expired credential going unnoticed.",
+      "Faster onboarding. New hires or students complete structured training in days, not whatever gap exists until the next live session.",
+      "Measurable training effectiveness. Built-in assessments reveal exactly where knowledge gaps remain, rather than assuming training worked.",
+      "A potential new revenue stream. Valuable internal training content can be packaged and sold to external learners through the same platform.",
     ],
   },
 
@@ -220,22 +220,22 @@ export const learningManagementSystemsServicePage: ServicePage = {
     {
       question: "Can you migrate our existing training content into the new platform?",
       answer:
-        "Yes — existing decks, documents, and videos are restructured into the platform's course format as part of the build.",
+        "Yes. Existing decks, documents, and videos are restructured into the platform's course format as part of the build.",
     },
     {
       question: "Do you build the training content itself, or just the platform?",
       answer:
-        "Primarily the platform — we structure and migrate your existing content, and can advise on instructional design, but content creation is typically scoped separately if extensive new material is needed.",
+        "Primarily the platform. We structure and migrate your existing content, and can advise on instructional design, but content creation is typically scoped separately if extensive new material is needed.",
     },
     {
       question: "Can this track compliance certifications and renewal deadlines?",
       answer:
-        "Yes — automated certification tracking with renewal alerts is a core part of the platform for compliance-driven training.",
+        "Yes. Automated certification tracking with renewal alerts is a core part of the platform for compliance-driven training.",
     },
     {
       question: "Could we eventually sell courses to external learners on this platform?",
       answer:
-        "Yes, if that's a goal — we can scope payment integration and external access controls so the same platform supports both internal and paid external training.",
+        "Yes, if that's a goal. We can scope payment integration and external access controls so the same platform supports both internal and paid external training.",
     },
     {
       question: "Is the platform accessible on mobile devices?",

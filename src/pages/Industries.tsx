@@ -17,7 +17,7 @@ export default function Industries() {
     <PageTransition>
       <Seo
         title="Industries We Serve | Navya EdTech"
-        description="Dedicated digital transformation solutions for schools, hospitals, manufacturing, hotels, retail, and more — sector-specific challenges, technology, and ROI."
+        description="Dedicated digital transformation solutions for schools, hospitals, manufacturing, hotels, retail, and more, sector-specific challenges, technology, and ROI."
         path="/industries"
         pageType="CollectionPage"
         keywords={[
@@ -39,7 +39,7 @@ export default function Industries() {
       <PageHero
         title="Solutions Built for Your"
         highlight="Industry"
-        subtitle="Every sector runs on different pressures — enrollment, occupancy, margin, compliance. Explore the specific challenges, technology, and ROI for your industry."
+        subtitle="Every sector runs on different pressures, enrollment, occupancy, margin, compliance. Explore the specific challenges, technology, and ROI for your industry."
       />
 
       <section className="relative py-16 md:py-20">

@@ -13,9 +13,9 @@ export const travelAgenciesIndustryPage: IndustryPage = {
 
   heroImage: "/industries section/travel.avif",
 
-  seoTitle: "Digital Transformation for Travel Agencies | Navya EdTech",
+  seoTitle: "Digital Transformation for Travel Agencies in Nepal | Navya EdTech",
   seoDescription:
-    "Booking engines, itinerary systems, and travel websites for agencies and tour operators — convert more inquiries into confirmed bookings.",
+    "Booking engines, itinerary systems, and travel websites for agencies and tour operators, convert more inquiries into confirmed bookings.",
   seoKeywords: [
     "travel agency website development",
     "tour booking system",
@@ -24,13 +24,14 @@ export const travelAgenciesIndustryPage: IndustryPage = {
     "travel CRM software",
     "tour operator management system",
     "digital transformation for travel agencies",
+    "travel agency website development Nepal",
   ],
 
   challenges: {
     title: "Why Do Bookings Slip Away",
     highlight: "During the Research Phase?",
     intro:
-      "Most travelers compare several agencies and packages before booking — and most of that comparison happens without an agency even knowing a prospect exists.",
+      "Most travelers compare several agencies and packages before booking. And most of that comparison happens without an agency even knowing a prospect exists.",
     items: [
       {
         title: "Inquiries are handled entirely through calls and messages",
@@ -99,18 +100,18 @@ export const travelAgenciesIndustryPage: IndustryPage = {
     intro:
       "For a travel agency, the return shows up in more inquiries converted, faster quote turnaround, and fewer bookings lost to slow follow-up.",
     points: [
-      "Higher inquiry-to-booking conversion — an online booking option captures travelers who'd otherwise book with a competitor rather than wait for a call back.",
-      "Faster itinerary turnaround — reusable itinerary templates let staff quote more inquiries without adding headcount.",
-      "Fewer missed payments — automated deposit and balance tracking reduces the risk of a booking falling through over an unpaid balance.",
-      "More repeat bookings — systematic outreach to past travelers recovers business that would otherwise depend on them remembering to reach back out.",
-      "Stronger first impression — a polished, visual website builds the same trust and excitement the trips themselves are meant to deliver.",
+      "Higher inquiry-to-booking conversion. An online booking option captures travelers who'd otherwise book with a competitor rather than wait for a call back.",
+      "Faster itinerary turnaround. Reusable itinerary templates let staff quote more inquiries without adding headcount.",
+      "Fewer missed payments. Automated deposit and balance tracking reduces the risk of a booking falling through over an unpaid balance.",
+      "More repeat bookings. Systematic outreach to past travelers recovers business that would otherwise depend on them remembering to reach back out.",
+      "Stronger first impression. A polished, visual website builds the same trust and excitement the trips themselves are meant to deliver.",
     ],
   },
 
   features: {
     title: "What's Inside the",
     highlight: "Platform?",
-    intro: "Every feature is built around a specific stage — research, quoting, booking, or repeat travel.",
+    intro: "Every feature is built around a specific stage, research, quoting, booking, or repeat travel.",
     items: [
       {
         icon: CalendarCheck,
@@ -160,7 +161,7 @@ export const travelAgenciesIndustryPage: IndustryPage = {
     {
       question: "Can travelers book instantly, or does every trip need a custom quote?",
       answer:
-        "We can configure either — instant booking for fixed packages, and a request-a-quote flow for fully custom itineraries, often both on the same site.",
+        "We can configure either, instant booking for fixed packages, and a request-a-quote flow for fully custom itineraries, often both on the same site.",
     },
     {
       question: "Does the system handle multi-currency payments for international travelers?",
@@ -170,7 +171,7 @@ export const travelAgenciesIndustryPage: IndustryPage = {
     {
       question: "Can we manage group bookings and individual bookings in the same system?",
       answer:
-        "Yes — the booking engine and CRM are built to handle both group and individual trips within the same pipeline.",
+        "Yes. The booking engine and CRM are built to handle both group and individual trips within the same pipeline.",
     },
     {
       question: "How long does it take to build a booking system like this?",

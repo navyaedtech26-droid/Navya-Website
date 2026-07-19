@@ -9,7 +9,7 @@ export const crmSystemsServicePage: ServicePage = {
   highlight: "One Source of Truth for Every Lead",
 
   heroSubtitle:
-    "A lead that isn't tracked is a lead that quietly disappears — split across someone's inbox, a spreadsheet, and their memory of a phone call. We build CRM systems that make sure no opportunity slips through the cracks again.",
+    "A lead that isn't tracked is a lead that quietly disappears, split across someone's inbox, a spreadsheet, and their memory of a phone call. We build CRM systems that make sure no opportunity slips through the cracks again.",
 
   heroImage: "/vectors1/crm-clean.avif",
 
@@ -55,7 +55,7 @@ export const crmSystemsServicePage: ServicePage = {
       {
         title: "Follow-ups get forgotten without a system reminder",
         description:
-          "A promising lead goes cold simply because nobody was prompted to follow up at the right moment — an entirely preventable loss.",
+          "A promising lead goes cold simply because nobody was prompted to follow up at the right moment, an entirely preventable loss.",
       },
       {
         title: "Leadership has no real visibility into the pipeline",
@@ -84,13 +84,13 @@ export const crmSystemsServicePage: ServicePage = {
     title: "What a Unified CRM",
     highlight: "Actually Changes?",
     intro:
-      "A CRM built around your actual sales process changes how confidently your team can answer 'where does this deal stand' — for any lead, at any time.",
+      "A CRM built around your actual sales process changes how confidently your team can answer 'where does this deal stand', for any lead, at any time.",
     points: [
       {
         icon: Layers,
         title: "Every lead lives in one shared, visible system",
         description:
-          "No opportunity depends on one person's inbox or memory — the whole team can see where every lead stands and pick it up if needed.",
+          "No opportunity depends on one person's inbox or memory. The whole team can see where every lead stands and pick it up if needed.",
       },
       {
         icon: Bell,
@@ -119,11 +119,11 @@ export const crmSystemsServicePage: ServicePage = {
     intro:
       "A CRM's return shows up directly in recovered leads, shorter onboarding, and forecasting your team can actually trust.",
     points: [
-      "Recovered lost leads — automated follow-up reminders catch the opportunities that used to go cold from a simple missed touchpoint.",
-      "Faster new hire ramp-up — a documented pipeline and customer history let new sales staff get productive without relying on tribal knowledge.",
-      "More accurate revenue forecasting — a shared, real-time pipeline replaces individual guesswork with aggregated, trustworthy data.",
-      "Improved close rates — visibility into win/loss patterns lets your team refine the sales process based on evidence, not instinct.",
-      "Protected customer relationships during staff turnover — a complete shared history means a departure no longer risks losing the relationship along with the employee.",
+      "Recovered lost leads. Automated follow-up reminders catch the opportunities that used to go cold from a simple missed touchpoint.",
+      "Faster new hire ramp-up. A documented pipeline and customer history let new sales staff get productive without relying on tribal knowledge.",
+      "More accurate revenue forecasting. A shared, real-time pipeline replaces individual guesswork with aggregated, trustworthy data.",
+      "Improved close rates. Visibility into win/loss patterns lets your team refine the sales process based on evidence, not instinct.",
+      "Protected customer relationships during staff turnover. A complete shared history means a departure no longer risks losing the relationship along with the employee.",
     ],
   },
 
@@ -220,12 +220,12 @@ export const crmSystemsServicePage: ServicePage = {
     {
       question: "How is a custom CRM different from Salesforce or HubSpot?",
       answer:
-        "Off-the-shelf CRMs are powerful but generic, often requiring your process to bend around their structure. A custom CRM is built around your specific sales stages and rules from the start — and typically costs less over time without per-seat licensing.",
+        "Off-the-shelf CRMs are powerful but generic, often requiring your process to bend around their structure. A custom CRM is built around your specific sales stages and rules from the start, and typically costs less over time without per-seat licensing.",
     },
     {
       question: "Can you migrate our existing leads from spreadsheets?",
       answer:
-        "Yes — migrating existing lead and customer data is a standard part of the build, so you don't lose the history you've already accumulated.",
+        "Yes. Migrating existing lead and customer data is a standard part of the build, so you don't lose the history you've already accumulated.",
     },
     {
       question: "Will our sales team actually adopt a new system?",
@@ -235,7 +235,7 @@ export const crmSystemsServicePage: ServicePage = {
     {
       question: "Can the CRM integrate with our email and calendar?",
       answer:
-        "Yes — email and calendar integration is typically built in, so activity logs automatically instead of requiring manual entry.",
+        "Yes. Email and calendar integration is typically built in, so activity logs automatically instead of requiring manual entry.",
     },
     {
       question: "How quickly will we see leads stop falling through the cracks?",

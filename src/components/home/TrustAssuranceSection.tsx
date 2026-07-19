@@ -18,7 +18,7 @@ const pillars: Pillar[] = [
     color: "#1D4ED8",
     title: "Security",
     points: [
-      "SSL-secured hosting and deployment on every project — no exposed data, no guesswork.",
+      "SSL-secured hosting and deployment on every project, no exposed data, no guesswork.",
       "Role-based access control on custom systems, so sensitive data is only visible to the right people.",
       "Built on modern, actively maintained frameworks instead of outdated, vulnerable stacks.",
       "Dedicated security & scalability review included on Enterprise builds.",
@@ -29,7 +29,7 @@ const pillars: Pillar[] = [
     color: "#F59E0B",
     title: "Our Guarantees",
     points: [
-      "Transparent, itemized quotes before any work begins — no hidden costs.",
+      "Transparent, itemized quotes before any work begins, no hidden costs.",
       "Clear milestones and timelines from day one, not vague estimates.",
       "We reply within 24 hours of your first message.",
       "No pressure, no obligation after the discovery call.",
@@ -40,7 +40,7 @@ const pillars: Pillar[] = [
     color: "#6366F1",
     title: "Support & Maintenance",
     points: [
-      "Post-launch support is built into every plan — from 2 weeks on Launch to ongoing priority support on Growth and Enterprise.",
+      "Post-launch support is built into every plan, from 2 weeks on Launch to ongoing priority support on Growth and Enterprise.",
       "We monitor performance after launch, not just at handover.",
       "Ongoing maintenance and growth support keep your platform compounding returns long after launch.",
     ],

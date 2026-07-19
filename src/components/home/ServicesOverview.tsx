@@ -29,7 +29,7 @@ export default function ServicesOverview() {
           eyebrow="Enterprise Solutions"
           title="End-to-End IT Services for"
           highlight="Modern Enterprises"
-          subtitle="From custom software architecture to cloud infrastructure and digital transformation—we provide the technical foundation for scalable growth."
+          subtitle="From custom software architecture to cloud infrastructure and digital transformation. We provide the technical foundation for scalable growth."
         />
 
         <motion.div

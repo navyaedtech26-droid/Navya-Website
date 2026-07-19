@@ -132,7 +132,7 @@ export default function PortfolioTestimonials() {
                           <div className="w-8 h-8 rounded-full bg-mist flex items-center justify-center text-faint">
                             <MapPin size={14} />
                           </div>
-                          <span className="flex-1">{current?.company} {current?.country && <span className="text-faint font-normal">— {current.country}</span>}</span>
+                          <span className="flex-1">{current?.company} {current?.country && <span className="text-faint font-normal">, {current.country}</span>}</span>
                         </div>
 
                         {current?.projectDelivered && (

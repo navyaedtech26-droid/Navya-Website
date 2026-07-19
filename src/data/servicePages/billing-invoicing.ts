@@ -9,12 +9,12 @@ export const billingInvoicingServicePage: ServicePage = {
   highlight: "Payments That Accelerate Cash Flow",
 
   heroSubtitle:
-    "Every day between a completed job and a paid invoice is cash tied up you can't use. We build billing systems that generate, send, and chase invoices automatically — so cash flow depends on your terms, not on manual admin catching up.",
+    "Every day between a completed job and a paid invoice is cash tied up you can't use. We build billing systems that generate, send, and chase invoices automatically, so cash flow depends on your terms, not on manual admin catching up.",
 
   heroImage: "/vectors1/billing-clean.avif",
 
   seoDescription:
-    "Automated billing and invoicing software that generates, sends, and chases invoices for you — shortening your cash cycle and cutting admin hours.",
+    "Automated billing and invoicing software that generates, sends, and chases invoices for you, shortening your cash cycle and cutting admin hours.",
 
   seoKeywords: [
     "billing and invoicing software",
@@ -55,7 +55,7 @@ export const billingInvoicingServicePage: ServicePage = {
       {
         title: "Overdue payments are chased manually, if at all",
         description:
-          "Following up on a late invoice means someone remembering to check, then drafting a reminder by hand — a task that's easy to deprioritize under pressure.",
+          "Following up on a late invoice means someone remembering to check, then drafting a reminder by hand, a task that's easy to deprioritize under pressure.",
       },
       {
         title: "Recurring billing is managed through spreadsheets",
@@ -84,13 +84,13 @@ export const billingInvoicingServicePage: ServicePage = {
     title: "What Automated Billing",
     highlight: "Actually Changes?",
     intro:
-      "Automating invoicing doesn't just save admin time — it directly shortens the real gap between completed work and cash in the bank.",
+      "Automating invoicing doesn't just save admin time. It directly shortens the real gap between completed work and cash in the bank.",
     points: [
       {
         icon: Clock3,
         title: "Invoices go out the moment they're due, every time",
         description:
-          "Automated generation and sending remove the delay caused by someone needing to remember — the payment clock starts as early as possible.",
+          "Automated generation and sending remove the delay caused by someone needing to remember. The payment clock starts as early as possible.",
       },
       {
         icon: RefreshCw,
@@ -119,11 +119,11 @@ export const billingInvoicingServicePage: ServicePage = {
     intro:
       "Billing automation's return is directly measurable in reduced days-sales-outstanding and admin hours reclaimed from manual invoice generation.",
     points: [
-      "Shorter days-sales-outstanding — invoices sent immediately and followed up automatically shorten the average time to payment.",
-      "Reduced admin hours — automated generation and reminders remove the manual work of creating and chasing invoices by hand.",
-      "Fewer billing errors — automation reduces the pricing and quantity mistakes that manually created invoices are prone to.",
-      "Faster reconciliation — automated payment matching removes the manual cross-checking between bank records and invoices.",
-      "Improved client relationships — accurate, timely invoices reduce the friction and disputes that late or incorrect billing causes.",
+      "Shorter days-sales-outstanding. Invoices sent immediately and followed up automatically shorten the average time to payment.",
+      "Reduced admin hours. Automated generation and reminders remove the manual work of creating and chasing invoices by hand.",
+      "Fewer billing errors. Automation reduces the pricing and quantity mistakes that manually created invoices are prone to.",
+      "Faster reconciliation. Automated payment matching removes the manual cross-checking between bank records and invoices.",
+      "Improved client relationships. Accurate, timely invoices reduce the friction and disputes that late or incorrect billing causes.",
     ],
   },
 
@@ -220,7 +220,7 @@ export const billingInvoicingServicePage: ServicePage = {
     {
       question: "Can the system handle both one-time and recurring billing?",
       answer:
-        "Yes — the platform is built to handle project-based invoices, recurring subscriptions, and retainer billing within the same system.",
+        "Yes. The platform is built to handle project-based invoices, recurring subscriptions, and retainer billing within the same system.",
     },
     {
       question: "Will clients be able to pay directly from the invoice?",
@@ -235,12 +235,12 @@ export const billingInvoicingServicePage: ServicePage = {
     {
       question: "Can you migrate our existing client and invoice history?",
       answer:
-        "Yes — historical billing data is migrated as part of the build so your records stay complete in the new system.",
+        "Yes. Historical billing data is migrated as part of the build so your records stay complete in the new system.",
     },
     {
       question: "Does this integrate with our existing accounting software?",
       answer:
-        "In most cases, yes, through API integration — so billing data syncs with your accounting records rather than requiring double entry.",
+        "In most cases, yes, through API integration, so billing data syncs with your accounting records rather than requiring double entry.",
     },
   ],
 

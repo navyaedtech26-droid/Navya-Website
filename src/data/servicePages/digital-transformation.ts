@@ -9,7 +9,7 @@ export const digitalTransformationServicePage: ServicePage = {
   highlight: "Modernize Without the Disruption",
 
   heroSubtitle:
-    "Legacy systems don't fail all at once — they fail quietly, one manual workaround at a time, until the whole operation is held together by institutional memory. We modernize the core of the business without stopping it mid-operation.",
+    "Legacy systems don't fail all at once. They fail quietly, one manual workaround at a time, until the whole operation is held together by institutional memory. We modernize the core of the business without stopping it mid-operation.",
 
   heroImage: "/vectors1/digital transformation-clean.avif",
 
@@ -28,7 +28,7 @@ export const digitalTransformationServicePage: ServicePage = {
 
   overview: {
     whatIsIt:
-      "A structured modernization of the systems and processes your operations actually run on — replacing fragmented tools with one coherent digital layer.",
+      "A structured modernization of the systems and processes your operations actually run on, replacing fragmented tools with one coherent digital layer.",
     whoNeedsIt:
       "Established businesses whose operations have grown faster than their systems, leaving departments running on disconnected spreadsheets, legacy software, and manual handoffs.",
     businessValue:
@@ -45,7 +45,7 @@ export const digitalTransformationServicePage: ServicePage = {
     title: "Why Are Legacy Operations",
     highlight: "Quietly Capping What's Possible?",
     intro:
-      "Most businesses don't decide to run on fragmented systems — it happens gradually, one urgent fix at a time, until modernizing feels too risky to attempt.",
+      "Most businesses don't decide to run on fragmented systems. It happens gradually, one urgent fix at a time, until modernizing feels too risky to attempt.",
     painPoints: [
       {
         title: "Every department runs its own disconnected system",
@@ -55,7 +55,7 @@ export const digitalTransformationServicePage: ServicePage = {
       {
         title: "Institutional memory is doing the job software should",
         description:
-          "Critical processes work only because one or two long-tenured staff know the workarounds — a single departure away from a serious operational gap.",
+          "Critical processes work only because one or two long-tenured staff know the workarounds, a single departure away from a serious operational gap.",
       },
       {
         title: "Leadership can't get a single accurate picture",
@@ -65,7 +65,7 @@ export const digitalTransformationServicePage: ServicePage = {
       {
         title: "Legacy software is a growing security and support risk",
         description:
-          "Systems built years ago on outdated technology become harder to secure, patch, or find support for — quietly increasing risk with each year they remain unaddressed.",
+          "Systems built years ago on outdated technology become harder to secure, patch, or find support for, quietly increasing risk with each year they remain unaddressed.",
       },
       {
         title: "Modernization feels too risky to start",
@@ -84,7 +84,7 @@ export const digitalTransformationServicePage: ServicePage = {
     title: "What a Structured Transformation",
     highlight: "Actually Changes?",
     intro:
-      "Digital transformation done in phases changes how the business runs day to day — not just the technology underneath it.",
+      "Digital transformation done in phases changes how the business runs day to day, not just the technology underneath it.",
     points: [
       {
         icon: Layers,
@@ -119,11 +119,11 @@ export const digitalTransformationServicePage: ServicePage = {
     intro:
       "Transformation's return shows up in reduced manual reconciliation hours, consolidated software spend, and decisions made on current data instead of week-old numbers.",
     points: [
-      "Fewer reconciliation hours — a unified data layer removes the manual cross-checking that fragmented systems currently require.",
-      "Lower total software cost — consolidating point solutions into one platform typically reduces combined licensing spend.",
-      "Reduced key-person risk — documented, system-encoded processes stop depending on any single employee's institutional knowledge.",
-      "Faster, more confident decisions — real-time dashboards replace reporting that used to take days to manually assemble.",
-      "Lower long-term security risk — retiring unsupported legacy software removes a growing and often invisible liability.",
+      "Fewer reconciliation hours. A unified data layer removes the manual cross-checking that fragmented systems currently require.",
+      "Lower total software cost. Consolidating point solutions into one platform typically reduces combined licensing spend.",
+      "Reduced key-person risk. Documented, system-encoded processes stop depending on any single employee's institutional knowledge.",
+      "Faster, more confident decisions. Real-time dashboards replace reporting that used to take days to manually assemble.",
+      "Lower long-term security risk. Retiring unsupported legacy software removes a growing and often invisible liability.",
     ],
   },
 
@@ -211,7 +211,7 @@ export const digitalTransformationServicePage: ServicePage = {
     challenge:
       "Each branch tracked inventory and sales in its own spreadsheet, with head office reconciling numbers manually every month and no real-time view of stock across locations.",
     approach:
-      "We ran a phased transformation — starting with a unified inventory system across branches, then layering in centralized sales reporting and finance integration.",
+      "We ran a phased transformation, starting with a unified inventory system across branches, then layering in centralized sales reporting and finance integration.",
     outcome:
       "Head office now has real-time visibility across every branch, monthly manual reconciliation has been eliminated, and each phase shipped without disrupting daily branch operations.",
   },
@@ -220,12 +220,12 @@ export const digitalTransformationServicePage: ServicePage = {
     {
       question: "Will this disrupt our day-to-day operations?",
       answer:
-        "We deliberately phase the rollout so each stage is validated before the next begins — the goal is modernization without a disruptive all-at-once cutover.",
+        "We deliberately phase the rollout so each stage is validated before the next begins. The goal is modernization without a disruptive all-at-once cutover.",
     },
     {
       question: "Where should we start if we have multiple fragmented systems?",
       answer:
-        "The audit phase identifies which gap is costing you the most right now, and we start there — not with whichever system happens to be easiest to replace.",
+        "The audit phase identifies which gap is costing you the most right now, and we start there, not with whichever system happens to be easiest to replace.",
     },
     {
       question: "What happens to our existing data during migration?",

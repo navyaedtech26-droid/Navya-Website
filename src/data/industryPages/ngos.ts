@@ -13,9 +13,9 @@ export const ngosIndustryPage: IndustryPage = {
 
   heroImage: "/industries section/ngo.avif",
 
-  seoTitle: "Digital Transformation for NGOs & Nonprofits | Navya EdTech",
+  seoTitle: "Digital Transformation for NGOs & Nonprofits in Nepal | Navya EdTech",
   seoDescription:
-    "Donor management, program tracking, and nonprofit websites for NGOs — build donor trust, track impact accurately, and cut admin overhead.",
+    "Donor management, program tracking, and nonprofit websites for NGOs, build donor trust, track impact accurately, and cut admin overhead.",
   seoKeywords: [
     "donor management system",
     "nonprofit CRM software",
@@ -24,6 +24,7 @@ export const ngosIndustryPage: IndustryPage = {
     "nonprofit reporting dashboard",
     "online donation platform",
     "digital transformation for NGOs",
+    "NGO website development Nepal",
   ],
 
   challenges: {
@@ -70,7 +71,7 @@ export const ngosIndustryPage: IndustryPage = {
         icon: Users,
         title: "Donor management system (CRM)",
         description:
-          "One record for every donor — giving history, communication, and program interest — replacing scattered spreadsheets and email threads.",
+          "One record for every donor (giving history, communication, and program interest), replacing scattered spreadsheets and email threads.",
       },
       {
         icon: Handshake,
@@ -97,13 +98,13 @@ export const ngosIndustryPage: IndustryPage = {
     title: "Where Does the Return",
     highlight: "Actually Come From?",
     intro:
-      "For an NGO, the return isn't measured in revenue alone — it's measured in donor retention, grant readiness, and staff hours returned to mission work.",
+      "For an NGO, the return isn't measured in revenue alone. It's measured in donor retention, grant readiness, and staff hours returned to mission work.",
     points: [
-      "Higher donor retention — organized giving history supports timely, personal follow-up instead of generic mass outreach.",
-      "Faster grant and donor reporting — live program data turns an impact report into an export instead of a week of manual compilation.",
-      "More online giving captured — an integrated donation platform makes it easier for supporters to give, and easier for you to track it.",
-      "Fewer data-entry hours — digital field data collection removes the delay and error risk of manual paper-to-spreadsheet transcription.",
-      "Stronger credibility with funders — a professional website and transparent reporting build the trust that repeat funding depends on.",
+      "Higher donor retention. Organized giving history supports timely, personal follow-up instead of generic mass outreach.",
+      "Faster grant and donor reporting. Live program data turns an impact report into an export instead of a week of manual compilation.",
+      "More online giving captured. An integrated donation platform makes it easier for supporters to give, and easier for you to track it.",
+      "Fewer data-entry hours. Digital field data collection removes the delay and error risk of manual paper-to-spreadsheet transcription.",
+      "Stronger credibility with funders. A professional website and transparent reporting build the trust that repeat funding depends on.",
     ],
   },
 
@@ -170,7 +171,7 @@ export const ngosIndustryPage: IndustryPage = {
     {
       question: "Can volunteers or field staff use the program tracking tool without much training?",
       answer:
-        "Yes — data collection forms are built to be as simple as filling out a paper form, so field staff need minimal onboarding.",
+        "Yes. Data collection forms are built to be as simple as filling out a paper form, so field staff need minimal onboarding.",
     },
     {
       question: "Does the reporting dashboard match the format our grant funders require?",

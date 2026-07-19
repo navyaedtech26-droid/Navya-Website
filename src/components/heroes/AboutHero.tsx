@@ -69,7 +69,7 @@ export default function AboutHero() {
               variants={fadeUp}
               className="mt-6 text-lg sm:text-xl leading-relaxed text-faint max-w-xl"
             >
-              We're Navya EdTech — a digital transformation partner helping ambitious founders and global enterprises turn technology
+              We're Navya EdTech, a digital transformation partner helping ambitious founders and global enterprises turn technology
               investment into revenue, operational efficiency, and lasting competitive advantage.
             </motion.p>
             

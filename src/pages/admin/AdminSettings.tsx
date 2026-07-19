@@ -91,13 +91,13 @@ export default function AdminSettings() {
 
         <Card
           title="Change email"
-          subtitle={`Signed in as ${user?.email ?? "—"}`}
+          subtitle={`Signed in as ${user?.email ?? "N/A"}`}
         >
           {emailSent ? (
             <div className="flex flex-col gap-3">
               <Alert kind="success">
-                Confirmation sent to <strong>{newEmail}</strong>. Click the link there to finish —
-                your sign-in email won't change until it's confirmed.
+                Confirmation sent to <strong>{newEmail}</strong>. Click the link there to finish.
+                Your sign-in email won't change until it's confirmed.
               </Alert>
               <button
                 type="button"

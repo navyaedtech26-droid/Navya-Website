@@ -12,7 +12,7 @@ export const itConsultingServicePage: ServicePage = {
     "Most IT spending decisions get made by whoever's loudest in the room, not by what actually moves the business. We bring an outside, technically fluent view that ties every technology decision back to a measurable business outcome.",
 
   seoDescription:
-    "IT consulting that ties every technology decision to a measurable business outcome — audits, roadmaps, and independent vendor evaluation.",
+    "IT consulting that ties every technology decision to a measurable business outcome, audits, roadmaps, and independent vendor evaluation.",
 
   seoKeywords: [
     "IT consulting services",
@@ -26,7 +26,7 @@ export const itConsultingServicePage: ServicePage = {
 
   overview: {
     whatIsIt:
-      "Strategic technology guidance — audits, roadmaps, and vendor evaluation — that aligns your IT investment with actual business priorities.",
+      "Strategic technology guidance (audits, roadmaps, and vendor evaluation) that aligns your IT investment with actual business priorities.",
     whoNeedsIt:
       "Leadership teams making significant technology decisions without an in-house CTO, or businesses whose IT spend has grown without a coherent strategy behind it.",
     businessValue:
@@ -53,7 +53,7 @@ export const itConsultingServicePage: ServicePage = {
       {
         title: "Nobody's evaluating vendors without a stake in the sale",
         description:
-          "Vendor demos are persuasive by design — without an independent technical evaluation, decisions get made on a sales pitch instead of a fair comparison.",
+          "Vendor demos are persuasive by design. Without an independent technical evaluation, decisions get made on a sales pitch instead of a fair comparison.",
       },
       {
         title: "Technology risk is invisible until it's an incident",
@@ -77,7 +77,7 @@ export const itConsultingServicePage: ServicePage = {
     title: "What Strategic Guidance",
     highlight: "Actually Changes?",
     intro:
-      "Independent, technically grounded advice changes how technology decisions get made — from reactive purchases to a deliberate plan tied to outcomes.",
+      "Independent, technically grounded advice changes how technology decisions get made, from reactive purchases to a deliberate plan tied to outcomes.",
     points: [
       {
         icon: Map,
@@ -112,11 +112,11 @@ export const itConsultingServicePage: ServicePage = {
     intro:
       "Consulting's return shows up in avoided bad purchases, reduced risk exposure, and a technology budget that finally has a documented rationale.",
     points: [
-      "Avoided wasted spend — independent evaluation catches redundant or poorly fitting tools before the purchase, not after the contract is signed.",
-      "Reduced risk exposure — identifying compliance and security gaps early avoids the far higher cost of a breach or violation discovered later.",
-      "Better negotiating position — an independent technical assessment gives your team leverage in vendor negotiations instead of taking the first offer.",
-      "Clearer budget justification — a documented roadmap ties every dollar of IT spend to a specific business outcome leadership can evaluate.",
-      "Faster, more confident decisions — a clear strategic plan means less time spent debating each new request in isolation.",
+      "Avoided wasted spend. Independent evaluation catches redundant or poorly fitting tools before the purchase, not after the contract is signed.",
+      "Reduced risk exposure. Identifying compliance and security gaps early avoids the far higher cost of a breach or violation discovered later.",
+      "Better negotiating position. An independent technical assessment gives your team leverage in vendor negotiations instead of taking the first offer.",
+      "Clearer budget justification. A documented roadmap ties every dollar of IT spend to a specific business outcome leadership can evaluate.",
+      "Faster, more confident decisions. A clear strategic plan means less time spent debating each new request in isolation.",
     ],
   },
 
@@ -125,7 +125,7 @@ export const itConsultingServicePage: ServicePage = {
       step: "01",
       title: "Business & Technology Audit",
       description:
-        "We assess your current technology stack, spend, and risk posture against your actual business goals — not a generic checklist.",
+        "We assess your current technology stack, spend, and risk posture against your actual business goals, not a generic checklist.",
     },
     {
       step: "02",
@@ -149,7 +149,7 @@ export const itConsultingServicePage: ServicePage = {
       step: "05",
       title: "Implementation Support",
       description:
-        "We stay engaged through execution — whether that's our own team building the recommended systems or supporting yours.",
+        "We stay engaged through execution, whether that's our own team building the recommended systems or supporting yours.",
     },
   ],
 
@@ -211,14 +211,14 @@ export const itConsultingServicePage: ServicePage = {
 
   faqs: [
     {
-      question: "We don't have an in-house CTO — is this a substitute for one?",
+      question: "We don't have an in-house CTO. Is this a substitute for one?",
       answer:
         "For many businesses, yes, on a project or fractional basis. We provide the strategic technology judgment a CTO would, without the full-time executive cost, and can hand off cleanly if you later hire one.",
     },
     {
       question: "Will you push us toward your own development services?",
       answer:
-        "Recommendations are based on what's actually right for your business — if that means work outside our own capabilities, we'll say so, and the evaluation stays independent regardless of who ends up doing the build.",
+        "Recommendations are based on what's actually right for your business. If that means work outside our own capabilities, we'll say so, and the evaluation stays independent regardless of who ends up doing the build.",
     },
     {
       question: "How long does a typical engagement take?",
@@ -228,12 +228,12 @@ export const itConsultingServicePage: ServicePage = {
     {
       question: "Can you evaluate a specific vendor or tool we're already considering?",
       answer:
-        "Yes — a focused vendor evaluation is available as a standalone engagement if you don't need a full audit, scored against your actual requirements rather than the vendor's pitch.",
+        "Yes. A focused vendor evaluation is available as a standalone engagement if you don't need a full audit, scored against your actual requirements rather than the vendor's pitch.",
     },
     {
       question: "Do you help implement the roadmap, or just write it?",
       answer:
-        "Both. Many clients have us both build the recommended systems and continue as an advisor through the rest of the roadmap — but the roadmap itself is designed to be actionable by any team.",
+        "Both. Many clients have us both build the recommended systems and continue as an advisor through the rest of the roadmap, but the roadmap itself is designed to be actionable by any team.",
     },
   ],
 

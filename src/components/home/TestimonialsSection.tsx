@@ -131,14 +131,18 @@ export default function TestimonialsSection() {
           }}
           className="relative z-10 flex overflow-hidden group/marquee cursor-pointer"
         >
+          {/* Left/right fade so the track's edges dissolve into the section background. */}
+          <div className="absolute inset-y-0 left-0 z-20 w-16 bg-gradient-to-r from-slate-50 to-transparent pointer-events-none sm:w-32" />
+          <div className="absolute inset-y-0 right-0 z-20 w-16 bg-gradient-to-l from-slate-50 to-transparent pointer-events-none sm:w-32" />
+
           {/* Track 1 */}
-          <div className={cn("flex w-max min-w-full shrink-0 animate-marquee-full group-hover/marquee:pause", paused && "pause")}>
+          <div className={cn("flex w-max shrink-0 animate-marquee-full group-hover/marquee:pause", paused && "pause")}>
             {testimonials.map((t, idx) => (
               <TestimonialCard key={`track1-${t.name}-${idx}`} t={t} />
             ))}
           </div>
           {/* Track 2 (Duplicate for seamless loop) */}
-          <div className={cn("flex w-max min-w-full shrink-0 animate-marquee-full group-hover/marquee:pause", paused && "pause")} aria-hidden="true">
+          <div className={cn("flex w-max shrink-0 animate-marquee-full group-hover/marquee:pause", paused && "pause")} aria-hidden="true">
             {testimonials.map((t, idx) => (
               <TestimonialCard key={`track2-${t.name}-${idx}`} t={t} />
             ))}

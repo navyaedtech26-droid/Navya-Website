@@ -9,7 +9,7 @@ export const dedicatedDevelopersServicePage: ServicePage = {
   highlight: "Senior Engineers, Without the Hiring Cycle",
 
   heroSubtitle:
-    "A single open engineering role can take months to fill and derail a roadmap while it stays empty. We plug in vetted, senior developers who integrate with your team directly — so the timeline keeps moving while you hire, or instead of hiring at all.",
+    "A single open engineering role can take months to fill and derail a roadmap while it stays empty. We plug in vetted, senior developers who integrate with your team directly, so the timeline keeps moving while you hire, or instead of hiring at all.",
 
   seoDescription:
     "Vetted senior developers who integrate with your team fast, keeping your roadmap moving without a slow hiring cycle or recruiting overhead.",
@@ -43,7 +43,7 @@ export const dedicatedDevelopersServicePage: ServicePage = {
     title: "Why Is a Slow Hiring Cycle",
     highlight: "a Direct Cost to Your Roadmap?",
     intro:
-      "Most engineering delays aren't caused by bad planning — they're caused by an open seat that takes months to fill, while the work it was meant to cover keeps waiting.",
+      "Most engineering delays aren't caused by bad planning. They're caused by an open seat that takes months to fill, while the work it was meant to cover keeps waiting.",
     painPoints: [
       {
         title: "A single open role stalls the whole roadmap",
@@ -58,12 +58,12 @@ export const dedicatedDevelopersServicePage: ServicePage = {
       {
         title: "A specific project needs expertise you don't have in-house",
         description:
-          "A migration, an integration, or a specialized build needs skills your current team doesn't have time to learn on the clock — but doesn't justify a permanent hire either.",
+          "A migration, an integration, or a specialized build needs skills your current team doesn't have time to learn on the clock, but doesn't justify a permanent hire either.",
       },
       {
         title: "Scaling the team up or down doesn't match project reality",
         description:
-          "Permanent headcount is hard to flex — a project that needs five engineers for three months and one after that leaves you overstaffed or understaffed either way.",
+          "Permanent headcount is hard to flex. A project that needs five engineers for three months and one after that leaves you overstaffed or understaffed either way.",
       },
       {
         title: "A bad hire is expensive and slow to correct",
@@ -77,7 +77,7 @@ export const dedicatedDevelopersServicePage: ServicePage = {
     title: "What a Dedicated Engineering Partner",
     highlight: "Actually Changes?",
     intro:
-      "The right augmentation model doesn't just fill a seat — it changes how fast your roadmap moves and how flexibly your team can respond to real project demand.",
+      "The right augmentation model doesn't just fill a seat. It changes how fast your roadmap moves and how flexibly your team can respond to real project demand.",
     points: [
       {
         icon: Gauge,
@@ -95,7 +95,7 @@ export const dedicatedDevelopersServicePage: ServicePage = {
         icon: Users,
         title: "Specialized skills arrive without a permanent commitment",
         description:
-          "A specific expertise gap — a migration, a niche integration — gets covered by an engineer who's already done it, without adding permanent headcount.",
+          "A specific expertise gap (a migration, a niche integration) gets covered by an engineer who's already done it, without adding permanent headcount.",
       },
       {
         icon: ShieldCheck,
@@ -110,13 +110,13 @@ export const dedicatedDevelopersServicePage: ServicePage = {
     title: "Where Does the Return",
     highlight: "Actually Come From?",
     intro:
-      "The return on augmentation shows up in roadmap velocity and avoided hiring costs — both measurable against the cost of an unfilled seat today.",
+      "The return on augmentation shows up in roadmap velocity and avoided hiring costs, both measurable against the cost of an unfilled seat today.",
     points: [
-      "Faster time-to-delivery — closing a skills or capacity gap in weeks instead of months keeps the roadmap moving instead of stalling on an open role.",
-      "Lower cost than a bad permanent hire — a flexible engagement avoids the sunk cost of onboarding and correcting a mismatched full-time hire.",
-      "Reduced recruiting overhead — your senior engineers stay focused on building instead of screening resumes and running interviews.",
-      "Capacity that matches project reality — scaling engagement size up or down avoids paying for idle headcount between project phases.",
-      "Specialized expertise without a long-term commitment — a project-specific skill gap gets closed without adding a permanent salary line.",
+      "Faster time-to-delivery. Closing a skills or capacity gap in weeks instead of months keeps the roadmap moving instead of stalling on an open role.",
+      "Lower cost than a bad permanent hire. A flexible engagement avoids the sunk cost of onboarding and correcting a mismatched full-time hire.",
+      "Reduced recruiting overhead. Your senior engineers stay focused on building instead of screening resumes and running interviews.",
+      "Capacity that matches project reality. Scaling engagement size up or down avoids paying for idle headcount between project phases.",
+      "Specialized expertise without a long-term commitment. A project-specific skill gap gets closed without adding a permanent salary line.",
     ],
   },
 
@@ -213,27 +213,27 @@ export const dedicatedDevelopersServicePage: ServicePage = {
     {
       question: "How is this different from a typical outsourcing agency?",
       answer:
-        "Engineers integrate directly into your existing team, tools, and sprint process rather than working as a separate, opaque unit — you get the visibility of an in-house hire with the flexibility of an engagement.",
+        "Engineers integrate directly into your existing team, tools, and sprint process rather than working as a separate, opaque unit. You get the visibility of an in-house hire with the flexibility of an engagement.",
     },
     {
       question: "How quickly can an engineer actually start?",
       answer:
-        "Typically within one to two weeks of scoping, depending on the specific skill set required — far faster than a traditional hiring cycle.",
+        "Typically within one to two weeks of scoping, depending on the specific skill set required, far faster than a traditional hiring cycle.",
     },
     {
       question: "What if the engineer isn't the right fit for our team?",
       answer:
-        "The trial integration period exists specifically for this — if fit isn't right, we adjust or replace the engineer quickly, without the cost of unwinding a permanent hire.",
+        "The trial integration period exists specifically for this. If fit isn't right, we adjust or replace the engineer quickly, without the cost of unwinding a permanent hire.",
     },
     {
       question: "Can we scale the engagement up or down as our project changes?",
       answer:
-        "Yes — engagements are built to flex with real project demand, whether that means adding engineers for a critical sprint or scaling down once a milestone ships.",
+        "Yes. Engagements are built to flex with real project demand, whether that means adding engineers for a critical sprint or scaling down once a milestone ships.",
     },
     {
       question: "Do we get full visibility into what the engineer is working on?",
       answer:
-        "Yes — engineers work inside your existing project management and communication tools, so progress is as visible as it would be for any in-house team member.",
+        "Yes. Engineers work inside your existing project management and communication tools, so progress is as visible as it would be for any in-house team member.",
     },
   ],
 

@@ -257,12 +257,18 @@
     scroll-behavior: auto !important;
   }
 
-  /* The tech marquee is a gentle, continuous, hover-pausable logo strip — not a
-     flashing or attention-grabbing effect. Keep it running even when reduced
-     motion is requested (e.g. Windows "Animation effects: Off"), otherwise the
-     global rule above snaps it to its end frame and it looks frozen/broken. */
+  /* The tech marquee and the testimonials marquee are both gentle, continuous,
+     hover-pausable strips — not flashing or attention-grabbing effects. Keep
+     them running even when reduced motion is requested (e.g. Windows
+     "Animation effects: Off"), otherwise the global rule above snaps them to
+     their end frame and they look frozen/broken. */
   .animate-marquee {
     animation-duration: 26s !important;
+    animation-iteration-count: infinite !important;
+  }
+
+  .animate-marquee-full {
+    animation-duration: 40s !important;
     animation-iteration-count: infinite !important;
   }
 }

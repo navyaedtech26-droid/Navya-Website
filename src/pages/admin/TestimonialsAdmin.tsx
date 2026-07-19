@@ -121,7 +121,7 @@ export default function TestimonialsAdmin() {
     <div className="space-y-8">
       <PageHeader
         title="Testimonials"
-        subtitle="Quotes submitted by visitors through the public “Share your story” form. They arrive under Pending review — publish to feature them. Lower sort order appears first."
+        subtitle="Quotes submitted by visitors through the public “Share your story” form. They arrive under Pending review. Publish to feature them. Lower sort order appears first."
         action={
           <a
             href="/share-your-story"

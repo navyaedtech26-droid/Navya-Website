@@ -45,7 +45,7 @@ export default function ServicePageTemplate({ data }: ServicePageTemplateProps) 
   return (
     <PageTransition>
       <Seo
-        title={`${data.title} | Navya EdTech`}
+        title={`${data.title} in Nepal | Navya EdTech`}
         description={data.seoDescription}
         keywords={data.seoKeywords}
         path={path}
@@ -274,7 +274,7 @@ export default function ServicePageTemplate({ data }: ServicePageTemplateProps) 
             align="left"
             title="What's a Realistic"
             highlight="Timeline?"
-            subtitle="Scoped ranges, not vague promises — the exact plan is confirmed after discovery."
+            subtitle="Scoped ranges, not vague promises. The exact plan is confirmed after discovery."
           />
           <motion.div
             variants={staggerContainer(0.08)}
@@ -306,7 +306,7 @@ export default function ServicePageTemplate({ data }: ServicePageTemplateProps) 
             align="left"
             title="What Technology Is"
             highlight="Behind It?"
-            subtitle="We pick the right tool for the outcome — not the newest one for its own sake."
+            subtitle="We pick the right tool for the outcome, not the newest one for its own sake."
           />
           <motion.div
             variants={staggerContainer(0.08)}

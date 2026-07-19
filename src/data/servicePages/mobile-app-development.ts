@@ -9,12 +9,12 @@ export const mobileAppDevelopmentServicePage: ServicePage = {
   highlight: "A Permanent Place on Their Screen",
 
   heroSubtitle:
-    "A website earns a visit. An app earns a place on the home screen — a standing invitation back into your business every time it's unlocked. We build the native and cross-platform apps that make that invitation worth accepting.",
+    "A website earns a visit. An app earns a place on the home screen, a standing invitation back into your business every time it's unlocked. We build the native and cross-platform apps that make that invitation worth accepting.",
 
   heroImage: "/vector/mobile-dev.avif",
 
   seoDescription:
-    "Native and cross-platform mobile apps engineered for real device conditions — offline support, push notifications, and secure logins.",
+    "Native and cross-platform mobile apps engineered for real device conditions, offline support, push notifications, and secure logins.",
 
   seoKeywords: [
     "mobile app development",
@@ -28,7 +28,7 @@ export const mobileAppDevelopmentServicePage: ServicePage = {
 
   overview: {
     whatIsIt:
-      "A native or cross-platform mobile application engineered for real device conditions — offline gaps, low bandwidth, and everyday interruptions.",
+      "A native or cross-platform mobile application engineered for real device conditions, offline gaps, low bandwidth, and everyday interruptions.",
     whoNeedsIt:
       "Businesses whose customers or field staff need a fast, reliable pocket experience that a mobile website can't deliver.",
     businessValue:
@@ -50,12 +50,12 @@ export const mobileAppDevelopmentServicePage: ServicePage = {
       {
         title: "There's no way to reach customers directly",
         description:
-          "Without push notifications, every re-engagement depends on an email opening its way past a spam filter or an ad winning an auction — both costing money every time.",
+          "Without push notifications, every re-engagement depends on an email opening its way past a spam filter or an ad winning an auction, both costing money every time.",
       },
       {
         title: "Field staff lose functionality the moment signal drops",
         description:
-          "A browser-based tool that requires constant connectivity fails exactly where it's needed most — warehouses, rural sites, basements — leaving staff to fall back on paper.",
+          "A browser-based tool that requires constant connectivity fails exactly where it's needed most (warehouses, rural sites, basements), leaving staff to fall back on paper.",
       },
       {
         title: "Repeat customers face friction every single visit",
@@ -65,7 +65,7 @@ export const mobileAppDevelopmentServicePage: ServicePage = {
       {
         title: "The brand looks secondary next to competitors with an app",
         description:
-          "When a customer's phone shows a competitor's icon and not yours, the perception of scale and seriousness shifts — regardless of the underlying quality of your service.",
+          "When a customer's phone shows a competitor's icon and not yours, the perception of scale and seriousness shifts, regardless of the underlying quality of your service.",
       },
       {
         title: "There's no offline continuity",
@@ -75,7 +75,7 @@ export const mobileAppDevelopmentServicePage: ServicePage = {
       {
         title: "You have no usage data to act on",
         description:
-          "Without app analytics, you can't see which features customers actually use, where they drop off, or what's worth investing in next — decisions stay guesses.",
+          "Without app analytics, you can't see which features customers actually use, where they drop off, or what's worth investing in next. Decisions stay guesses.",
       },
     ],
   },
@@ -84,19 +84,19 @@ export const mobileAppDevelopmentServicePage: ServicePage = {
     title: "What Owning the App",
     highlight: "Actually Changes?",
     intro:
-      "An app moves your relationship with customers or staff from a rented visit to an owned channel — with the retention data to prove it's working.",
+      "An app moves your relationship with customers or staff from a rented visit to an owned channel, with the retention data to prove it's working.",
     points: [
       {
         icon: Bell,
         title: "You can re-engage without paying for reach",
         description:
-          "A push notification for a restock, a reminder, or an offer reaches an existing customer directly — no ad auction, no algorithm deciding if it's seen.",
+          "A push notification for a restock, a reminder, or an offer reaches an existing customer directly, no ad auction, no algorithm deciding if it's seen.",
       },
       {
         icon: WifiOff,
         title: "Field and low-connectivity work keeps running",
         description:
-          "Offline-first architecture lets staff keep working through dead zones, syncing automatically the moment connectivity returns — no lost forms, no paper fallback.",
+          "Offline-first architecture lets staff keep working through dead zones, syncing automatically the moment connectivity returns, no lost forms, no paper fallback.",
       },
       {
         icon: Fingerprint,
@@ -108,7 +108,7 @@ export const mobileAppDevelopmentServicePage: ServicePage = {
         icon: Rocket,
         title: "You gain a direct usage feed",
         description:
-          "In-app analytics show exactly which screens convert, where users drop off, and what to build next — replacing guesswork with a live signal from real usage.",
+          "In-app analytics show exactly which screens convert, where users drop off, and what to build next, replacing guesswork with a live signal from real usage.",
       },
     ],
   },
@@ -117,13 +117,13 @@ export const mobileAppDevelopmentServicePage: ServicePage = {
     title: "Where Does the Return",
     highlight: "Actually Come From?",
     intro:
-      "The return on a mobile app shows up in retention and reduced acquisition cost — both trackable against what you're spending today to reach the same customers.",
+      "The return on a mobile app shows up in retention and reduced acquisition cost, both trackable against what you're spending today to reach the same customers.",
     points: [
-      "Lower cost per re-engagement — a push notification costs nothing per send, compared to an ongoing ad or email spend to reach the same repeat customer.",
-      "Higher checkout conversion — saved payment details and biometric login remove the steps that cause cart abandonment on mobile web.",
-      "Recovered field-productivity hours — offline-capable workflows remove the downtime a connectivity gap used to cause.",
-      "Fewer support calls — a well-designed app answers the questions a confusing mobile site used to generate as calls to your team.",
-      "A defensible channel — an installed app with regular usage is harder for a competitor to displace than a bookmarked website.",
+      "Lower cost per re-engagement. A push notification costs nothing per send, compared to an ongoing ad or email spend to reach the same repeat customer.",
+      "Higher checkout conversion. Saved payment details and biometric login remove the steps that cause cart abandonment on mobile web.",
+      "Recovered field-productivity hours. Offline-capable workflows remove the downtime a connectivity gap used to cause.",
+      "Fewer support calls. A well-designed app answers the questions a confusing mobile site used to generate as calls to your team.",
+      "A defensible channel. An installed app with regular usage is harder for a competitor to displace than a bookmarked website.",
     ],
   },
 
@@ -132,7 +132,7 @@ export const mobileAppDevelopmentServicePage: ServicePage = {
       step: "01",
       title: "Platform & User Journey Mapping",
       description:
-        "We define who's using the app, on what device, in what conditions — and map the journey before any screen is designed.",
+        "We define who's using the app, on what device, in what conditions, and map the journey before any screen is designed.",
     },
     {
       step: "02",
@@ -144,7 +144,7 @@ export const mobileAppDevelopmentServicePage: ServicePage = {
       step: "03",
       title: "Native or Cross-Platform Build",
       description:
-        "We build in React Native, Flutter, or fully native Swift/Kotlin, chosen for your actual performance and budget requirements — not by default.",
+        "We build in React Native, Flutter, or fully native Swift/Kotlin, chosen for your actual performance and budget requirements, not by default.",
     },
     {
       step: "04",
@@ -210,7 +210,7 @@ export const mobileAppDevelopmentServicePage: ServicePage = {
     client: "A subscription-based service platform",
     industry: "Consumer Services",
     challenge:
-      "Customers booked and re-booked services entirely through a mobile browser, with no way to notify them of availability or offers — leading to high one-time usage and low repeat bookings.",
+      "Customers booked and re-booked services entirely through a mobile browser, with no way to notify them of availability or offers, leading to high one-time usage and low repeat bookings.",
     approach:
       "We built a cross-platform app with saved payment details, biometric login, and push notifications tied to booking availability.",
     outcome:
@@ -221,12 +221,12 @@ export const mobileAppDevelopmentServicePage: ServicePage = {
     {
       question: "Should we build native apps or a cross-platform app?",
       answer:
-        "It depends on your performance needs and budget. Cross-platform frameworks like React Native or Flutter cover most business apps well at lower cost; we recommend fully native only when the app demands it — and we'll tell you honestly which applies.",
+        "It depends on your performance needs and budget. Cross-platform frameworks like React Native or Flutter cover most business apps well at lower cost; we recommend fully native only when the app demands it, and we'll tell you honestly which applies.",
     },
     {
       question: "How long does app store approval take?",
       answer:
-        "Google Play review is typically same-day to a few days. Apple's App Store review usually takes 1–3 days, longer if there are compliance questions — we handle any back-and-forth on your behalf.",
+        "Google Play review is typically same-day to a few days. Apple's App Store review usually takes 1–3 days, longer if there are compliance questions. We handle any back-and-forth on your behalf.",
     },
     {
       question: "Can the app work without an internet connection?",
@@ -236,7 +236,7 @@ export const mobileAppDevelopmentServicePage: ServicePage = {
     {
       question: "Do you handle push notifications and analytics setup?",
       answer:
-        "Yes — both are wired in during the build, so you can send targeted notifications and see real usage data from day one, not as a later add-on.",
+        "Yes. Both are wired in during the build, so you can send targeted notifications and see real usage data from day one, not as a later add-on.",
     },
     {
       question: "What happens when a new iOS or Android version breaks something?",

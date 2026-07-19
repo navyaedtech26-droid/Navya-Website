@@ -13,9 +13,9 @@ export const schoolsIndustryPage: IndustryPage = {
 
   heroImage: "/industries section/education.avif",
 
-  seoTitle: "Digital Transformation for Schools | Navya EdTech",
+  seoTitle: "Digital Transformation for Schools in Nepal | Navya EdTech",
   seoDescription:
-    "School management systems, admissions websites, and parent communication platforms for K-12 schools — cut admin hours, enroll faster.",
+    "School management systems, admissions websites, and parent communication platforms for K-12 schools, cut admin hours, enroll faster.",
   seoKeywords: [
     "school management system",
     "school ERP software",
@@ -25,18 +25,19 @@ export const schoolsIndustryPage: IndustryPage = {
     "parent communication app",
     "admissions CRM for schools",
     "digital transformation for schools",
+    "school management system Nepal",
   ],
 
   challenges: {
     title: "Where Does School Admin",
     highlight: "Quietly Break Down?",
     intro:
-      "Most schools don't lack effort — they lack systems. The same problems repeat every term because the tools weren't built for a school's rhythm.",
+      "Most schools don't lack effort. They lack systems. The same problems repeat every term because the tools weren't built for a school's rhythm.",
     items: [
       {
         title: "Admissions run on paper forms and phone calls",
         description:
-          "Prospective parents call, fill a printed form, and wait — with no way to track where their application sits, so front-desk staff re-answer the same status questions all day.",
+          "Prospective parents call, fill a printed form, and wait, with no way to track where their application sits, so front-desk staff re-answer the same status questions all day.",
       },
       {
         title: "Attendance and grades live in separate registers",
@@ -51,7 +52,7 @@ export const schoolsIndustryPage: IndustryPage = {
       {
         title: "Parents have no real-time visibility",
         description:
-          "Without a portal, parents only learn about attendance, results, or fee dues through a note sent home with the child — which too often never arrives.",
+          "Without a portal, parents only learn about attendance, results, or fee dues through a note sent home with the child, which too often never arrives.",
       },
       {
         title: "The school's online presence undersells it",
@@ -65,19 +66,19 @@ export const schoolsIndustryPage: IndustryPage = {
     title: "A Digital Layer Built",
     highlight: "Around the School Calendar",
     intro:
-      "We don't sell generic software — we build or configure the specific systems a school's admissions, academic, and finance cycle actually needs.",
+      "We don't sell generic software. We build or configure the specific systems a school's admissions, academic, and finance cycle actually needs.",
     items: [
       {
         icon: LayoutDashboard,
         title: "School management system",
         description:
-          "One platform for admissions, attendance, grading, timetables, and staff records — replacing five disconnected spreadsheets with a single source of truth.",
+          "One platform for admissions, attendance, grading, timetables, and staff records, replacing five disconnected spreadsheets with a single source of truth.",
       },
       {
         icon: Bell,
         title: "Parent communication portal",
         description:
-          "A portal and app where parents see attendance, results, homework, and fee status the moment it's recorded — no more notes that never make it home.",
+          "A portal and app where parents see attendance, results, homework, and fee status the moment it's recorded, no more notes that never make it home.",
       },
       {
         icon: FileText,
@@ -89,7 +90,7 @@ export const schoolsIndustryPage: IndustryPage = {
         icon: Smartphone,
         title: "Admissions-focused school website",
         description:
-          "A fast, credible website that answers a searching parent's real questions — curriculum, fees, facilities — and converts that visit into a scheduled tour.",
+          "A fast, credible website that answers a searching parent's real questions (curriculum, fees, facilities) and converts that visit into a scheduled tour.",
       },
     ],
   },
@@ -98,13 +99,13 @@ export const schoolsIndustryPage: IndustryPage = {
     title: "What This Is Actually",
     highlight: "Worth to a School?",
     intro:
-      "The return isn't hypothetical — it shows up in staff hours, enrollment numbers, and fee collection cycles you can already measure.",
+      "The return isn't hypothetical. It shows up in staff hours, enrollment numbers, and fee collection cycles you can already measure.",
     points: [
-      "Front-office hours reclaimed — status questions that used to require a phone call are answered instantly by the parent portal.",
-      "Faster fee collection — automated reminders and online payment shorten the gap between a due date and a received payment.",
-      "Higher admissions conversion — an online application with visible status reduces the drop-off between inquiry and enrollment.",
-      "Fewer data-entry errors — one shared system means attendance, grades, and fees are entered once, not re-typed across separate registers.",
-      "A stronger first impression — a modern website and portal signal the same professionalism prospective parents expect from your classrooms.",
+      "Front-office hours reclaimed. Status questions that used to require a phone call are answered instantly by the parent portal.",
+      "Faster fee collection. Automated reminders and online payment shorten the gap between a due date and a received payment.",
+      "Higher admissions conversion. An online application with visible status reduces the drop-off between inquiry and enrollment.",
+      "Fewer data-entry errors. One shared system means attendance, grades, and fees are entered once, not re-typed across separate registers.",
+      "A stronger first impression. A modern website and portal signal the same professionalism prospective parents expect from your classrooms.",
     ],
   },
 
@@ -141,7 +142,7 @@ export const schoolsIndustryPage: IndustryPage = {
       {
         icon: ShieldCheck,
         title: "Role-based staff access",
-        description: "Teachers, accountants, and admins each see exactly what their role requires — nothing more.",
+        description: "Teachers, accountants, and admins each see exactly what their role requires, nothing more.",
       },
     ],
   },
@@ -161,7 +162,7 @@ export const schoolsIndustryPage: IndustryPage = {
     {
       question: "Can this integrate with the exam board or curriculum we already follow?",
       answer:
-        "Yes. The gradebook and report card structure are configured around your specific grading scale, subjects, and terms — not a generic template.",
+        "Yes. The gradebook and report card structure are configured around your specific grading scale, subjects, and terms, not a generic template.",
     },
     {
       question: "Will our teachers need training to use it?",
@@ -176,7 +177,7 @@ export const schoolsIndustryPage: IndustryPage = {
     {
       question: "Do you also handle the school's public website?",
       answer:
-        "Yes — we typically pair the management system with a fast, SEO-ready admissions website, since the two work together to convert inquiries into enrollments.",
+        "Yes. We typically pair the management system with a fast, SEO-ready admissions website, since the two work together to convert inquiries into enrollments.",
     },
   ],
 

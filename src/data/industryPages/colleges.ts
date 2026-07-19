@@ -13,9 +13,9 @@ export const collegesIndustryPage: IndustryPage = {
 
   heroImage: "/industries section/colleges-and-universities.avif",
 
-  seoTitle: "Digital Transformation for Colleges & Universities | Navya EdTech",
+  seoTitle: "Digital Transformation for Colleges & Universities in Nepal | Navya EdTech",
   seoDescription:
-    "Student information systems, LMS platforms, and admissions websites for colleges and universities — scale enrollment without adding admin overhead.",
+    "Student information systems, LMS platforms, and admissions websites for colleges and universities, scale enrollment without adding admin overhead.",
   seoKeywords: [
     "college management system",
     "university ERP software",
@@ -24,13 +24,14 @@ export const collegesIndustryPage: IndustryPage = {
     "college admissions website",
     "faculty and course scheduling software",
     "higher education digital transformation",
+    "college ERP software Nepal",
   ],
 
   challenges: {
     title: "Why Does Growth Outpace",
     highlight: "the Systems Behind It?",
     intro:
-      "A college that's grown past a single department finds that the tools which worked for 200 students break down at 2,000 — not because the staff got worse, but because the process never scaled.",
+      "A college that's grown past a single department finds that the tools which worked for 200 students break down at 2,000, not because the staff got worse, but because the process never scaled.",
     items: [
       {
         title: "Multi-program enrollment is tracked manually",
@@ -55,7 +56,7 @@ export const collegesIndustryPage: IndustryPage = {
       {
         title: "The institution is invisible to prospective students online",
         description:
-          "Students researching where to apply compare programs and outcomes on the web first — an outdated site loses applicants before an advisor ever gets to speak with them.",
+          "Students researching where to apply compare programs and outcomes on the web first. An outdated site loses applicants before an advisor ever gets to speak with them.",
       },
     ],
   },
@@ -64,13 +65,13 @@ export const collegesIndustryPage: IndustryPage = {
     title: "Infrastructure Built for",
     highlight: "Institutional Scale",
     intro:
-      "We design systems around your faculties, programs, and academic calendar — not a one-size-fits-all student portal.",
+      "We design systems around your faculties, programs, and academic calendar, not a one-size-fits-all student portal.",
     items: [
       {
         icon: LayoutDashboard,
         title: "Student information system (SIS)",
         description:
-          "A central record for every student across programs — admissions, enrollment, grades, and attendance in one queryable system instead of scattered files.",
+          "A central record for every student across programs, admissions, enrollment, grades, and attendance in one queryable system instead of scattered files.",
       },
       {
         icon: BookOpen,
@@ -97,13 +98,13 @@ export const collegesIndustryPage: IndustryPage = {
     title: "Where Does the Return Show Up",
     highlight: "at Institutional Scale?",
     intro:
-      "At a multi-program institution, small process fixes multiply — the same reduction in manual work happens every semester, across every department.",
+      "At a multi-program institution, small process fixes multiply. The same reduction in manual work happens every semester, across every department.",
     points: [
-      "Lower cost per enrolled student — digital admissions and recruitment convert more inquiries without adding recruitment staff.",
-      "Reduced scheduling conflicts — automated timetabling cuts the administrative fire-fighting that happens every semester at registration.",
-      "Faster transcript and records turnaround — self-service access removes a recurring administrative bottleneck for registrar staff.",
-      "Cleaner compliance reporting — centralized records make accreditation and regulatory reporting a data export, not a weeks-long audit.",
-      "Higher faculty utilization — clear scheduling and workload visibility reduces both idle capacity and overload across departments.",
+      "Lower cost per enrolled student. Digital admissions and recruitment convert more inquiries without adding recruitment staff.",
+      "Reduced scheduling conflicts. Automated timetabling cuts the administrative fire-fighting that happens every semester at registration.",
+      "Faster transcript and records turnaround. Self-service access removes a recurring administrative bottleneck for registrar staff.",
+      "Cleaner compliance reporting. Centralized records make accreditation and regulatory reporting a data export, not a weeks-long audit.",
+      "Higher faculty utilization. Clear scheduling and workload visibility reduces both idle capacity and overload across departments.",
     ],
   },
 
@@ -160,7 +161,7 @@ export const collegesIndustryPage: IndustryPage = {
     {
       question: "Can the system handle multiple faculties and intake cycles?",
       answer:
-        "Yes — it's built specifically for institutions running several programs and semesters in parallel, not a single-cohort model.",
+        "Yes. It's built specifically for institutions running several programs and semesters in parallel, not a single-cohort model.",
     },
     {
       question: "Does this replace our existing LMS, or work alongside it?",
@@ -175,7 +176,7 @@ export const collegesIndustryPage: IndustryPage = {
     {
       question: "Can prospective students apply directly through the website?",
       answer:
-        "Yes — the admissions website connects directly to the enrollment pipeline, so an online application appears instantly on your admissions team's dashboard.",
+        "Yes. The admissions website connects directly to the enrollment pipeline, so an online application appears instantly on your admissions team's dashboard.",
     },
   ],
 

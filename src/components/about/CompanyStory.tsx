@@ -61,7 +61,7 @@ export default function CompanyStory() {
             >
               <h3 className="font-display text-3xl font-bold text-heading">The Foundation</h3>
               <p className="mt-6 text-lg md:text-xl leading-relaxed text-faint">
-                Navya EdTech began with one conviction: enterprise-grade technology — and the returns it creates — shouldn't be reserved for the giants. We set out to pair editorial design with serious engineering to ship platforms that look premium and move real business metrics.
+                Navya EdTech began with one conviction: enterprise-grade technology (and the returns it creates) shouldn't be reserved for the giants. We set out to pair editorial design with serious engineering to ship platforms that look premium and move real business metrics.
               </p>
               
               {/* Supporting Imagery */}

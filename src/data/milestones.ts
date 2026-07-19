@@ -9,13 +9,13 @@ export const milestones: Milestone[] = [
     year: "2023",
     title: "The Beginning",
     description:
-      "Founded on one conviction: enterprise-grade technology, and the returns it creates, should be within reach of every ambitious business — not just the giants.",
+      "Founded on one conviction: enterprise-grade technology, and the returns it creates, should be within reach of every ambitious business, not just the giants.",
   },
   {
     year: "2024",
     title: "Building Momentum",
     description:
-      "We expanded from websites into full business systems — ERP, CRM, and LMS — helping clients automate operations and take cost out of every workflow.",
+      "We expanded from websites into full business systems (ERP, CRM, and LMS), helping clients automate operations and take cost out of every workflow.",
   },
   {
     year: "2025",

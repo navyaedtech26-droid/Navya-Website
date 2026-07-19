@@ -8,7 +8,7 @@ export const websitesServicePage: ServicePage = {
   highlight: "Built to Convert",
 
   heroSubtitle:
-    "Your website is running a shift you can't see — deciding, before you ever get a call, whether a prospect trusts you enough to buy. We build it to win that shift.",
+    "Your website is running a shift you can't see, deciding, before you ever get a call, whether a prospect trusts you enough to buy. We build it to win that shift.",
 
   heroImage: "/vector/web-dev.avif",
 
@@ -41,7 +41,7 @@ export const websitesServicePage: ServicePage = {
     title: "Why Is the Website",
     highlight: "Quietly Losing You Deals?",
     intro:
-      "Most business owners think of their website as a cost center they settled once, years ago. In practice, it's working — or failing — every single hour, without anyone in the room to notice.",
+      "Most business owners think of their website as a cost center they settled once, years ago. In practice, it's working (or failing) every single hour, without anyone in the room to notice.",
     painPoints: [
       {
         title: "Prospects leave before you know they arrived",
@@ -51,7 +51,7 @@ export const websitesServicePage: ServicePage = {
       {
         title: "Credibility is judged before the sales pitch",
         description:
-          "By the time a lead is willing to talk to you, they've already decided — from the site alone — whether your business looks like the safer, more established choice.",
+          "By the time a lead is willing to talk to you, they've already decided (from the site alone) whether your business looks like the safer, more established choice.",
       },
       {
         title: "The site can't be updated without a developer",
@@ -66,12 +66,12 @@ export const websitesServicePage: ServicePage = {
       {
         title: "Search engines can't find a reason to rank it",
         description:
-          "Without a technical foundation built for SEO, the business stays invisible to the exact searches — \"[service] near me,\" \"[category] company\" — that competitors are capturing instead.",
+          "Without a technical foundation built for SEO, the business stays invisible to the exact searches (\"[service] near me,\" \"[category] company\") that competitors are capturing instead.",
       },
       {
         title: "Every lead comes from paid ads",
         description:
-          "With no organic visibility or on-site conversion path, growth is entirely rented from ad platforms — the moment spend stops, the pipeline stops with it.",
+          "With no organic visibility or on-site conversion path, growth is entirely rented from ad platforms. The moment spend stops, the pipeline stops with it.",
       },
     ],
   },
@@ -80,13 +80,13 @@ export const websitesServicePage: ServicePage = {
     title: "What a Site Built for Business",
     highlight: "Actually Changes?",
     intro:
-      "A website engineered around your sales process — not just your brand — shifts what happens after someone finds you. Here's where the impact shows up.",
+      "A website engineered around your sales process (not just your brand) shifts what happens after someone finds you. Here's where the impact shows up.",
     points: [
       {
         icon: TrendingUp,
         title: "More of your existing traffic converts",
         description:
-          "The same visitors you already get from search, ads, and referrals move further down the funnel instead of bouncing — because the path to a form, call, or purchase is obvious.",
+          "The same visitors you already get from search, ads, and referrals move further down the funnel instead of bouncing, because the path to a form, call, or purchase is obvious.",
       },
       {
         icon: Search,
@@ -98,13 +98,13 @@ export const websitesServicePage: ServicePage = {
         icon: Clock3,
         title: "Your team stops answering the same questions",
         description:
-          "Pricing, process, FAQs, and proof are all on the site, pre-qualifying visitors before they ever reach a salesperson — shortening the sales cycle for every lead that does convert.",
+          "Pricing, process, FAQs, and proof are all on the site, pre-qualifying visitors before they ever reach a salesperson, shortening the sales cycle for every lead that does convert.",
       },
       {
         icon: Wallet,
         title: "Marketing spend gets more efficient",
         description:
-          "When the destination page converts better, every dollar spent driving traffic to it — ads, social, referrals — goes further, without changing the campaign at all.",
+          "When the destination page converts better, every dollar spent driving traffic to it (ads, social, referrals) goes further, without changing the campaign at all.",
       },
     ],
   },
@@ -113,13 +113,13 @@ export const websitesServicePage: ServicePage = {
     title: "Where Does the Return",
     highlight: "Actually Come From?",
     intro:
-      "We won't hand you an invented percentage — every business's baseline is different. What we can tell you precisely is which levers a rebuild pulls, so you can judge the return against your own numbers.",
+      "We won't hand you an invented percentage. Every business's baseline is different. What we can tell you precisely is which levers a rebuild pulls, so you can judge the return against your own numbers.",
     points: [
-      "Lower cost per lead — a site that converts better turns the same ad and marketing spend into more qualified inquiries, without increasing the budget.",
-      "Shorter sales cycle — pricing, proof, and answers to common objections live on the site, so your team spends less time on questions the website should already have handled.",
-      "Reduced dependency on paid acquisition — an SEO-sound technical foundation compounds organic visibility over months, lowering how much growth has to be bought.",
-      "Fewer abandoned admin hours — a dynamic site your team can update directly removes the recurring cost of paying a developer for every content or price change.",
-      "Higher perceived value at the same price point — credibility built into the site lets you compete on trust instead of discounting to close the gap.",
+      "Lower cost per lead. A site that converts better turns the same ad and marketing spend into more qualified inquiries, without increasing the budget.",
+      "Shorter sales cycle. Pricing, proof, and answers to common objections live on the site, so your team spends less time on questions the website should already have handled.",
+      "Reduced dependency on paid acquisition. An SEO-sound technical foundation compounds organic visibility over months, lowering how much growth has to be bought.",
+      "Fewer abandoned admin hours. A dynamic site your team can update directly removes the recurring cost of paying a developer for every content or price change.",
+      "Higher perceived value at the same price point. Credibility built into the site lets you compete on trust instead of discounting to close the gap.",
     ],
   },
 
@@ -128,7 +128,7 @@ export const websitesServicePage: ServicePage = {
       step: "01",
       title: "Business & Audience Review",
       description:
-        "We start with who you're actually trying to convert — their objections, their buying triggers — not a template's idea of your industry.",
+        "We start with who you're actually trying to convert (their objections, their buying triggers), not a template's idea of your industry.",
     },
     {
       step: "02",
@@ -163,7 +163,7 @@ export const websitesServicePage: ServicePage = {
       "No black box. Here's what you're involved in, and what we hand you at the end.",
     deliverables: [
       "A kickoff call to lock scope, goals, and success metrics before any design starts",
-      "Content and asset collection — we tell you exactly what we need, in plain language",
+      "Content and asset collection, we tell you exactly what we need, in plain language",
       "A clickable staging link updated through every design and build milestone",
       "Cross-device and cross-browser QA before anything goes live",
       "An admin dashboard so your team can edit content without calling a developer (dynamic builds)",
@@ -205,28 +205,28 @@ export const websitesServicePage: ServicePage = {
     client: "Kabita Shooting And Online Store",
     industry: "Retail & E-Commerce",
     challenge:
-      "The business was running its online store and its back-office operations as two disconnected efforts — orders, inventory, and billing all tracked separately, with no shared source of truth.",
+      "The business was running its online store and its back-office operations as two disconnected efforts, orders, inventory, and billing all tracked separately, with no shared source of truth.",
     approach:
       "We designed and built a unified online store paired with a custom ERP, so the storefront and the operations behind it read from the same data instead of being reconciled by hand.",
     outcome:
-      "Orders, inventory, and billing now run through one dashboard instead of scattered manual records — replacing guesswork with a single system the team can trust.",
+      "Orders, inventory, and billing now run through one dashboard instead of scattered manual records, replacing guesswork with a single system the team can trust.",
   },
 
   faqs: [
     {
       question: "How long does a website project actually take?",
       answer:
-        "A focused marketing or e-commerce site typically ships in 2–4 weeks from kickoff. Larger, content-heavy builds run longer — you get an exact timeline after the discovery call, not a vague estimate.",
+        "A focused marketing or e-commerce site typically ships in 2–4 weeks from kickoff. Larger, content-heavy builds run longer. You get an exact timeline after the discovery call, not a vague estimate.",
     },
     {
       question: "Will I be able to update the site myself after launch?",
       answer:
-        "Yes, for dynamic builds. We include an admin dashboard so your team can edit content, pricing, and pages directly — no developer required for routine changes.",
+        "Yes, for dynamic builds. We include an admin dashboard so your team can edit content, pricing, and pages directly, no developer required for routine changes.",
     },
     {
       question: "Can you rebuild our existing site instead of starting over?",
       answer:
-        "Yes. We audit what's already working — traffic sources, ranking pages, brand assets — and rebuild the rest on a faster, more conversion-focused foundation, typically without downtime.",
+        "Yes. We audit what's already working (traffic sources, ranking pages, brand assets) and rebuild the rest on a faster, more conversion-focused foundation, typically without downtime.",
     },
     {
       question: "Do you handle SEO, or just the build?",
@@ -236,7 +236,7 @@ export const websitesServicePage: ServicePage = {
     {
       question: "What if we're not sure exactly what we need yet?",
       answer:
-        "That's what the business review step is for. Most projects start from a rough idea or a problem statement — we turn it into a scoped plan during discovery, before any commitment.",
+        "That's what the business review step is for. Most projects start from a rough idea or a problem statement. We turn it into a scoped plan during discovery, before any commitment.",
     },
   ],
 

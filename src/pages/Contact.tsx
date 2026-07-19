@@ -19,10 +19,10 @@ export default function Contact() {
         title="Enterprise Consultation | Navya EdTech"
         description="Partner with Navya EdTech to engineer scalable solutions. Schedule an enterprise consultation to map out your digital transformation strategy."
         keywords={[
-          "enterprise consultation",
+          "enterprise consultation Nepal",
           "digital transformation strategy",
           "custom software architecture",
-          "Navya EdTech contact",
+          "IT services agency Nepal contact",
           "dedicated development team",
         ]}
         path="/contact"

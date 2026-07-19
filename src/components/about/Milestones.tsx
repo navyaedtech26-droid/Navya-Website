@@ -12,7 +12,7 @@ export default function Milestones() {
           align="center"
           title="The Road"
           highlight="So Far"
-          subtitle="From a single conviction to a full-stack transformation partner. Here's how we've grown — and helped our clients grow along the way."
+          subtitle="From a single conviction to a full-stack transformation partner. Here's how we've grown, and helped our clients grow along the way."
         />
 
         <div className="relative mx-auto mt-24 max-w-4xl">

@@ -13,9 +13,9 @@ export const restaurantsIndustryPage: IndustryPage = {
 
   heroImage: "/industries section/cafe and restaurants.avif",
 
-  seoTitle: "Digital Transformation for Restaurants & Cafes | Navya EdTech",
+  seoTitle: "Digital Transformation for Restaurants & Cafes in Nepal | Navya EdTech",
   seoDescription:
-    "Online ordering, table reservations, and POS integrations for restaurants and cafes — cut delivery commission and speed up kitchen operations.",
+    "Online ordering, table reservations, and POS integrations for restaurants and cafes, cut delivery commission and speed up kitchen operations.",
   seoKeywords: [
     "restaurant online ordering system",
     "table reservation software",
@@ -24,6 +24,7 @@ export const restaurantsIndustryPage: IndustryPage = {
     "food delivery website for restaurants",
     "restaurant management system",
     "digital transformation for restaurants",
+    "restaurant online ordering system Nepal",
   ],
 
   challenges: {
@@ -62,7 +63,7 @@ export const restaurantsIndustryPage: IndustryPage = {
 
   solutions: {
     title: "Systems That Keep Orders",
-    highlight: "— and Margin — With You",
+    highlight: "and Margin With You",
     intro:
       "We build the ordering, booking, and kitchen systems that reduce dependency on commission-heavy platforms and speed up service.",
     items: [
@@ -97,20 +98,20 @@ export const restaurantsIndustryPage: IndustryPage = {
     title: "Where Does the Return",
     highlight: "Actually Come From?",
     intro:
-      "The return shows up directly in commission avoided, table turnover improved, and repeat visits recovered — numbers a restaurant owner already watches closely.",
+      "The return shows up directly in commission avoided, table turnover improved, and repeat visits recovered, numbers a restaurant owner already watches closely.",
     points: [
-      "Lower delivery commission spend — every order shifted to your direct ordering site avoids the 20-30% cut a third-party app would take.",
-      "Fewer no-shows — automated reservation reminders recover table slots that would otherwise sit empty during service.",
-      "Faster ticket times — a digital kitchen order flow cuts the errors and delays that come from verbal order-taking during rushes.",
-      "More repeat visits — automated loyalty outreach brings customers back without relying solely on word of mouth.",
-      "Consistent pricing across channels — one system updates your menu everywhere at once, instead of a manual update per platform.",
+      "Lower delivery commission spend. Every order shifted to your direct ordering site avoids the 20-30% cut a third-party app would take.",
+      "Fewer no-shows. Automated reservation reminders recover table slots that would otherwise sit empty during service.",
+      "Faster ticket times. A digital kitchen order flow cuts the errors and delays that come from verbal order-taking during rushes.",
+      "More repeat visits. Automated loyalty outreach brings customers back without relying solely on word of mouth.",
+      "Consistent pricing across channels. One system updates your menu everywhere at once, instead of a manual update per platform.",
     ],
   },
 
   features: {
     title: "What's Inside the",
     highlight: "Platform?",
-    intro: "Every feature maps to a moment in service — ordering, booking, kitchen, or follow-up.",
+    intro: "Every feature maps to a moment in service, ordering, booking, kitchen, or follow-up.",
     items: [
       {
         icon: ShoppingBag,
@@ -160,7 +161,7 @@ export const restaurantsIndustryPage: IndustryPage = {
     {
       question: "Will this replace the delivery apps we're already listed on?",
       answer:
-        "Not necessarily — most restaurants keep both. The goal is to give customers who'd order directly a fast, commission-free option, while keeping delivery-app reach for discovery.",
+        "Not necessarily. Most restaurants keep both. The goal is to give customers who'd order directly a fast, commission-free option, while keeping delivery-app reach for discovery.",
     },
     {
       question: "Can the system integrate with our existing POS?",
@@ -175,7 +176,7 @@ export const restaurantsIndustryPage: IndustryPage = {
     {
       question: "Can we update our menu across all channels at once?",
       answer:
-        "Yes — menu and pricing changes made in one place sync across your ordering site and any connected channels, removing manual per-platform updates.",
+        "Yes. Menu and pricing changes made in one place sync across your ordering site and any connected channels, removing manual per-platform updates.",
     },
   ],
 

@@ -9,12 +9,12 @@ export const uiUxDesignServicePage: ServicePage = {
   highlight: "Interfaces Built to Convert",
 
   heroSubtitle:
-    "A confusing interface doesn't just look dated — it actively loses you customers, one silent drop-off at a time. We design research-driven interfaces that make the right action the obvious one.",
+    "A confusing interface doesn't just look dated. It actively loses you customers, one silent drop-off at a time. We design research-driven interfaces that make the right action the obvious one.",
 
   heroImage: "/vector/uiux.avif",
 
   seoDescription:
-    "Research-driven UI/UX design — user research, wireframes, prototypes, and a scalable design system built to lift conversion and usability.",
+    "Research-driven UI/UX design, user research, wireframes, prototypes, and a scalable design system built to lift conversion and usability.",
 
   seoKeywords: [
     "UI UX design services",
@@ -28,11 +28,11 @@ export const uiUxDesignServicePage: ServicePage = {
 
   overview: {
     whatIsIt:
-      "Research-driven interface design — user research, wireframing, prototyping, and a scalable design system — built for usability and measurable conversion.",
+      "Research-driven interface design (user research, wireframing, prototyping, and a scalable design system) built for usability and measurable conversion.",
     whoNeedsIt:
       "Product teams and founders whose users struggle to complete key actions, or whose interface no longer matches the ambition of the business behind it.",
     businessValue:
-      "Turns confusion and hesitation at key decision points into clear, confident action — lifting activation, retention, and the lifetime value of every user.",
+      "Turns confusion and hesitation at key decision points into clear, confident action, lifting activation, retention, and the lifetime value of every user.",
     benefits: [
       "Fewer support tickets caused by confusing navigation or flows",
       "Higher activation and feature adoption from clearer onboarding",
@@ -45,7 +45,7 @@ export const uiUxDesignServicePage: ServicePage = {
     title: "Why Is a Confusing Interface",
     highlight: "Quietly Losing You Users?",
     intro:
-      "Most teams don't discover a design problem until it shows up as a support ticket, a churn number, or a demo that falls flat — by which point it's already cost real revenue.",
+      "Most teams don't discover a design problem until it shows up as a support ticket, a churn number, or a demo that falls flat, by which point it's already cost real revenue.",
     painPoints: [
       {
         title: "New users get lost before they see the value",
@@ -55,7 +55,7 @@ export const uiUxDesignServicePage: ServicePage = {
       {
         title: "Support fields questions the interface should answer",
         description:
-          "Unclear labeling, hidden actions, and inconsistent patterns generate the same repeat questions to your support team — cost that a clearer design would remove.",
+          "Unclear labeling, hidden actions, and inconsistent patterns generate the same repeat questions to your support team, cost that a clearer design would remove.",
       },
       {
         title: "Every new screen looks and behaves differently",
@@ -65,7 +65,7 @@ export const uiUxDesignServicePage: ServicePage = {
       {
         title: "Accessibility gaps quietly exclude real users",
         description:
-          "Low-contrast text, missing labels, and keyboard-inaccessible flows shut out a portion of your audience — and increasingly, invite compliance risk too.",
+          "Low-contrast text, missing labels, and keyboard-inaccessible flows shut out a portion of your audience, and increasingly, invite compliance risk too.",
       },
       {
         title: "The interface undersells the product behind it",
@@ -75,7 +75,7 @@ export const uiUxDesignServicePage: ServicePage = {
       {
         title: "Design decisions are made on opinion, not evidence",
         description:
-          "Without user research or testing, product and design decisions default to whoever's opinion is loudest in the room — a costly way to guess.",
+          "Without user research or testing, product and design decisions default to whoever's opinion is loudest in the room, a costly way to guess.",
       },
     ],
   },
@@ -84,7 +84,7 @@ export const uiUxDesignServicePage: ServicePage = {
     title: "What Research-Driven Design",
     highlight: "Actually Changes?",
     intro:
-      "Design grounded in real user behavior changes outcomes at the exact moments that matter — onboarding, checkout, the first five minutes of use.",
+      "Design grounded in real user behavior changes outcomes at the exact moments that matter, onboarding, checkout, the first five minutes of use.",
     points: [
       {
         icon: MousePointerClick,
@@ -102,7 +102,7 @@ export const uiUxDesignServicePage: ServicePage = {
         icon: Layers,
         title: "Every new feature ships faster and consistently",
         description:
-          "A documented design system means new screens reuse proven, tested components instead of reinventing patterns — speeding up delivery and reducing inconsistency.",
+          "A documented design system means new screens reuse proven, tested components instead of reinventing patterns, speeding up delivery and reducing inconsistency.",
       },
       {
         icon: Eye,
@@ -117,13 +117,13 @@ export const uiUxDesignServicePage: ServicePage = {
     title: "Where Does the Return",
     highlight: "Actually Come From?",
     intro:
-      "Design's return shows up in the numbers you already track — activation rate, support volume, and how fast your team can ship the next feature.",
+      "Design's return shows up in the numbers you already track, activation rate, support volume, and how fast your team can ship the next feature.",
     points: [
-      "Higher activation and conversion — removing friction at key decision points lifts the percentage of users who complete the action you need them to take.",
-      "Fewer support tickets — a clearer interface answers questions itself instead of generating tickets your team has to resolve by hand.",
-      "Faster future development — a documented design system means every new feature reuses tested components instead of starting from scratch.",
-      "Reduced legal and accessibility risk — designing for WCAG compliance from the start avoids costly retrofits and exposure later.",
-      "Stronger perceived value — a premium, consistent interface lets you compete on trust and quality instead of discounting to close the gap.",
+      "Higher activation and conversion. Removing friction at key decision points lifts the percentage of users who complete the action you need them to take.",
+      "Fewer support tickets. A clearer interface answers questions itself instead of generating tickets your team has to resolve by hand.",
+      "Faster future development. A documented design system means every new feature reuses tested components instead of starting from scratch.",
+      "Reduced legal and accessibility risk. Designing for WCAG compliance from the start avoids costly retrofits and exposure later.",
+      "Stronger perceived value. A premium, consistent interface lets you compete on trust and quality instead of discounting to close the gap.",
     ],
   },
 
@@ -168,7 +168,7 @@ export const uiUxDesignServicePage: ServicePage = {
     deliverables: [
       "User research findings summarized in plain language, not just raw data",
       "Wireframes and information architecture reviewed with you before visual design starts",
-      "A documented, reusable design system — components, spacing, typography, color",
+      "A documented, reusable design system, components, spacing, typography, color",
       "Clickable prototypes validated through usability testing with real users",
       "Developer-ready specs and assets for precise implementation",
       "A short handoff walkthrough so your team understands the reasoning behind key decisions",
@@ -225,7 +225,7 @@ export const uiUxDesignServicePage: ServicePage = {
     {
       question: "Will you design our product, or also build it?",
       answer:
-        "We do both, and design specifically for what our own development team can implement well — but the deliverables are also handoff-ready for any other engineering team.",
+        "We do both, and design specifically for what our own development team can implement well, but the deliverables are also handoff-ready for any other engineering team.",
     },
     {
       question: "What's a design system, and do we actually need one?",
@@ -235,12 +235,12 @@ export const uiUxDesignServicePage: ServicePage = {
     {
       question: "How do you test usability without a large user base yet?",
       answer:
-        "Even five to eight test sessions with representative users typically surface the majority of usability problems — we scope testing to what's realistic at your stage.",
+        "Even five to eight test sessions with representative users typically surface the majority of usability problems. We scope testing to what's realistic at your stage.",
     },
     {
       question: "Can you redesign an existing product without breaking what already works?",
       answer:
-        "Yes — we audit what's already converting or well-used before changing anything, so a redesign improves the weak points without discarding what's already working.",
+        "Yes. We audit what's already converting or well-used before changing anything, so a redesign improves the weak points without discarding what's already working.",
     },
   ],
 

@@ -28,7 +28,7 @@ export default function TechStack() {
           eyebrow="The Arsenal"
           title="Technologies We"
           highlight="Build With"
-          subtitle="A modern, battle-tested stack across languages, frameworks, databases, and cloud — chosen to fit each project, not the other way around."
+          subtitle="A modern, battle-tested stack across languages, frameworks, databases, and cloud, chosen to fit each project, not the other way around."
         />
 
         {/* Filter Bar */}

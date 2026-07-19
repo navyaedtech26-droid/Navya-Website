@@ -40,13 +40,15 @@ export default function Home() {
   return (
     <PageTransition>
       <Seo
-        title="Navya EdTech | Enterprise IT Services & Software Development"
-        description="We engineer scalable, secure digital solutions for enterprises — custom software, cloud architecture, and AI systems that turn complexity into an edge."
+        title="Navya EdTech | Enterprise IT Services & Software Development in Nepal"
+        description="We engineer scalable, secure digital solutions for enterprises, custom software, cloud architecture, and AI systems that turn complexity into an edge."
         keywords={[
-          "Enterprise Software Development",
-          "IT Services",
-          "Cloud Solutions",
-          "Digital Transformation",
+          "IT Services Nepal",
+          "Enterprise Software Development Nepal",
+          "Custom Software Development Company Nepal",
+          "Web Development Company Nepal",
+          "Cloud Solutions Nepal",
+          "Digital Transformation Nepal",
           "Custom App Development",
         ]}
         path="/"

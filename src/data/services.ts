@@ -120,7 +120,7 @@ export const serviceCategories: ServiceCategory[] = [
     title: "Website Development",
     subtitle: "Your highest-performing sales asset",
     description:
-      "Conversion-engineered websites that turn traffic into qualified leads and revenue — fast, credible, and built to rank.",
+      "Conversion-engineered websites that turn traffic into qualified leads and revenue, fast, credible, and built to rank.",
     items: [
       "Static Websites",
       "Dynamic Websites",
@@ -207,7 +207,7 @@ export const websiteServices: ServiceItem[] = [
   {
     icon: LayoutDashboard,
     title: "Dynamic Website",
-    description: "Content you control in minutes, so marketing moves at the speed of your business — no developer required.",
+    description: "Content you control in minutes, so marketing moves at the speed of your business, no developer required.",
   },
   {
     icon: ShoppingCart,
@@ -222,7 +222,7 @@ export const websiteServices: ServiceItem[] = [
   {
     icon: Search,
     title: "SEO-Friendly Website",
-    description: "Built to rank, so your best customers find you first — and you spend less on ads to reach them.",
+    description: "Built to rank, so your best customers find you first, and you spend less on ads to reach them.",
   },
 ];
 
@@ -240,7 +240,7 @@ export const appServices: ServiceItem[] = [
   {
     icon: MonitorSmartphone,
     title: "Cross-Platform Apps",
-    description: "One investment, every device — reach your entire audience faster and at lower cost.",
+    description: "One investment, every device, reach your entire audience faster and at lower cost.",
   },
   {
     icon: AppWindow,
@@ -311,7 +311,7 @@ export const biServices: ServiceItem[] = [
   {
     icon: PieChart,
     title: "Reporting & Analytics",
-    description: "Automated reporting that reveals exactly what's driving revenue — and what's driving cost.",
+    description: "Automated reporting that reveals exactly what's driving revenue, and what's driving cost.",
   },
   {
     icon: TrendingUp,
@@ -326,7 +326,7 @@ export const biServices: ServiceItem[] = [
   {
     icon: Brain,
     title: "Predictive Insights",
-    description: "Forecasting that helps you act before the market — and the competition — does.",
+    description: "Forecasting that helps you act before the market (and the competition) does.",
   },
 ];
 

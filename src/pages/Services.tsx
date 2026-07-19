@@ -28,12 +28,13 @@ export default function Services() {
   return (
     <PageTransition>
       <Seo
-        title="Custom Software & Enterprise Solutions | Navya EdTech"
-        description="Custom software development, mobile app engineering, AI solutions, cloud infrastructure, and ERP integrations — built by Navya EdTech for growing enterprises."
+        title="Custom Software & Enterprise Solutions in Nepal | Navya EdTech"
+        description="Custom software development, mobile app engineering, AI solutions, cloud infrastructure, and ERP integrations, built by Navya EdTech for growing enterprises."
         path="/services"
         keywords={[
-          "custom software development",
-          "enterprise solutions",
+          "custom software development Nepal",
+          "enterprise solutions Nepal",
+          "IT services company Nepal",
           "ERP systems",
           "AI workflows",
           "cloud infrastructure",

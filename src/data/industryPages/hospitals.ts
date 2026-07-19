@@ -9,13 +9,13 @@ export const hospitalsIndustryPage: IndustryPage = {
   highlight: "Less Admin, Better Care",
 
   heroSubtitle:
-    "Every hour spent on paper charts, phone-booked appointments, and manual billing is an hour not spent on patients. We build the booking, records, and billing systems that give that time back — securely.",
+    "Every hour spent on paper charts, phone-booked appointments, and manual billing is an hour not spent on patients. We build the booking, records, and billing systems that give that time back, securely.",
 
   heroImage: "/industries section/healthcare.avif",
 
-  seoTitle: "Digital Transformation for Hospitals & Clinics | Navya EdTech",
+  seoTitle: "Digital Transformation for Hospitals & Clinics in Nepal | Navya EdTech",
   seoDescription:
-    "Patient management, appointment booking, and billing systems for hospitals and clinics — cut admin load, reduce wait times, secure records.",
+    "Patient management, appointment booking, and billing systems for hospitals and clinics, cut admin load, reduce wait times, secure records.",
   seoKeywords: [
     "hospital management system",
     "clinic appointment booking software",
@@ -24,6 +24,7 @@ export const hospitalsIndustryPage: IndustryPage = {
     "healthcare website development",
     "patient management system",
     "digital transformation for hospitals",
+    "hospital management system Nepal",
   ],
 
   challenges: {
@@ -64,7 +65,7 @@ export const hospitalsIndustryPage: IndustryPage = {
     title: "Systems That Protect",
     highlight: "Time for Patient Care",
     intro:
-      "We build the specific systems that remove admin friction from booking through to billing — designed around clinical workflow, not generic office software.",
+      "We build the specific systems that remove admin friction from booking through to billing, designed around clinical workflow, not generic office software.",
     items: [
       {
         icon: CalendarCheck,
@@ -99,11 +100,11 @@ export const hospitalsIndustryPage: IndustryPage = {
     intro:
       "The return is measured in staff hours freed for patient-facing work and revenue recovered from processes that used to leak it.",
     points: [
-      "Fewer no-shows — automated reminders recover appointment slots that would otherwise sit empty.",
-      "Shorter reception queues — online booking absorbs the volume that used to require a phone call and a hold.",
-      "Faster, more accurate billing — automated claims and invoicing reduce reconciliation time and payment delays.",
-      "Reduced risk from lost records — a searchable digital record replaces the risk of a misplaced paper chart.",
-      "More time for clinical work — every admin task automated is time returned to patients instead of paperwork.",
+      "Fewer no-shows. Automated reminders recover appointment slots that would otherwise sit empty.",
+      "Shorter reception queues. Online booking absorbs the volume that used to require a phone call and a hold.",
+      "Faster, more accurate billing. Automated claims and invoicing reduce reconciliation time and payment delays.",
+      "Reduced risk from lost records. A searchable digital record replaces the risk of a misplaced paper chart.",
+      "More time for clinical work. Every admin task automated is time returned to patients instead of paperwork.",
     ],
   },
 
@@ -165,7 +166,7 @@ export const hospitalsIndustryPage: IndustryPage = {
     {
       question: "Can patients book appointments without creating an account?",
       answer:
-        "We can configure either flow — a lightweight guest booking for simplicity, or an account-based portal that also gives patients access to their history and results.",
+        "We can configure either flow, a lightweight guest booking for simplicity, or an account-based portal that also gives patients access to their history and results.",
     },
     {
       question: "Does the billing system handle insurance claims?",
@@ -175,7 +176,7 @@ export const hospitalsIndustryPage: IndustryPage = {
     {
       question: "Can this integrate with equipment or lab systems we already use?",
       answer:
-        "In most cases, yes — we scope integration with existing lab or diagnostic systems during discovery so results flow into the patient record automatically.",
+        "In most cases, yes. We scope integration with existing lab or diagnostic systems during discovery so results flow into the patient record automatically.",
     },
   ],
 

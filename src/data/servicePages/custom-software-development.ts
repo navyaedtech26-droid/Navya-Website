@@ -9,7 +9,7 @@ export const customSoftwareDevelopmentServicePage: ServicePage = {
   highlight: "Built Around Your Workflow",
 
   heroSubtitle:
-    "Off-the-shelf software makes you adapt your business to its limits. We build the reverse — software shaped exactly around how your team actually works, so the tool disappears and the work just moves faster.",
+    "Off-the-shelf software makes you adapt your business to its limits. We build the reverse, software shaped exactly around how your team actually works, so the tool disappears and the work just moves faster.",
 
   heroImage: "/vector/custom-software-development.avif",
 
@@ -28,7 +28,7 @@ export const customSoftwareDevelopmentServicePage: ServicePage = {
 
   overview: {
     whatIsIt:
-      "Software engineered from your actual processes and constraints — not configured from a template that assumes a generic business.",
+      "Software engineered from your actual processes and constraints, not configured from a template that assumes a generic business.",
     whoNeedsIt:
       "Businesses whose growth is capped by manual workarounds, spreadsheet chains, or off-the-shelf tools that almost fit but never quite do.",
     businessValue:
@@ -45,12 +45,12 @@ export const customSoftwareDevelopmentServicePage: ServicePage = {
     title: "Why Is Generic Software",
     highlight: "Quietly Taxing Your Operations?",
     intro:
-      "Most businesses don't notice the cost of an ill-fitting tool — it shows up as small workarounds, repeated across every team, every day, for years.",
+      "Most businesses don't notice the cost of an ill-fitting tool. It shows up as small workarounds, repeated across every team, every day, for years.",
     painPoints: [
       {
         title: "Your team builds workarounds for gaps in the tool",
         description:
-          "A spreadsheet bridges what the software can't do, a shared doc tracks what the CRM doesn't capture — and each patch becomes one more thing that can break silently.",
+          "A spreadsheet bridges what the software can't do, a shared doc tracks what the CRM doesn't capture, and each patch becomes one more thing that can break silently.",
       },
       {
         title: "You're paying per seat for features you don't use",
@@ -60,22 +60,22 @@ export const customSoftwareDevelopmentServicePage: ServicePage = {
       {
         title: "Data lives in five places that don't talk to each other",
         description:
-          "Orders in one system, inventory in another, customer records in a third — so a simple question means manually reconciling three exports before anyone gets an answer.",
+          "Orders in one system, inventory in another, customer records in a third, so a simple question means manually reconciling three exports before anyone gets an answer.",
       },
       {
         title: "Every process change means a support ticket",
         description:
-          "A vendor's roadmap decides what your software can do next, not your business — so an urgent operational change waits in a queue you don't control.",
+          "A vendor's roadmap decides what your software can do next, not your business, so an urgent operational change waits in a queue you don't control.",
       },
       {
         title: "The tool doesn't scale the way your business does",
         description:
-          "What worked at ten staff starts to buckle at fifty — approval chains, reporting, and permissions were never designed for your current scale.",
+          "What worked at ten staff starts to buckle at fifty. Approval chains, reporting, and permissions were never designed for your current scale.",
       },
       {
         title: "You own nothing at the end of it",
         description:
-          "Years of subscription payments leave you with no asset — cancel the plan and the operational muscle memory it encoded disappears with it.",
+          "Years of subscription payments leave you with no asset. Cancel the plan and the operational muscle memory it encoded disappears with it.",
       },
     ],
   },
@@ -84,13 +84,13 @@ export const customSoftwareDevelopmentServicePage: ServicePage = {
     title: "What Purpose-Built Software",
     highlight: "Actually Changes?",
     intro:
-      "A system built around your real process removes friction at the exact points your team feels it daily — not the points a vendor's roadmap prioritized.",
+      "A system built around your real process removes friction at the exact points your team feels it daily, not the points a vendor's roadmap prioritized.",
     points: [
       {
         icon: Gauge,
         title: "Work moves at the speed of the process, not the tool",
         description:
-          "Screens and workflows match how your team actually operates, so tasks that took workarounds now happen in the software directly — faster, with fewer handoffs.",
+          "Screens and workflows match how your team actually operates, so tasks that took workarounds now happen in the software directly, faster, with fewer handoffs.",
       },
       {
         icon: Layers,
@@ -108,7 +108,7 @@ export const customSoftwareDevelopmentServicePage: ServicePage = {
         icon: ShieldCheck,
         title: "You control the roadmap, not a vendor",
         description:
-          "Every future change — a new approval rule, a new report, a new integration — is a conversation with your own engineering partner, not a feature request in a public queue.",
+          "Every future change (a new approval rule, a new report, a new integration) is a conversation with your own engineering partner, not a feature request in a public queue.",
       },
     ],
   },
@@ -117,13 +117,13 @@ export const customSoftwareDevelopmentServicePage: ServicePage = {
     title: "Where Does the Return",
     highlight: "Actually Come From?",
     intro:
-      "The return on custom software shows up in hours reclaimed and licenses no longer paid — both measurable against your current baseline.",
+      "The return on custom software shows up in hours reclaimed and licenses no longer paid, both measurable against your current baseline.",
     points: [
-      "Lower long-term cost than compounding SaaS subscriptions — you pay once to build the asset instead of forever to rent a partial fit.",
-      "Fewer manual reconciliation hours — one system means data is entered once and trusted everywhere, instead of re-typed across disconnected tools.",
-      "Faster process changes — an operational fix ships in days through your own engineering partner, not months through a vendor's backlog.",
-      "Reduced error rates — validation and business rules are built into the workflow itself, catching mistakes before they become costly.",
-      "An asset that compounds — the system gets more valuable as it's extended, unlike a subscription that resets to zero the moment you cancel it.",
+      "Lower long-term cost than compounding SaaS subscriptions. You pay once to build the asset instead of forever to rent a partial fit.",
+      "Fewer manual reconciliation hours. One system means data is entered once and trusted everywhere, instead of re-typed across disconnected tools.",
+      "Faster process changes. An operational fix ships in days through your own engineering partner, not months through a vendor's backlog.",
+      "Reduced error rates. Validation and business rules are built into the workflow itself, catching mistakes before they become costly.",
+      "An asset that compounds. The system gets more valuable as it's extended, unlike a subscription that resets to zero the moment you cancel it.",
     ],
   },
 
@@ -132,7 +132,7 @@ export const customSoftwareDevelopmentServicePage: ServicePage = {
       step: "01",
       title: "Process & Systems Audit",
       description:
-        "We map exactly how your team works today — the tools, the workarounds, the handoffs — before proposing a single screen.",
+        "We map exactly how your team works today (the tools, the workarounds, the handoffs) before proposing a single screen.",
     },
     {
       step: "02",
@@ -144,7 +144,7 @@ export const customSoftwareDevelopmentServicePage: ServicePage = {
       step: "03",
       title: "Iterative Design & Build",
       description:
-        "We build in reviewable sprints, with working software you can click through and correct at every stage — not a single reveal at the end.",
+        "We build in reviewable sprints, with working software you can click through and correct at every stage, not a single reveal at the end.",
     },
     {
       step: "04",
@@ -171,7 +171,7 @@ export const customSoftwareDevelopmentServicePage: ServicePage = {
       "Source code and infrastructure you own outright, with no vendor lock-in",
       "Role-based access control scoped to how your team is actually structured",
       "API documentation for every integration point, for your team or ours to extend later",
-      "A handover package — documentation, admin training, and a support plan for what comes next",
+      "A handover package, documentation, admin training, and a support plan for what comes next",
     ],
   },
 
@@ -221,17 +221,17 @@ export const customSoftwareDevelopmentServicePage: ServicePage = {
     {
       question: "How is this different from just configuring an off-the-shelf platform?",
       answer:
-        "Configuration bends your process to fit the platform's existing structure. Custom development starts from your process and builds the software to match it exactly — no compromises baked in from day one.",
+        "Configuration bends your process to fit the platform's existing structure. Custom development starts from your process and builds the software to match it exactly, no compromises baked in from day one.",
     },
     {
       question: "What if our requirements aren't fully defined yet?",
       answer:
-        "That's normal, and what the process audit is for. Most engagements start from a rough pain point — we turn it into a scoped, documented plan before development begins.",
+        "That's normal, and what the process audit is for. Most engagements start from a rough pain point. We turn it into a scoped, documented plan before development begins.",
     },
     {
       question: "Do we own the code and infrastructure after launch?",
       answer:
-        "Yes, entirely. There's no licensing arrangement or vendor lock-in — the system and its source code are yours outright.",
+        "Yes, entirely. There's no licensing arrangement or vendor lock-in. The system and its source code are yours outright.",
     },
     {
       question: "Can you integrate with the tools we already use?",
@@ -241,7 +241,7 @@ export const customSoftwareDevelopmentServicePage: ServicePage = {
     {
       question: "What happens after launch if our process changes?",
       answer:
-        "We scope ongoing support and enhancement work as your business evolves — since you own the system, any partner (including us) can extend it as needed.",
+        "We scope ongoing support and enhancement work as your business evolves, since you own the system, any partner (including us) can extend it as needed.",
     },
   ],
 

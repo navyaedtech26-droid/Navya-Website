@@ -18,7 +18,6 @@ const servicesLinks = [
   { label: "UI/UX Design", href: "/services/ui-ux-design" },
   { label: "DevOps & Cloud", href: "/services/devops" },
   { label: "IT Consulting", href: "/services/it-consulting" },
-  { label: "All Services", href: "/services" },
 ];
 
 const solutionsLinks = [

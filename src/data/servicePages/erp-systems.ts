@@ -9,7 +9,7 @@ export const erpSystemsServicePage: ServicePage = {
   highlight: "One Platform for Every Department",
 
   heroSubtitle:
-    "Finance runs one system, HR runs another, inventory a third — and every month-end close means reconciling all of them by hand. We build ERP platforms that unify finance, HR, inventory, and operations into a single source of truth.",
+    "Finance runs one system, HR runs another, inventory a third, and every month-end close means reconciling all of them by hand. We build ERP platforms that unify finance, HR, inventory, and operations into a single source of truth.",
 
   heroImage: "/vectors1/erpsolutions-clean.avif",
 
@@ -45,7 +45,7 @@ export const erpSystemsServicePage: ServicePage = {
     title: "Why Are Disconnected Departmental Systems",
     highlight: "Quietly Draining Your Team?",
     intro:
-      "Most growing businesses don't choose to run five separate systems — they accumulate them one department at a time, until nobody has one accurate view of the whole operation.",
+      "Most growing businesses don't choose to run five separate systems. They accumulate them one department at a time, until nobody has one accurate view of the whole operation.",
     painPoints: [
       {
         title: "Month-end close means manual reconciliation across systems",
@@ -84,7 +84,7 @@ export const erpSystemsServicePage: ServicePage = {
     title: "What a Unified ERP",
     highlight: "Actually Changes?",
     intro:
-      "A single platform doesn't just save time — it changes how confidently leadership can answer questions about the state of the business at any moment.",
+      "A single platform doesn't just save time. It changes how confidently leadership can answer questions about the state of the business at any moment.",
     points: [
       {
         icon: Layers,
@@ -119,11 +119,11 @@ export const erpSystemsServicePage: ServicePage = {
     intro:
       "ERP's return shows up directly in finance and operations hours reclaimed, plus the errors and delays a unified system prevents.",
     points: [
-      "Faster month-end close — real-time synced data removes the manual reconciliation that currently extends the close by days.",
-      "Reduced payroll and invoicing errors — automation removes the manual data entry steps most prone to costly mistakes.",
-      "Lower audit preparation cost — audit-ready reporting is generated on demand instead of assembled manually under time pressure.",
-      "Better margin visibility — real-time inventory-to-finance sync means leadership sees true margins immediately, not weeks later.",
-      "A system that scales with growth — new branches or product lines add data to one existing system instead of a new reconciliation burden.",
+      "Faster month-end close. Real-time synced data removes the manual reconciliation that currently extends the close by days.",
+      "Reduced payroll and invoicing errors. Automation removes the manual data entry steps most prone to costly mistakes.",
+      "Lower audit preparation cost. Audit-ready reporting is generated on demand instead of assembled manually under time pressure.",
+      "Better margin visibility. Real-time inventory-to-finance sync means leadership sees true margins immediately, not weeks later.",
+      "A system that scales with growth. New branches or product lines add data to one existing system instead of a new reconciliation burden.",
     ],
   },
 
@@ -150,7 +150,7 @@ export const erpSystemsServicePage: ServicePage = {
       step: "04",
       title: "Cross-Department Testing",
       description:
-        "We test the full data flow across departments — not just individual modules — to confirm the unified picture is accurate.",
+        "We test the full data flow across departments (not just individual modules) to confirm the unified picture is accurate.",
     },
     {
       step: "05",
@@ -225,7 +225,7 @@ export const erpSystemsServicePage: ServicePage = {
     {
       question: "Do we need to replace all our departmental systems at once?",
       answer:
-        "No — most ERP builds roll out department by department, so you see value from the first module before the next one is even built.",
+        "No. Most ERP builds roll out department by department, so you see value from the first module before the next one is even built.",
     },
     {
       question: "How is our existing financial and HR data migrated?",
@@ -235,12 +235,12 @@ export const erpSystemsServicePage: ServicePage = {
     {
       question: "Can the ERP integrate with our existing accounting or payroll provider?",
       answer:
-        "In most cases, yes — we connect to existing tools through their APIs where full replacement isn't necessary or desired.",
+        "In most cases, yes. We connect to existing tools through their APIs where full replacement isn't necessary or desired.",
     },
     {
       question: "How long before we see a return on an ERP investment?",
       answer:
-        "Most clients see the first return — reduced reconciliation time — within the first month-end close after the relevant module goes live.",
+        "Most clients see the first return (reduced reconciliation time) within the first month-end close after the relevant module goes live.",
     },
   ],
 
