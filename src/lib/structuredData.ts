@@ -53,7 +53,12 @@ export const organizationSchema = {
   ],
 };
 
-/** WebSite entity — enables sitelinks/search box eligibility. */
+/**
+ * WebSite entity — enables sitelinks/search box eligibility. `potentialAction`
+ * points at the real /blog search (Blog.tsx reads `?q=` into its filter state
+ * on mount), which is what makes the Sitelinks Search Box eligible rather than
+ * just decorative markup.
+ */
 export const websiteSchema = {
   "@context": "https://schema.org",
   "@type": "WebSite",
@@ -62,7 +67,40 @@ export const websiteSchema = {
   name: SITE_NAME,
   inLanguage: "en",
   publisher: { "@id": `${SITE_URL}/#organization` },
+  potentialAction: {
+    "@type": "SearchAction",
+    target: {
+      "@type": "EntryPoint",
+      urlTemplate: `${SITE_URL}/blog?q={search_term_string}`,
+    },
+    "query-input": "required name=search_term_string",
+  },
 };
+
+/**
+ * Build a Service schema for a single service/solution detail page. Distinct
+ * from `serviceListSchema` (an ItemList) — this is a first-class Service node
+ * with its own @id and canonical URL, which is the correct shape for a page
+ * that IS that service, rather than a page that catalogues several.
+ */
+export function serviceSchema(service: {
+  title: string;
+  description: string;
+  path: string;
+}) {
+  const url = `${SITE_URL}${service.path}`;
+  return {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "@id": `${url}#service`,
+    name: service.title,
+    description: service.description,
+    url,
+    serviceType: service.title,
+    provider: { "@id": `${SITE_URL}/#organization` },
+    areaServed: { "@type": "Country", name: "Nepal" },
+  };
+}
 
 /**
  * Build an ItemList of Service entries, each provided by the Organization.
@@ -120,7 +158,10 @@ export function articleSchema(post: {
     "@type": "BlogPosting",
     headline: post.title,
     description: post.excerpt ?? undefined,
-    image: post.cover_image ?? undefined,
+    // Google's Article rich-result eligibility requires an image — fall back
+    // to the site's branded OG card so posts without a cover image still
+    // qualify instead of silently dropping the field.
+    image: post.cover_image ?? `${SITE_URL}/og-image.jpg`,
     url: `${SITE_URL}/blog/${post.slug}`,
     datePublished: post.published_at ?? undefined,
     dateModified: post.updated_at ?? post.published_at ?? undefined,

@@ -1,9 +1,11 @@
+import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { Cookie } from "lucide-react";
 import Container from "@/components/common/Container";
 import { useConsent } from "@/context/ConsentContext";
 import { easeEntrance } from "@/lib/animations";
+import { skipEnterAnimation } from "@/lib/hydration";
 
 /**
  * Fixed cookie-consent banner. Visible until the visitor makes a choice;
@@ -12,12 +14,13 @@ import { easeEntrance } from "@/lib/animations";
  */
 export default function CookieConsent() {
   const { consent, accept, decline } = useConsent();
+  const [skipEnter] = useState(skipEnterAnimation);
 
   return (
     <AnimatePresence>
       {consent === null && (
         <motion.div
-          initial={{ y: 120, opacity: 0 }}
+          initial={skipEnter ? false : { y: 120, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           exit={{ y: 120, opacity: 0 }}
           transition={{ duration: 0.5, ease: easeEntrance }}

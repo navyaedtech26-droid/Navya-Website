@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Menu, ChevronDown } from "lucide-react";
 import { navLinks } from "@/data/navigation";
 import { easeEntrance } from "@/lib/animations";
+import { skipEnterAnimation } from "@/lib/hydration";
 import { cn } from "@/lib/utils";
 import MobileMenu from "./MobileMenu";
 
@@ -11,6 +12,7 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [hoveredMenu, setHoveredMenu] = useState<string | null>(null);
+  const [skipEnter] = useState(skipEnterAnimation);
   const location = useLocation();
   const menuToggleRef = useRef<HTMLButtonElement>(null);
 
@@ -29,7 +31,7 @@ export default function Navbar() {
   return (
     <>
       <motion.header
-        initial={{ y: -24, opacity: 0 }}
+        initial={skipEnter ? false : { y: -24, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.4, ease: easeEntrance }}
         className="fixed inset-x-0 top-0 z-50"

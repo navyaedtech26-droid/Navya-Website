@@ -3,10 +3,12 @@ import {
   SITE_URL,
   SITE_NAME,
   serviceListSchema,
+  serviceSchema,
   faqPageSchema,
   articleSchema,
   breadcrumbSchema,
   webPageSchema,
+  websiteSchema,
 } from "@/lib/structuredData";
 
 describe("serviceListSchema", () => {
@@ -29,6 +31,38 @@ describe("serviceListSchema", () => {
 
   it("handles an empty service list", () => {
     expect(serviceListSchema([]).itemListElement).toEqual([]);
+  });
+});
+
+describe("serviceSchema", () => {
+  it("builds a single Service node with a page-scoped @id", () => {
+    const schema = serviceSchema({
+      title: "Websites",
+      description: "We build sites",
+      path: "/services/websites",
+    });
+    expect(schema).toMatchObject({
+      "@type": "Service",
+      "@id": `${SITE_URL}/services/websites#service`,
+      name: "Websites",
+      description: "We build sites",
+      url: `${SITE_URL}/services/websites`,
+      serviceType: "Websites",
+      provider: { "@id": `${SITE_URL}/#organization` },
+    });
+  });
+});
+
+describe("websiteSchema", () => {
+  it("exposes a SearchAction targeting the working blog search", () => {
+    expect(websiteSchema.potentialAction).toMatchObject({
+      "@type": "SearchAction",
+      target: {
+        "@type": "EntryPoint",
+        urlTemplate: `${SITE_URL}/blog?q={search_term_string}`,
+      },
+      "query-input": "required name=search_term_string",
+    });
   });
 });
 
@@ -80,7 +114,9 @@ describe("articleSchema", () => {
     expect(schema.author.name).toBe(SITE_NAME);
     expect(schema.dateModified).toBe("2026-01-01T00:00:00Z");
     expect(schema.description).toBeUndefined();
-    expect(schema.image).toBeUndefined();
+    // Falls back to the branded OG card so the post still qualifies for
+    // Google's Article rich results, which require an image.
+    expect(schema.image).toBe(`${SITE_URL}/og-image.jpg`);
   });
 });
 

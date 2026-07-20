@@ -1,12 +1,15 @@
-import type { ReactNode } from "react";
+import { useState, type ReactNode } from "react";
 import { motion } from "framer-motion";
 import { pageTransition } from "@/lib/animations";
+import { skipEnterAnimation } from "@/lib/hydration";
 
 export default function PageTransition({ children }: { children: ReactNode }) {
+  const [skipEnter] = useState(skipEnterAnimation);
+
   return (
     <motion.main
       variants={pageTransition}
-      initial="initial"
+      initial={skipEnter ? false : "initial"}
       animate="animate"
       exit="exit"
       // `relative` makes this the containing block for the decorative

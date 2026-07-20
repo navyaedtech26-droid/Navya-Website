@@ -249,6 +249,18 @@ async function renderRoute(page, base, route) {
         }
       }
     });
+
+    // ScrollProgress binds its transform to a live scroll-position spring
+    // (see ScrollProgress.tsx) — it never settles to exactly the resting
+    // value in time for this snapshot, but a fresh client mount always
+    // starts at exactly scaleX(0). Baking any other number bakes a
+    // hydration mismatch (a *present-but-different* style attribute, which
+    // React warns on) — stripping the attribute avoids that, since a style
+    // attribute *missing* from the server markup is silently added on
+    // hydration instead of triggering a mismatch warning.
+    document.querySelectorAll("[data-scroll-progress]").forEach((el) => {
+      el.removeAttribute("style");
+    });
   });
 
   // Canonical/og:url must point at the real site, not localhost. Helmet already

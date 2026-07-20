@@ -16,7 +16,7 @@ import { fadeUp, staggerContainer, viewportOnce, easeEntrance } from "@/lib/anim
 import {
   breadcrumbSchema,
   faqPageSchema,
-  serviceListSchema,
+  serviceSchema,
 } from "@/lib/structuredData";
 import { servicePages, solutionPages } from "@/data/servicePages";
 import { industryPages } from "@/data/industryPages";
@@ -56,7 +56,7 @@ export default function ServicePageTemplate({ data }: ServicePageTemplateProps) 
             { name: sectionLabel, path: basePath },
             { name: data.title, path },
           ]),
-          serviceListSchema([{ title: data.title, description: data.seoDescription }]),
+          serviceSchema({ title: data.title, description: data.seoDescription, path }),
           faqPageSchema(data.faqs),
         ]}
       />
