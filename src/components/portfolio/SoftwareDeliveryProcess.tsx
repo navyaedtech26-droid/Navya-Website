@@ -127,7 +127,7 @@ export default function SoftwareDeliveryProcess() {
                 </div>
 
                 {/* Content Card */}
-                <div className="ml-16 md:ml-0 w-full md:w-[45%] group perspective-1000">
+                <div className="ml-16 md:ml-0 w-[calc(100%-4rem)] md:w-[45%] group perspective-1000">
                   <div className={`p-6 sm:p-8 rounded-[2rem] bg-white border border-line shadow-sm hover:shadow-card-hover transition-all duration-300 transform-gpu group-hover:-translate-y-2 relative overflow-hidden`}>
 
                     {/* Step Number Background Mark */}

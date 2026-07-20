@@ -52,6 +52,8 @@ export const navLinks: NavLink[] = [
 
 export const contactInfo = {
   email: "navyaedtech26@gmail.com",
+  facebook: "Navya EdTech",
+  facebookUrl: "https://www.facebook.com/navyaedtech26",
   instagram: "@navyaedtech",
   instagramUrl: "https://www.instagram.com/navyaedtech/",
   tiktok: "@navyaedtech",

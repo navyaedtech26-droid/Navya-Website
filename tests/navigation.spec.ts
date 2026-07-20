@@ -8,9 +8,9 @@ import { test, expect } from '@playwright/test';
  */
 const navTargets: { label: string; path: RegExp; title: RegExp }[] = [
   { label: 'About', path: /\/about$/, title: /About \| Navya EdTech/ },
-  { label: 'Services', path: /\/services$/, title: /Services \| Navya EdTech/ },
-  { label: 'Blog', path: /\/blog$/, title: /Blog \| Navya EdTech/ },
-  { label: 'Contact', path: /\/contact$/, title: /Contact \| Navya EdTech/ },
+  { label: 'Services', path: /\/services$/, title: /Custom Software & Enterprise Solutions in Nepal \| Navya EdTech/ },
+  { label: 'Blog', path: /\/blog$/, title: /Insights \| Navya EdTech/ },
+  { label: 'Contact', path: /\/contact$/, title: /Enterprise Consultation \| Navya EdTech/ },
 ];
 
 for (const { label, path, title } of navTargets) {
@@ -29,7 +29,7 @@ test('the logo returns to the home page', async ({ page }) => {
   await page.goto('/about', { waitUntil: 'domcontentloaded' });
   await page.locator('header').getByRole('link', { name: 'Navya EdTech home' }).click();
   await expect(page).toHaveURL(/\/$/);
-  await expect(page).toHaveTitle(/Navya EdTech \| Digital Transformation That Drives Growth/);
+  await expect(page).toHaveTitle(/Navya EdTech \| Enterprise IT Services & Software Development in Nepal/);
 });
 
 test('the "Let\'s Talk" button opens the contact page', async ({ page }) => {

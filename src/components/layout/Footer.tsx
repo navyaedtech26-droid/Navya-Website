@@ -1,9 +1,8 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { Mail, Instagram, Music2, Linkedin, ArrowUp, Send, CheckCircle2 } from "lucide-react";
+import { Mail, Instagram, Music2, Linkedin, Facebook, ArrowUp, Send, CheckCircle2 } from "lucide-react";
 import Container from "@/components/common/Container";
 import { contactInfo } from "@/data/navigation";
-import { obfuscateEmail } from "@/lib/utils";
 
 const companyLinks = [
   { label: "About Us", href: "/about" },
@@ -252,11 +251,14 @@ export default function Footer() {
           <div className="flex flex-wrap items-center gap-8 text-sm">
             <a href={`mailto:${contactInfo.email}`} className="flex items-center gap-3 transition-colors hover:text-brand group">
               <SocialIcon icon={Mail} />
-              {obfuscateEmail(contactInfo.email)}
+              {contactInfo.email}
             </a>
           </div>
 
           <div className="flex items-center gap-3">
+            <a href={contactInfo.facebookUrl} target="_blank" rel="noreferrer" aria-label="Facebook">
+              <SocialIcon icon={Facebook} />
+            </a>
             <a href={contactInfo.linkedinUrl} target="_blank" rel="noreferrer" aria-label="LinkedIn">
               <SocialIcon icon={Linkedin} />
             </a>

@@ -25,11 +25,10 @@ export const organizationSchema = {
   slogan: "Digital transformation that drives growth.",
   description:
     "Navya EdTech turns digital investment into measurable growth, revenue-driving websites, cost-cutting business systems, and business intelligence for founders, schools, hospitals, and enterprises.",
-  // Country-level address only — Navya operates remotely across Nepal. Add a
-  // street address + geo here if/when a public office location exists, which is
-  // what unlocks Google local-pack / map rich results.
   address: {
     "@type": "PostalAddress",
+    streetAddress: "Gwarko",
+    addressLocality: "Lalitpur",
     addressCountry: "NP",
   },
   areaServed: { "@type": "Country", name: "Nepal" },
@@ -47,6 +46,7 @@ export const organizationSchema = {
     availableLanguage: ["English", "Nepali"],
   },
   sameAs: [
+    "https://www.facebook.com/navyaedtech26",
     "https://www.instagram.com/navyaedtech/",
     "https://www.tiktok.com/@navyaedtech",
     "https://www.linkedin.com/company/navya-edtech/",

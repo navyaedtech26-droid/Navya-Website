@@ -11,7 +11,7 @@ export default function PortfolioCTA() {
         <div className="absolute inset-0 bg-brand-gradient opacity-10" />
 
         {/* Tech Grid */}
-        <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 mix-blend-overlay" />
+        <div className="noise absolute inset-0 opacity-20 mix-blend-overlay" />
 
         {/* Animated Glow Nodes */}
         <motion.div

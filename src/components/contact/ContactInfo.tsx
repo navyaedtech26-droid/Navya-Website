@@ -2,19 +2,18 @@ import { motion } from "framer-motion";
 import { MapPin, Mail, Phone, Clock, Briefcase, Headset } from "lucide-react";
 import { fadeUp, staggerContainer, viewportOnce } from "@/lib/animations";
 import { contactInfo } from "@/data/navigation";
-import { obfuscateEmail } from "@/lib/utils";
 
 const INFO_CARDS = [
   {
     icon: MapPin,
     title: "Global Headquarters",
-    content: "Kathmandu, Nepal\nAvailable worldwide",
+    content: "Gwarko, Lalitpur\nAvailable worldwide",
     delay: 0,
   },
   {
     icon: Mail,
     title: "General Email",
-    content: `${obfuscateEmail(contactInfo.email)}`,
+    content: contactInfo.email,
     link: `mailto:${contactInfo.email}`,
     delay: 0.1,
   },
@@ -34,15 +33,13 @@ const INFO_CARDS = [
   {
     icon: Briefcase,
     title: "Sales Inquiries",
-    content: `${obfuscateEmail("sales@navyaedtech.com")}\nPriority enterprise response`,
-    link: "mailto:sales@navyaedtech.com",
+    content: "Coming soon\nPriority enterprise response",
     delay: 0.4,
   },
   {
     icon: Headset,
     title: "Client Support",
-    content: `${obfuscateEmail("support@navyaedtech.com")}\n24/7 SLA monitoring`,
-    link: "mailto:support@navyaedtech.com",
+    content: "Coming soon\n24/7 SLA monitoring",
     delay: 0.5,
   },
 ];

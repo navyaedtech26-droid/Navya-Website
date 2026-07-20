@@ -3,7 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 import { X, ArrowUpRight, ChevronDown } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { navLinks, contactInfo } from "@/data/navigation";
-import { cn, obfuscateEmail } from "@/lib/utils";
+import { cn } from "@/lib/utils";
 
 interface MobileMenuProps {
   open: boolean;
@@ -162,8 +162,9 @@ export default function MobileMenu({ open, onClose, triggerRef }: MobileMenuProp
             tabIndex={open ? 0 : -1}
             className="block hover:text-primary font-medium"
           >
-            {obfuscateEmail(contactInfo.email)}
+            {contactInfo.email}
           </a>
+          <p>Facebook <a href={contactInfo.facebookUrl} className="hover:text-primary transition-colors underline decoration-line underline-offset-4">{contactInfo.facebook}</a></p>
           <p>LinkedIn <a href={contactInfo.linkedinUrl} className="hover:text-primary transition-colors underline decoration-line underline-offset-4">{contactInfo.linkedin}</a></p>
         </div>
       </aside>

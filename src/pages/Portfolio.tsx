@@ -1,7 +1,6 @@
 import Seo from "@/components/common/Seo";
 import PageTransition from "@/components/effects/PageTransition";
 import PortfolioHero from "@/components/portfolio/PortfolioHero";
-import PortfolioTrustedBy from "@/components/portfolio/PortfolioTrustedBy";
 import SoftwareDeliveryProcess from "@/components/portfolio/SoftwareDeliveryProcess";
 import PortfolioTestimonials from "@/components/portfolio/PortfolioTestimonials";
 
@@ -33,7 +32,6 @@ export default function Portfolio() {
       />
 
       <PortfolioHero />
-      <PortfolioTrustedBy />
 
       <CaseStudyGrid />
       <SoftwareDeliveryProcess />
