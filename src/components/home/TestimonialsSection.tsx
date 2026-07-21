@@ -58,7 +58,7 @@ export default function TestimonialsSection() {
           )}
         </div>
 
-        <p className="text-lg md:text-xl font-medium leading-relaxed text-heading mb-8">
+        <p className="text-lg md:text-xl font-medium leading-relaxed text-heading mb-8 text-justify">
           "{t.quote}"
         </p>
       </div>

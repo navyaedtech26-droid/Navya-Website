@@ -19,7 +19,8 @@ export const navLinks: NavLink[] = [
     label: "Solutions",
     children: [
       { label: "Digital Transformation", href: "/solutions/digital-transformation", description: "Modernize legacy systems and unify fragmented operations" },
-      { label: "ERP Systems", href: "/solutions/erp-systems", description: "Unify finance, HR, inventory, and operations in one platform" },
+      { label: "Legacy System Modernization", href: "/solutions/legacy-system-modernization", description: "Replace outdated, unsupported systems without disrupting the business" },
+      { label: "Custom ERP Development", href: "/solutions/erp-systems", description: "Unify finance, HR, inventory, and operations in one platform" },
       { label: "CRM Systems", href: "/solutions/crm-systems", description: "One source of truth for every lead and customer" },
       { label: "Billing & Invoicing", href: "/solutions/billing-invoicing", description: "Automated payments that accelerate cash flow" },
       { label: "Learning Management Systems", href: "/solutions/learning-management-systems", description: "Deliver and track training at scale" },

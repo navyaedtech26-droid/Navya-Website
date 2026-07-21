@@ -1,49 +1,36 @@
 import { motion } from "framer-motion";
-import { Lightbulb, Layers, Zap, PenTool } from "lucide-react";
+import { Lightbulb, Zap } from "lucide-react";
 import Container from "@/components/common/Container";
 import type { CaseStudy } from "@/services/caseStudies";
 
 export default function CaseStudySolution({ study }: { study: CaseStudy }) {
-  if (!study.content?.solution) return null;
+  const solution = study.content?.solution;
+  const hasApproach = Boolean(solution?.approach);
+  const hasFeatures = Boolean(solution?.features?.length);
+  if (!hasApproach && !hasFeatures) return null;
 
   const cards = [
-    {
-      title: "Architecture",
-      icon: Layers,
-      content: study.content?.solution.architecture,
-      color: "text-blue-500",
-      bg: "bg-blue-500/10",
-      border: "hover:border-blue-500/30"
+    hasApproach && {
+      title: "Our Approach",
+      icon: Lightbulb,
+      content: <p className="whitespace-pre-line">{solution!.approach}</p>,
+      color: "text-amber-500",
+      bg: "bg-amber-500/10",
+      border: "hover:border-amber-500/30"
     },
-    {
-      title: "Core Features",
+    hasFeatures && {
+      title: "Key Features",
       icon: Zap,
       content: (
         <ul className="space-y-2 list-disc list-inside">
-          {study.content?.solution?.features?.map((f, i) => <li key={i}>{f}</li>)}
+          {solution!.features.map((f, i) => <li key={i}>{f}</li>)}
         </ul>
       ),
       color: "text-emerald-500",
       bg: "bg-emerald-500/10",
       border: "hover:border-emerald-500/30"
-    },
-    {
-      title: "Dev Approach",
-      icon: Lightbulb,
-      content: study.content?.solution.approach,
-      color: "text-amber-500",
-      bg: "bg-amber-500/10",
-      border: "hover:border-amber-500/30"
-    },
-    {
-      title: "Design Process",
-      icon: PenTool,
-      content: study.content?.solution.design,
-      color: "text-violet-500",
-      bg: "bg-violet-500/10",
-      border: "hover:border-violet-500/30"
     }
-  ];
+  ].filter(Boolean) as { title: string; icon: typeof Lightbulb; content: JSX.Element; color: string; bg: string; border: string }[];
 
   return (
     <section className="py-20 lg:py-32 bg-mist relative overflow-hidden border-y border-line/50">
@@ -63,7 +50,7 @@ export default function CaseStudySolution({ study }: { study: CaseStudy }) {
           </motion.div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div className={`grid grid-cols-1 gap-8 ${cards.length > 1 ? "md:grid-cols-2" : "max-w-2xl mx-auto"}`}>
           {cards.map((card, idx) => {
             const Icon = card.icon;
             return (

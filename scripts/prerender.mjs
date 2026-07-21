@@ -46,6 +46,7 @@ const STATIC_ROUTES = [
   "/services/it-consulting",
   "/services/dedicated-developers",
   "/solutions/digital-transformation",
+  "/solutions/legacy-system-modernization",
   "/solutions/erp-systems",
   "/solutions/crm-systems",
   "/solutions/billing-invoicing",

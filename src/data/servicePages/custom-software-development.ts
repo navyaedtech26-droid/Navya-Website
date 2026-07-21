@@ -20,7 +20,6 @@ export const customSoftwareDevelopmentServicePage: ServicePage = {
     "custom software development",
     "enterprise software development Nepal",
     "bespoke business software",
-    "legacy system modernization",
     "workflow automation software",
     "custom ERP and CRM development",
     "API integration services",
@@ -253,6 +252,6 @@ export const customSoftwareDevelopmentServicePage: ServicePage = {
   },
 
   relatedServices: ["dedicated-developers", "it-consulting", "cloud-services"],
-  relatedSolutions: ["erp-systems", "crm-systems", "digital-transformation"],
+  relatedSolutions: ["erp-systems", "crm-systems", "digital-transformation", "legacy-system-modernization"],
   relatedIndustries: ["manufacturing", "hospitals", "schools"],
 };

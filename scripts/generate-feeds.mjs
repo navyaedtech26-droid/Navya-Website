@@ -37,6 +37,7 @@ const STATIC_ROUTES = [
   { path: "/services/it-consulting", changefreq: "monthly", priority: "0.7" },
   { path: "/services/dedicated-developers", changefreq: "monthly", priority: "0.7" },
   { path: "/solutions/digital-transformation", changefreq: "monthly", priority: "0.7" },
+  { path: "/solutions/legacy-system-modernization", changefreq: "monthly", priority: "0.7" },
   { path: "/solutions/erp-systems", changefreq: "monthly", priority: "0.7" },
   { path: "/solutions/crm-systems", changefreq: "monthly", priority: "0.7" },
   { path: "/solutions/billing-invoicing", changefreq: "monthly", priority: "0.7" },
@@ -82,7 +83,8 @@ const SERVICE_LINKS = [
 
 const SOLUTION_LINKS = [
   { path: "/solutions/digital-transformation", title: "Digital Transformation", note: "Modernize without the disruption." },
-  { path: "/solutions/erp-systems", title: "ERP Systems", note: "One platform for every department." },
+  { path: "/solutions/legacy-system-modernization", title: "Legacy System Modernization", note: "Replace what's holding you back, not what works." },
+  { path: "/solutions/erp-systems", title: "Custom ERP Development", note: "One platform for every department." },
   { path: "/solutions/crm-systems", title: "CRM Systems", note: "One source of truth for every lead." },
   { path: "/solutions/billing-invoicing", title: "Billing & Invoicing", note: "Payments that accelerate cash flow." },
   { path: "/solutions/learning-management-systems", title: "Learning Management Systems", note: "Training that scales and tracks itself." },

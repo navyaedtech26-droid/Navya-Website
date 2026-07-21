@@ -5,12 +5,12 @@ import { ArrowRight, type LucideIcon } from "lucide-react";
 import Container from "@/components/common/Container";
 import { fadeUp, staggerContainer } from "@/lib/animations";
 
-export interface PageHeroHighlight {
+interface PageHeroHighlight {
   icon: LucideIcon;
   label: string;
 }
 
-export interface PageHeroAction {
+interface PageHeroAction {
   label: string;
   to: string;
 }

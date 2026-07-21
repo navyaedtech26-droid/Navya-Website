@@ -19,7 +19,8 @@ Remote-first, serving clients across Nepal. Contact: navyaedtech26@gmail.com.
 ## Solutions
 
 - [Digital Transformation](https://navyaedtech.com/solutions/digital-transformation): Modernize without the disruption.
-- [ERP Systems](https://navyaedtech.com/solutions/erp-systems): One platform for every department.
+- [Legacy System Modernization](https://navyaedtech.com/solutions/legacy-system-modernization): Replace what's holding you back, not what works.
+- [Custom ERP Development](https://navyaedtech.com/solutions/erp-systems): One platform for every department.
 - [CRM Systems](https://navyaedtech.com/solutions/crm-systems): One source of truth for every lead.
 - [Billing & Invoicing](https://navyaedtech.com/solutions/billing-invoicing): Payments that accelerate cash flow.
 - [Learning Management Systems](https://navyaedtech.com/solutions/learning-management-systems): Training that scales and tracks itself.

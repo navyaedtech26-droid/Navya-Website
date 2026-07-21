@@ -24,7 +24,7 @@ export default function CaseStudyCard({ study, index = 0 }: { study: CaseStudy, 
         {study.client}
       </h3>
 
-      <p className="text-lg leading-relaxed text-faint mb-8">
+      <p className="text-lg leading-relaxed text-faint mb-8 text-justify">
         {study.summary}
       </p>
 

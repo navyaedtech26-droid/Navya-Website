@@ -13,27 +13,34 @@ export const websitesServicePage: ServicePage = {
   heroImage: "/vector/web-dev.avif",
 
   seoDescription:
-    "Conversion-engineered website development that turns your site into a 24/7 lead-generation engine, built for speed, trust, and SEO.",
+    "Conversion-engineered website development, from e-commerce builds to mobile-responsive redesigns and migrations, engineered for speed, trust, and SEO.",
 
   seoKeywords: [
     "website development",
-    "conversion-focused website design",
-    "custom website development Nepal",
-    "business website redesign",
     "e-commerce website development",
+    "e-commerce website development Nepal",
+    "custom website development Nepal",
+    "mobile-responsive web design",
+    "website redesign and migration services",
+    "business website redesign",
+    "hotel and resort booking website development",
+    "Progressive Web App development",
+    "conversion-focused website design",
     "responsive website design",
     "SEO-ready website development",
   ],
 
   overview: {
     whatIsIt: "A complete reimagining of your digital presence, engineered for performance, security, and measurable conversion.",
-    whoNeedsIt: "Growing enterprises and established businesses whose current website is creating friction for sales, marketing, or customer trust.",
+    whoNeedsIt: "Growing enterprises and established businesses, from e-commerce brands to hotels and resorts still paying commission to third-party booking platforms, whose current website is creating friction for sales, marketing, or customer trust.",
     businessValue: "Transforms a passive digital brochure into an active lead-generation engine that works 24/7.",
     benefits: [
       "Higher conversion rates through data-driven UX",
       "Sub-second load times that retain visitors",
       "Enterprise-grade security and compliance",
-      "Seamless integration with your existing CRM"
+      "Seamless integration with your existing CRM",
+      "Mobile-responsive design that performs identically on phones, tablets, and desktop",
+      "Progressive Web App capability for app-like speed and offline reliability, no app store required"
     ]
   },
 
@@ -167,6 +174,7 @@ export const websitesServicePage: ServicePage = {
       "A clickable staging link updated through every design and build milestone",
       "Cross-device and cross-browser QA before anything goes live",
       "An admin dashboard so your team can edit content without calling a developer (dynamic builds)",
+      "For redesigns and migrations, a mapped 301 redirect plan that preserves your existing URLs, rankings, and analytics history",
       "A short handover walkthrough plus documentation for whoever manages the site day to day",
     ],
   },
@@ -195,8 +203,9 @@ export const websitesServicePage: ServicePage = {
   ],
 
   technology: [
-    { category: "Frontend", items: ["React", "Next.js", "Tailwind CSS", "Framer Motion"] },
+    { category: "Frontend", items: ["React", "Next.js", "Tailwind CSS", "Framer Motion", "Progressive Web Apps (PWA)"] },
     { category: "Backend & CMS", items: ["Node.js", "PHP", "MySQL", "Custom admin dashboards"] },
+    { category: "E-Commerce & Booking", items: ["Custom online storefronts", "Payment gateway integration", "Hotel & resort direct-booking engines"] },
     { category: "Performance & SEO", items: ["Structured data", "Core Web Vitals tuning", "Semantic markup"] },
     { category: "Infrastructure", items: ["Hosting & domain setup", "SSL", "Continuous deployment"] },
   ],
@@ -207,7 +216,7 @@ export const websitesServicePage: ServicePage = {
     challenge:
       "The business was running its online store and its back-office operations as two disconnected efforts, orders, inventory, and billing all tracked separately, with no shared source of truth.",
     approach:
-      "We designed and built a unified online store paired with a custom ERP, so the storefront and the operations behind it read from the same data instead of being reconciled by hand.",
+      "We handled the full e-commerce website development end to end: a custom online store paired with a unified ERP backend, so the storefront and the operations behind it read from the same data instead of being reconciled by hand.",
     outcome:
       "Orders, inventory, and billing now run through one dashboard instead of scattered manual records, replacing guesswork with a single system the team can trust.",
   },
@@ -224,9 +233,14 @@ export const websitesServicePage: ServicePage = {
         "Yes, for dynamic builds. We include an admin dashboard so your team can edit content, pricing, and pages directly, no developer required for routine changes.",
     },
     {
-      question: "Can you rebuild our existing site instead of starting over?",
+      question: "Can you redesign or migrate our existing website without losing our SEO rankings?",
       answer:
-        "Yes. We audit what's already working (traffic sources, ranking pages, brand assets) and rebuild the rest on a faster, more conversion-focused foundation, typically without downtime.",
+        "Yes. We audit what's already working (traffic sources, ranking pages, backlinks, brand assets) and carry that equity forward with a mapped 301 redirect plan, so a redesign or platform migration improves the site instead of resetting years of SEO progress, typically without downtime.",
+    },
+    {
+      question: "Will my new website actually be mobile-responsive, not just \"mobile-friendly\"?",
+      answer:
+        "Every site is designed mobile-first, not adapted afterward, so layouts, forms, and navigation are built and tested on real phones and tablets before desktop, the same standard our e-commerce and PWA builds are held to.",
     },
     {
       question: "Do you handle SEO, or just the build?",

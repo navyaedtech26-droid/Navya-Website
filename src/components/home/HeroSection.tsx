@@ -67,7 +67,7 @@ export default function HeroSection() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, ease: "easeOut", delay: 0.2 }}
-              className="mt-6 text-lg sm:text-xl leading-relaxed text-faint max-w-xl"
+              className="mt-6 text-lg sm:text-xl leading-relaxed text-faint max-w-xl text-justify"
             >
               We architect custom digital solutions that solve complex operational bottlenecks. From cloud infrastructure to tailored business systems, we build technology that drives measurable impact.
             </motion.p>

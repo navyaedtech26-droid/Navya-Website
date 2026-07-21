@@ -1,4 +1,4 @@
-import { School, Users, FileText, Smartphone, Bell, LayoutDashboard, BarChart3, ShieldCheck } from "lucide-react";
+import { School, Users, FileText, Smartphone, Bell, LayoutDashboard, BarChart3, ShieldCheck, BookOpen } from "lucide-react";
 import type { IndustryPage } from "@/types";
 
 export const schoolsIndustryPage: IndustryPage = {
@@ -20,6 +20,9 @@ export const schoolsIndustryPage: IndustryPage = {
     "school management system",
     "school ERP software",
     "school website development",
+    "school admissions and enrollment software",
+    "learning management system for schools",
+    "student information system for schools",
     "student attendance system",
     "fee management software for schools",
     "parent communication app",
@@ -72,7 +75,13 @@ export const schoolsIndustryPage: IndustryPage = {
         icon: LayoutDashboard,
         title: "School management system",
         description:
-          "One platform for admissions, attendance, grading, timetables, and staff records, replacing five disconnected spreadsheets with a single source of truth.",
+          "A single student information system covering admissions, attendance, grading, timetables, and staff records, replacing five disconnected spreadsheets with one source of truth.",
+      },
+      {
+        icon: BookOpen,
+        title: "Learning management system for schools",
+        description:
+          "Homework, class materials, and online learning delivered through the same platform, so teaching resources aren't scattered across chat groups and photocopied handouts.",
       },
       {
         icon: Bell,
@@ -179,6 +188,16 @@ export const schoolsIndustryPage: IndustryPage = {
       answer:
         "Yes. We typically pair the management system with a fast, SEO-ready admissions website, since the two work together to convert inquiries into enrollments.",
     },
+    {
+      question: "Do you build a learning management system (LMS) for schools, not just the admin side?",
+      answer:
+        "Yes. We build or integrate an LMS alongside the school management system, so homework, class materials, and online learning content live in the same platform parents and teachers already use.",
+    },
+    {
+      question: "Is this a full school ERP, or separate tools stitched together?",
+      answer:
+        "It's built as a unified school ERP. Admissions, attendance, fees, and staff records all read from one system, not individual modules bolted together after the fact.",
+    },
   ],
 
   cta: {
@@ -189,5 +208,5 @@ export const schoolsIndustryPage: IndustryPage = {
 
   relatedIndustries: ["colleges", "ngos"],
   relatedServices: ["systems", "websites", "business-intelligence"],
-  relatedSolutions: ["learning-management-systems", "billing-invoicing"],
+  relatedSolutions: ["learning-management-systems", "erp-systems", "billing-invoicing"],
 };

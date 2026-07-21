@@ -7,7 +7,7 @@ import IconBadge from "@/components/common/IconBadge";
 import TiltCard from "@/components/effects/TiltCard";
 import { fadeUp, staggerContainer, viewportOnce } from "@/lib/animations";
 
-export interface RelatedLinkItem {
+interface RelatedLinkItem {
   href: string;
   icon: LucideIcon;
   color?: string;

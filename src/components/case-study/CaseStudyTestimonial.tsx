@@ -4,7 +4,8 @@ import Container from "@/components/common/Container";
 import type { CaseStudy } from "@/services/caseStudies";
 
 export default function CaseStudyTestimonial({ study }: { study: CaseStudy }) {
-  if (!study.content?.testimonial) return null;
+  const testimonial = study.content?.testimonial;
+  if (!testimonial?.quote) return null;
 
   return (
     <section className="py-24 lg:py-32 bg-primary text-white relative overflow-hidden">
@@ -29,7 +30,7 @@ export default function CaseStudyTestimonial({ study }: { study: CaseStudy }) {
             transition={{ delay: 0.1 }}
             className="font-display text-2xl sm:text-3xl lg:text-4xl font-medium leading-relaxed mb-12"
           >
-            "{study.content?.testimonial.quote}"
+            "{testimonial.quote}"
           </motion.p>
 
           <motion.div
@@ -39,16 +40,18 @@ export default function CaseStudyTestimonial({ study }: { study: CaseStudy }) {
             transition={{ delay: 0.2 }}
             className="flex items-center justify-center gap-6"
           >
-            <div className="w-16 h-16 rounded-full overflow-hidden border-2 border-white/20 shadow-xl shrink-0">
-              <img 
-                src={study.content?.testimonial.image} 
-                alt={study.content?.testimonial.author} 
-                className="w-full h-full object-cover"
-              />
-            </div>
+            {testimonial.image && (
+              <div className="w-16 h-16 rounded-full overflow-hidden border-2 border-white/20 shadow-xl shrink-0">
+                <img
+                  src={testimonial.image}
+                  alt={testimonial.author}
+                  className="w-full h-full object-cover"
+                />
+              </div>
+            )}
             <div className="text-left">
-              <div className="font-bold text-lg">{study.content?.testimonial.author}</div>
-              <div className="text-white/70">{study.content?.testimonial.position}, {study.content?.testimonial.company}</div>
+              <div className="font-bold text-lg">{testimonial.author}</div>
+              <div className="text-white/70">{testimonial.position}, {testimonial.company}</div>
             </div>
           </motion.div>
         </div>

@@ -90,10 +90,7 @@ export default function CompanyStory() {
                   variants={fadeUp} 
                   className="relative p-8 rounded-3xl bg-white border border-line/40 shadow-sm transition-all duration-300 hover:shadow-xl hover:-translate-y-1"
                 >
-                  <span className="absolute -top-4 left-8 px-4 py-1.5 text-xs font-bold tracking-widest uppercase text-white bg-primary rounded-full shadow-lg shadow-primary/30">
-                    {m.year}
-                  </span>
-                  <h4 className="mt-4 font-display text-xl font-bold text-heading">{m.title}</h4>
+                  <h4 className="font-display text-xl font-bold text-heading">{m.title}</h4>
                   <p className="mt-3 text-base text-faint leading-relaxed">{m.description}</p>
                 </motion.div>
               ))}

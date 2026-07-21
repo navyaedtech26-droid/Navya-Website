@@ -46,7 +46,7 @@ export default function FeaturesSection() {
                 {feature.title}
               </h3>
 
-              <p className="text-base leading-relaxed text-faint font-medium">
+              <p className="text-base leading-relaxed text-faint font-medium text-justify">
                 {feature.description}
               </p>
             </motion.div>

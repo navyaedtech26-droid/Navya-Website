@@ -51,7 +51,7 @@ const ACCENTS = {
   },
 } as const;
 
-export type CaseStudyAccent = keyof typeof ACCENTS;
+type CaseStudyAccent = keyof typeof ACCENTS;
 export type AccentClasses = (typeof ACCENTS)[CaseStudyAccent];
 
 /** Falls back to `blue` (the admin form's default) for unrecognized/legacy values. */

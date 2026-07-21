@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState, type FormEvent } from "react";
+import { useEffect, useMemo, useState, type FormEvent, type ReactNode } from "react";
 import {
   Plus,
   Pencil,
@@ -17,6 +17,11 @@ import {
   type CaseStudyInput,
 } from "@/services/admin";
 import { uploadPortfolioImage } from "@/services/storage";
+import {
+  normalizeCaseStudyContent,
+  EMPTY_CASE_STUDY_CONTENT,
+  type CaseStudyContent,
+} from "@/services/caseStudies";
 import type { CaseStudyRow } from "@/types/database";
 import {
   PageHeader,
@@ -48,6 +53,8 @@ function slugify(value: string): string {
     .replace(/^-+|-+$/g, "");
 }
 
+const splitCsv = (v: string): string[] => v.split(",").map((s) => s.trim()).filter(Boolean);
+
 const EMPTY: CaseStudyInput = {
   slug: "",
   client: "",
@@ -62,16 +69,7 @@ const EMPTY: CaseStudyInput = {
   challenge: "",
   solution_short: "",
   tags: [],
-  content: {
-    overview: { company: "", goals: [], background: "" },
-    challenges: { description: "", painPoints: [], technicalLimitations: [] },
-    solution: { architecture: "", features: [], approach: "", design: "" },
-    techStack: { frontend: [], backend: [], cloud: [], database: [], devops: [], ai: [] },
-    developmentProcess: { timeline: "", methodology: "", milestones: [] },
-    results: { businessImpact: "", kpis: [], performance: [], outcomes: [] },
-    gallery: [],
-    testimonial: { quote: "", author: "", position: "", company: "", image: "" }
-  },
+  content: EMPTY_CASE_STUDY_CONTENT,
   status: "draft",
   published_at: null,
 };
@@ -373,7 +371,7 @@ function CaseStudyForm({
     challenge: initial.challenge || "",
     solution_short: initial.solution_short || "",
     tags: initial.tags || [],
-    content: initial.content || EMPTY.content,
+    content: normalizeCaseStudyContent(initial.content),
     status: initial.status || "draft",
     published_at: initial.published_at || null,
   });
@@ -383,6 +381,12 @@ function CaseStudyForm({
   const [busy, setBusy] = useState(false);
   const [uploadingImage, setUploadingImage] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [tagsText, setTagsText] = useState((initial.tags || []).join(", "));
+
+  const content = data.content as CaseStudyContent;
+  const setContent = <K extends keyof CaseStudyContent>(key: K, value: CaseStudyContent[K]) => {
+    setData((prev) => ({ ...prev, content: { ...(prev.content as CaseStudyContent), [key]: value } }));
+  };
 
   const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -408,10 +412,14 @@ function CaseStudyForm({
     setBusy(true);
     setError(null);
 
+    // Flush the tags text directly rather than trusting `data.tags` — an
+    // Enter-key submit can fire before the field's onBlur commits the value.
+    const payload = { ...data, tags: splitCsv(tagsText) };
+
     const isNew = !("id" in initial);
     const res = isNew
-      ? await createCaseStudy(data)
-      : await updateCaseStudy(initial.id as string, data, initial.status!);
+      ? await createCaseStudy(payload)
+      : await updateCaseStudy(initial.id as string, payload, initial.status!);
 
     setBusy(false);
     if (res.error) {
@@ -444,7 +452,7 @@ function CaseStudyForm({
                   : "border-transparent text-[#6c757d] hover:text-[#212529]"
               )}
             >
-              {tab === "general" ? "General Information" : "Detailed Content (JSON)"}
+              {tab === "general" ? "General Information" : "Detailed Content"}
             </button>
           ))}
         </div>
@@ -605,13 +613,9 @@ function CaseStudyForm({
               <input
                 id="tags"
                 type="text"
-                value={data.tags?.join(", ") || ""}
-                onChange={(e) =>
-                  setData({
-                    ...data,
-                    tags: e.target.value.split(",").map((t) => t.trim()).filter(Boolean),
-                  })
-                }
+                value={tagsText}
+                onChange={(e) => setTagsText(e.target.value)}
+                onBlur={() => setData((prev) => ({ ...prev, tags: splitCsv(tagsText) }))}
                 className={inputCls}
                 placeholder="React, Node.js, AWS"
               />
@@ -656,38 +660,398 @@ function CaseStudyForm({
             </div>
           </div>
         ) : (
-          <div className="space-y-4">
-            <p className="text-sm text-[#6c757d] mb-2">
-              For complex nested data, you can edit the JSON directly. Ensure it matches the Case Study interface.
+          <div className="space-y-6">
+            <p className="text-sm text-[#6c757d]">
+              These sections power the rest of the case study page — leave a section blank and
+              it's simply hidden on the page.
             </p>
-            <Field label="Content JSON" htmlFor="content">
-              <textarea
-                id="content"
-                rows={20}
-                required
-                value={typeof data.content === "string" ? data.content : JSON.stringify(data.content, null, 2)}
-                onChange={(e) => {
-                  const val = e.target.value;
-                  setData((prev) => ({ ...prev, content: val }));
-                }}
-                onBlur={() => {
-                  try {
-                    if (typeof data.content === "string") {
-                      const parsed = JSON.parse(data.content);
-                      setData((prev) => ({ ...prev, content: parsed }));
-                    }
-                  } catch {
-                    toast.error("Invalid JSON format");
+
+            <ContentSection title="Client Overview">
+              <Field label="Company description" hint="Who they are, in a sentence or two.">
+                <textarea
+                  rows={2}
+                  className={inputCls}
+                  value={content.overview.company}
+                  onChange={(e) =>
+                    setContent("overview", { ...content.overview, company: e.target.value })
                   }
-                }}
-                className={cn(inputCls, "font-mono text-xs leading-relaxed")}
+                />
+              </Field>
+              <Field label="Background" hint="The situation before this project.">
+                <textarea
+                  rows={3}
+                  className={inputCls}
+                  value={content.overview.background}
+                  onChange={(e) =>
+                    setContent("overview", { ...content.overview, background: e.target.value })
+                  }
+                />
+              </Field>
+              <StringListField
+                label="Primary objectives"
+                values={content.overview.goals}
+                onChange={(v) => setContent("overview", { ...content.overview, goals: v })}
               />
-            </Field>
+            </ContentSection>
+
+            <ContentSection title="Business Challenges">
+              <Field label="Description">
+                <textarea
+                  rows={2}
+                  className={inputCls}
+                  value={content.challenges.description}
+                  onChange={(e) =>
+                    setContent("challenges", { ...content.challenges, description: e.target.value })
+                  }
+                />
+              </Field>
+              <StringListField
+                label="Key challenges"
+                values={content.challenges.points}
+                onChange={(v) => setContent("challenges", { ...content.challenges, points: v })}
+              />
+            </ContentSection>
+
+            <ContentSection title="The Solution">
+              <Field label="Our approach" hint="How the problem was solved.">
+                <textarea
+                  rows={3}
+                  className={inputCls}
+                  value={content.solution.approach}
+                  onChange={(e) =>
+                    setContent("solution", { ...content.solution, approach: e.target.value })
+                  }
+                />
+              </Field>
+              <StringListField
+                label="Key features"
+                values={content.solution.features}
+                onChange={(v) => setContent("solution", { ...content.solution, features: v })}
+              />
+            </ContentSection>
+
+            <ContentSection title="Development Process">
+              <Field label="Methodology">
+                <input
+                  className={inputCls}
+                  placeholder="e.g. Agile Scrum"
+                  value={content.developmentProcess.methodology}
+                  onChange={(e) =>
+                    setContent("developmentProcess", {
+                      ...content.developmentProcess,
+                      methodology: e.target.value,
+                    })
+                  }
+                />
+              </Field>
+              <MilestoneListField
+                values={content.developmentProcess.milestones}
+                onChange={(v) =>
+                  setContent("developmentProcess", { ...content.developmentProcess, milestones: v })
+                }
+              />
+            </ContentSection>
+
+            <ContentSection title="Measurable Results">
+              <Field label="Business impact summary">
+                <textarea
+                  rows={2}
+                  className={inputCls}
+                  value={content.results.businessImpact}
+                  onChange={(e) =>
+                    setContent("results", { ...content.results, businessImpact: e.target.value })
+                  }
+                />
+              </Field>
+              <KpiListField
+                values={content.results.kpis}
+                onChange={(v) => setContent("results", { ...content.results, kpis: v })}
+              />
+              <StringListField
+                label="Key outcomes"
+                values={content.results.outcomes}
+                onChange={(v) => setContent("results", { ...content.results, outcomes: v })}
+              />
+            </ContentSection>
+
+            <ContentSection title="Project Gallery">
+              <GalleryField values={content.gallery} onChange={(v) => setContent("gallery", v)} />
+            </ContentSection>
+
+            <ContentSection title="Client Testimonial">
+              <Field label="Quote">
+                <textarea
+                  rows={3}
+                  className={inputCls}
+                  value={content.testimonial.quote}
+                  onChange={(e) =>
+                    setContent("testimonial", { ...content.testimonial, quote: e.target.value })
+                  }
+                />
+              </Field>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <Field label="Author name">
+                  <input
+                    className={inputCls}
+                    value={content.testimonial.author}
+                    onChange={(e) =>
+                      setContent("testimonial", { ...content.testimonial, author: e.target.value })
+                    }
+                  />
+                </Field>
+                <Field label="Position">
+                  <input
+                    className={inputCls}
+                    placeholder="e.g. Founder & CEO"
+                    value={content.testimonial.position}
+                    onChange={(e) =>
+                      setContent("testimonial", { ...content.testimonial, position: e.target.value })
+                    }
+                  />
+                </Field>
+                <Field label="Company">
+                  <input
+                    className={inputCls}
+                    value={content.testimonial.company}
+                    onChange={(e) =>
+                      setContent("testimonial", { ...content.testimonial, company: e.target.value })
+                    }
+                  />
+                </Field>
+                <Field label="Photo">
+                  <ImageUrlField
+                    value={content.testimonial.image}
+                    onChange={(url) =>
+                      setContent("testimonial", { ...content.testimonial, image: url })
+                    }
+                  />
+                </Field>
+              </div>
+            </ContentSection>
           </div>
         )}
 
         <FormActions onCancel={onCancel} busy={busy} submitLabel="Save Case Study" />
       </form>
     </Modal>
+  );
+}
+
+/** Bordered block that groups one part of the Detailed Content tab. */
+function ContentSection({ title, children }: { title: string; children: ReactNode }) {
+  return (
+    <div className="rounded-[3px] border border-[#dee2e6] bg-[#f9fafb] p-4 space-y-4">
+      <h4 className="text-sm font-semibold text-[#212529]">{title}</h4>
+      {children}
+    </div>
+  );
+}
+
+/** Editable string array as one-item-per-line text, so full sentences with commas stay intact. */
+function StringListField({
+  label,
+  values,
+  onChange,
+}: {
+  label: string;
+  values: string[];
+  onChange: (next: string[]) => void;
+}) {
+  return (
+    <Field label={label} hint="One item per line.">
+      <textarea
+        rows={Math.max(2, Math.min(6, values.length + 1))}
+        className={inputCls}
+        value={values.join("\n")}
+        onChange={(e) => onChange(e.target.value.split("\n"))}
+        onBlur={(e) =>
+          onChange(
+            e.target.value
+              .split("\n")
+              .map((v) => v.trim())
+              .filter(Boolean)
+          )
+        }
+      />
+    </Field>
+  );
+}
+
+/** Repeatable label/value rows for the Results KPI grid. */
+function KpiListField({
+  values,
+  onChange,
+}: {
+  values: { label: string; value: string }[];
+  onChange: (next: { label: string; value: string }[]) => void;
+}) {
+  const update = (idx: number, key: "label" | "value", v: string) =>
+    onChange(values.map((k, i) => (i === idx ? { ...k, [key]: v } : k)));
+  const remove = (idx: number) => onChange(values.filter((_, i) => i !== idx));
+  const add = () => onChange([...values, { label: "", value: "" }]);
+
+  return (
+    <div className="space-y-2">
+      <label className="text-sm font-medium text-[#212529]">Key metrics (KPIs)</label>
+      {values.map((kpi, idx) => (
+        <div key={idx} className="flex gap-2">
+          <input
+            className={cn(inputCls, "flex-1")}
+            placeholder="Label, e.g. Fulfillment Speed"
+            value={kpi.label}
+            onChange={(e) => update(idx, "label", e.target.value)}
+          />
+          <input
+            className={cn(inputCls, "max-w-[140px]")}
+            placeholder="Value, e.g. +40%"
+            value={kpi.value}
+            onChange={(e) => update(idx, "value", e.target.value)}
+          />
+          <IconButton label="Remove metric" danger onClick={() => remove(idx)}>
+            <Trash2 size={16} />
+          </IconButton>
+        </div>
+      ))}
+      <button
+        type="button"
+        onClick={add}
+        className="text-sm font-medium text-[#007bff] hover:underline"
+      >
+        + Add metric
+      </button>
+    </div>
+  );
+}
+
+/** Repeatable title/description rows for the Development Process timeline. */
+function MilestoneListField({
+  values,
+  onChange,
+}: {
+  values: { title: string; desc: string }[];
+  onChange: (next: { title: string; desc: string }[]) => void;
+}) {
+  const update = (idx: number, key: "title" | "desc", v: string) =>
+    onChange(values.map((m, i) => (i === idx ? { ...m, [key]: v } : m)));
+  const remove = (idx: number) => onChange(values.filter((_, i) => i !== idx));
+  const add = () => onChange([...values, { title: "", desc: "" }]);
+
+  return (
+    <div className="space-y-2">
+      <label className="text-sm font-medium text-[#212529]">Milestones</label>
+      {values.map((m, idx) => (
+        <div key={idx} className="flex gap-2 items-start rounded-[3px] border border-[#ced4da] bg-white p-3">
+          <div className="flex-1 space-y-2">
+            <input
+              className={inputCls}
+              placeholder="Milestone title, e.g. Discovery & Architecture"
+              value={m.title}
+              onChange={(e) => update(idx, "title", e.target.value)}
+            />
+            <textarea
+              rows={2}
+              className={inputCls}
+              placeholder="What happened in this phase"
+              value={m.desc}
+              onChange={(e) => update(idx, "desc", e.target.value)}
+            />
+          </div>
+          <IconButton label="Remove milestone" danger onClick={() => remove(idx)}>
+            <Trash2 size={16} />
+          </IconButton>
+        </div>
+      ))}
+      <button
+        type="button"
+        onClick={add}
+        className="text-sm font-medium text-[#007bff] hover:underline"
+      >
+        + Add milestone
+      </button>
+    </div>
+  );
+}
+
+/** A single image URL field with an upload-to-storage shortcut. Shared by gallery rows and the testimonial photo. */
+function ImageUrlField({
+  value,
+  onChange,
+  placeholder,
+}: {
+  value: string;
+  onChange: (url: string) => void;
+  placeholder?: string;
+}) {
+  const toast = useToast();
+  const [uploading, setUploading] = useState(false);
+
+  const handleUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    e.target.value = "";
+    if (!file) return;
+    setUploading(true);
+    const { url, error } = await uploadPortfolioImage(file);
+    setUploading(false);
+    if (error) {
+      toast.error(error);
+      return;
+    }
+    if (url) onChange(url);
+  };
+
+  return (
+    <div className="flex gap-2">
+      <input
+        className={cn(inputCls, "flex-1")}
+        placeholder={placeholder || "https://..."}
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
+      />
+      <label
+        className={cn(
+          "flex cursor-pointer items-center justify-center gap-2 rounded-[3px] border border-[#ced4da] bg-white px-3 py-2 text-sm font-medium text-[#495057] transition-colors hover:bg-[#f8f9fa]",
+          uploading && "opacity-50 pointer-events-none"
+        )}
+      >
+        <Upload size={16} />
+        {uploading ? "Uploading..." : "Upload"}
+        <input type="file" accept="image/*" className="hidden" onChange={handleUpload} />
+      </label>
+    </div>
+  );
+}
+
+/** Gallery images: a list of {@link ImageUrlField} rows plus add/remove. */
+function GalleryField({
+  values,
+  onChange,
+}: {
+  values: string[];
+  onChange: (next: string[]) => void;
+}) {
+  const update = (idx: number, v: string) => onChange(values.map((u, i) => (i === idx ? v : u)));
+  const remove = (idx: number) => onChange(values.filter((_, i) => i !== idx));
+  const add = () => onChange([...values, ""]);
+
+  return (
+    <div className="space-y-2">
+      {values.map((url, idx) => (
+        <div key={idx} className="flex gap-2 items-center">
+          <div className="flex-1">
+            <ImageUrlField value={url} onChange={(v) => update(idx, v)} placeholder="Gallery image URL" />
+          </div>
+          <IconButton label="Remove image" danger onClick={() => remove(idx)}>
+            <Trash2 size={16} />
+          </IconButton>
+        </div>
+      ))}
+      <button
+        type="button"
+        onClick={add}
+        className="text-sm font-medium text-[#007bff] hover:underline"
+      >
+        + Add gallery image
+      </button>
+    </div>
   );
 }

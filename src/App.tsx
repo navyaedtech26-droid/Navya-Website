@@ -34,6 +34,7 @@ const ServiceDevOps = lazy(() => import("@/pages/services/DevOps"));
 const ServiceItConsulting = lazy(() => import("@/pages/services/ItConsulting"));
 const ServiceDedicatedDevelopers = lazy(() => import("@/pages/services/DedicatedDevelopers"));
 const SolutionDigitalTransformation = lazy(() => import("@/pages/solutions/DigitalTransformation"));
+const SolutionLegacyModernization = lazy(() => import("@/pages/solutions/LegacySystemModernization"));
 const SolutionErpSystems = lazy(() => import("@/pages/solutions/ErpSystems"));
 const SolutionCrmSystems = lazy(() => import("@/pages/solutions/CrmSystems"));
 const SolutionBillingInvoicing = lazy(() => import("@/pages/solutions/BillingInvoicing"));
@@ -201,6 +202,7 @@ export default function App() {
               <Route path="/services/it-consulting" element={<ServiceItConsulting />} />
               <Route path="/services/dedicated-developers" element={<ServiceDedicatedDevelopers />} />
               <Route path="/solutions/digital-transformation" element={<SolutionDigitalTransformation />} />
+              <Route path="/solutions/legacy-system-modernization" element={<SolutionLegacyModernization />} />
               <Route path="/solutions/erp-systems" element={<SolutionErpSystems />} />
               <Route path="/solutions/crm-systems" element={<SolutionCrmSystems />} />
               <Route path="/solutions/billing-invoicing" element={<SolutionBillingInvoicing />} />

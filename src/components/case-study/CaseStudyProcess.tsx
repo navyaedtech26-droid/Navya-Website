@@ -23,7 +23,7 @@ export default function CaseStudyProcess({ study }: { study: CaseStudy }) {
               <div className="flex flex-col gap-4 bg-white p-6 rounded-3xl border border-line shadow-sm">
                 <div>
                   <div className="text-xs font-bold text-faint uppercase tracking-wider mb-1">Timeline</div>
-                  <div className="text-lg font-bold text-heading">{study.content?.developmentProcess.timeline}</div>
+                  <div className="text-lg font-bold text-heading">{study.duration}</div>
                 </div>
                 <div className="pt-4 border-t border-line/50">
                   <div className="text-xs font-bold text-faint uppercase tracking-wider mb-1">Methodology</div>

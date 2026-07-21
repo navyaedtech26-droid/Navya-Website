@@ -38,13 +38,6 @@ export interface StatItem {
   label: string;
 }
 
-export interface ProcessStep {
-  step: string;
-  icon: LucideIcon;
-  title: string;
-  description: string;
-}
-
 export interface ValueItem {
   icon: LucideIcon;
   title: string;
@@ -56,35 +49,35 @@ export interface ValueItem {
  * (e.g. /services/websites) — problem/impact/ROI/workflow/implementation/
  * timeline/technology/case study/FAQ/CTA, in that order.
  */
-export interface ServicePainPoint {
+interface ServicePainPoint {
   title: string;
   description: string;
 }
 
-export interface ServiceImpactPoint {
+interface ServiceImpactPoint {
   icon: LucideIcon;
   title: string;
   description: string;
 }
 
-export interface ServiceWorkflowStep {
+interface ServiceWorkflowStep {
   step: string;
   title: string;
   description: string;
 }
 
-export interface ServiceTimelinePhase {
+interface ServiceTimelinePhase {
   phase: string;
   duration: string;
   description: string;
 }
 
-export interface ServiceTechGroup {
+interface ServiceTechGroup {
   category: string;
   items: string[];
 }
 
-export interface ServiceCaseStudy {
+interface ServiceCaseStudy {
   /** True for an honest, unnamed representative engagement rather than a named client. */
   illustrative?: boolean;
   client: string;
@@ -160,24 +153,24 @@ export interface ServicePage {
  * (e.g. /industries/schools) — challenges/solutions/ROI/features/case
  * study/FAQ/CTA, plus SEO keywords and internal-linking slugs.
  */
-export interface IndustryChallenge {
+interface IndustryChallenge {
   title: string;
   description: string;
 }
 
-export interface IndustrySolution {
+interface IndustrySolution {
   icon: LucideIcon;
   title: string;
   description: string;
 }
 
-export interface IndustryFeature {
+interface IndustryFeature {
   icon: LucideIcon;
   title: string;
   description: string;
 }
 
-export interface IndustryCaseStudy {
+interface IndustryCaseStudy {
   /** True for an honest, unnamed representative engagement rather than a named client. */
   illustrative?: boolean;
   client: string;

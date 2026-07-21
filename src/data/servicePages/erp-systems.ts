@@ -5,20 +5,22 @@ export const erpSystemsServicePage: ServicePage = {
   slug: "erp-systems",
   category: "solution",
   icon: Server,
-  title: "ERP Systems",
+  title: "Custom ERP Development",
   highlight: "One Platform for Every Department",
 
   heroSubtitle:
-    "Finance runs one system, HR runs another, inventory a third, and every month-end close means reconciling all of them by hand. We build ERP platforms that unify finance, HR, inventory, and operations into a single source of truth.",
+    "Finance runs one system, HR runs another, inventory a third, and every month-end close means reconciling all of them by hand. We build custom ERP systems that unify finance, HR, inventory, and operations into a single source of truth.",
 
   heroImage: "/vectors1/erpsolutions-clean.avif",
 
   seoDescription:
-    "Custom ERP systems that unify finance, HR, inventory, and operations into one platform, replacing manual month-end reconciliation for good.",
+    "Custom ERP development that unifies finance, HR, inventory, and operations into one platform, replacing manual month-end reconciliation for good.",
 
   seoKeywords: [
+    "custom ERP development",
+    "custom ERP development Nepal",
     "ERP system development",
-    "custom ERP software Nepal",
+    "ERP development company Nepal",
     "enterprise resource planning solution",
     "unified business management system",
     "ERP for manufacturing and retail",
@@ -252,6 +254,6 @@ export const erpSystemsServicePage: ServicePage = {
   },
 
   relatedServices: ["custom-software-development", "cloud-services"],
-  relatedSolutions: ["inventory-management", "crm-systems", "business-intelligence-analytics"],
+  relatedSolutions: ["inventory-management", "crm-systems", "business-intelligence-analytics", "legacy-system-modernization"],
   relatedIndustries: ["manufacturing", "hospitals", "retail"],
 };

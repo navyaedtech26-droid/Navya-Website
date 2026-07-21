@@ -10,7 +10,6 @@ import PortfolioCTA from "@/components/portfolio/PortfolioCTA";
 import CaseStudyHero from "@/components/case-study/CaseStudyHero";
 import CaseStudyContext from "@/components/case-study/CaseStudyContext";
 import CaseStudySolution from "@/components/case-study/CaseStudySolution";
-import CaseStudyTech from "@/components/case-study/CaseStudyTech";
 import CaseStudyProcess from "@/components/case-study/CaseStudyProcess";
 import CaseStudyResults from "@/components/case-study/CaseStudyResults";
 import CaseStudyGallery from "@/components/case-study/CaseStudyGallery";
@@ -52,7 +51,7 @@ export default function CaseStudyDetail() {
         title={`${study.client} - Enterprise Software Case Study | Navya EdTech`}
         description={study.summary}
         path={`/portfolio/${study.slug}`}
-        keywords={[`${study.industry} software`, ...(study.content?.techStack?.frontend || []), ...(study.content?.techStack?.backend || [])]}
+        keywords={[`${study.industry} software`, ...study.tags]}
         image={study.image}
         jsonLd={[
           breadcrumbSchema([
@@ -67,7 +66,6 @@ export default function CaseStudyDetail() {
         <CaseStudyHero study={study} />
         <CaseStudyContext study={study} />
         <CaseStudySolution study={study} />
-        <CaseStudyTech study={study} />
         <CaseStudyProcess study={study} />
         <CaseStudyResults study={study} />
         <CaseStudyGallery study={study} />

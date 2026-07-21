@@ -15,7 +15,7 @@
 type LogLevel = "debug" | "info" | "warn" | "error";
 
 /** Arbitrary structured metadata attached to a log/report (no PII, please). */
-export type LogContext = Record<string, unknown>;
+type LogContext = Record<string, unknown>;
 
 const isDev = import.meta.env.DEV;
 const sentryDsn = import.meta.env.VITE_SENTRY_DSN as string | undefined;

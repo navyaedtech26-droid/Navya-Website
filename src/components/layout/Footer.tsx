@@ -20,13 +20,14 @@ const servicesLinks = [
 ];
 
 const solutionsLinks = [
-  { label: "ERP Systems", href: "/solutions/erp-systems" },
+  { label: "Custom ERP Development", href: "/solutions/erp-systems" },
   { label: "CRM Systems", href: "/solutions/crm-systems" },
   { label: "Billing & Invoicing", href: "/solutions/billing-invoicing" },
   { label: "Learning Management", href: "/solutions/learning-management-systems" },
   { label: "Inventory Management", href: "/solutions/inventory-management" },
   { label: "Business Intelligence", href: "/solutions/business-intelligence-analytics" },
   { label: "Digital Transformation", href: "/solutions/digital-transformation" },
+  { label: "Legacy System Modernization", href: "/solutions/legacy-system-modernization" },
 ];
 
 const industriesLinks = [

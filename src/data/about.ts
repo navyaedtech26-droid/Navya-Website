@@ -9,7 +9,6 @@ import {
   Network,
   Search,
   UserCheck,
-  type LucideIcon,
 } from "lucide-react";
 import type { ValueItem, FeatureItem } from "@/types";
 
@@ -68,5 +67,3 @@ export const whyChooseUs: FeatureItem[] = [
     description: "We align our technical decisions with your specific business objectives.",
   },
 ];
-
-export type { LucideIcon };

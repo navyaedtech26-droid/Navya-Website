@@ -18,7 +18,6 @@ export const digitalTransformationServicePage: ServicePage = {
 
   seoKeywords: [
     "digital transformation services",
-    "legacy system modernization Nepal",
     "business process digitization",
     "enterprise digital transformation",
     "unify fragmented business operations",
@@ -252,6 +251,6 @@ export const digitalTransformationServicePage: ServicePage = {
   },
 
   relatedServices: ["custom-software-development", "it-consulting", "cloud-services"],
-  relatedSolutions: ["erp-systems", "cloud-devops", "business-intelligence-analytics"],
+  relatedSolutions: ["legacy-system-modernization", "erp-systems", "cloud-devops", "business-intelligence-analytics"],
   relatedIndustries: ["manufacturing", "hospitals", "schools", "ngos"],
 };

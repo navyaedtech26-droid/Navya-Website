@@ -19,9 +19,14 @@ export const collegesIndustryPage: IndustryPage = {
   seoKeywords: [
     "college management system",
     "university ERP software",
+    "education ERP systems",
     "student information system",
+    "student information system development",
     "learning management system for colleges",
+    "learning management system development",
     "college admissions website",
+    "college enrollment and admissions software",
+    "university website development",
     "faculty and course scheduling software",
     "higher education digital transformation",
     "college ERP software Nepal",
@@ -87,9 +92,9 @@ export const collegesIndustryPage: IndustryPage = {
       },
       {
         icon: Users,
-        title: "Admissions & recruitment website",
+        title: "College & university website development",
         description:
-          "A program-by-program admissions site built to convert research-stage visitors into applications, with clear paths to apply, inquire, or visit.",
+          "A program-by-program admissions website built to convert research-stage visitors into applications, paired with the enrollment software that tracks each one through to registration.",
       },
     ],
   },
@@ -178,6 +183,11 @@ export const collegesIndustryPage: IndustryPage = {
       answer:
         "Yes. The admissions website connects directly to the enrollment pipeline, so an online application appears instantly on your admissions team's dashboard.",
     },
+    {
+      question: "Do you also build a full college ERP, or just the student information system?",
+      answer:
+        "We can scope either. Most institutions start with the student information system and LMS, then extend into a full education ERP covering finance, HR, and payroll once the academic side is running smoothly.",
+    },
   ],
 
   cta: {
@@ -188,5 +198,5 @@ export const collegesIndustryPage: IndustryPage = {
 
   relatedIndustries: ["schools", "ngos"],
   relatedServices: ["systems", "websites", "business-intelligence"],
-  relatedSolutions: ["learning-management-systems", "crm-systems"],
+  relatedSolutions: ["learning-management-systems", "erp-systems", "crm-systems"],
 };

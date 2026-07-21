@@ -53,7 +53,7 @@ export default function CaseStudyCard({ study }: CaseStudyCardProps) {
         </h3>
 
         {/* Short Description */}
-        <p className="text-faint text-sm leading-relaxed mb-6 flex-grow">
+        <p className="text-faint text-sm leading-relaxed mb-6 flex-grow text-justify">
           {study.summary}
         </p>
 

@@ -372,5 +372,3 @@ export const socialMediaServices: ServiceItem[] = [
     description: "Data-driven strategy that keeps your growth measurable and on track.",
   },
 ];
-
-export type { LucideIcon };
