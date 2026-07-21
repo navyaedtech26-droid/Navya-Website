@@ -6,15 +6,30 @@ import { techGroups } from "@/data/techStack";
 import { cn } from "@/lib/utils";
 import { fadeUp, viewportOnce } from "@/lib/animations";
 
+const ALL_CATEGORY_PREVIEW_COUNT = 6;
+
 export default function TechStack() {
   const [activeCategory, setActiveCategory] = useState<string>("All");
+  const [showAllTechs, setShowAllTechs] = useState(false);
 
   const categories = ["All", ...techGroups.map((group) => group.label)];
-  
+
   // Flat list of technologies, optionally filtered
-  const filteredTechs = activeCategory === "All"
+  const allTechs = activeCategory === "All"
     ? techGroups.flatMap((group) => group.items)
     : techGroups.find((group) => group.label === activeCategory)?.items || [];
+
+  // Only the "All" view collapses behind a "See more" button; every other
+  // category keeps showing its full (already short) list.
+  const isCollapsible = activeCategory === "All" && allTechs.length > ALL_CATEGORY_PREVIEW_COUNT;
+  const filteredTechs = isCollapsible && !showAllTechs
+    ? allTechs.slice(0, ALL_CATEGORY_PREVIEW_COUNT)
+    : allTechs;
+
+  const handleCategoryChange = (category: string) => {
+    setActiveCategory(category);
+    setShowAllTechs(false);
+  };
 
   return (
     <section className="relative overflow-hidden bg-[#F4F7F5] py-[120px]">
@@ -42,7 +57,7 @@ export default function TechStack() {
           {categories.map((category) => (
             <button
               key={category}
-              onClick={() => setActiveCategory(category)}
+              onClick={() => handleCategoryChange(category)}
               className={cn(
                 "rounded-full px-6 py-2.5 text-sm font-semibold transition-all duration-300",
                 activeCategory === category
@@ -92,6 +107,17 @@ export default function TechStack() {
             ))}
           </AnimatePresence>
         </motion.div>
+
+        {isCollapsible && (
+          <div className="mt-10 flex justify-center">
+            <button
+              onClick={() => setShowAllTechs((v) => !v)}
+              className="rounded-full bg-white px-7 py-2.5 text-sm font-semibold text-brand ring-1 ring-line/50 transition-all duration-300 hover:bg-brand/10"
+            >
+              {showAllTechs ? "See less" : `See more (${allTechs.length - ALL_CATEGORY_PREVIEW_COUNT})`}
+            </button>
+          </div>
+        )}
       </Container>
     </section>
   );
