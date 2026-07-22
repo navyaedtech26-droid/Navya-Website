@@ -62,7 +62,7 @@ export default function Home() {
       <IndustriesSection />
       <CaseStudiesSection />
       <TrustAssuranceSection />
-      <TestimonialsSection />
+      <TestimonialsSection testimonials={testimonials} />
       <FaqSection
         tone="light"
         title="Frequently Asked"

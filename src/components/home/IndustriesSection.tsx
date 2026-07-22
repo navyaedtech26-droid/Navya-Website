@@ -26,10 +26,19 @@ export default function IndustriesSection() {
         >
           {industries.map((industry) => (
             <motion.div key={industry.slug} variants={fadeUp} className="group relative aspect-square md:aspect-[4/3] w-full overflow-hidden">
-              <div 
-                className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105"
-                style={{ backgroundImage: industry.image ? `url('${industry.image}')` : 'none' }}
-              />
+              {industry.image && (
+                // A plain <img loading="lazy"> (rather than a CSS background-image)
+                // so the browser defers the fetch until this below-the-fold grid is
+                // near the viewport — background-images have no native lazy-loading
+                // and were previously downloading all ~10 photos up front.
+                <img
+                  src={industry.image}
+                  alt=""
+                  loading="lazy"
+                  decoding="async"
+                  className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                />
+              )}
               <div className="absolute inset-0 bg-black/25 transition-opacity duration-500 group-hover:bg-black/40" />
               
               <Link

@@ -46,8 +46,18 @@
     text-wrap: balance;
   }
 
+  /* Justified body copy reads as more polished/editorial on wide columns.
+     `text-align-last: left` keeps the final line from being stretched into
+     an awkward gappy row, and `hyphens: auto` breaks long words at the right
+     edge so justification doesn't create wide rivers of whitespace. Any
+     component that sets its own alignment (text-center, etc.) or is inside
+     a narrow card still wins — this is only the default. */
   p {
     text-wrap: pretty;
+    text-align: justify;
+    text-align-last: left;
+    hyphens: auto;
+    line-height: 1.7;
   }
 
   /* Smooth scrolling is scoped to in-page anchor navigation only — i.e. when a

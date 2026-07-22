@@ -6,13 +6,21 @@ import SectionHeading from "@/components/common/SectionHeading";
 import { testimonials as staticTestimonials, type Testimonial } from "@/data/testimonials";
 import { cn } from "@/lib/utils";
 
-export default function TestimonialsSection() {
-  const [testimonials, setTestimonials] = useState<Testimonial[]>(staticTestimonials);
+export default function TestimonialsSection({
+  testimonials: providedTestimonials,
+}: {
+  /** Pass down already-fetched rows (e.g. from Home) to avoid a second
+   *  identical Supabase round trip. Falls back to fetching its own when
+   *  used standalone. */
+  testimonials?: Testimonial[];
+}) {
+  const [fetchedTestimonials, setFetchedTestimonials] = useState<Testimonial[]>(staticTestimonials);
   /* Touch devices have no `:hover`, so tap-to-pause is the only way to stop
      the marquee and read a card on mobile. */
   const [paused, setPaused] = useState(false);
 
   useEffect(() => {
+    if (providedTestimonials) return;
     let active = true;
     // Dynamic import: @/services/testimonials pulls in the full
     // @supabase/supabase-js SDK (auth + realtime + storage, not just the
@@ -25,7 +33,7 @@ export default function TestimonialsSection() {
       getTestimonials()
         .then((rows) => {
           // If we got rows from the DB, use them. Otherwise, keep our premium static mock data.
-          if (active && rows && rows.length > 0) setTestimonials(rows);
+          if (active && rows && rows.length > 0) setFetchedTestimonials(rows);
         })
         .catch((err) => {
           // Ignore errors and keep static data on failure
@@ -39,7 +47,9 @@ export default function TestimonialsSection() {
     return () => {
       active = false;
     };
-  }, []);
+  }, [providedTestimonials]);
+
+  const testimonials = providedTestimonials ?? fetchedTestimonials;
 
   const TestimonialCard = ({ t }: { t: Testimonial }) => (
     <div className="w-[85vw] max-w-[350px] sm:w-[400px] md:w-[450px] flex-shrink-0 mx-4 relative overflow-hidden rounded-[32px] bg-white/60 backdrop-blur-xl border border-white/60 p-8 shadow-[0_8px_30px_rgb(0,0,0,0.04)] transition-all duration-300 hover:shadow-[0_20px_40px_-15px_rgba(0,0,0,0.1)] hover:bg-white/80 group flex flex-col justify-between">
