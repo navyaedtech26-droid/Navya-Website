@@ -7,6 +7,8 @@ import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import AnimatedBackground from "@/components/effects/AnimatedBackground";
 import ScrollProgress from "@/components/effects/ScrollProgress";
+import SmoothScroll from "@/components/effects/SmoothScroll";
+import Preloader from "@/components/effects/Preloader";
 import CookieConsent from "@/components/common/CookieConsent";
 import Analytics from "@/components/analytics/Analytics";
 
@@ -163,7 +165,8 @@ export default function App() {
   }
 
   return (
-    <>
+    <SmoothScroll>
+      <Preloader />
       {/* First focusable element: lets keyboard users jump past the sticky
           navbar straight to the page content. Visually hidden until focused. */}
       <a
@@ -240,6 +243,6 @@ export default function App() {
       <Footer />
 
       <CookieConsent />
-    </>
+    </SmoothScroll>
   );
 }

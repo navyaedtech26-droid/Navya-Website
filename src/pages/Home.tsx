@@ -73,7 +73,7 @@ export default function Home() {
       <CTASection
         title="Ready to Upgrade Your Technical Foundation?"
         subtitle="Let's discuss your operational bottlenecks and build a strategic roadmap for your next software investment."
-        primaryButtonLabel="Book a Strategy Call"
+        primaryButtonLabel="Book Free Consultation"
       />
     </PageTransition>
   );

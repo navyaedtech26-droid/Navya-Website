@@ -28,25 +28,13 @@ export default function CTASection({
         {/* Subtle Dark Grid */}
         <div className="absolute inset-0 opacity-20" style={{ backgroundImage: 'radial-gradient(circle at 1px 1px, rgba(255,255,255,0.15) 1px, transparent 0)', backgroundSize: '40px 40px' }} />
 
-        {/* Massive Ambient Glow */}
-        <motion.div
-          animate={{
-            rotate: 360,
-            scale: [1, 1.05, 1],
-          }}
-          transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-[800px] w-[1200px] rounded-[100%] bg-brand/15 blur-[150px]"
-        />
-        
-        {/* Secondary Color Accents */}
-        <motion.div
-          animate={{
-            opacity: [0.1, 0.3, 0.1],
-          }}
-          transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute -bottom-[20%] right-[10%] h-[500px] w-[500px] rounded-full bg-primary/20 blur-[120px]"
-        />
-        
+        {/* Static ambient glow. This was a 1200x800 element at 150px blur
+            rotating a full turn every 40s, forever, plus a second pulsing
+            blob - a permanent compositing cost on every page that renders
+            this section, for motion nobody can perceive on a symmetrical
+            radial shape. */}
+        <div className="absolute left-1/2 top-1/2 h-[800px] w-[1200px] -translate-x-1/2 -translate-y-1/2 rounded-[100%] bg-brand/15 blur-[150px]" />
+
         <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-brand/40 to-transparent" />
       </div>
 
@@ -61,7 +49,10 @@ export default function CTASection({
           {/* Large Headline */}
           <motion.h2
             variants={fadeUp}
-            className="font-display text-4xl font-extrabold tracking-tight text-white sm:text-5xl lg:text-[4.5rem] leading-[1.05]"
+            /* Capped at 6xl. 4.5rem extrabold was larger than the page's own
+               H1 after the hero was scaled back, which inverted the type
+               hierarchy at the bottom of the page. */
+            className="font-display text-4xl font-bold leading-[1.08] tracking-tight text-white sm:text-5xl lg:text-6xl"
           >
             {title}
           </motion.h2>
@@ -78,7 +69,12 @@ export default function CTASection({
           <motion.div variants={fadeUp} className="mt-12 flex flex-col items-center justify-center gap-4 sm:flex-row sm:gap-6">
             <Link
               to={primaryButtonHref}
-              className="group relative inline-flex w-full items-center justify-center gap-2 rounded-2xl bg-primary px-10 py-5 text-base font-bold text-white shadow-[0_0_40px_rgba(30,107,255,0.4)] transition-all duration-300 hover:shadow-[0_0_60px_rgba(30,107,255,0.6)] hover:-translate-y-1 sm:w-auto overflow-hidden"
+              /* Solid brand blue with tinted elevation. It was navy (`bg-primary`)
+                 wearing a 40px blue outer glow - a colour the button itself
+                 never used, and a neon bloom the rest of the site does not
+                 have. Matching the fill to the accent and swapping the glow
+                 for a directional shadow keeps it prominent without the halo. */
+              className="group relative inline-flex w-full items-center justify-center gap-2 overflow-hidden rounded-xl bg-brand px-10 py-5 text-base font-bold text-white shadow-[0_10px_30px_-10px_rgba(30,107,255,0.7)] transition-all duration-300 hover:-translate-y-0.5 hover:bg-brand-light active:translate-y-0 sm:w-auto"
             >
               <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000 ease-in-out" />
               <span>{primaryButtonLabel}</span>
@@ -88,7 +84,7 @@ export default function CTASection({
             {secondaryButtonLabel && (
               <Link
                 to={secondaryButtonHref}
-                className="group inline-flex w-full items-center justify-center gap-2 rounded-2xl border border-white/20 bg-white/5 px-10 py-5 text-base font-bold text-white shadow-sm backdrop-blur-md transition-all duration-300 hover:bg-white/10 hover:border-white/40 hover:-translate-y-1 sm:w-auto"
+                className="group inline-flex w-full items-center justify-center gap-2 rounded-xl border border-white/20 bg-white/5 px-10 py-5 text-base font-bold text-white shadow-sm backdrop-blur-md transition-all duration-300 hover:-translate-y-0.5 hover:border-white/40 hover:bg-white/10 active:translate-y-0 sm:w-auto"
               >
                 <BriefcaseBusiness size={20} className="text-white/70 transition-colors group-hover:text-white" strokeWidth={2.5} />
                 <span>{secondaryButtonLabel}</span>

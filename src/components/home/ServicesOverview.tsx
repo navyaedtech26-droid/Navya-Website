@@ -22,11 +22,9 @@ const getVectorImage = (title: string) => {
 
 export default function ServicesOverview() {
   return (
-    <section className="relative bg-mist py-[120px]">
+    <section className="relative bg-white section-y">
       <Container>
         <SectionHeading
-          tone="light"
-          eyebrow="Enterprise Solutions"
           title="End-to-End IT Services for"
           highlight="Modern Enterprises"
           subtitle="From custom software architecture to cloud infrastructure and digital transformation. We provide the technical foundation for scalable growth."
@@ -40,8 +38,8 @@ export default function ServicesOverview() {
           className="mt-20 flex flex-col"
         >
           {serviceGridItems.map((service, index) => (
-            <motion.div 
-              key={service.title} 
+            <motion.div
+              key={service.title}
               variants={fadeUp}
               className="group relative border-t border-line last:border-b"
             >
@@ -69,8 +67,8 @@ export default function ServicesOverview() {
                   {service.features && (
                     <div className="flex flex-wrap gap-2 pt-2">
                       {service.features.map((feature, i) => (
-                        <span 
-                          key={i} 
+                        <span
+                          key={i}
                           className="inline-flex items-center rounded-full bg-brand/5 px-3.5 py-1.5 text-xs font-semibold text-brand transition-colors duration-300 group-hover:bg-brand/10"
                         >
                           {feature}
@@ -83,8 +81,8 @@ export default function ServicesOverview() {
                 {/* Vector Image */}
                 <div className="w-full md:w-[320px] lg:w-[400px] shrink-0">
                   <div className="relative aspect-[16/9] w-full overflow-hidden rounded-2xl bg-gradient-to-br from-white to-sky/20 p-6 flex items-center justify-center transition-all duration-500 group-hover:shadow-card-hover group-hover:from-white group-hover:to-sky/40">
-                    <img 
-                      src={getVectorImage(service.title)} 
+                    <img
+                      src={getVectorImage(service.title)}
                       alt={service.title}
                       className="h-full w-full object-contain transition-transform duration-700 ease-out group-hover:scale-105"
                       loading="lazy"

@@ -7,6 +7,8 @@ interface SectionHeadingProps {
    * Deprecated/no-op: eyebrow badges were removed site-wide. The prop is kept
    * so existing call sites still compile; it renders nothing. Re-add the badge
    * here (and in PageHero) if they're ever wanted back.
+   *
+   * @deprecated Renders nothing. Remove from call sites; do not add new ones.
    */
   eyebrow?: string;
   title: string;
@@ -52,7 +54,12 @@ export default function SectionHeading({
       >
         {title}{" "}
         {highlight && (
-          <span className={light ? "text-primary" : "text-gradient"}>{highlight}</span>
+          /* `text-brand`, not `text-primary`: primary (#081E4D) is only a few
+             steps off the heading colour (#10152A), so the highlighted word
+             was indistinguishable from the rest of the title on every section
+             of the site. Brand blue is the page's single accent and passes
+             4.5:1 on white. */
+          <span className={light ? "text-brand" : "text-gradient"}>{highlight}</span>
         )}
       </motion.h2>
       {subtitle && (

@@ -89,7 +89,18 @@ export default function Footer() {
           {/* Brand & Newsletter Column */}
           <div className="lg:col-span-3 flex flex-col gap-10">
             <div className="space-y-6">
-              <Link to="/" data-cursor="hover" className="inline-block" aria-label="Navya EdTech home">
+              <Link
+                to="/"
+                onClick={(e) => {
+                  if (window.location.pathname === "/") {
+                    e.preventDefault();
+                    window.location.reload();
+                  }
+                }}
+                data-cursor="hover"
+                className="inline-block"
+                aria-label="Navya EdTech home"
+              >
                 <img
                   src="/logo-navy.webp"
                   alt="Navya EdTech"

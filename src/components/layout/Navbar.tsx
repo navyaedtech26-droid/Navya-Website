@@ -48,6 +48,12 @@ export default function Navbar() {
           <div className="mx-auto flex w-full max-w-enterprise items-center justify-between px-5 py-2.5 sm:px-8 sm:py-3 relative">
             <Link
               to="/"
+              onClick={(e) => {
+                if (location.pathname === "/") {
+                  e.preventDefault();
+                  window.location.reload();
+                }
+              }}
               data-cursor="hover"
               className="group flex items-center z-10"
               aria-label="Navya EdTech home"

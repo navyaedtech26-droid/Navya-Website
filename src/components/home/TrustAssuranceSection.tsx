@@ -49,40 +49,48 @@ const pillars: Pillar[] = [
 
 export default function TrustAssuranceSection() {
   return (
-    <section className="relative bg-haze py-16 md:py-20">
+    // bg-white keeps the page on a strict white / mist alternation. It was
+    // bg-haze sitting between two near-identical light greys, which read as an
+    // accidental third tone rather than a deliberate band.
+    <section className="relative bg-white section-y-sm">
       <Container>
         <SectionHeading
-          tone="light"
           title="Built With Your Risk in"
           highlight="Mind"
           subtitle="Investing in a digital partner is a leap of faith. Here's exactly how we make it a safe one."
         />
 
+        {/* Divided rows, not cards. FeaturesSection above already carries the
+            page's tiled-grid moment; repeating a three-card grid here made the
+            two sections read as the same block twice. A row per pillar - label
+            on the left, points on the right - keeps the same content in a
+            different layout family and gives the long point lists room to
+            breathe instead of cramming them into equal-height boxes. */}
         <motion.div
           variants={staggerContainer(0.08)}
           initial="hidden"
           whileInView="visible"
           viewport={viewportOnce}
-          className="mt-14 grid gap-6 lg:grid-cols-3"
+          className="mx-auto mt-14 max-w-4xl"
         >
           {pillars.map((pillar) => (
             <motion.div
               key={pillar.title}
               variants={fadeUp}
-              className="rounded-2xl card-light p-7"
+              className="grid gap-6 border-t border-line py-8 last:border-b md:grid-cols-[minmax(0,14rem)_1fr] md:gap-12 md:py-10"
             >
-              <IconBadge icon={pillar.icon} tone="light" color={pillar.color} />
-              <h3 className="mt-5 font-display text-lg font-semibold text-heading">
-                {pillar.title}
-              </h3>
-              <ul className="mt-4 space-y-3">
+              <div className="flex items-center gap-4 md:flex-col md:items-start md:gap-5">
+                <IconBadge icon={pillar.icon} tone="light" color={pillar.color} />
+                <h3 className="font-display text-lg font-semibold text-heading md:text-xl">
+                  {pillar.title}
+                </h3>
+              </div>
+              <ul className="space-y-3.5">
                 {pillar.points.map((point) => (
-                  <li key={point} className="flex gap-2.5 text-sm leading-relaxed text-faint">
-                    <span
-                      aria-hidden
-                      className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full"
-                      style={{ backgroundColor: pillar.color }}
-                    />
+                  <li
+                    key={point}
+                    className="text-sm leading-relaxed text-faint md:text-base"
+                  >
                     {point}
                   </li>
                 ))}

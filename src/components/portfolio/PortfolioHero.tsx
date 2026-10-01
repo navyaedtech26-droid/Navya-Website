@@ -3,6 +3,7 @@ import { useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import { ArrowRight, ShieldCheck } from "lucide-react";
 import Container from "@/components/common/Container";
+import { useSmoothScroll } from "@/components/effects/SmoothScroll";
 
 // --- Subcomponents ---
 
@@ -34,6 +35,7 @@ function useMouseParallax(ref: React.RefObject<HTMLElement>) {
 export default function PortfolioHero() {
   const containerRef = useRef<HTMLElement>(null);
   const { mouseX, mouseY } = useMouseParallax(containerRef);
+  const { scrollTo } = useSmoothScroll();
 
   // Parallax transforms for different layers
   const x1 = useTransform(mouseX, [-0.5, 0.5], [-25, 25]);
@@ -41,10 +43,7 @@ export default function PortfolioHero() {
 
   const scrollToGrid = (e: React.MouseEvent) => {
     e.preventDefault();
-    const gridSection = document.getElementById("case-studies-grid");
-    if (gridSection) {
-      gridSection.scrollIntoView({ behavior: "smooth" });
-    }
+    scrollTo("#case-studies-grid", { offset: -80, duration: 1.2 });
   };
 
   return (

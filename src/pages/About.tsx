@@ -35,7 +35,7 @@ export default function About() {
       <CTASection
         title="Let's Build Your Competitive Advantage"
         subtitle="Partner with a team measured by one thing: the growth we create for you."
-        primaryButtonLabel="Book a Strategy Call"
+        primaryButtonLabel="Book Free Consultation"
       />
     </PageTransition>
   );

@@ -82,7 +82,7 @@ export default function Industries() {
       <CTASection
         title="Don't See Your Exact Industry?"
         subtitle="The sectors above are our deepest experience, not the limit of it. Tell us about your business and we'll show you where the same approach applies."
-        primaryButtonLabel="Book a Strategy Call"
+        primaryButtonLabel="Book Free Consultation"
       />
     </PageTransition>
   );

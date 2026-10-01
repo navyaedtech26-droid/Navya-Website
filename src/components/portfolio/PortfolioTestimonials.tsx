@@ -155,7 +155,7 @@ export default function PortfolioTestimonials() {
 
                     {/* Right Column: Review & Tech */}
                     <div className="lg:col-span-8 flex flex-col justify-center">
-                      <p className="font-display text-xl sm:text-2xl lg:text-3xl font-medium leading-relaxed text-heading mb-10 tracking-tight text-justify">
+                      <p className="font-display text-xl sm:text-2xl lg:text-3xl font-medium leading-relaxed text-heading mb-10 tracking-tight">
                         "{current?.quote}"
                       </p>
                     </div>

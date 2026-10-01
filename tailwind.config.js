@@ -39,6 +39,10 @@ export default {
         brand: {
           DEFAULT: "#1E6BFF", // Brand Blue — primary CTAs, links, logo
           light: "#3B82F6", // Light Blue — hover states, secondary accents
+          // Pressed/hover fill for solid brand-blue buttons. Several call
+          // sites already used `bg-brand-dark`; without this key those classes
+          // silently compiled to nothing and the buttons had no hover state.
+          dark: "#1856CC",
         },
         cyan: {
           // Accent Cyan — icons, highlights, borders
@@ -90,6 +94,17 @@ export default {
         body: ['"Inter"', '"DM Sans"', "system-ui", "sans-serif"],
         mono: ['"JetBrains Mono"', "ui-monospace", "monospace"],
       },
+      // ── Corner-radius system ────────────────────────────────────────────
+      // One scale, four documented roles. Before this the site mixed
+      // rounded-md / xl / 2xl / 3xl / full plus one-off [20px] [23px] [24px]
+      // [32px] with no rule, so buttons and cards disagreed section to section.
+      //   rounded-xl   → buttons, inputs, icon buttons, menu rows (0.75rem)
+      //   rounded-full → chips, tags, filter tabs, avatars only
+      //   rounded-2xl  → cards, panels, tiles (1rem)
+      //   rounded-3xl  → large media frames, hero/case-study imagery (1.5rem)
+      // Buttons are xl rather than full-pill on purpose: this is an enterprise
+      // B2B audience and pills read consumer. Anything outside these four
+      // needs a comment justifying it.
       borderRadius: {
         "2xl": "1rem",
         "3xl": "1.5rem",

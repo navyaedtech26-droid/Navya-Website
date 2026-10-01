@@ -4,4 +4,16 @@ Disallow: /admin
 Disallow: /share-your-story
 Disallow: /404
 
+User-agent: PerplexityBot
+Allow: /
+Disallow: /admin
+Disallow: /share-your-story
+Disallow: /404
+
+User-agent: OAI-SearchBot
+Allow: /
+Disallow: /admin
+Disallow: /share-your-story
+Disallow: /404
+
 Sitemap: https://navyaedtech.com/sitemap.xml

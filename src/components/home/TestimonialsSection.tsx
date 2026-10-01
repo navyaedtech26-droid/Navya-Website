@@ -52,7 +52,7 @@ export default function TestimonialsSection({
   const testimonials = providedTestimonials ?? fetchedTestimonials;
 
   const TestimonialCard = ({ t }: { t: Testimonial }) => (
-    <div className="w-[85vw] max-w-[350px] sm:w-[400px] md:w-[450px] flex-shrink-0 mx-4 relative overflow-hidden rounded-[32px] bg-white/60 backdrop-blur-xl border border-white/60 p-8 shadow-[0_8px_30px_rgb(0,0,0,0.04)] transition-all duration-300 hover:shadow-[0_20px_40px_-15px_rgba(0,0,0,0.1)] hover:bg-white/80 group flex flex-col justify-between">
+    <div className="group relative mx-4 flex w-[85vw] max-w-[350px] flex-shrink-0 flex-col justify-between overflow-hidden rounded-2xl border border-line bg-white p-8 shadow-card transition-all duration-300 hover:shadow-card-hover sm:w-[400px] md:w-[450px]">
       <div>
         <div className="flex items-start justify-between mb-6">
           <div className="flex gap-1">
@@ -68,8 +68,13 @@ export default function TestimonialsSection({
           )}
         </div>
 
-        <p className="text-lg md:text-xl font-medium leading-relaxed text-heading mb-8 text-justify">
-          "{t.quote}"
+        {/* Typographic quotes, not ASCII double-primes, and clamped to four
+            lines. A landing-page testimonial is a snippet the eye takes in at
+            a glance; the longest entries previously ran eight-plus justified
+            lines and pushed the attribution out of view. Full text lives on
+            the testimonials page. */}
+        <p className="mb-8 line-clamp-4 text-lg font-medium leading-relaxed text-heading md:text-xl">
+          &ldquo;{t.quote}&rdquo;
         </p>
       </div>
 
@@ -110,15 +115,14 @@ export default function TestimonialsSection({
   );
 
   return (
-    <section className="relative bg-slate-50 py-24 md:py-32 overflow-hidden">
-      {/* Background blobs for glassmorphism */}
-      <div className="absolute top-0 right-0 h-[600px] w-[600px] -translate-y-1/4 translate-x-1/4 rounded-full bg-brand/10 blur-[100px] pointer-events-none" />
-      <div className="absolute bottom-0 left-0 h-[500px] w-[500px] translate-y-1/4 -translate-x-1/4 rounded-full bg-blue-400/10 blur-[120px] pointer-events-none" />
+    <section className="relative bg-mist section-y overflow-hidden">
+      {/* One brand wash. The cards are solid white now rather than
+          translucent, so a second blue-400 blob underneath them was doing
+          nothing except widening the palette. */}
+      <div className="pointer-events-none absolute right-0 top-0 h-[600px] w-[600px] -translate-y-1/4 translate-x-1/4 rounded-full bg-brand/5 blur-[100px]" />
 
       <Container className="relative z-10 mb-16">
         <SectionHeading
-          tone="light"
-          eyebrow="Client Impact"
           title="Trusted by Global"
           highlight="Enterprises"
           subtitle="We measure our success in one currency: the growth and efficiency of the businesses we build for. Here is what that partnership delivers."
@@ -142,8 +146,8 @@ export default function TestimonialsSection({
           className="relative z-10 flex overflow-hidden group/marquee cursor-pointer"
         >
           {/* Left/right fade so the track's edges dissolve into the section background. */}
-          <div className="absolute inset-y-0 left-0 z-20 w-16 bg-gradient-to-r from-slate-50 to-transparent pointer-events-none sm:w-32" />
-          <div className="absolute inset-y-0 right-0 z-20 w-16 bg-gradient-to-l from-slate-50 to-transparent pointer-events-none sm:w-32" />
+          <div className="absolute inset-y-0 left-0 z-20 w-16 bg-gradient-to-r from-mist to-transparent pointer-events-none sm:w-32" />
+          <div className="absolute inset-y-0 right-0 z-20 w-16 bg-gradient-to-l from-mist to-transparent pointer-events-none sm:w-32" />
 
           {/* Track 1 */}
           <div className={cn("flex w-max shrink-0 animate-marquee-full group-hover/marquee:pause", paused && "pause")}>
@@ -171,7 +175,7 @@ export default function TestimonialsSection({
       <div className="relative z-10 mt-12 flex justify-center">
         <Link 
           to="/share-your-story" 
-          className="inline-flex items-center gap-2 rounded-full bg-brand px-8 py-4 text-sm font-bold text-white shadow-[0_8px_20px_-8px_rgba(37,99,235,0.5)] transition-all hover:-translate-y-1 hover:shadow-[0_12px_25px_-8px_rgba(37,99,235,0.6)]"
+          className="inline-flex items-center gap-2 rounded-xl bg-brand px-8 py-4 text-sm font-bold text-white shadow-primary-sm transition-all hover:-translate-y-0.5 hover:bg-brand-dark active:translate-y-0"
         >
           Share Your Testimonial
         </Link>

@@ -24,7 +24,7 @@ export default function CaseStudyCard({ study, index = 0 }: { study: CaseStudy, 
         {study.client}
       </h3>
 
-      <p className="text-lg leading-relaxed text-faint mb-8 text-justify">
+      <p className="text-lg leading-relaxed text-faint mb-8">
         {study.summary}
       </p>
 
@@ -57,7 +57,9 @@ export default function CaseStudyCard({ study, index = 0 }: { study: CaseStudy, 
         <div className="mb-10" />
       )}
 
-      {/* Button */}
+      {/* Button. `brand-dark` is now a real token in tailwind.config.js — it
+          was referenced here before but never defined, so both hover rules
+          silently compiled away and the button had no hover state at all. */}
       <div className="inline-flex items-center gap-3 rounded-full bg-brand px-7 py-3.5 text-sm font-bold text-white transition-all duration-300 hover:bg-brand-dark hover:shadow-lg hover:shadow-brand/20 group-hover:bg-brand-dark w-fit mt-auto">
         <span>Read Case Study</span>
         <ArrowRight size={18} className="transition-transform duration-300 group-hover:translate-x-1" />
@@ -71,6 +73,8 @@ export default function CaseStudyCard({ study, index = 0 }: { study: CaseStudy, 
         <img
           src={study.image}
           alt={`${study.client} project`}
+          loading="lazy"
+          decoding="async"
           className="h-full w-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
         />
         {/* Glass overlay effect */}

@@ -1,3 +1,5 @@
+@import "lenis/dist/lenis.css";
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -5,6 +7,24 @@
 @layer base {
   :root {
     color-scheme: light;
+  }
+
+  /* Lenis smooth scrolling resets */
+  html.lenis,
+  html.lenis body {
+    height: auto;
+  }
+
+  .lenis.lenis-smooth {
+    scroll-behavior: auto !important;
+  }
+
+  .lenis.lenis-smooth [data-lenis-prevent] {
+    overscroll-behavior: contain;
+  }
+
+  .lenis.lenis-stopped {
+    overflow: hidden;
   }
 
   * {
@@ -46,17 +66,14 @@
     text-wrap: balance;
   }
 
-  /* Justified body copy reads as more polished/editorial on wide columns.
-     `text-align-last: left` keeps the final line from being stretched into
-     an awkward gappy row, and `hyphens: auto` breaks long words at the right
-     edge so justification doesn't create wide rivers of whitespace. Any
-     component that sets its own alignment (text-center, etc.) or is inside
-     a narrow card still wins — this is only the default. */
+  /* Body copy is ragged-right, not justified. Justification only behaves on
+     wide, evenly-set columns; most paragraphs here live inside 280-400px
+     cards and list items, where forcing both edges flush opens rivers of
+     whitespace and (with `hyphens: auto`) breaks words mid-line. `text-wrap:
+     pretty` still handles orphan control, which is the part that was actually
+     doing the polishing work. */
   p {
     text-wrap: pretty;
-    text-align: justify;
-    text-align-last: left;
-    hyphens: auto;
     line-height: 1.7;
   }
 
@@ -174,9 +191,26 @@
   }
 
   /* Blue highlight word on light backgrounds — the light-mode counterpart to
-     `.text-gradient` (gold), used inside SectionHeading tone="light". */
+     `.text-gradient` (gold), used inside SectionHeading tone="light".
+     Brand blue, not navy: the previous #123a6e sat within a few steps of the
+     heading colour (#10152A), so the "highlighted" word rendered as ordinary
+     heading text and the emphasis was invisible. #1E6BFF clears 4.5:1 on
+     white while reading unmistakably as the accent. */
   .text-highlight {
-    color: #123a6e;
+    color: #1e6bff;
+  }
+
+  /* ── Section vertical rhythm ────────────────────────────────────────────
+     Two tiers, both responsive. Replaces the ad-hoc mix of py-[120px]
+     (which never shrank on mobile — 120px of dead space above and below on
+     a 375px screen), py-24 md:py-32 and py-16 md:py-20. */
+  .section-y {
+    @apply py-20 md:py-28 lg:py-32;
+  }
+
+  /* Tighter tier for supporting sections that sit between two major ones. */
+  .section-y-sm {
+    @apply py-16 md:py-20 lg:py-24;
   }
 
   .noise {

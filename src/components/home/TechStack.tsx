@@ -32,15 +32,16 @@ export default function TechStack() {
   };
 
   return (
-    <section className="relative overflow-hidden bg-[#F4F7F5] py-[120px]">
-      {/* Decorative Background Elements */}
-      <div className="absolute top-0 left-1/4 h-96 w-96 -translate-y-1/2 translate-x-1/2 rounded-full bg-[#404E3B]/5 blur-[100px] pointer-events-none" />
+    // bg-mist, not #F4F7F5: that hex is a green-tinted off-white, while the
+    // neutral ramp in tailwind.config.js is deliberately cool and navy-tinted.
+    // Mixing the two made adjacent sections look mismatched in temperature.
+    <section className="relative overflow-hidden bg-mist section-y">
+      {/* Single brand-tinted wash. The other blob was #404E3B, an olive green
+          with no definition anywhere in the palette. */}
       <div className="absolute bottom-0 right-1/4 h-[500px] w-[500px] translate-y-1/4 translate-x-1/4 rounded-full bg-brand/5 blur-[120px] pointer-events-none" />
 
       <Container className="relative z-10">
         <SectionHeading
-          tone="light"
-          eyebrow="The Arsenal"
           title="Technologies We"
           highlight="Build With"
           subtitle="A modern, battle-tested stack across languages, frameworks, databases, and cloud, chosen to fit each project, not the other way around."
@@ -84,7 +85,7 @@ export default function TechStack() {
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.8 }}
                 transition={{ duration: 0.4, ease: "easeOut" }}
-                className="group/card relative flex aspect-square cursor-default flex-col items-center justify-center gap-4 rounded-[20px] bg-white border border-line/60 p-4 shadow-card transition-all duration-300 hover:-translate-y-1 hover:border-brand/40 hover:shadow-card-hover"
+                className="group/card relative flex aspect-square cursor-default flex-col items-center justify-center gap-4 rounded-2xl bg-white border border-line/60 p-4 shadow-card transition-all duration-300 hover:-translate-y-1 hover:border-brand/40 hover:shadow-card-hover"
               >
                 {/* original brand logo with a soft colored halo on hover */}
                 <span className="relative flex h-14 w-14 shrink-0 items-center justify-center">

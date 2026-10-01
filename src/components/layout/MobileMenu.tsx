@@ -74,7 +74,18 @@ export default function MobileMenu({ open, onClose, triggerRef }: MobileMenuProp
         )}
       >
         <div className="flex items-center justify-between">
-          <Link to="/" onClick={onClose} aria-label="Navya EdTech home" tabIndex={open ? 0 : -1}>
+          <Link
+            to="/"
+            onClick={(e) => {
+              onClose();
+              if (location.pathname === "/") {
+                e.preventDefault();
+                window.location.reload();
+              }
+            }}
+            aria-label="Navya EdTech home"
+            tabIndex={open ? 0 : -1}
+          >
             <img
               src="/logo-navy.webp"
               alt="NavyaEdTech"

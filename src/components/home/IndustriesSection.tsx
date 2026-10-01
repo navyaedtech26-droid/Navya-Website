@@ -7,11 +7,9 @@ import { fadeUp, staggerContainer, viewportOnce } from "@/lib/animations";
 
 export default function IndustriesSection() {
   return (
-    <section className="relative bg-white py-[120px]">
+    <section className="relative bg-white section-y">
       <Container>
         <SectionHeading
-          tone="light"
-          eyebrow="Industries We Transform"
           title="Measurable Impact, Every"
           highlight="Sector"
           subtitle="From healthcare and finance to retail and manufacturing, we build specialized software solutions that solve industry-specific challenges."
@@ -22,7 +20,7 @@ export default function IndustriesSection() {
           initial="hidden"
           whileInView="visible"
           viewport={viewportOnce}
-          className="mt-16 grid grid-cols-1 md:grid-cols-2 gap-1 rounded-[24px] overflow-hidden bg-white"
+          className="mt-16 grid grid-cols-1 md:grid-cols-2 gap-1 rounded-3xl overflow-hidden bg-white"
         >
           {industries.map((industry) => (
             <motion.div key={industry.slug} variants={fadeUp} className="group relative aspect-square md:aspect-[4/3] w-full overflow-hidden">
@@ -39,7 +37,13 @@ export default function IndustriesSection() {
                   className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
                 />
               )}
-              <div className="absolute inset-0 bg-black/25 transition-opacity duration-500 group-hover:bg-black/40" />
+              {/* Bottom-weighted scrim rather than a flat black/25 wash. A
+                  uniform 25% tint left white text riding on whatever the photo
+                  happened to be doing behind it, so contrast was luck; a
+                  gradient anchored under the copy keeps the text block dark
+                  enough for AA on any image while the top of the photo stays
+                  legible. */}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/45 to-black/15 transition-opacity duration-500 group-hover:from-black/85 group-hover:via-black/55" />
               
               <Link
                 to={`/industries/${industry.slug}`}
@@ -55,7 +59,7 @@ export default function IndustriesSection() {
                 </div>
                 
                 <div className="mt-auto">
-                  <span className="inline-flex items-center justify-center bg-white text-heading px-6 py-2.5 rounded-md text-xs font-bold tracking-widest hover:bg-gray-100 transition-colors uppercase shadow-sm">
+                  <span className="inline-flex items-center justify-center rounded-xl bg-white px-6 py-2.5 text-xs font-bold uppercase tracking-widest text-heading shadow-sm transition-colors group-hover:bg-haze">
                     Explore
                   </span>
                 </div>

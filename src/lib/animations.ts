@@ -30,11 +30,21 @@ export const fadeUp: Variants = {
 
 
 
-// Page transition for route changes.
+// Professional page transition for route changes.
 export const pageTransition: Variants = {
-  initial: { opacity: 0, y: 16 },
-  animate: { opacity: 1, y: 0, transition: { duration: 0.32, ease: easeEntrance } },
-  exit: { opacity: 0, y: -12, transition: { duration: 0.2, ease: easeEntrance } },
+  initial: { opacity: 0, y: 20, scale: 0.98 },
+  animate: { 
+    opacity: 1, 
+    y: 0, 
+    scale: 1,
+    transition: { duration: 0.6, ease: easeEntrance } 
+  },
+  exit: { 
+    opacity: 0, 
+    y: -20, 
+    scale: 0.98,
+    transition: { duration: 0.4, ease: easeEntrance } 
+  },
 };
 
 export const viewportOnce = { once: true, margin: "-80px" } as const;

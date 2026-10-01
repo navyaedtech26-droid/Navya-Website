@@ -39,7 +39,7 @@ export default function ShareTestimonial() {
       <CTASection
         title="Ready to Build Something New?"
         subtitle="Let's engineer your next digital transformation."
-        primaryButtonLabel="Book a Strategy Call"
+        primaryButtonLabel="Book Free Consultation"
         primaryButtonHref="/contact"
         secondaryButtonLabel="View Our Portfolio"
         secondaryButtonHref="/portfolio"

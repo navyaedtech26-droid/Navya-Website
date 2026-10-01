@@ -113,7 +113,7 @@ export default function ServiceHero({ data }: ServiceHeroProps) {
                 className="group relative flex h-12 sm:h-14 items-center justify-center gap-2 overflow-hidden rounded-xl bg-primary px-6 sm:px-8 font-semibold text-white shadow-primary-sm transition-transform hover:-translate-y-0.5 active:translate-y-0"
               >
                 <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700 ease-in-out" />
-                Book a Strategy Call
+                Book Free Consultation
                 <ArrowRight size={18} className="transition-transform group-hover:translate-x-1" />
               </Link>
               <Link

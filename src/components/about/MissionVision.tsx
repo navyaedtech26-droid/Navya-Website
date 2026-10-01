@@ -1,7 +1,6 @@
 import { motion } from "framer-motion";
-import { Target, Telescope, Compass } from "lucide-react";
+import { Target, Telescope, Rocket } from "lucide-react";
 import Container from "@/components/common/Container";
-import IconBadge from "@/components/common/IconBadge";
 import SectionHeading from "@/components/common/SectionHeading";
 import { fadeUp, staggerContainer, viewportOnce } from "@/lib/animations";
 
@@ -9,69 +8,76 @@ const panels = [
   {
     icon: Target,
     label: "Mission",
-    text: "To turn digital investment into measurable, scalable business growth.",
-    glow: "from-brand/20",
-    borderGlow: "group-hover:border-brand/40",
+    text: "To design and deliver reliable, innovative, and scalable technology solutions that help businesses and institutions operate more efficiently — and to provide practical, industry-relevant tech education that bridges academic learning and real-world professional skills.",
   },
   {
     icon: Telescope,
     label: "Vision",
-    text: "To be the most trusted technical partner for ambitious global enterprises.",
-    glow: "from-primary/20",
-    borderGlow: "group-hover:border-primary/40",
+    text: "To be one of Nepal's leading and most trusted providers of innovative technology solutions that accelerate digital transformation, and a recognized center for practical tech education that produces industry-ready professionals for Nepal's growing digital economy.",
   },
   {
-    icon: Compass,
-    label: "Core Values",
-    text: "Driven by absolute quality, enduring trust, and unrelenting innovation.",
-    glow: "from-secondary/20",
-    borderGlow: "group-hover:border-secondary/40",
+    icon: Rocket,
+    label: "Objectives",
+    text: "To empower businesses through innovative digital solutions, including web applications, mobile applications, business systems, and digital marketing services. We aim to improve business efficiency, promote digital transformation, and provide practical IT education that develops skilled professionals. Through quality, innovation, and long-term partnerships, we strive to become a trusted technology partner in Nepal and beyond.",
   },
 ];
 
 export default function MissionVision() {
   return (
     <section className="relative py-24 md:py-32 bg-mist overflow-hidden">
-      {/* Subtle Background Elements */}
-      <div className="absolute inset-0 z-0 pointer-events-none opacity-[0.03] [mask-image:radial-gradient(ellipse_at_center,black_40%,transparent_80%)]" style={{ backgroundImage: 'radial-gradient(circle at 1px 1px, black 1px, transparent 0)', backgroundSize: '40px 40px' }} />
-
-      <Container className="relative z-10">
+      <Container>
         <SectionHeading
           align="center"
           title="Our Guiding"
           highlight="Principles"
           subtitle="The foundation of every partnership, every strategy, and every line of code we write."
         />
-        
+
         <motion.div
-          variants={staggerContainer(0.15)}
+          variants={staggerContainer(0.08)}
           initial="hidden"
           whileInView="visible"
           viewport={viewportOnce}
-          className="mt-20 grid gap-8 md:grid-cols-3"
+          className="mt-20 flex flex-col"
         >
-          {panels.map((panel) => (
-            <motion.div
-              key={panel.label}
-              variants={fadeUp}
-              className={`group relative overflow-hidden rounded-[2rem] bg-white border border-line/40 p-10 transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_20px_40px_-15px_rgba(0,0,0,0.1)] ${panel.borderGlow}`}
-            >
-              {/* Premium Gradient Glow */}
-              <div
-                className={`absolute -right-20 -top-20 h-56 w-56 rounded-full bg-gradient-to-br ${panel.glow} to-transparent blur-[50px] transition-opacity duration-500 opacity-50 group-hover:opacity-100`}
-              />
-              
-              <div className="relative z-10">
-                <IconBadge icon={panel.icon} size="lg" className="bg-paper shadow-sm transition-transform duration-500 group-hover:scale-110" />
-                <p className="mt-8 font-display text-sm font-bold uppercase tracking-[0.2em] text-primary">
-                  {panel.label}
-                </p>
-                <p className="mt-4 font-display text-xl font-semibold leading-relaxed text-heading sm:text-2xl">
-                  {panel.text}
-                </p>
-              </div>
-            </motion.div>
-          ))}
+          {panels.map((panel, index) => {
+            const Icon = panel.icon;
+            return (
+              <motion.div
+                key={panel.label}
+                variants={fadeUp}
+                className="group relative border-t border-line last:border-b"
+              >
+                <div className="flex flex-col gap-8 py-10 transition-colors duration-500 hover:bg-white/40 md:flex-row md:items-center md:gap-16 px-4 md:px-8 -mx-4 md:-mx-8 rounded-2xl md:rounded-none">
+                  {/* Number */}
+                  <div className="font-display text-2xl font-bold text-brand pt-1 md:pt-0 w-12 shrink-0 md:group-hover:text-cyan-accent transition-colors duration-500">
+                    {String(index + 1).padStart(2, "0")}
+                  </div>
+
+                  {/* Content */}
+                  <div className="flex-1 space-y-4">
+                    <h3 className="font-display text-2xl font-bold text-heading transition-colors duration-300 group-hover:text-brand">
+                      {panel.label}
+                    </h3>
+                    <p className="mt-3 text-base leading-relaxed text-faint max-w-2xl">
+                      {panel.text}
+                    </p>
+                  </div>
+
+                  {/* Icon Visual */}
+                  <div className="w-full md:w-[320px] lg:w-[400px] shrink-0">
+                    <div className="relative aspect-[16/9] w-full overflow-hidden rounded-2xl bg-gradient-to-br from-white to-sky/20 p-6 flex items-center justify-center transition-all duration-500 group-hover:shadow-card-hover group-hover:from-white group-hover:to-sky/40">
+                      <Icon
+                        size={64}
+                        strokeWidth={1.5}
+                        className="text-brand transition-transform duration-700 ease-out group-hover:scale-105"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+            );
+          })}
         </motion.div>
       </Container>
     </section>
