@@ -2,7 +2,8 @@
  * Lightweight Google Analytics 4 (gtag.js) loader.
  *
  * The GA script is only injected after the visitor grants cookie consent —
- * see ConsentContext / CookieConsent / Analytics. Set the measurement ID in
+ * see ConsentContext / Analytics. There is currently no consent banner, so
+ * consent stays null and GA never loads. Set the measurement ID in
  * an `.env` file as VITE_GA_MEASUREMENT_ID (e.g. "G-XXXXXXXXXX"). When it is
  * absent the tracker is a no-op, so local/dev builds stay clean.
  */

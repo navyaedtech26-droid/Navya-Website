@@ -779,6 +779,10 @@ function CaseStudyForm({
             </ContentSection>
 
             <ContentSection title="Client Testimonial">
+              <p className="text-sm text-[#6c757d]">
+                Optional. Only add a real quote the client has approved for publishing. Leave the quote
+                empty and no testimonial is shown on the case study.
+              </p>
               <Field label="Quote">
                 <textarea
                   rows={3}

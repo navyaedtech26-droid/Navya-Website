@@ -7,7 +7,7 @@
  * the DOM, since the prerendered snapshot captures the settled `animate`
  * state, not the pre-animation one. Replaying it anyway is a hydration
  * mismatch that, for chrome rendered outside the route `<Suspense>` boundary
- * (Navbar, CookieConsent), discards the entire prerendered tree and forces a
+ * (e.g. Navbar), discards the entire prerendered tree and forces a
  * full client re-render (React error #418/#423).
  *
  * Any later mount — a client-side route navigation, or a plain dev/CSR load

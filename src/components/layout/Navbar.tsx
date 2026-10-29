@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Link, NavLink as RouterNavLink, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, ChevronDown } from "lucide-react";
+import { Menu, ChevronDown, ArrowRight } from "lucide-react";
 import { navLinks } from "@/data/navigation";
 import { easeEntrance } from "@/lib/animations";
 import { skipEnterAnimation } from "@/lib/hydration";
@@ -147,9 +147,10 @@ export default function Navbar() {
             <div className="flex items-center gap-4 z-10">
               <Link
                 to="/contact"
-                className="hidden rounded-xl bg-primary px-5 py-2.5 text-sm font-semibold text-white shadow-primary-sm transition-transform hover:-translate-y-0.5 active:scale-95 sm:inline-flex"
+                className="group hidden items-center gap-2 rounded-xl bg-primary px-5 py-2.5 text-sm font-semibold text-white shadow-primary-sm transition-transform hover:-translate-y-0.5 active:scale-95 sm:inline-flex"
               >
                 Book Free Consultation
+                <ArrowRight size={16} aria-hidden="true" className="transition-transform duration-slow ease-out group-hover:translate-x-1" />
               </Link>
               <button
                 ref={menuToggleRef}

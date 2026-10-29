@@ -69,7 +69,7 @@ export default function PortfolioTestimonials() {
             transition={{ delay: 0.1 }}
             className="font-display text-4xl sm:text-5xl font-extrabold text-heading tracking-tight mb-6"
           >
-            Trusted by Global Leaders
+            What Our Clients Say
           </motion.h2>
         </div>
 
@@ -78,8 +78,8 @@ export default function PortfolioTestimonials() {
             <div className="w-20 h-20 bg-brand/10 rounded-full flex items-center justify-center mb-6 mx-auto">
               <Star size={32} className="text-brand fill-brand/20" />
             </div>
-            <h3 className="text-2xl font-bold text-heading mb-3">Client Success Stories</h3>
-            <p className="text-faint max-w-md mx-auto mb-8">We are gathering real stories from our amazing clients. Be the first to share your experience!</p>
+            <h3 className="text-2xl font-bold text-heading mb-3">No reviews yet</h3>
+            <p className="text-faint max-w-md mx-auto mb-8">We only publish genuine reviews from clients we have worked with. Worked with us? Be the first to share your experience.</p>
             <Link
               to="/share-your-story"
               className="inline-flex items-center gap-2 rounded-full bg-brand px-8 py-4 text-sm font-bold text-white shadow-[0_8px_20px_-8px_rgba(37,99,235,0.5)] transition-all hover:-translate-y-1 hover:shadow-[0_12px_25px_-8px_rgba(37,99,235,0.6)]"

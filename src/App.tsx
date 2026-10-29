@@ -9,7 +9,6 @@ import AnimatedBackground from "@/components/effects/AnimatedBackground";
 import ScrollProgress from "@/components/effects/ScrollProgress";
 import SmoothScroll from "@/components/effects/SmoothScroll";
 import Preloader from "@/components/effects/Preloader";
-import CookieConsent from "@/components/common/CookieConsent";
 import Analytics from "@/components/analytics/Analytics";
 
 // The primary nav pages are imported eagerly so moving between them is instant
@@ -241,8 +240,6 @@ export default function App() {
       </main>
 
       <Footer />
-
-      <CookieConsent />
     </SmoothScroll>
   );
 }

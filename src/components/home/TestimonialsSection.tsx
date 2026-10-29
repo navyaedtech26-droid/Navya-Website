@@ -100,7 +100,7 @@ export default function TestimonialsSection({
           )}
           
           <div>
-            <h4 className="font-display text-base font-bold text-heading">{t.name}</h4>
+            <p className="font-display text-base font-bold text-heading">{t.name}</p>
             <p className="text-sm text-faint mb-0.5">{t.role} @ <span className="font-semibold text-heading">{t.company}</span></p>
             {t.country && (
               <div className="flex items-center gap-1 text-xs text-faint">
@@ -123,9 +123,9 @@ export default function TestimonialsSection({
 
       <Container className="relative z-10 mb-16">
         <SectionHeading
-          title="Trusted by Global"
-          highlight="Enterprises"
-          subtitle="We measure our success in one currency: the growth and efficiency of the businesses we build for. Here is what that partnership delivers."
+          title="What Our Clients"
+          highlight="Say"
+          subtitle="Reviews from the businesses we build for, published as they are submitted."
         />
       </Container>
 
@@ -167,8 +167,8 @@ export default function TestimonialsSection({
           <div className="w-20 h-20 bg-brand/10 rounded-full flex items-center justify-center mb-6">
             <Star size={32} className="text-brand fill-brand/20" />
           </div>
-          <h3 className="text-2xl font-bold text-heading mb-3">Client Success Stories</h3>
-          <p className="text-faint max-w-md mx-auto mb-8">We are gathering real stories from our amazing clients. Be the first to share your experience!</p>
+          <h3 className="text-2xl font-bold text-heading mb-3">No reviews yet</h3>
+          <p className="text-faint max-w-md mx-auto mb-8">We only publish genuine reviews from clients we have worked with. Worked with us? Be the first to share your experience.</p>
         </div>
       )}
 

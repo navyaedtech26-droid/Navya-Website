@@ -15,7 +15,7 @@ export default function CaseStudyCard({ study, index = 0 }: { study: CaseStudy, 
     <div className="flex flex-col h-full justify-center lg:p-8">
       <div className="flex items-center gap-3 mb-6">
         <IconBadge icon={Icon} color="#081E4D" tone="light" />
-        <span className="text-sm font-bold uppercase tracking-wider text-brand">
+        <span className="text-sm font-semibold text-brand">
           {study.industry}
         </span>
       </div>
@@ -31,7 +31,7 @@ export default function CaseStudyCard({ study, index = 0 }: { study: CaseStudy, 
       {/* Tech Stack */}
       {study.tags && study.tags.length > 0 && (
         <div className="mb-8">
-          <h4 className="text-sm font-semibold text-heading uppercase tracking-widest mb-3">Technology Stack</h4>
+          <h4 className="text-sm font-semibold text-heading mb-3">Technology stack</h4>
           <div className="flex flex-wrap gap-2">
             {study.tags.map((tag) => (
               <span key={tag} className="rounded-full bg-mist px-4 py-1.5 text-sm font-medium text-heading ring-1 ring-line/50 transition-colors duration-300 hover:bg-white hover:shadow-sm">
@@ -42,16 +42,17 @@ export default function CaseStudyCard({ study, index = 0 }: { study: CaseStudy, 
         </div>
       )}
 
-      {/* Business Impact (Conditionally Rendered) */}
+      {/* Business Impact (Conditionally Rendered). The icon sits inline with
+          the heading rather than in its own column, and on desktop the tint
+          bleeds out by its own padding (lg:-mx-6), so the text lines up with
+          the heading and Technology stack above it. */}
       {study.content?.results?.businessImpact ? (
-        <div className="mb-10 rounded-2xl bg-brand/5 p-6 border border-brand/10 transition-colors duration-300 group-hover:bg-brand/10">
-          <div className="flex items-start gap-3">
-            <CheckCircle2 className="mt-0.5 text-brand shrink-0" size={20} />
-            <div>
-              <h4 className="text-sm font-bold text-heading uppercase tracking-widest mb-1">Business Impact</h4>
-              <p className="text-base text-faint font-medium">{study.content.results.businessImpact}</p>
-            </div>
-          </div>
+        <div className="mb-10 rounded-2xl bg-brand/5 p-6 lg:-mx-6 border border-brand/10 transition-colors duration-300 group-hover:bg-brand/10">
+          <h4 className="flex items-center gap-2 text-sm font-semibold text-heading mb-1">
+            <CheckCircle2 className="text-brand shrink-0" size={18} aria-hidden="true" />
+            Business impact
+          </h4>
+          <p className="text-base text-faint font-medium">{study.content.results.businessImpact}</p>
         </div>
       ) : (
         <div className="mb-10" />
@@ -60,7 +61,7 @@ export default function CaseStudyCard({ study, index = 0 }: { study: CaseStudy, 
       {/* Button. `brand-dark` is now a real token in tailwind.config.js — it
           was referenced here before but never defined, so both hover rules
           silently compiled away and the button had no hover state at all. */}
-      <div className="inline-flex items-center gap-3 rounded-full bg-brand px-7 py-3.5 text-sm font-bold text-white transition-all duration-300 hover:bg-brand-dark hover:shadow-lg hover:shadow-brand/20 group-hover:bg-brand-dark w-fit mt-auto">
+      <div className="inline-flex items-center gap-3 rounded-xl bg-brand px-7 py-3.5 text-sm font-bold text-white transition-all duration-300 hover:bg-brand-dark hover:shadow-lg hover:shadow-brand/20 group-hover:bg-brand-dark w-fit mt-auto">
         <span>Read Case Study</span>
         <ArrowRight size={18} className="transition-transform duration-300 group-hover:translate-x-1" />
       </div>

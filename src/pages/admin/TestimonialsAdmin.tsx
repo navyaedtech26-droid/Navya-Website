@@ -172,7 +172,7 @@ export default function TestimonialsAdmin() {
         <EmptyState
           icon={MessageSquareQuote}
           title="No testimonials yet"
-          description="When visitors submit their story through the public form, it'll appear here for you to review and publish. Until then, the site shows sample quotes."
+          description="When visitors submit their story through the public form, it'll appear here for you to review and publish. Until then, the site shows a “No reviews yet” message."
           action={
             <a
               href="/share-your-story"

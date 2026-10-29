@@ -116,9 +116,9 @@ export default function Footer() {
             </div>
 
             <div className="flex flex-col gap-4">
-              <h4 className="font-display text-sm font-semibold uppercase tracking-widest text-heading">
+              <h2 className="font-display text-sm font-semibold uppercase tracking-widest text-heading">
                 Newsletter
-              </h4>
+              </h2>
               <p className="text-sm text-faint">
                 Get the latest insights on enterprise architecture and digital transformation.
               </p>
@@ -169,9 +169,9 @@ export default function Footer() {
 
             <div className="space-y-10">
               <div>
-                <h4 className="mb-6 font-display text-sm font-semibold uppercase tracking-widest text-heading">
+                <h2 className="mb-6 font-display text-sm font-semibold uppercase tracking-widest text-heading">
                   Services
-                </h4>
+                </h2>
                 <ul className="space-y-4 text-sm">
                   {servicesLinks.map((link) => (
                     <li key={link.label}>
@@ -187,9 +187,9 @@ export default function Footer() {
 
             <div className="space-y-10">
               <div>
-                <h4 className="mb-6 font-display text-sm font-semibold uppercase tracking-widest text-heading">
+                <h2 className="mb-6 font-display text-sm font-semibold uppercase tracking-widest text-heading">
                   Solutions
-                </h4>
+                </h2>
                 <ul className="space-y-4 text-sm">
                   {solutionsLinks.map((link) => (
                     <li key={link.label}>
@@ -205,9 +205,9 @@ export default function Footer() {
 
             <div className="space-y-10">
               <div>
-                <h4 className="mb-6 font-display text-sm font-semibold uppercase tracking-widest text-heading">
+                <h2 className="mb-6 font-display text-sm font-semibold uppercase tracking-widest text-heading">
                   Industries
-                </h4>
+                </h2>
                 <ul className="space-y-4 text-sm">
                   {industriesLinks.map((link) => (
                     <li key={link.label}>
@@ -223,9 +223,9 @@ export default function Footer() {
 
             <div className="space-y-10">
               <div>
-                <h4 className="mb-6 font-display text-sm font-semibold uppercase tracking-widest text-heading">
+                <h2 className="mb-6 font-display text-sm font-semibold uppercase tracking-widest text-heading">
                   Company
-                </h4>
+                </h2>
                 <ul className="space-y-4 text-sm">
                   {companyLinks.map((link) => (
                     <li key={link.label}>
@@ -239,9 +239,9 @@ export default function Footer() {
               </div>
 
               <div>
-                <h4 className="mb-6 font-display text-sm font-semibold uppercase tracking-widest text-heading">
+                <h2 className="mb-6 font-display text-sm font-semibold uppercase tracking-widest text-heading">
                   Resources
-                </h4>
+                </h2>
                 <ul className="space-y-4 text-sm">
                   {resourcesLinks.map((link) => (
                     <li key={link.label}>

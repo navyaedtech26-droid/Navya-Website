@@ -30,7 +30,7 @@ export const privacyPolicy: LegalDoc = {
       ],
       list: [
         "Contact details you submit through our forms, including your name, email address, phone number, and the project details you describe.",
-        "Usage data such as pages visited, time on page, device type, browser, and approximate location, collected through analytics cookies.",
+        "Basic usage data such as pages visited, device type, and browser, as recorded in standard server logs.",
         "Technical data such as your IP address and referring website, used for security and to understand traffic sources.",
       ],
     },
@@ -47,8 +47,8 @@ export const privacyPolicy: LegalDoc = {
     {
       heading: "3. Cookies & Analytics",
       paragraphs: [
-        "We use cookies and similar technologies to run the site and to measure traffic with tools such as Google Analytics. Analytics cookies are only activated after you accept them through our cookie banner. You can decline non-essential cookies at any time, and you can clear cookies through your browser settings.",
-        "Essential cookies that are required for the site to function may be set without consent.",
+        "We do not use analytics or advertising cookies. The site may use essential cookies and browser storage that are required for it to function.",
+        "You can clear cookies and site data at any time through your browser settings.",
       ],
     },
     {
