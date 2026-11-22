@@ -1,9 +1,9 @@
 # Supabase backend — setup (≈10 minutes, free tier)
 
-This site uses **Supabase** for: user accounts/profiles, testimonials, and blog
-posts. Analytics stays on Google Analytics 4 (already set up). The contact
-form does **not** use Supabase — it sends directly from the browser via
-EmailJS, see the "Contact form (EmailJS)" section in `.env.example`.
+This site uses **Supabase** for: user accounts/profiles, testimonials, contact form
+submissions, and blog posts. Analytics stays on Google Analytics 4 (already set up).
+Email notifications for both contact messages and testimonials are delivered via Resend
+through the Supabase `submit` Edge Function.
 
 Everything runs on Supabase's **free tier** — no credit card needed.
 
@@ -103,20 +103,16 @@ You can still use the dashboard's **Table Editor** to edit any row by hand.
 | Blog posts     | `src/services/blogs.ts`                 |
 | Auth / profile | `src/context/AuthContext.tsx` (`useAuth()`) |
 
-> The admin **Messages** page (`src/pages/admin/MessagesAdmin.tsx`) still reads
-> the `contact_submissions` table, but nothing writes to it anymore now that
-> the contact form posts directly to the Cloudflare Worker — it'll only ever
-> show historical rows from before this change.
+> The admin **Messages** page (`src/pages/admin/MessagesAdmin.tsx`) reads
+> the `contact_submissions` table, where all incoming contact inquiries are saved.
 
 When Supabase env vars are absent, the app falls back to bundled static data, so
 local development works without any backend.
 
 ## 5. Bot protection (Cloudflare Turnstile) — optional but recommended
 
-> This section covers the **testimonial** form. The contact form renders the
-> same `VITE_TURNSTILE_SITE_KEY` widget but can't verify the token anywhere —
-> EmailJS has no backend to check it against, so it's a client-side speed
-> bump only. See `.env.example` for the full trade-off.
+Both the contact and testimonial forms render the `VITE_TURNSTILE_SITE_KEY` widget
+and have their tokens verified server-side by the `submit` Edge Function.
 
 The testimonial form ships with a honeypot, timing checks, a per-browser
 cooldown and a server-side per-email throttle. To stop a determined bot that
@@ -153,31 +149,29 @@ CAPTCHA verified server-side by an Edge Function:
 > Keep this policy until the Edge Function is deployed and verified, or the
 > form will stop working.
 
-## 6. Email notifications (optional)
+## 6. Email notifications (Resend)
 
-> This section covers **testimonial** notifications. For contact-form emails,
-> see the "Contact form (EmailJS)" section in `.env.example` — a separate,
-> backend-free setup, not this Edge Function.
-
-The `submit` Edge Function can email you when a testimonial arrives. It uses
+The `submit` Edge Function emails the team when a new contact inquiry or testimonial
+arrives, and sends an auto-reply confirmation to contact form submitters. It uses
 [Resend](https://resend.com) (generous free tier). With no key set, this is a
-no-op — submissions still save.
+no-op — submissions still save to the database.
 
-1. Create a Resend account, **verify your sending domain**, and copy an API key.
-2. Give the function its secrets and redeploy:
+1. Create a Resend account, copy your API key (`re_xxx`), and optionally verify your sending domain.
+2. Give the function its secrets and deploy:
    ```bash
    supabase secrets set RESEND_API_KEY=re_xxx
-   supabase secrets set CONTACT_FROM="Navya EdTech <hello@your-domain.com>"
-   supabase secrets set CONTACT_NOTIFY_TO=team@your-domain.com   # comma-separated ok
+   supabase secrets set CONTACT_FROM="Navya EdTech <onboarding@resend.dev>"   # or verified domain
+   supabase secrets set CONTACT_NOTIFY_TO=navyaedtech26@gmail.com           # comma-separated ok
    supabase functions deploy submit --no-verify-jwt
    ```
-   `CONTACT_FROM` must use the domain you verified in Resend.
+   `CONTACT_FROM` can start as `Navya EdTech <onboarding@resend.dev>` for testing, or use your domain verified in Resend.
 
 What gets sent:
 
-| Trigger                | Email                               |
+| Trigger                | Email                                |
 | ---------------------- | ------------------------------------ |
-| New testimonial        | Team notification (pending review)  |
+| New contact inquiry    | Team notification + Visitor auto-reply |
+| New testimonial        | Team notification (pending review)   |
 
 Emails are best-effort and run **after** the row is saved (off the response
 path), so an email outage never fails a submission. Visitor text is HTML-escaped.
@@ -190,9 +184,7 @@ the email field. The default is **8 submissions / 10 min per IP** — tune
 `IP_MAX_HITS` / `IP_WINDOW` in
 [`functions/submit/index.ts`](./functions/submit/index.ts). If the migration
 isn't applied the function fails open (allows the request); the other layers
-(Turnstile, per-email throttle) still apply. This doesn't apply to the contact
-form — it has no backend to rate-limit; abuse is bounded by EmailJS's own
-per-account sending limits and the "Allowed origins" restriction.
+(Turnstile, per-email throttle) still apply.
 
 ## Security runbook
 

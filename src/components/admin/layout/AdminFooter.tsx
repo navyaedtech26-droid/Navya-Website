@@ -1,9 +1,8 @@
-/** AdminLTE-style footer: copyright left, version tag right. */
 export default function AdminFooter() {
   return (
-    <footer className="flex flex-wrap items-center justify-between gap-2 border-t border-[#dee2e6] bg-white px-4 py-3 text-xs text-[#6c757d]">
+    <footer className="mt-8 flex flex-wrap items-center justify-between gap-2 border-t border-border/60 pt-4 text-xs text-muted-foreground">
       <span>Copyright &copy; {new Date().getFullYear()} Navya EdTech. All rights reserved.</span>
-      <span>Admin Dashboard</span>
+      <span>Management Platform v2.0</span>
     </footer>
   );
 }

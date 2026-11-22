@@ -1,20 +1,14 @@
 /**
- * Contact form submissions. Sent directly from the browser via EmailJS — no
- * backend at all. EmailJS's public key is safe to expose (unlike a raw
- * Resend/SMTP key): restrict abuse via EmailJS dashboard → Account →
- * Security → "Allowed origins", set to this site's domain.
+ * Contact form submissions. Routed through the Supabase `submit` Edge Function,
+ * which verifies Turnstile (if configured), applies per-IP rate-limiting, inserts
+ * into `contact_submissions`, and sends email notifications via Resend.
+ *
+ * Falls back to direct Supabase anon insert if the Edge Function is unreachable.
  */
-import emailjs from "@emailjs/browser";
+import { supabase, isSupabaseConfigured } from "@/lib/supabase";
 import { logger } from "@/lib/logger";
 
 const log = logger.scope("contact");
-
-const PUBLIC_KEY = import.meta.env.VITE_EMAILJS_PUBLIC_KEY as string | undefined;
-const SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID as string | undefined;
-const NOTIFY_TEMPLATE_ID = import.meta.env.VITE_EMAILJS_NOTIFY_TEMPLATE_ID as string | undefined;
-const AUTOREPLY_TEMPLATE_ID = import.meta.env.VITE_EMAILJS_AUTOREPLY_TEMPLATE_ID as
-  | string
-  | undefined;
 
 export interface ContactInput {
   name: string;
@@ -33,43 +27,68 @@ export interface SubmitResult {
 }
 
 /**
- * Email a contact message via EmailJS. Returns `{ ok }` so the UI can react.
+ * Submit a contact inquiry.
  */
-export async function submitContact(input: ContactInput): Promise<SubmitResult> {
-  // Honeypot tripped → a bot filled a field humans never see. Pretend success
-  // so we don't reveal the trap, but never send the request.
+export async function submitContact(
+  input: ContactInput,
+  token?: string
+): Promise<SubmitResult> {
+  // Honeypot tripped → pretend success so we don't reveal the trap
   if (input.company_website && input.company_website.trim() !== "") {
     return { ok: true };
   }
 
-  if (!PUBLIC_KEY || !SERVICE_ID || !NOTIFY_TEMPLATE_ID) {
-    // No backend configured (e.g. local dev) — don't hard-fail the UI.
-    log.warn("EmailJS is not configured (VITE_EMAILJS_*); message was not sent.");
+  if (!isSupabaseConfigured || !supabase) {
+    // No backend configured (e.g. local dev without env) — don't hard-fail the UI.
+    log.warn("Supabase is not configured; message was not sent.");
     return { ok: true };
   }
 
-  const templateParams = {
+  const payload = {
     name: input.name.trim(),
     email: input.email.trim(),
-    phone: input.phone?.trim() || "Not provided",
-    service: input.service || "Not specified",
-    budget: input.budget || "Not specified",
+    phone: input.phone?.trim() || null,
+    service: input.service || null,
+    budget: input.budget || null,
     message: input.message.trim(),
   };
 
   try {
-    await emailjs.send(SERVICE_ID, NOTIFY_TEMPLATE_ID, templateParams, { publicKey: PUBLIC_KEY });
+    const { data, error } = await supabase.functions.invoke<{
+      ok: boolean;
+      error?: string;
+    }>("submit", {
+      body: {
+        type: "contact",
+        token,
+        payload,
+      },
+    });
 
-    if (AUTOREPLY_TEMPLATE_ID) {
-      // Best-effort: a failed auto-reply shouldn't fail the whole submission.
-      emailjs
-        .send(SERVICE_ID, AUTOREPLY_TEMPLATE_ID, templateParams, { publicKey: PUBLIC_KEY })
-        .catch((err) => log.warn("auto-reply failed", err));
+    if (!error && data?.ok) {
+      return { ok: true };
     }
 
-    return { ok: true };
+    if (error) {
+      log.warn("submit via edge function failed, falling back to direct insert", error);
+    } else if (data && !data.ok) {
+      return { ok: false, error: data.error ?? "Something went wrong. Please try again." };
+    }
   } catch (err) {
-    log.error("submit failed", err);
+    log.warn("edge function call threw, falling back to direct insert", err);
+  }
+
+  // Fallback path: direct database insert
+  const { error } = await supabase.from("contact_submissions").insert(payload);
+
+  if (error) {
+    log.error("submit failed", error);
+    // 23514 is check_violation from enforce_contact_rules()
+    if (error.code === "23514") {
+      return { ok: false, error: error.message };
+    }
     return { ok: false, error: "Something went wrong. Please try again." };
   }
+
+  return { ok: true };
 }

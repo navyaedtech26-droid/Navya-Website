@@ -1,72 +1,35 @@
-/**
- * AdminLTE 3-style shell for the admin dashboard: dark fixed sidebar
- * (icon-collapsible on desktop, off-canvas drawer on mobile), a light top
- * navbar, a light content wrapper for the active section (`<Outlet/>`), and a
- * footer. Rendered only behind `RequireAdmin`, so by the time it mounts the
- * user is a confirmed admin.
- */
-import { useState } from "react";
 import { Outlet } from "react-router-dom";
-import { useAuth } from "@/context/AuthContext";
+import { SidebarProvider } from "@/components/ui/sidebar";
+import { TooltipProvider } from "@/components/ui/tooltip";
 import AdminSidebar from "@/components/admin/layout/AdminSidebar";
 import AdminNavbar from "@/components/admin/layout/AdminNavbar";
 import AdminFooter from "@/components/admin/layout/AdminFooter";
-import { cn } from "@/lib/utils";
-
-/** Tailwind's `lg` breakpoint (1024px) — matches the sidebar's `lg:` classes. */
-const DESKTOP_BREAKPOINT = 1024;
+import "@/components/watermelon/bionis-dashboard/dashboard.css";
 
 export default function AdminLayout() {
-  const { profile, user } = useAuth();
-  const [collapsed, setCollapsed] = useState(false);
-  const [mobileOpen, setMobileOpen] = useState(false);
-
-  const toggleSidebar = () => {
-    if (window.innerWidth < DESKTOP_BREAKPOINT) setMobileOpen((v) => !v);
-    else setCollapsed((v) => !v);
-  };
-
   return (
-    <div className="min-h-[100svh] bg-[#f4f6f9] text-[#212529]">
-      {/* Skip past the sidebar/top bar straight to the section content. */}
-      <a
-        href="#admin-main"
-        className="sr-only z-[60] rounded bg-[#007bff] px-4 py-2 text-sm font-semibold text-white outline-none ring-2 ring-white focus:not-sr-only focus:fixed focus:left-4 focus:top-4"
+    <TooltipProvider>
+      <SidebarProvider
+        defaultOpen
+        className="bionis-dashboard h-svh overflow-hidden no-scrollbar bg-background text-foreground"
+        style={
+          {
+            "--sidebar-width": "17.5rem",
+            "--sidebar-width-icon": "4.25rem",
+          } as React.CSSProperties
+        }
       >
-        Skip to content
-      </a>
-
-      {/* Backdrop for the mobile off-canvas drawer */}
-      {mobileOpen && (
-        <button
-          aria-label="Close menu"
-          onClick={() => setMobileOpen(false)}
-          className="fixed inset-0 z-30 bg-black/50 lg:hidden"
-        />
-      )}
-
-      <AdminSidebar
-        collapsed={collapsed}
-        mobileOpen={mobileOpen}
-        onNavigate={() => setMobileOpen(false)}
-        userName={profile?.full_name || "Administrator"}
-        userEmail={user?.email}
-      />
-
-      <div
-        className={cn(
-          "flex min-h-[100svh] flex-col transition-[margin] duration-300",
-          collapsed ? "lg:ml-[4.6rem]" : "lg:ml-64"
-        )}
-      >
-        <AdminNavbar onToggleSidebar={toggleSidebar} />
-
-        <main id="admin-main" tabIndex={-1} className="flex-1 p-4 outline-none sm:p-6 lg:p-8">
-          <Outlet />
+        <AdminSidebar />
+        <main className="flex flex-1 flex-col overflow-hidden bg-[#F6F8FB]/80 dark:bg-background">
+          <AdminNavbar />
+          <div className="flex-1 overflow-y-auto px-4 py-6 md:px-8 md:py-8 flex flex-col justify-between">
+            <div>
+              <Outlet />
+            </div>
+            <AdminFooter />
+          </div>
         </main>
-
-        <AdminFooter />
-      </div>
-    </div>
+      </SidebarProvider>
+    </TooltipProvider>
   );
 }

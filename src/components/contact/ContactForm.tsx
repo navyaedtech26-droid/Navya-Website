@@ -194,15 +194,18 @@ export default function ContactForm() {
 
     const formattedMessage = `Company: ${form.company || 'Not provided'}\nTimeline: ${form.timeline || 'Not specified'}\n\n${form.message}`;
 
-    const result = await submitContact({
-      name: form.name,
-      email: form.email,
-      phone: form.phone,
-      service: form.service,
-      budget: form.budget,
-      message: formattedMessage,
-      company_website: guard.honeypot,
-    });
+    const result = await submitContact(
+      {
+        name: form.name,
+        email: form.email,
+        phone: form.phone,
+        service: form.service,
+        budget: form.budget,
+        message: formattedMessage,
+        company_website: guard.honeypot,
+      },
+      captchaToken ?? undefined
+    );
 
     if (result.ok) {
       guard.markUsed();

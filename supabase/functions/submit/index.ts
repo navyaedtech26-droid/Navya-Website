@@ -1,20 +1,14 @@
 // Supabase Edge Function: `submit`
 //
-// Endpoint for the testimonial form. (The contact form no longer goes through
-// Supabase — it sends directly from the browser via EmailJS, see the
-// "Contact form (EmailJS)" section in .env.example.) Verifies the Cloudflare
+// Endpoint for contact and testimonial form submissions. Verifies the Cloudflare
 // Turnstile token server-side, applies a per-IP rate limit on top of the
 // existing per-email DB throttle, inserts the row with the service role
 // (bypassing RLS), and — best effort, after the row is saved — emails the
-// team via Resend. See supabase/README.md §5-7 for the full setup story.
+// team (and visitor) via Resend. See supabase/README.md for the full setup story.
 //
 // Deploy:  supabase functions deploy submit --no-verify-jwt
 // Secrets: TURNSTILE_SECRET_KEY, RESEND_API_KEY, CONTACT_FROM, CONTACT_NOTIFY_TO
 //          (SUPABASE_URL / SUPABASE_SERVICE_ROLE_KEY are injected automatically)
-//
-// Every secret is optional: with none set, the function still verifies
-// nothing, rate-limits by IP only, and just saves the row — mirroring the
-// direct-insert fallback the client uses when Turnstile isn't configured.
 
 import { createClient } from "npm:@supabase/supabase-js@2";
 
@@ -26,20 +20,27 @@ const corsHeaders = {
 
 const TURNSTILE_SECRET_KEY = Deno.env.get("TURNSTILE_SECRET_KEY");
 const RESEND_API_KEY = Deno.env.get("RESEND_API_KEY");
-const CONTACT_FROM = Deno.env.get("CONTACT_FROM");
+const CONTACT_FROM = Deno.env.get("CONTACT_FROM") || "Navya EdTech <hello@navyaedtech.com>";
 const CONTACT_NOTIFY_TO = Deno.env.get("CONTACT_NOTIFY_TO");
 const SUPABASE_URL = Deno.env.get("SUPABASE_URL") ?? "";
 const SERVICE_ROLE_KEY = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") ?? "";
 
-// Per-IP fixed-window limit, layered on top of the per-email DB throttle so a
-// bot can't bypass it by rotating the email field. See migration 0005
-// (ip_throttle) / supabase/README.md §7. Tune here, then redeploy.
 const IP_MAX_HITS = 8;
 const IP_WINDOW = "10 minutes";
 
 const admin = createClient(SUPABASE_URL, SERVICE_ROLE_KEY, {
   auth: { persistSession: false },
 });
+
+interface ContactPayload {
+  name: string;
+  email: string;
+  phone?: string | null;
+  service?: string | null;
+  budget?: string | null;
+  message: string;
+  company_website?: string | null;
+}
 
 interface TestimonialPayload {
   quote: string;
@@ -49,7 +50,9 @@ interface TestimonialPayload {
   rating: number;
 }
 
-type Body = { type: "testimonial"; token?: string; payload: TestimonialPayload };
+type Body =
+  | { type: "contact"; token?: string; payload: ContactPayload }
+  | { type: "testimonial"; token?: string; payload: TestimonialPayload };
 
 function json(body: unknown, status = 200): Response {
   return new Response(JSON.stringify(body), {
@@ -68,11 +71,6 @@ function escapeHtml(value: string): string {
     .replace(/'/g, "&#39;");
 }
 
-/**
- * Run a promise after the response is sent, without letting a failure become
- * an unhandled rejection. Falls back to a plain fire-and-forget if the edge
- * runtime's background-task hook isn't present (e.g. local `supabase serve`).
- */
 function background(promise: Promise<unknown>): void {
   const waitUntil = (globalThis as { EdgeRuntime?: { waitUntil?: (p: Promise<unknown>) => void } })
     .EdgeRuntime?.waitUntil;
@@ -86,7 +84,6 @@ function clientIp(req: Request): string | null {
   return req.headers.get("cf-connecting-ip");
 }
 
-/** Verify a Turnstile response token. A no-op (always passes) when unconfigured. */
 async function verifyTurnstile(token: string | undefined, ip: string | null): Promise<boolean> {
   if (!TURNSTILE_SECRET_KEY) return true;
   if (!token) return false;
@@ -109,7 +106,6 @@ async function verifyTurnstile(token: string | undefined, ip: string | null): Pr
   }
 }
 
-/** Send one email via Resend. A silent no-op when Resend isn't configured. */
 async function sendEmail(opts: {
   to: string[];
   subject: string;
@@ -139,10 +135,487 @@ async function sendEmail(opts: {
 }
 
 function notifyRecipients(): string[] {
-  return (CONTACT_NOTIFY_TO ?? "")
+  const configured = (CONTACT_NOTIFY_TO ?? "")
     .split(",")
     .map((s) => s.trim())
     .filter(Boolean);
+  if (configured.length > 0) return configured;
+  return ["navyaedtech26@gmail.com"];
+}
+
+/**
+ * Premium branded HTML template for the visitor auto-reply confirmation email.
+ */
+function renderVisitorConfirmationEmail(data: {
+  name: string;
+  email: string;
+  service?: string | null;
+  budget?: string | null;
+  phone?: string | null;
+  message: string;
+}): string {
+  const safeName = escapeHtml(data.name);
+  const safeService = escapeHtml(data.service || "Enterprise Technology Services");
+  const safeBudget = escapeHtml(data.budget || "To be discussed");
+  const safePhone = escapeHtml(data.phone || "Not provided");
+  const safeEmail = escapeHtml(data.email);
+  const safeMessage = escapeHtml(data.message);
+
+  return `<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Thank you for contacting Navya EdTech</title>
+  </head>
+  <body style="margin:0; padding:0; background-color:#F4F6F9; font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; -webkit-font-smoothing:antialiased;">
+    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background-color:#F4F6F9; padding:40px 16px;">
+      <tr>
+        <td align="center">
+          <table role="presentation" width="580" cellpadding="0" cellspacing="0" style="max-width:580px; width:100%; background-color:#ffffff; border-radius:16px; overflow:hidden; border:1px solid #E2E8F0; box-shadow:0 8px 30px rgba(8,30,77,0.06);">
+            <!-- Top Brand Accent Bar -->
+            <tr>
+              <td style="height:5px; background:linear-gradient(90deg, #081E4D 0%, #1E6BFF 100%); line-height:5px; font-size:0;">&nbsp;</td>
+            </tr>
+            <!-- Header with Logo -->
+            <tr>
+              <td style="padding:36px 44px 20px 44px;" align="left">
+                <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
+                  <tr>
+                    <td>
+                      <a href="https://navyaedtech.com" target="_blank" style="text-decoration:none; display:inline-block;">
+                        <img src="https://navyaedtech.com/logo.jpg" width="140" alt="Navya EdTech" style="display:block; border:0; outline:none; border-radius:8px;" />
+                      </a>
+                    </td>
+                    <td align="right">
+                      <span style="display:inline-block; padding:6px 14px; font-size:11px; font-weight:700; letter-spacing:0.8px; text-transform:uppercase; color:#1E6BFF; background-color:#EFF6FF; border:1px solid #DBEAFE; border-radius:24px;">
+                        2-Hour Response SLA
+                      </span>
+                    </td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+            <!-- Hero Greeting -->
+            <tr>
+              <td style="padding:10px 44px 20px 44px;">
+                <h1 style="margin:0; font-size:24px; line-height:32px; color:#081E4D; font-weight:800; letter-spacing:-0.4px;">
+                  Thank you for reaching out, ${safeName}!
+                </h1>
+                <p style="margin:12px 0 0 0; font-size:15px; line-height:24px; color:#4A5568;">
+                  We have received your request regarding <strong>${safeService}</strong>. Our enterprise consulting and engineering team has been notified and is reviewing your requirements.
+                </p>
+              </td>
+            </tr>
+            <!-- Project Summary Box -->
+            <tr>
+              <td style="padding:0 44px 24px 44px;">
+                <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background-color:#F8FAFC; border:1px solid #E2E8F0; border-radius:12px; padding:20px;">
+                  <tr>
+                    <td>
+                      <div style="font-size:11px; font-weight:800; color:#1E6BFF; text-transform:uppercase; letter-spacing:1px; margin-bottom:12px;">
+                        Inquiry Summary
+                      </div>
+                      <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="font-size:14px; line-height:22px;">
+                        <tr>
+                          <td style="padding:4px 0; color:#64748B; width:130px; font-weight:500;">Service Required:</td>
+                          <td style="padding:4px 0; color:#081E4D; font-weight:600;">${safeService}</td>
+                        </tr>
+                        <tr>
+                          <td style="padding:4px 0; color:#64748B; font-weight:500;">Budget Range:</td>
+                          <td style="padding:4px 0; color:#081E4D; font-weight:600;">${safeBudget}</td>
+                        </tr>
+                        <tr>
+                          <td style="padding:4px 0; color:#64748B; font-weight:500;">Work Email:</td>
+                          <td style="padding:4px 0; color:#081E4D; font-weight:600;">${safeEmail}</td>
+                        </tr>
+                        <tr>
+                          <td style="padding:4px 0; color:#64748B; font-weight:500;">Phone Number:</td>
+                          <td style="padding:4px 0; color:#081E4D; font-weight:600;">${safePhone}</td>
+                        </tr>
+                      </table>
+                      <div style="margin-top:16px; padding-top:14px; border-top:1px dashed #CBD5E1;">
+                        <div style="font-size:12px; font-weight:600; color:#64748B; margin-bottom:6px;">Your Project Message:</div>
+                        <div style="font-size:13px; line-height:20px; color:#334155; white-space:pre-wrap; background-color:#ffffff; padding:12px 14px; border-radius:8px; border:1px solid #E2E8F0;">${safeMessage}</div>
+                      </div>
+                    </td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+            <!-- Next Steps -->
+            <tr>
+              <td style="padding:0 44px 28px 44px;">
+                <div style="font-size:13px; font-weight:700; color:#081E4D; text-transform:uppercase; letter-spacing:0.8px; margin-bottom:14px;">
+                  What Happens Next
+                </div>
+                <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="font-size:14px; line-height:22px;">
+                  <tr>
+                    <td valign="top" style="width:28px; padding-right:12px;">
+                      <div style="width:24px; height:24px; border-radius:50%; background-color:#081E4D; color:#ffffff; font-size:12px; font-weight:700; text-align:center; line-height:24px;">1</div>
+                    </td>
+                    <td style="padding-bottom:12px;">
+                      <strong style="color:#081E4D;">Technical Review:</strong> <span style="color:#64748B;">Our strategy experts evaluate your project scope and objectives.</span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td valign="top" style="width:28px; padding-right:12px;">
+                      <div style="width:24px; height:24px; border-radius:50%; background-color:#1E6BFF; color:#ffffff; font-size:12px; font-weight:700; text-align:center; line-height:24px;">2</div>
+                    </td>
+                    <td style="padding-bottom:12px;">
+                      <strong style="color:#081E4D;">Direct Follow-up:</strong> <span style="color:#64748B;">We will connect with you via email or phone to confirm details.</span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td valign="top" style="width:28px; padding-right:12px;">
+                      <div style="width:24px; height:24px; border-radius:50%; background-color:#38BDF8; color:#081E4D; font-size:12px; font-weight:700; text-align:center; line-height:24px;">3</div>
+                    </td>
+                    <td>
+                      <strong style="color:#081E4D;">Strategic Roadmap:</strong> <span style="color:#64748B;">You receive a tailored execution plan, architecture guide, and transparent estimate.</span>
+                    </td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+            <!-- CTA Button -->
+            <tr>
+              <td style="padding:0 44px 36px 44px;">
+                <table role="presentation" cellpadding="0" cellspacing="0">
+                  <tr>
+                    <td style="border-radius:10px; background-color:#081E4D;">
+                      <a href="https://navyaedtech.com/portfolio" target="_blank" style="display:inline-block; padding:14px 28px; font-size:14px; font-weight:700; color:#ffffff; text-decoration:none; border-radius:10px; letter-spacing:0.2px;">
+                        Explore Our Case Studies &rarr;
+                      </a>
+                    </td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+            <!-- Footer -->
+            <tr>
+              <td style="padding:28px 44px; background-color:#F8FAFC; border-top:1px solid #E2E8F0;">
+                <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
+                  <tr>
+                    <td>
+                      <div style="font-size:13px; font-weight:700; color:#081E4D; margin-bottom:4px;">Navya EdTech</div>
+                      <div style="font-size:12px; line-height:18px; color:#64748B;">
+                        Enterprise Software · Digital Transformation · Cloud & AI Solutions<br />
+                        Kathmandu, Nepal &nbsp;|&nbsp; <a href="mailto:hello@navyaedtech.com" style="color:#1E6BFF; text-decoration:none;">hello@navyaedtech.com</a> &nbsp;|&nbsp; <a href="https://navyaedtech.com" target="_blank" style="color:#1E6BFF; text-decoration:none;">navyaedtech.com</a>
+                      </div>
+                      <div style="font-size:11px; line-height:16px; color:#94A3B8; margin-top:12px;">
+                        &copy; 2026 Navya EdTech. All rights reserved. You are receiving this because you submitted a consultation request on navyaedtech.com.
+                      </div>
+                    </td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>`;
+}
+
+/**
+ * Premium branded HTML template for the team internal notification email.
+ */
+function renderTeamNotificationEmail(data: {
+  name: string;
+  email: string;
+  service?: string | null;
+  budget?: string | null;
+  phone?: string | null;
+  message: string;
+}): string {
+  const safeName = escapeHtml(data.name);
+  const safeService = escapeHtml(data.service || "Unspecified Service");
+  const safeBudget = escapeHtml(data.budget || "Unspecified Budget");
+  const safePhone = escapeHtml(data.phone || "Not provided");
+  const safeEmail = escapeHtml(data.email);
+  const safeMessage = escapeHtml(data.message);
+  const replySubject = encodeURIComponent(`Re: Consultation inquiry with Navya EdTech (${data.service || "Project"})`);
+
+  return `<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>New Lead: ${safeName}</title>
+  </head>
+  <body style="margin:0; padding:0; background-color:#F4F6F9; font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; -webkit-font-smoothing:antialiased;">
+    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background-color:#F4F6F9; padding:40px 16px;">
+      <tr>
+        <td align="center">
+          <table role="presentation" width="580" cellpadding="0" cellspacing="0" style="max-width:580px; width:100%; background-color:#ffffff; border-radius:16px; overflow:hidden; border:1px solid #E2E8F0; box-shadow:0 8px 30px rgba(8,30,77,0.06);">
+            <!-- Top Alert Bar -->
+            <tr>
+              <td style="height:5px; background:linear-gradient(90deg, #F59E0B 0%, #1E6BFF 100%); line-height:5px; font-size:0;">&nbsp;</td>
+            </tr>
+            <!-- Header with Logo & Alert Badge -->
+            <tr>
+              <td style="padding:36px 44px 20px 44px;" align="left">
+                <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
+                  <tr>
+                    <td>
+                      <a href="https://navyaedtech.com" target="_blank" style="text-decoration:none; display:inline-block;">
+                        <img src="https://navyaedtech.com/logo.jpg" width="130" alt="Navya EdTech" style="display:block; border:0; outline:none; border-radius:8px;" />
+                      </a>
+                    </td>
+                    <td align="right">
+                      <span style="display:inline-block; padding:6px 14px; font-size:11px; font-weight:800; letter-spacing:0.8px; text-transform:uppercase; color:#B45309; background-color:#FEF3C7; border:1px solid #FDE68A; border-radius:24px;">
+                        🔥 New Inbound Lead
+                      </span>
+                    </td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+            <!-- Lead Headline -->
+            <tr>
+              <td style="padding:10px 44px 16px 44px;">
+                <h1 style="margin:0; font-size:22px; line-height:30px; color:#081E4D; font-weight:800; letter-spacing:-0.4px;">
+                  New Consultation Request: ${safeName}
+                </h1>
+                <p style="margin:8px 0 0 0; font-size:14px; line-height:22px; color:#64748B;">
+                  A new client has submitted the contact form on <a href="https://navyaedtech.com" style="color:#1E6BFF; font-weight:600; text-decoration:none;">navyaedtech.com</a>.
+                </p>
+              </td>
+            </tr>
+            <!-- Quick Action CTA -->
+            <tr>
+              <td style="padding:0 44px 24px 44px;">
+                <table role="presentation" cellpadding="0" cellspacing="0">
+                  <tr>
+                    <td style="border-radius:10px; background-color:#1E6BFF;">
+                      <a href="mailto:${safeEmail}?subject=${replySubject}" style="display:inline-block; padding:12px 24px; font-size:14px; font-weight:700; color:#ffffff; text-decoration:none; border-radius:10px;">
+                        Reply Directly to ${safeName} &rarr;
+                      </a>
+                    </td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+            <!-- Structured Lead Details -->
+            <tr>
+              <td style="padding:0 44px 28px 44px;">
+                <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background-color:#F8FAFC; border:1px solid #E2E8F0; border-radius:12px; padding:20px;">
+                  <tr>
+                    <td>
+                      <div style="font-size:11px; font-weight:800; color:#081E4D; text-transform:uppercase; letter-spacing:1px; margin-bottom:12px;">
+                        Prospect Information
+                      </div>
+                      <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="font-size:14px; line-height:24px;">
+                        <tr>
+                          <td style="padding:6px 0; color:#64748B; width:130px; font-weight:500;">Full Name:</td>
+                          <td style="padding:6px 0; color:#081E4D; font-weight:700;">${safeName}</td>
+                        </tr>
+                        <tr>
+                          <td style="padding:6px 0; color:#64748B; font-weight:500;">Work Email:</td>
+                          <td style="padding:6px 0; font-weight:600;">
+                            <a href="mailto:${safeEmail}" style="color:#1E6BFF; text-decoration:underline;">${safeEmail}</a>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td style="padding:6px 0; color:#64748B; font-weight:500;">Phone:</td>
+                          <td style="padding:6px 0; color:#081E4D; font-weight:600;">
+                            <a href="tel:${safePhone}" style="color:#081E4D; text-decoration:none;">${safePhone}</a>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td style="padding:6px 0; color:#64748B; font-weight:500;">Service Needed:</td>
+                          <td style="padding:6px 0; color:#081E4D; font-weight:700;">${safeService}</td>
+                        </tr>
+                        <tr>
+                          <td style="padding:6px 0; color:#64748B; font-weight:500;">Budget Range:</td>
+                          <td style="padding:6px 0; color:#059669; font-weight:700;">${safeBudget}</td>
+                        </tr>
+                      </table>
+                      <div style="margin-top:16px; padding-top:14px; border-top:1px dashed #CBD5E1;">
+                        <div style="font-size:12px; font-weight:700; color:#081E4D; margin-bottom:8px;">Project Scope & Description:</div>
+                        <div style="font-size:13px; line-height:22px; color:#1E293B; white-space:pre-wrap; background-color:#ffffff; padding:14px 16px; border-radius:8px; border:1px solid #E2E8F0; font-family:monospace;">${safeMessage}</div>
+                      </div>
+                    </td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+            <!-- Admin Dashboard Link -->
+            <tr>
+              <td style="padding:0 44px 32px 44px;">
+                <p style="margin:0; font-size:13px; line-height:20px; color:#64748B;">
+                  This inquiry has also been stored in your database. 
+                  <a href="https://navyaedtech.com/admin/messages" target="_blank" style="color:#081E4D; font-weight:700; text-decoration:underline;">
+                    Manage Messages in Admin Dashboard &rarr;
+                  </a>
+                </p>
+              </td>
+            </tr>
+            <!-- Footer -->
+            <tr>
+              <td style="padding:24px 44px; background-color:#F8FAFC; border-top:1px solid #E2E8F0;">
+                <div style="font-size:12px; line-height:18px; color:#94A3B8;">
+                  Navya EdTech Internal Notification Engine · Powered by Resend & Supabase Edge Functions.
+                </div>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>`;
+}
+
+/**
+ * Premium branded HTML template for testimonial reviews.
+ */
+function renderTestimonialNotificationEmail(payload: TestimonialPayload): string {
+  const safeName = escapeHtml(payload.name);
+  const safeRole = escapeHtml(payload.role || "Client");
+  const safeCompany = escapeHtml(payload.company || "Enterprise Client");
+  const safeQuote = escapeHtml(payload.quote);
+  const ratingStars = "★".repeat(payload.rating) + "☆".repeat(Math.max(0, 5 - payload.rating));
+
+  return `<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>New Testimonial Submitted</title>
+  </head>
+  <body style="margin:0; padding:0; background-color:#F4F6F9; font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
+    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background-color:#F4F6F9; padding:40px 16px;">
+      <tr>
+        <td align="center">
+          <table role="presentation" width="580" cellpadding="0" cellspacing="0" style="max-width:580px; width:100%; background-color:#ffffff; border-radius:16px; overflow:hidden; border:1px solid #E2E8F0; box-shadow:0 8px 30px rgba(8,30,77,0.06);">
+            <tr>
+              <td style="height:5px; background:linear-gradient(90deg, #F5A623 0%, #1E6BFF 100%); line-height:5px; font-size:0;">&nbsp;</td>
+            </tr>
+            <tr>
+              <td style="padding:36px 44px 20px 44px;" align="left">
+                <img src="https://navyaedtech.com/logo.jpg" width="130" alt="Navya EdTech" style="display:block; border:0; outline:none; border-radius:8px;" />
+              </td>
+            </tr>
+            <tr>
+              <td style="padding:10px 44px 20px 44px;">
+                <h1 style="margin:0; font-size:22px; line-height:30px; color:#081E4D; font-weight:800;">
+                  New Testimonial (Pending Review)
+                </h1>
+                <p style="margin:8px 0 0 0; font-size:14px; line-height:22px; color:#64748B;">
+                  A new review has been submitted and is waiting for approval in your admin dashboard.
+                </p>
+              </td>
+            </tr>
+            <tr>
+              <td style="padding:0 44px 28px 44px;">
+                <div style="background-color:#F8FAFC; border:1px solid #E2E8F0; border-radius:12px; padding:20px;">
+                  <div style="font-size:18px; color:#F59E0B; margin-bottom:8px;">${ratingStars} (${payload.rating}/5)</div>
+                  <div style="font-size:15px; font-weight:700; color:#081E4D;">${safeName}</div>
+                  <div style="font-size:13px; color:#64748B; margin-bottom:14px;">${safeRole} &middot; ${safeCompany}</div>
+                  <blockquote style="margin:0; padding:12px 16px; background-color:#ffffff; border-left:3px solid #F5A623; border-radius:4px; font-style:italic; color:#334155; font-size:14px; line-height:22px;">
+                    &ldquo;${safeQuote}&rdquo;
+                  </blockquote>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td style="padding:0 44px 32px 44px;">
+                <a href="https://navyaedtech.com/admin/testimonials" style="display:inline-block; background-color:#081E4D; color:#ffffff; font-size:14px; font-weight:700; padding:12px 24px; text-decoration:none; border-radius:8px;">
+                  Review & Publish Testimonial &rarr;
+                </a>
+              </td>
+            </tr>
+            <tr>
+              <td style="padding:24px 44px; background-color:#F8FAFC; border-top:1px solid #E2E8F0;">
+                <div style="font-size:12px; color:#94A3B8;">Navya EdTech Admin Notification</div>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>`;
+}
+
+async function handleContact(payload: ContactPayload) {
+  if (payload.company_website && payload.company_website.trim() !== "") {
+    return json({ ok: true });
+  }
+
+  const name = payload.name?.trim();
+  const email = payload.email?.trim();
+  const message = payload.message?.trim();
+  const phone = payload.phone?.trim() || null;
+  const service = payload.service?.trim() || null;
+  const budget = payload.budget?.trim() || null;
+
+  if (!name || !email || !message) {
+    return json({ ok: false, error: "Please fill in all required fields." }, 400);
+  }
+
+  const { data, error } = await admin
+    .from("contact_submissions")
+    .insert({
+      name,
+      email,
+      phone,
+      service,
+      budget,
+      message,
+      status: "new",
+    })
+    .select("id")
+    .single();
+
+  if (error) {
+    if (error.code === "23514") {
+      return json({ ok: false, error: error.message }, 400);
+    }
+    console.error("contact insert failed", error);
+    return json({ ok: false, error: "Something went wrong. Please try again." }, 400);
+  }
+
+  const to = notifyRecipients();
+  if (to.length > 0) {
+    background(
+      sendEmail({
+        to,
+        replyTo: email,
+        subject: `New Lead: ${name} (${service || "Consultation"})`,
+        html: renderTeamNotificationEmail({
+          name,
+          email,
+          phone,
+          service,
+          budget,
+          message,
+        }),
+      })
+    );
+  }
+
+  // Premium auto-reply to visitor
+  if (email) {
+    background(
+      sendEmail({
+        to: [email],
+        subject: `Thank you for contacting Navya EdTech — We've received your inquiry`,
+        html: renderVisitorConfirmationEmail({
+          name,
+          email,
+          phone,
+          service,
+          budget,
+          message,
+        }),
+      })
+    );
+  }
+
+  return json({ ok: true, id: data?.id });
 }
 
 async function handleTestimonial(payload: TestimonialPayload) {
@@ -170,14 +643,7 @@ async function handleTestimonial(payload: TestimonialPayload) {
       sendEmail({
         to,
         subject: `New testimonial from ${payload.name} (pending review)`,
-        html: `
-          <h2>New testimonial — pending review</h2>
-          <p><strong>Name:</strong> ${escapeHtml(payload.name)}</p>
-          ${payload.role ? `<p><strong>Role:</strong> ${escapeHtml(payload.role)}</p>` : ""}
-          ${payload.company ? `<p><strong>Company:</strong> ${escapeHtml(payload.company)}</p>` : ""}
-          <p><strong>Rating:</strong> ${payload.rating}/5</p>
-          <p><strong>Quote:</strong><br>${escapeHtml(payload.quote)}</p>
-        `,
+        html: renderTestimonialNotificationEmail(payload),
       })
     );
   }
@@ -200,7 +666,7 @@ Deno.serve(async (req) => {
     return json({ ok: false, error: "Invalid request." }, 400);
   }
 
-  if (body.type !== "testimonial") {
+  if (body.type !== "testimonial" && body.type !== "contact") {
     return json({ ok: false, error: "Invalid submission type." }, 400);
   }
   if (!body.payload) {
@@ -209,8 +675,6 @@ Deno.serve(async (req) => {
 
   const ip = clientIp(req);
 
-  // Fails open if the ip_throttle migration/RPC isn't present — never blocks
-  // a legitimate submission on an infra gap.
   const { data: withinLimit, error: ipError } = await admin.rpc("register_ip_hit", {
     p_ip: ip ?? "",
     p_kind: body.type,
@@ -226,6 +690,10 @@ Deno.serve(async (req) => {
   const verified = await verifyTurnstile(body.token, ip);
   if (!verified) {
     return json({ ok: false, error: "Verification failed. Please try again." }, 400);
+  }
+
+  if (body.type === "contact") {
+    return handleContact(body.payload);
   }
 
   return handleTestimonial(body.payload);

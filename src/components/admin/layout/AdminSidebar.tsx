@@ -1,124 +1,251 @@
-/**
- * AdminLTE-style main sidebar: dark, fixed, collapsible to icon-only on
- * desktop and an off-canvas drawer on mobile.
- */
-import { Link, NavLink } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
 import {
   LayoutDashboard,
   Newspaper,
+  BriefcaseBusiness,
   MessageSquareQuote,
   Mail,
-  BriefcaseBusiness,
+  Settings,
   ExternalLink,
+  LogOut,
+  ChevronRight,
+  ShieldCheck,
 } from "lucide-react";
+import {
+  Sidebar,
+  SidebarContent,
+  SidebarFooter,
+  SidebarGroup,
+  SidebarGroupContent,
+  SidebarGroupLabel,
+  SidebarHeader,
+  SidebarMenu,
+  SidebarMenuBadge,
+  SidebarMenuButton,
+  SidebarMenuItem,
+  SidebarTrigger,
+  useSidebar,
+} from "@/components/ui/sidebar";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { useAuth } from "@/context/AuthContext";
+import { getRecentContacts } from "@/services/admin";
 import { authorInitials, cn } from "@/lib/utils";
 
-const ADMIN_NAV = [
+const NAV_ITEMS = [
   { to: "/admin", label: "Overview", icon: LayoutDashboard, end: true },
   { to: "/admin/blogs", label: "Blogs", icon: Newspaper, end: false },
   { to: "/admin/case-studies", label: "Case Studies", icon: BriefcaseBusiness, end: false },
   { to: "/admin/testimonials", label: "Testimonials", icon: MessageSquareQuote, end: false },
-  { to: "/admin/messages", label: "Messages", icon: Mail, end: false },
+  { to: "/admin/messages", label: "Messages", icon: Mail, end: false, hasBadge: true },
+  { to: "/admin/settings", label: "Settings", icon: Settings, end: false },
 ];
 
-export default function AdminSidebar({
-  collapsed,
-  mobileOpen,
-  onNavigate,
-  userName,
-  userEmail,
-}: {
-  collapsed: boolean;
-  mobileOpen: boolean;
-  onNavigate: () => void;
-  userName: string;
-  userEmail?: string | null;
-}) {
+export default function AdminSidebar() {
+  const { profile, user, signOut } = useAuth();
+  const { isMobile, setOpenMobile } = useSidebar();
+  const location = useLocation();
+  const navigate = useNavigate();
+  const [newCount, setNewCount] = useState(0);
+
+  useEffect(() => {
+    let mounted = true;
+    const fetchBadge = async () => {
+      const res = await getRecentContacts(10);
+      if (mounted && res.data) {
+        setNewCount(res.data.filter((c) => c.status === "new").length);
+      }
+    };
+    fetchBadge();
+    const interval = window.setInterval(fetchBadge, 30_000);
+    return () => {
+      mounted = false;
+      window.clearInterval(interval);
+    };
+  }, []);
+
+  const handleSignOut = async () => {
+    await signOut();
+    navigate("/admin/login", { replace: true });
+  };
+
+  const userName = profile?.full_name || "Administrator";
+  const userEmail = user?.email || "admin@navyaedtech.com";
+
   return (
-    <aside
-      className={cn(
-        "fixed inset-y-0 left-0 z-40 flex flex-col bg-[#343a40] text-white shadow-[0_0_10px_rgba(0,0,0,.2)] transition-all duration-300",
-        collapsed ? "lg:w-[4.6rem]" : "lg:w-64",
-        "w-72 lg:translate-x-0",
-        mobileOpen ? "translate-x-0" : "-translate-x-full"
-      )}
+    <Sidebar
+      collapsible="icon"
+      className="border-r border-sidebar-border bg-sidebar"
     >
-      {/* Brand */}
-      <Link
-        to="/admin"
-        onClick={onNavigate}
-        className="flex h-[3.5rem] shrink-0 items-center justify-center gap-2 overflow-hidden border-b border-white/10 px-3.5 bg-white"
-      >
-        <img
-          src="/logo-navy.webp"
-          alt="Navya EdTech"
-          width={614}
-          height={719}
-          className="h-8 w-auto shrink-0 object-contain"
-        />
-      </Link>
-
-      <div className="flex-1 overflow-y-auto overflow-x-hidden">
-        {/* User panel */}
-        <div
-          className={cn(
-            "flex items-center gap-3 border-b border-white/10 px-3.5 py-3.5",
-            collapsed && "lg:justify-center lg:px-0"
-          )}
+      <SidebarHeader className="border-b border-sidebar-border px-4 py-3 flex flex-row items-center justify-between">
+        <Link
+          to="/admin"
+          className="flex items-center gap-3 overflow-hidden"
+          onClick={() => isMobile && setOpenMobile(false)}
         >
-          <div className="relative shrink-0">
-            <div className="flex h-8 w-8 items-center justify-center rounded-full bg-[#007bff] text-xs font-semibold text-white">
-              {authorInitials(userName)}
-            </div>
-            <span className="absolute -bottom-0.5 -right-0.5 h-2.5 w-2.5 rounded-full border-2 border-[#343a40] bg-[#28a745]" />
+          <img
+            src="/logo-navy.webp"
+            alt="Navya EdTech"
+            className="h-8 w-auto shrink-0 object-contain rounded"
+          />
+          <div className="flex flex-col group-data-[collapsible=icon]:hidden">
+            <span className="font-bold text-sm tracking-tight text-foreground leading-tight">
+              Navya EdTech
+            </span>
+            <span className="text-[11px] font-medium text-muted-foreground uppercase tracking-wider">
+              Management Suite
+            </span>
           </div>
-          {!collapsed && (
-            <div className="min-w-0 lg:block">
-              <p className="truncate text-sm font-medium text-white">{userName}</p>
-              <p className="truncate text-xs text-white/50">{userEmail}</p>
-            </div>
-          )}
-        </div>
+        </Link>
+        <SidebarTrigger className="group-data-[collapsible=icon]:hidden text-muted-foreground hover:text-foreground" />
+      </SidebarHeader>
 
-        {/* Nav */}
-        <nav className="mt-1 flex flex-col gap-0.5 px-2 pb-3">
-          {ADMIN_NAV.map(({ to, label, icon: Icon, end }) => (
-            <NavLink
-              key={to}
-              to={to}
-              end={end}
-              onClick={onNavigate}
-              title={collapsed ? label : undefined}
-              className={({ isActive }) =>
-                cn(
-                  "flex items-center gap-3 rounded-[3px] px-3 py-2.5 text-sm font-medium transition-colors",
-                  collapsed && "lg:justify-center",
-                  isActive
-                    ? "bg-[#007bff] text-white"
-                    : "text-white/80 hover:bg-white/10 hover:text-white"
-                )
-              }
-            >
-              <Icon size={17} className="shrink-0" />
-              <span className={cn(collapsed && "lg:hidden")}>{label}</span>
-            </NavLink>
-          ))}
+      <SidebarContent className="px-3 py-4">
+        <SidebarGroup>
+          <SidebarGroupLabel className="px-3 text-[11px] font-bold text-muted-foreground/80 uppercase tracking-wider mb-2">
+            Main Navigation
+          </SidebarGroupLabel>
+          <SidebarGroupContent>
+            <SidebarMenu className="gap-1.5">
+              {NAV_ITEMS.map(({ to, label, icon: Icon, end, hasBadge }) => {
+                const isActive = end
+                  ? location.pathname === to
+                  : location.pathname.startsWith(to);
 
-          <a
-            href="/"
-            target="_blank"
-            rel="noreferrer"
-            title={collapsed ? "View website" : undefined}
-            className={cn(
-              "mt-1 flex items-center gap-3 rounded-[3px] px-3 py-2.5 text-sm font-medium text-white/60 transition-colors hover:bg-white/10 hover:text-white",
-              collapsed && "lg:justify-center"
-            )}
-          >
-            <ExternalLink size={17} className="shrink-0" />
-            <span className={cn(collapsed && "lg:hidden")}>View website</span>
-          </a>
-        </nav>
-      </div>
-    </aside>
+                return (
+                  <SidebarMenuItem key={to}>
+                    <SidebarMenuButton
+                      asChild
+                      isActive={isActive}
+                      tooltip={label}
+                      className={cn(
+                        "h-11 gap-3 rounded-xl border border-transparent px-3 text-sm font-medium tracking-tight text-muted-foreground transition-all duration-200",
+                        "hover:bg-sidebar-accent hover:text-foreground",
+                        isActive &&
+                          "border-border/80 bg-white font-semibold text-primary shadow-[0_2px_8px_rgba(0,0,0,0.04)] dark:bg-sidebar-accent dark:text-foreground",
+                        "[&_svg]:size-4!",
+                        "group-data-[collapsible=icon]:size-10! group-data-[collapsible=icon]:justify-center group-data-[collapsible=icon]:p-0! group-data-[collapsible=icon]:[&>span]:hidden"
+                      )}
+                    >
+                      <NavLink
+                        to={to}
+                        end={end}
+                        aria-current={isActive ? "page" : undefined}
+                        onClick={() => isMobile && setOpenMobile(false)}
+                      >
+                        <Icon className={isActive ? "text-primary" : "text-muted-foreground"} />
+                        <span>{label}</span>
+                        {hasBadge && newCount > 0 && (
+                          <SidebarMenuBadge className="static ml-auto flex h-5 min-w-5 items-center justify-center rounded-full bg-rose-500 px-1.5 text-[11px] font-bold text-white group-data-[collapsible=icon]:hidden">
+                            {newCount}
+                          </SidebarMenuBadge>
+                        )}
+                      </NavLink>
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
+                );
+              })}
+            </SidebarMenu>
+          </SidebarGroupContent>
+        </SidebarGroup>
+
+        <SidebarGroup className="mt-4">
+          <SidebarGroupLabel className="px-3 text-[11px] font-bold text-muted-foreground/80 uppercase tracking-wider mb-2">
+            External
+          </SidebarGroupLabel>
+          <SidebarGroupContent>
+            <SidebarMenu>
+              <SidebarMenuItem>
+                <SidebarMenuButton
+                  asChild
+                  tooltip="View Website"
+                  className={cn(
+                    "h-11 gap-3 rounded-xl border border-transparent px-3 text-sm font-medium tracking-tight text-muted-foreground transition-all duration-200 hover:bg-sidebar-accent hover:text-foreground",
+                    "[&_svg]:size-4!",
+                    "group-data-[collapsible=icon]:size-10! group-data-[collapsible=icon]:justify-center group-data-[collapsible=icon]:p-0! group-data-[collapsible=icon]:[&>span]:hidden"
+                  )}
+                >
+                  <a href="/" target="_blank" rel="noreferrer">
+                    <ExternalLink />
+                    <span>View Website</span>
+                  </a>
+                </SidebarMenuButton>
+              </SidebarMenuItem>
+            </SidebarMenu>
+          </SidebarGroupContent>
+        </SidebarGroup>
+      </SidebarContent>
+
+      <SidebarFooter className="border-t border-sidebar-border p-3">
+        <SidebarMenu>
+          <SidebarMenuItem>
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <SidebarMenuButton
+                  className={cn(
+                    "h-14 rounded-xl border border-transparent p-2 text-left transition-all hover:bg-sidebar-accent",
+                    "group-data-[collapsible=icon]:size-10! group-data-[collapsible=icon]:justify-center group-data-[collapsible=icon]:p-0!"
+                  )}
+                >
+                  <div className="relative shrink-0">
+                    <div className="flex h-9 w-9 items-center justify-center rounded-full bg-primary/10 font-bold text-xs text-primary ring-1 ring-primary/20">
+                      {authorInitials(userName)}
+                    </div>
+                    <span className="absolute -bottom-0.5 -right-0.5 h-2.5 w-2.5 rounded-full border-2 border-sidebar bg-emerald-500" />
+                  </div>
+                  <div className="flex flex-1 flex-col overflow-hidden text-left group-data-[collapsible=icon]:hidden">
+                    <span className="truncate text-sm font-semibold text-foreground leading-tight">
+                      {userName}
+                    </span>
+                    <span className="truncate text-xs text-muted-foreground">
+                      {userEmail}
+                    </span>
+                  </div>
+                  <ChevronRight className="size-4 shrink-0 text-muted-foreground group-data-[collapsible=icon]:hidden" />
+                </SidebarMenuButton>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent
+                side="top"
+                align="start"
+                className="bionis-dashboard w-56 rounded-xl border border-border shadow-xl p-1.5"
+              >
+                <DropdownMenuLabel className="font-normal px-2.5 py-2">
+                  <div className="flex items-center gap-2">
+                    <ShieldCheck className="size-4 text-emerald-600" />
+                    <span className="text-xs font-bold text-foreground uppercase tracking-wider">
+                      Verified Admin
+                    </span>
+                  </div>
+                  <p className="mt-1 truncate text-xs font-medium text-muted-foreground">
+                    {userEmail}
+                  </p>
+                </DropdownMenuLabel>
+                <DropdownMenuSeparator className="my-1" />
+                <DropdownMenuItem asChild className="rounded-lg cursor-pointer">
+                  <Link to="/admin/settings" className="flex items-center gap-2 px-2.5 py-2 text-sm">
+                    <Settings className="size-4 text-muted-foreground" />
+                    <span>Account Settings</span>
+                  </Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem
+                  onClick={handleSignOut}
+                  className="rounded-lg cursor-pointer text-rose-600 focus:bg-rose-50 focus:text-rose-700 px-2.5 py-2 text-sm flex items-center gap-2"
+                >
+                  <LogOut className="size-4" />
+                  <span>Sign Out</span>
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </SidebarMenuItem>
+        </SidebarMenu>
+      </SidebarFooter>
+    </Sidebar>
   );
 }

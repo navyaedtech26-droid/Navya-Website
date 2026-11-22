@@ -1,10 +1,23 @@
-import { describe, it, expect, beforeEach, afterEach, vi } from "vitest";
-import type { submitContact as SubmitContact } from "@/services/contact";
+import { describe, it, expect, beforeEach, vi } from "vitest";
+import { submitContact } from "@/services/contact";
 
-const h = vi.hoisted(() => ({ send: vi.fn() }));
+const h = vi.hoisted(() => {
+  const state = {
+    configured: true,
+    insertResult: { error: null as unknown },
+    invokeResult: { data: { ok: true } as unknown, error: null as unknown },
+  };
+  return { state };
+});
 
-vi.mock("@emailjs/browser", () => ({
-  default: { send: h.send },
+vi.mock("@/lib/supabase", () => ({
+  get isSupabaseConfigured() {
+    return h.state.configured;
+  },
+  supabase: {
+    from: () => ({ insert: () => Promise.resolve(h.state.insertResult) }),
+    functions: { invoke: () => Promise.resolve(h.state.invokeResult) },
+  },
 }));
 
 const input = {
@@ -13,97 +26,63 @@ const input = {
   message: "Hello there",
 };
 
-describe("submitContact — honeypot & unconfigured", () => {
-  // No VITE_EMAILJS_* vars are stubbed here, so the module's default
-  // (unconfigured) state applies.
-  let submitContact: typeof SubmitContact;
+beforeEach(() => {
+  h.state.configured = true;
+  h.state.insertResult = { error: null };
+  h.state.invokeResult = { data: { ok: true }, error: null };
+});
 
-  beforeEach(async () => {
-    vi.resetModules();
-    h.send.mockReset();
-    ({ submitContact } = await import("@/services/contact"));
-  });
-
-  it("silently 'succeeds' without sending anything when the honeypot is filled", async () => {
+describe("submitContact — honeypot & config", () => {
+  it("silently 'succeeds' without touching the DB when the honeypot is filled", async () => {
     const res = await submitContact({ ...input, company_website: "bot.com" });
     expect(res.ok).toBe(true);
-    expect(h.send).not.toHaveBeenCalled();
   });
 
-  it("does not hard-fail the UI when EmailJS is unconfigured", async () => {
+  it("does not hard-fail the UI when Supabase is unconfigured", async () => {
+    h.state.configured = false;
     expect(await submitContact(input)).toEqual({ ok: true });
-    expect(h.send).not.toHaveBeenCalled();
   });
 });
 
-describe("submitContact — EmailJS path", () => {
-  let submitContact: typeof SubmitContact;
-
-  beforeEach(async () => {
-    vi.resetModules();
-    vi.stubEnv("VITE_EMAILJS_PUBLIC_KEY", "pub_key");
-    vi.stubEnv("VITE_EMAILJS_SERVICE_ID", "service_1");
-    vi.stubEnv("VITE_EMAILJS_NOTIFY_TEMPLATE_ID", "template_notify");
-    h.send.mockReset();
-    ({ submitContact } = await import("@/services/contact"));
+describe("submitContact — Edge Function (primary) path", () => {
+  it("returns ok when the function reports success", async () => {
+    h.state.invokeResult = { data: { ok: true }, error: null };
+    expect(await submitContact(input, "tok_123")).toEqual({ ok: true });
   });
 
-  afterEach(() => {
-    vi.unstubAllEnvs();
+  it("relays business errors from the Edge Function without falling back to insert", async () => {
+    h.state.invokeResult = { data: { ok: false, error: "Verification failed." }, error: null };
+    const res = await submitContact(input, "bad_tok");
+    expect(res).toEqual({ ok: false, error: "Verification failed." });
+  });
+});
+
+describe("submitContact — fallback direct insert path", () => {
+  beforeEach(() => {
+    // Edge function is unreachable or transport fails
+    h.state.invokeResult = { data: null, error: { message: "function not found" } };
   });
 
-  it("returns ok and sends the notify template on success", async () => {
-    h.send.mockResolvedValue({ status: 200 });
+  it("returns ok when the fallback direct insert succeeds", async () => {
+    h.state.insertResult = { error: null };
     expect(await submitContact(input)).toEqual({ ok: true });
-    expect(h.send).toHaveBeenCalledWith(
-      "service_1",
-      "template_notify",
-      expect.objectContaining({ name: "Jane", email: "jane@example.com" }),
-      { publicKey: "pub_key" }
-    );
   });
 
-  it("skips the auto-reply send when no auto-reply template is configured", async () => {
-    h.send.mockResolvedValue({ status: 200 });
-    await submitContact(input);
-    expect(h.send).toHaveBeenCalledTimes(1);
+  it("surfaces friendly throttle message on check_violation (23514)", async () => {
+    h.state.insertResult = {
+      error: { code: "23514", message: "Too many messages from this email. Please try again later." },
+    };
+    const res = await submitContact(input);
+    expect(res.ok).toBe(false);
+    expect(res.error).toBe("Too many messages from this email. Please try again later.");
   });
 
-  it("returns a generic message when the notify send fails", async () => {
-    h.send.mockRejectedValue(new Error("emailjs down"));
+  it("returns a generic message on other database errors", async () => {
+    h.state.insertResult = {
+      error: { code: "08006", message: "connection refused at 10.0.0.1" },
+    };
     const res = await submitContact(input);
     expect(res.ok).toBe(false);
     expect(res.error).toBe("Something went wrong. Please try again.");
-  });
-});
-
-describe("submitContact — optional auto-reply", () => {
-  let submitContact: typeof SubmitContact;
-
-  beforeEach(async () => {
-    vi.resetModules();
-    vi.stubEnv("VITE_EMAILJS_PUBLIC_KEY", "pub_key");
-    vi.stubEnv("VITE_EMAILJS_SERVICE_ID", "service_1");
-    vi.stubEnv("VITE_EMAILJS_NOTIFY_TEMPLATE_ID", "template_notify");
-    vi.stubEnv("VITE_EMAILJS_AUTOREPLY_TEMPLATE_ID", "template_autoreply");
-    h.send.mockReset();
-    h.send.mockResolvedValue({ status: 200 });
-    ({ submitContact } = await import("@/services/contact"));
-  });
-
-  afterEach(() => {
-    vi.unstubAllEnvs();
-  });
-
-  it("also sends the auto-reply template when configured", async () => {
-    await submitContact(input);
-    expect(h.send).toHaveBeenCalledTimes(2);
-    expect(h.send).toHaveBeenNthCalledWith(
-      2,
-      "service_1",
-      "template_autoreply",
-      expect.objectContaining({ email: "jane@example.com" }),
-      { publicKey: "pub_key" }
-    );
   });
 });
