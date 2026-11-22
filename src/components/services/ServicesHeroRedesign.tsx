@@ -3,14 +3,15 @@ import { motion } from "framer-motion";
 import { ArrowRight, Cloud, Brain, Shield, Database } from "lucide-react";
 import Container from "@/components/common/Container";
 import { fadeUp, staggerContainer } from "@/lib/animations";
-import { useSmoothScroll } from "@/components/effects/SmoothScroll";
 
 export default function ServicesHeroRedesign() {
-  const { scrollTo } = useSmoothScroll();
-
   const handleScrollToServices = (e: React.MouseEvent) => {
     e.preventDefault();
-    scrollTo("#our-services", { offset: -80, duration: 1.2 });
+    const el = document.querySelector("#our-services");
+    if (el) {
+      const y = el.getBoundingClientRect().top + window.scrollY - 80;
+      window.scrollTo({ top: y, behavior: "smooth" });
+    }
   };
 
   return (
